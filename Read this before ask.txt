@@ -1,4 +1,6 @@
-If you pull this repository but do not see the file correctly, read the .gitignore file to see if the files you are looking are ignored. If the files are ignored, you can install them regarding on the team you are working on.
+1. If you pull this repository but do not see the file correctly, read the .gitignore file to see if the files you are looking are ignored. If the files are ignored, you can install them regarding on the team you are working on.
 
 Ex:
 - Im working on frontend team. There are node_modules, dist files. They are in .gitignore file and will be ignored. When I clone the repo to my laptop, I will have to install the the node_modules and rebuild the project for the smoothly running.
+
+2. You have to fork the repository when it tells you. Fork it and create your own branch. For example: username-branch and do everything on it. DO NOT USE THE "main" branch. When done, you have to create a pull request and wait for acceptance.
