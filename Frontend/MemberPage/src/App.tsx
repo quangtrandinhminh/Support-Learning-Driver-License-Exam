@@ -1,6 +1,7 @@
-import './App.scss'
-import { useLocation } from 'react-router-dom'
+import './App.scss';
+import { useLocation, Routes, Route } from 'react-router-dom'
 import MemerberHeader from './components/organisms/member-header/member-header';
+import MemberHomePage from './components/pages/member-home/member-home';
 
 function App() {
   const location = useLocation();
@@ -13,6 +14,12 @@ function App() {
       <header>
         {showHeader() && <MemerberHeader />}
       </header>
+
+      <body>
+        <Routes>
+          <Route path='/' element={<MemberHomePage />} />
+        </Routes>
+      </body>
     </>
   )
 }
