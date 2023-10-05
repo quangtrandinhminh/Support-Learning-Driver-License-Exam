@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <h1>This is start of webapp</h1>
+      <h1>Guest page goes here</h1>
     </>
   )
 }
