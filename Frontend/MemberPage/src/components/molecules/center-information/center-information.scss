@@ -21,6 +21,19 @@
     height: inherit;
 
     h1 {
-        
+        color: white;
+        text-transform: uppercase;
+        padding-top: 16px;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    p {
+        color: white;
+        margin-top: 12px;
+        text-align: left;
+        padding: 0 60px;
+        line-height: 60px;
+        font-size: 24px;
+        font-weight: 100;
     }
 }
