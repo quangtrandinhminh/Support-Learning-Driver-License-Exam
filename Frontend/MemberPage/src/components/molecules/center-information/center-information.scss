@@ -1,0 +1,26 @@
+.information-container {
+    margin-top: 100px;
+
+    .box-container {
+        display: flex;
+        position: relative;
+        height: 620px;
+        width: 100%;
+        text-align: center;
+        background-color: #4292EB;
+
+        img {
+            width: 50%;
+            height: inherit;
+        }
+    }
+}
+
+.center-information-content {
+    width: 50%;
+    height: inherit;
+
+    h1 {
+        
+    }
+}
