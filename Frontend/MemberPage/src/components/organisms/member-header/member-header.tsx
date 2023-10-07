@@ -1,11 +1,11 @@
 import MemberNav from '../../atoms/member-nav/member-nav'
 
-function MemerberHeader() {
-    return (
-        <>
-            <MemberNav />
-        </>
-    )
+function MemberHeader() {
+  return (
+    <>
+        <MemberNav/>
+    </>
+  )
 }
 
-export default MemerberHeader
+export default MemberHeader

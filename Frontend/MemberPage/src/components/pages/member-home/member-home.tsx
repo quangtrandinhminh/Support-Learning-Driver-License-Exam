@@ -1,16 +1,20 @@
-import React from 'react'
-import AboutCenter from '../../molecules/center-introduction/center-introduction'
-import Course from '../../molecules/course/course'
-import Information from '../../molecules/center-information/center-information'
-import News from '../../molecules/news/news'
+import MemberFooter from '../../organisms/member-footer/member-footer'
+import 'F:/Study/Github_Project/Support-Learning-Driver-License-Exam/Frontend/MemberPage/src/components/pages/general.scss'
+import MemberHeader from '../../organisms/member-header/member-header'
+import HomeTemplate from '../../templates/member-home-template/home-template'
 
 function MemberHomePage() {
     return (
         <>
-            <AboutCenter />
-            <Course />
-            <Information />
-            <News />
+            <header>
+                <MemberHeader />
+            </header>
+            <body>
+                <HomeTemplate/>
+            </body>
+            <footer>
+                <MemberFooter />
+            </footer>
         </>
     )
 }
