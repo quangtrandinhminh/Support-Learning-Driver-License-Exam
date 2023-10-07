@@ -1,0 +1,53 @@
+.course-table-container {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+
+    .course-table {
+
+        .table-title {
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid black;
+        }
+
+        .course-date {
+            height: 230px;
+            width: 150px;
+        }
+
+        .course-mem {
+            width: 100px;
+        }
+
+        .course-training-content {
+            width: 350px;
+
+            li {
+                padding-left: 10px;
+                text-align: left;
+                line-height: 50px;
+                list-style: decimal;
+            }
+        }
+
+        .course-training-time {
+            width: 350px;
+
+            li {
+                padding-left: 10px;
+                text-align: center;
+                line-height: 50px;
+                list-style: none;
+            }
+        }
+
+        .course-register {
+            width: 120px;
+        }
+
+        .border-receive {
+            border-bottom: 1px solid black;
+        }
+    }
+}
