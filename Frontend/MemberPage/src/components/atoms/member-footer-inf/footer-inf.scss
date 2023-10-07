@@ -1,0 +1,43 @@
+.footer-container {
+    width: 100%;
+    height: inherit;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .footer-information {
+        justify-self: center;
+        color: white;
+
+        h1 {
+            padding-top: 40px;
+            text-align: center;
+            width: 550px;
+            font-size: 40px;
+        }
+
+        ul {
+            padding-left: 50px;
+            max-width: 450px;
+        }
+
+        li {
+            line-height: 30px;
+            font-size: 18px;
+            list-style: none;
+            text-align: left;
+        }
+    }
+
+    .divine-line {
+        z-index: 1;
+        align-self: center;
+        width: 2px;
+        height: 250px;
+        background-color: white;
+    }
+
+    .commiting-information {
+        grid-column: 2 / 2;
+    }
+
+}
