@@ -26,7 +26,7 @@ function MemberNav() {
                             </Link>
                         </div>
                         <div className='nav-items'>
-                            <Link to='/tintuc'>
+                            <Link to='/'>
                                 <li>Tin tức</li>
                             </Link>
                         </div>

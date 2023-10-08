@@ -1,4 +1,4 @@
-.guest-nav-container {
+.guest-nav-home-container {
     position: relative;
     height: 80px;
 
@@ -6,9 +6,19 @@
         max-height: 80px;
         text-align: center;
     }
+
+    .nav-home-items li a {
+        display: inline-block;
+        color: white;
+    }
+
+    .nav-home-items {
+        display: inline-block;
+        margin: 0 80px;
+    }
 }
 
-.guest-nav-container li {
+.guest-nav-home-container li a {
     padding: 0 12px;
     display: inline-block;
     line-height: 79px;
@@ -24,12 +34,7 @@
     }
 }
 
-.nav-items {
-    display: inline-block;
-    margin: 0 80px;
-}
-
-.member-avatar {
+.member-home-avatar {
     position: absolute;
     top: 0;
     right: 0;
@@ -40,9 +45,13 @@
     perspective-origin: 0;
 }
 
-.logo {
+.logo-home {
     position: absolute;
     top: -2px;
     transform: translateX(50px);
     height: 90px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

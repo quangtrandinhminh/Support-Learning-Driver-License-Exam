@@ -1,13 +1,13 @@
-import MemberFooter from '../../organisms/member-footer/member-footer'
 import '../general.scss'
-import MemberHeader from '../../organisms/member-header/member-header'
+import MemberHeaderHome from '../../organisms/member-header-home/member-header'
 import HomeTemplate from '../../templates/member-home-template/home-template'
+import MemberFooter from '../../organisms/member-footer/member-footer'
 
 function MemberHomePage() {
     return (
         <>
-            <header>
-                <MemberHeader />
+            <header id='header-nav'>
+                <MemberHeaderHome />
             </header>
             <body>
                 <HomeTemplate />
