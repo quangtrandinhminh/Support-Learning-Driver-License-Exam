@@ -1,8 +1,9 @@
 import './course.scss'
 
 function Course() {
+
     return (
-        <div className='course-container'>
+        <div className='course-container' id='course-section'>
             <h1>Các khoá học</h1>
             <div className='course-list'>
                 <div className='course-section1'>

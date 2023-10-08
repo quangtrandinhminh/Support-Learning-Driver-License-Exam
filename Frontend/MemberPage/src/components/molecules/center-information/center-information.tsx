@@ -1,7 +1,7 @@
-import React from 'react'
 import './center-information.scss';
 
 function Information() {
+
   return (
     <>
       <div className='information-container'>
