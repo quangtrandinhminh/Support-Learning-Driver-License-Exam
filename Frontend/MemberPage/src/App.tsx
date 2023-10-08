@@ -6,12 +6,12 @@ import MemberCoursePage from './components/pages/member-course/member-course';
 function App() {
 
   return (
-    <>
+    <div>
       <Routes>
         <Route path='/' element={<MemberHomePage />} />
         <Route path='/khoahoc' element={<MemberCoursePage />} />
       </Routes>
-    </>
+    </div>
   )
 }
 

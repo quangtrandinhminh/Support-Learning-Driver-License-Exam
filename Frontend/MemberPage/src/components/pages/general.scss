@@ -1,11 +1,11 @@
 header {
     position: fixed;
+    width: 100%;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 1;
     background-color: #4292EB;
     height: 80px;
+    overflow: hidden;
 }
 
 body {
@@ -16,8 +16,11 @@ body {
 }
 
 footer {
-    margin-top: 180px;
-    width: 100%;
+    margin-top: 100px;
     height: 300px;
     background-color: #4292EB;
+}
+
+.home-footer {
+    margin-top: 200px;
 }

@@ -2,12 +2,14 @@
     margin-top: 100px;
 
     .box-container {
+
+        width: 100%;
         display: flex;
         position: relative;
-        height: 620px;
-        width: 100%;
+        height: auto;
         text-align: center;
         background-color: #4292EB;
+        margin: auto;
 
         img {
             width: 50%;
