@@ -5,17 +5,24 @@
 .center-img {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 95%;
+    height: auto;
     display: flex;
 }
 
-.img-container h2 {
-    position: absolute;
-    text-align: center;
-    max-width: 300px;
-    color: red;
-    position: absolute;
-    top: 0;
-    left: 450px;
-    font-style: italic;
+.img-container {
+    margin: auto;
+    width: 100%;
+    height: auto;
+
+    h2 {
+        position: absolute;
+        text-align: center;
+        max-width: 300px;
+        color: red;
+        position: absolute;
+        top: 0;
+        left: 450px;
+        font-style: italic;
+    }
 }
