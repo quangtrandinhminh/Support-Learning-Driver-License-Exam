@@ -1,4 +1,3 @@
-import React, { forwardRef } from 'react'
 import './center-introduction.scss'
 
 function AboutCenter() {

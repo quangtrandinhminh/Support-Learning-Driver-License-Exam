@@ -1,4 +1,3 @@
-import React from 'react'
 import './course-table.scss'
 
 function CourseTable() {
@@ -50,7 +49,7 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <a href="">Đăng ký</a>
+                                <button className='btnRegister'>Đăng ký</button>
                             </th>
                         </tr>
                         <tr>
@@ -82,7 +81,7 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <a href="">Đăng ký</a>
+                                <button className='btnRegister'>Đăng ký</button>
                             </th>
                         </tr>
                         <tr>
@@ -114,13 +113,14 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <a href="">Đăng ký</a>
+                                <button className='btnRegister'>Đăng ký</button>
                             </th>
                         </tr>
                     </table>
                 </div>
             </div>
         </>
+
     )
 }
 
