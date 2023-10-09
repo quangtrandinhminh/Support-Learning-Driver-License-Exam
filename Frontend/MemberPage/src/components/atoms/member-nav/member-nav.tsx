@@ -1,13 +1,12 @@
 import './member-nav.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link as Forward } from 'react-router-dom'
+import { Link } from 'react-scroll';
 
 function MemberNav() {
-    const navigate = useNavigate();
-
-    const handleScrolling = () => {
-        navigate('/');
-
-        window.scrollTo(0, 0);
+    const handleScroll = () => {
+        {
+            window.scrollTo(0, 0);
+        }
     }
 
     return (
@@ -15,32 +14,62 @@ function MemberNav() {
             <div className='guest-nav-container'>
                 <nav>
                     <ul>
-                        <div className='nav-items'>
-                            <Link to='/'>
-                                <li onClick={handleScrolling}>Trang chủ</li>
-                            </Link>
+                        <div onClick={handleScroll} className="nav-items">
+                            <Forward to='/'>
+                                <img src='src/imgs/logo.png' alt='logo-img' className='logo' />
+                            </Forward>
+                        </div>
+                        <div onClick={handleScroll} className='nav-items'>
+                            <Forward to='/'>
+                                <li>Trang chủ</li>
+                            </Forward>
                         </div>
                         <div className='nav-items'>
-                            <Link to='/khoahoc'>
+                            <Link to="course-section" spy={true} smooth={true} offset={-100} duration={500}>
                                 <li>Khoá học</li>
                             </Link>
                         </div>
                         <div className='nav-items'>
-                            <Link to='/'>
+                            <Forward to='/'>
                                 <li>Tin tức</li>
-                            </Link>
+                            </Forward>
                         </div>
                         <div className='nav-items'>
-                            <Link to='/thithu'>
+                            <Forward to='/thithu'>
                                 <li>Thi thử</li>
-                            </Link>
+                            </Forward>
+                        </div>
+                        <div className='nav-items member-nav-items'>
+                            <li>
+                                <img src="src/imgs/member/member_img.png" alt="member-img" className='member-avatar' />
+                                <ul className="subnav-function">
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Thông tin cá nhân
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Khoá học của bạn
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Lịch học
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Hồ sơ thi
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button>Đăng xuất</button>
+                                    </li>
+                                </ul>
+                            </li>
                         </div>
                     </ul>
-
-                    <img src="src/imgs/member/member_img.png" alt="member-img" className='member-avatar' />
-                    <Link to={'/'}>
-                        <img onClick={handleScrolling} src='src/imgs/logo.png' alt='logo-img' className='logo' />
-                    </Link>
                 </nav>
 
             </div>

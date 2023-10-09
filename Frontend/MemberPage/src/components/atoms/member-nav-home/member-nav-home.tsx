@@ -9,6 +9,11 @@ function MemberNavHome() {
             <div className='guest-nav-home-container'>
                 <nav>
                     <ul>
+                        <div className="nav-home-items">
+                            <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                                <img src='src/imgs/logo.png' alt='logo-img' className='logo-home' />
+                            </Link>
+                        </div>
                         <div className='nav-home-items'>
                             <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
                                 <li className='inline-block'>
@@ -37,14 +42,38 @@ function MemberNavHome() {
                                 </li>
                             </Forward>
                         </div>
+                        <div className='nav-home-items member-nav-home-items'>
+                            <li>
+                                <img src="src/imgs/member/member_img.png" alt="member-img" className='member-home-avatar' />
+                                <ul className="subnav-function">
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Thông tin cá nhân
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Khoá học của bạn
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Lịch học
+                                        </button>
+                                    </li>
+                                    <li className='receive-border'>
+                                        <button type='button'>
+                                            Hồ sơ thi
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button>Đăng xuất</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
                     </ul>
-
-                    <img src="src/imgs/member/member_img.png" alt="member-img" className='member-home-avatar' />
-                    <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
-                        <img src='src/imgs/logo.png' alt='logo-img' className='logo-home' />
-                    </Link>
                 </nav>
-
             </div>
 
         </>
