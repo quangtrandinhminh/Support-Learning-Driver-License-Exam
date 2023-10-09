@@ -3,7 +3,7 @@ import './course-table.scss'
 function CourseTable() {
     return (
         <>
-            <div className='course-table-container'>
+            <div className='course-table-container' id='course-nav'>
                 <div className='course-information'>
                     <h1>Thông tin khoá học</h1>
                 </div>
