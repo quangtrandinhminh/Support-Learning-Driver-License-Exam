@@ -21,22 +21,30 @@ function MemberNav() {
                         </div>
                         <div onClick={handleScroll} className='nav-items'>
                             <Forward to='/'>
-                                <li>Trang chủ</li>
+                                <li>
+                                    <a href="">Trang chủ</a>
+                                </li>
                             </Forward>
                         </div>
                         <div className='nav-items'>
-                            <Link to="course-section" spy={true} smooth={true} offset={-100} duration={500}>
-                                <li>Khoá học</li>
+                            <Link to="course-nav" spy={true} smooth={true} offset={-100} duration={500}>
+                                <li>
+                                    <a href="">Khoá học</a>
+                                </li>
                             </Link>
                         </div>
                         <div className='nav-items'>
                             <Forward to='/'>
-                                <li>Tin tức</li>
+                                <li>
+                                    <a href="">Tin tức</a>
+                                </li>
                             </Forward>
                         </div>
                         <div className='nav-items'>
                             <Forward to='/thithu'>
-                                <li>Thi thử</li>
+                                <li>
+                                    <a href="">Thi thử</a>
+                                </li>
                             </Forward>
                         </div>
                         <div className='nav-items member-nav-items'>
