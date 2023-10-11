@@ -27,7 +27,6 @@ function VerificationForm() {
           <br />
           Email: <input type="email" name="" id="" />
           <button type="submit">Tiếp tục</button>
-
         </form>
       </div>
     </div>
