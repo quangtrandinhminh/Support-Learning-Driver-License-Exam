@@ -16,7 +16,7 @@ function MemberNav() {
                     <ul>
                         <div onClick={handleScroll} className="nav-items">
                             <Forward to='/'>
-                                <img src='src/imgs/logo.png' alt='logo-img' className='logo' />
+                                <img src='/src/imgs/logo.png' alt='logo-img' className='logo' />
                             </Forward>
                         </div>
                         <div onClick={handleScroll} className='nav-items'>
@@ -26,14 +26,14 @@ function MemberNav() {
                                 </li>
                             </Forward>
                         </div>
-                        <div className='nav-items'>
-                            <Link to="course-nav" spy={true} smooth={true} offset={-100} duration={500}>
+                        <div onClick={handleScroll} className='nav-items'>
+                            <Forward to="/">
                                 <li>
                                     <a href="">Khoá học</a>
                                 </li>
-                            </Link>
+                            </Forward>
                         </div>
-                        <div className='nav-items'>
+                        <div onClick={handleScroll} className='nav-items'>
                             <Forward to='/'>
                                 <li>
                                     <a href="">Tin tức</a>
@@ -49,7 +49,7 @@ function MemberNav() {
                         </div>
                         <div className='nav-items member-nav-items'>
                             <li>
-                                <img src="src/imgs/member/member_img.png" alt="member-img" className='member-avatar' />
+                                <img src="/src/imgs/member/member_img.png" alt="member-img" className='member-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
                                         <button type='button'>

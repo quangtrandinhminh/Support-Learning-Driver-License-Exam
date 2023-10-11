@@ -1,4 +1,5 @@
 import './course-table.scss'
+import { Link } from 'react-router-dom'
 
 function CourseTable() {
     return (
@@ -49,7 +50,9 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <button className='btnRegister'>Đăng ký</button>
+                                <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                    <button className='btnRegister'>Đăng ký</button>
+                                </Link>
                             </th>
                         </tr>
                         <tr>
@@ -81,7 +84,9 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <button className='btnRegister'>Đăng ký</button>
+                                <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                    <button className='btnRegister'>Đăng ký</button>
+                                </Link>
                             </th>
                         </tr>
                         <tr>
@@ -113,7 +118,9 @@ function CourseTable() {
                                 <li>10/12/2023 - 20/12/2023</li>
                             </th>
                             <th className='course-register'>
-                                <button className='btnRegister'>Đăng ký</button>
+                                <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                    <button className='btnRegister'>Đăng ký</button>
+                                </Link>
                             </th>
                         </tr>
                     </table>

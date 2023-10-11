@@ -1,0 +1,33 @@
+.verification-form-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .form-title {
+        margin-top: 50px;
+        color: red;
+        text-align: center;
+        width: 900px;
+        font-style: italic;
+    }
+
+    .form-container {
+        margin-top: 40px;
+        width: 700px;
+        height: auto;
+        border: 1px solid black;
+        padding-left: 20px;
+
+        input {
+            margin: 25px 0;
+        }
+
+        .verification-form {
+            .gender {
+                display: inline-block;
+                margin-left: 100px;
+            }
+        }
+    }
+}
