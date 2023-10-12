@@ -1,4 +1,5 @@
 import './footer-inf.scss'
+import FooterImg from '../../../../../assets/imgs/commiting/commiting.png'
 
 function FooterInformation() {
     return (
@@ -21,7 +22,7 @@ function FooterInformation() {
                 <div className='commiting-information'>
                     <p className='line-1'>Quyết định thành lập số 773/QĐ – UBND ngày 27/02/2009.</p>
                     <p className='line-2'>Giấy phép số 69/TCĐBVN-QLPT&NL ngày 08/07/2011 của Tổng Cục Đường bộ Việt Nam.</p>
-                    <img src="/src/imgs/commiting/commiting.png" alt="" />
+                    <img src={FooterImg} alt="" />
                 </div>
             </div>
         </>

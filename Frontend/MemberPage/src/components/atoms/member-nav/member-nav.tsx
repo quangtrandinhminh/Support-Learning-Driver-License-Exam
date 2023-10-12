@@ -1,5 +1,7 @@
 import './member-nav.scss'
 import { Link as Forward } from 'react-router-dom'
+import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import LogoImg from '../../../../../assets/imgs/logo.png'
 
 function MemberNav() {
     const handleScroll = () => {
@@ -15,7 +17,7 @@ function MemberNav() {
                     <ul>
                         <div onClick={handleScroll} className="nav-items">
                             <Forward to='/'>
-                                <img src='/src/imgs/logo.png' alt='logo-img' className='logo' />
+                                <img src={LogoImg} alt='logo-img' className='logo' />
                             </Forward>
                         </div>
                         <div onClick={handleScroll} className='nav-items'>
@@ -48,7 +50,7 @@ function MemberNav() {
                         </div>
                         <div className='nav-items member-nav-items'>
                             <li>
-                                <img src="/src/imgs/member/member_img.png" alt="member-img" className='member-avatar' />
+                                <img src={MemberImg} alt="member-img" className='member-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
                                         <button type='button'>

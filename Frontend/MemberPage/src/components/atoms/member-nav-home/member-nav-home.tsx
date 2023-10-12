@@ -1,5 +1,7 @@
 import { Link as Forward } from 'react-router-dom';
 import { Link } from 'react-scroll';
+import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import LogoImg from '../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
 
 function MemberNavHome() {
@@ -11,7 +13,7 @@ function MemberNavHome() {
                     <ul>
                         <div className="nav-home-items">
                             <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
-                                <img src='src/imgs/logo.png' alt='logo-img' className='logo-home' />
+                                <img src={LogoImg} alt='logo-img' className='logo-home' />
                             </Link>
                         </div>
                         <div className='nav-home-items'>
@@ -44,7 +46,7 @@ function MemberNavHome() {
                         </div>
                         <div className='nav-home-items member-nav-home-items'>
                             <li>
-                                <img src="src/imgs/member/member_img.png" alt="member-img" className='member-home-avatar' />
+                                <img src={MemberImg} alt="member-img" className='member-home-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
                                         <button type='button'>
