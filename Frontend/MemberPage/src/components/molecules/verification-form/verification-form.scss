@@ -15,7 +15,7 @@
     .form-container {
         position: relative;
         margin-top: 40px;
-        width: 700px;
+        width: 900px;
         height: auto;
         border: 1px solid black;
         padding: 0 20px;
@@ -25,9 +25,30 @@
         }
 
         .verification-form {
-            .gender {
+            p {
+                font-size: 20px;
                 display: inline-block;
-                margin-left: 100px;
+            }
+
+            .gender-container {
+                display: inline-block;
+
+                .gender {
+                    margin-left: 40px;
+                }
+
+                input {
+                    
+                }
+            }
+
+            input {
+                font-size: 20px;
+                margin-left: 10px;
+            }
+
+            .cccd-location {
+                margin-left: 50px;
             }
         }
 
