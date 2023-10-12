@@ -8,13 +8,14 @@
         margin-top: 50px;
         color: red;
         text-align: center;
-        width: 900px;
+        width: 800px;
         font-style: italic;
+        font-size: 22px;
     }
 
     .form-container {
         position: relative;
-        margin-top: 40px;
+        margin-top: 50px;
         width: 900px;
         height: auto;
         border: 1px solid black;
@@ -36,10 +37,6 @@
                 .gender {
                     margin-left: 40px;
                 }
-
-                input {
-                    
-                }
             }
 
             input {
@@ -48,6 +45,10 @@
             }
 
             .cccd-location {
+                margin-left: 50px;
+            }
+
+            .nationality {
                 margin-left: 50px;
             }
         }
