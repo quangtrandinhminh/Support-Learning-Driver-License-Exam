@@ -1,6 +1,5 @@
 import './member-nav.scss'
 import { Link as Forward } from 'react-router-dom'
-import { Link } from 'react-scroll';
 
 function MemberNav() {
     const handleScroll = () => {
