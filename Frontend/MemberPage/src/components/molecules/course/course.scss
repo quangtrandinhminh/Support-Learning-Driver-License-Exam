@@ -11,17 +11,17 @@
 
 
 .course-list {
-    margin-top: 50px;
     display: grid;
-    grid-template-columns: repeat(3, 0fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 150px;
     justify-content: center;
     align-items: center;
+    margin: 0 160px;
+    margin-top: 50px;
 
     .course-section1 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
@@ -48,7 +48,6 @@
     .course-section2 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
@@ -75,7 +74,6 @@
     .course-section3 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
