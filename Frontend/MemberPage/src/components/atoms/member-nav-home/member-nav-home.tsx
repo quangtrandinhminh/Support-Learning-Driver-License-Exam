@@ -22,7 +22,7 @@ function MemberNavHome() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="course-section" spy={true} smooth={true} offset={-100} duration={500}>
+                            <Link to="course-section" spy={true} smooth={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Khoá học</a>
                                 </li>
