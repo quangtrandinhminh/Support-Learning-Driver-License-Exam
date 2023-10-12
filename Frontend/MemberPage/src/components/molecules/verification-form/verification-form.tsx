@@ -10,10 +10,11 @@ function VerificationForm() {
           <br />
           <p>Ngày tháng năm sinh: </p><input type="text" name="" id="" />
           <div className="gender-container">
-            <p className='gender'>Nam: </p><input type="checkbox" name="" id="" /><p className='gender'>Nữ: </p><input type="checkbox" name="" id="" />
+            <p className='gender'>Nam: <input type="checkbox" name="" id="" /></p>
+            <p className='gender'>Nữ: <input type="checkbox" name="" id="" /></p>
           </div>
           <br />
-          <p>Quốc tịch: </p><input type="text" name="" id="" /><p>Dân tộc: </p><input type="text" name="" id="" />
+          <p>Quốc tịch: </p><input type="text" name="" id="" /><p className='nationality'>Dân tộc: </p><input type="text" name="" id="" />
           <br />
           <p>Nơi đăng ký hộ khẩu thường trú: </p><input type="text" name="" id="" />
           <br />
