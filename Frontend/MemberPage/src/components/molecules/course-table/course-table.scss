@@ -11,8 +11,8 @@
     }
 
     .course-table {
-        font-weight: 1000;
-        font-size: 20px;
+        font-size: 16px;
+        font-weight: 500;
         padding-top: 40px;
 
         .course-no {
@@ -64,17 +64,17 @@
 
         .course-register {
             .btnRegister {
-                margin: 0 12px;
+                margin: 0 17px;
                 width: 100px;
-                font-size: 20px;
+                font-size: 18px;
                 padding: 10px 10px;
                 background-color: #ffffff;
-                border: 1px solid black;
+                border: 1px solid rgba(0, 0, 0, 0.7);
 
                 &:hover {
                     cursor: pointer;
                     color: red;
-                    border: 2px solid black;
+                    border: 2px solid rgba(0, 0, 0, 0.7);
                 }
             }
         }
