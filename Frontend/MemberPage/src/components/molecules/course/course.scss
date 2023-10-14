@@ -1,5 +1,6 @@
 .course-container {
     margin-top: 100px;
+    height: auto;
 
     h1 {
         text-align: center;
@@ -13,11 +14,12 @@
 .course-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 150px;
+    gap: 100px;
     justify-content: center;
     align-items: center;
-    margin: 0 160px;
+    margin: 0 80px;
     margin-top: 50px;
+    height: auto;
 
     .course-section1 {
         position: relative;
@@ -100,7 +102,7 @@
 
 .underbox a {
     text-transform: capitalize;
-    font-size: 28px;
+    font-size: 20px;
     color: white;
     display: grid;
     text-decoration: none;
@@ -118,7 +120,7 @@
     color: white;
     justify-content: center;
     line-height: 100px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .course-content {
@@ -134,6 +136,6 @@
         padding-left: 15px;
         text-align: left;
         line-height: 60px;
-        font-size: 24px;
+        font-size: 18px;
     }
 }

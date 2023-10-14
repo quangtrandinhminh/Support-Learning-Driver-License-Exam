@@ -8,11 +8,11 @@ function App() {
 
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<MemberHomePage />} />
-        <Route path='/khoahoc' element={<MemberCoursePage />} />
-        <Route path='/khoahoc/xac-nhan-khoa-hoc' element={<CourseVerification />} />
-      </Routes>
+        <Routes>
+          <Route path='/' element={<MemberHomePage />} />
+          <Route path='/khoahoc' element={<MemberCoursePage />} />
+          <Route path='/khoahoc/xac-nhan-khoa-hoc' element={<CourseVerification />} />
+        </Routes>
     </div>
   )
 }
