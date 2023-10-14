@@ -1,0 +1,49 @@
+.course-content-container {
+    margin: auto;
+    margin-top: 100px;
+    width: 1700px;
+}
+
+.course-theory {
+    flex-direction: column;
+    display: flex;
+    margin: 0 50px;
+    justify-content: center;
+
+    .course-theory-content {
+        margin-top: 12px;
+        font-size: 22px;
+        line-height: 200%;
+    }
+}
+
+.course-practice {
+    padding-top: 60px;
+    flex-direction: column;
+    display: flex;
+    margin: 0 50px;
+    justify-content: center;
+
+    .course-practice-subtitle {
+        font-size: 26px;
+        padding-bottom: 8px;
+    }
+
+    .course-practice-title {
+        padding-bottom: 20px;
+    }
+
+    li {
+        line-height: 200%;
+        font-size: 22px;
+        list-style: none;
+    }
+
+    .driving-skills {
+        padding-left: 24px;
+
+        li {
+            list-style: disc;
+        }
+    }
+}
