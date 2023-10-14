@@ -4005,11 +4005,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\Support-Learning-Driver-License-Exam\\Backend\\Backend.csproj",
+      "projectUniqueName": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\SLDLE\\Support-Learning-Driver-License-Exam\\Backend\\Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\Support-Learning-Driver-License-Exam\\Backend\\Backend.csproj",
+      "projectPath": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\SLDLE\\Support-Learning-Driver-License-Exam\\Backend\\Backend.csproj",
       "packagesPath": "C:\\Users\\QUANG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\Support-Learning-Driver-License-Exam\\Backend\\obj\\",
+      "outputPath": "C:\\Users\\QUANG\\OneDrive\\Fpt\\Semester 5\\SWP391\\SLDLE\\Support-Learning-Driver-License-Exam\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\QUANG\\AppData\\Roaming\\NuGet\\NuGet.Config",
