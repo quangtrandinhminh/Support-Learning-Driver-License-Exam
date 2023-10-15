@@ -69,12 +69,12 @@
     .subnav-function {
         position: absolute;
         display: none;
-        width: 300px;
+        width: 250px;
         background-color: #4292EB;
         height: auto;
         margin-top: 18px;
         border: 1px solid black;
-        transform: translateX(-230px);
+        transform: translateX(-120px);
 
         .receive-border {
             border-bottom: 1px solid black;
@@ -85,24 +85,26 @@
             font-size: 24px;
             list-style: none;
             height: 60px;
-            line-height: 60px;
 
             &:hover {
                 cursor: pointer;
                 background-color: #3572b8;
 
-                button {
+                a {
                     background-color: #3572b8;
                 }
             }
-
-            button {
-                cursor: pointer;
-                color: white;
-                font-size: 20px;
-                border: none;
-                background-color: #4292EB;
-            }
         }
     }
+}
+
+.member-nav-home-items li a {
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    border: none;
+    line-height: 60px;
+    padding: 0;
+    display: block;
+    text-transform: none;
 }
