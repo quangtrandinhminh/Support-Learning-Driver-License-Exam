@@ -1,0 +1,18 @@
+.member-information-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .member-information-content {
+        display: flex;
+        flex-direction: row;
+
+        .member-avatar {
+
+            img {
+                width: 100px;
+            }
+        }
+    }
+
+}
