@@ -1,8 +1,7 @@
-import { Link as Forward } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import './guest-nav-home.scss'
 
-function GuestNav() {
+function GuestNavHome() {
     return (
         <>
             <div className='guest-nav-home-container'>
@@ -33,18 +32,14 @@ function GuestNav() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Forward to="">
-                                <li className='inline-block'>
-                                    <a href="">Đăng nhập</a>
-                                </li>
-                            </Forward>
+                            <li className='inline-block'>
+                                <a href="">Đăng nhập</a>
+                            </li>
                         </div>
                         <div className='nav-home-items'>
-                            <Forward to="">
-                                <li className='inline-block'>
-                                    <a href="">Đăng kí</a>
-                                </li>
-                            </Forward>
+                            <li className='inline-block'>
+                                <a href="">Đăng kí</a>
+                            </li>
                         </div>
                     </ul>
                 </nav>
@@ -53,4 +48,4 @@ function GuestNav() {
     )
 }
 
-export default GuestNav
+export default GuestNavHome

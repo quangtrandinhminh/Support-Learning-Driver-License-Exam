@@ -7,14 +7,14 @@ import '/src/components/atoms/guest-nav-home/guest-nav-home.scss';
 function GuestHomePage() {
     return (
         <>
-            <div id='container'>
-                <header id='header-nav'>
+            <div>
+                <header>
                     <GuestHeaderHome />
                 </header>
                 <body>
                     <HomeTemplate />
                 </body>
-                <footer className='home-footer'>
+                <footer>
                     <GuestFooter />
                 </footer>
             </div>

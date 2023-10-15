@@ -1,11 +1,11 @@
 import './App.scss'
-import GuestNav from './components/atoms/guest-nav-home/guest-nav-home'
+import GuestHomePage from './components/pages/guest-home/guest-home'
 
 function App() {
-  
+
   return (
     <>
-    <GuestNav />
+      <GuestHomePage />
     </>
   )
 }

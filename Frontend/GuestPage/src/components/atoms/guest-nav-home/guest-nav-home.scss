@@ -27,7 +27,7 @@
     }
 
     .logo-home {
-        height: 110px;
+        height: 100px;
 
         &:hover {
             cursor: pointer;
@@ -48,17 +48,5 @@
     &:hover {
         background-color: #3572b8;
         transition: ease-out 0.25s;
-    }
-}
-
-.guest-nav-home-items {
-    position: relative;
-    padding: 0 24px;
-
-    &:hover {
-        #container {
-            border: 1px solid black;
-            width: 90%;
-        }
     }
 }
