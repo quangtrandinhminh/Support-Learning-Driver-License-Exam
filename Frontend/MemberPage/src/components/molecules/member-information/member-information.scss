@@ -1,17 +1,22 @@
 .member-information-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: center;
 
     .member-information-content {
+        width: 100%;
         display: flex;
-        flex-direction: row;
 
         .member-avatar {
+            justify-self: start;
 
             img {
                 width: 100px;
             }
+        }
+
+        li {
+            list-style: none;
         }
     }
 
