@@ -16,20 +16,92 @@
     .form-container {
         position: relative;
         margin-top: 50px;
-        width: 1100px;
+        width: auto;
         height: auto;
         border: 1px solid black;
-        padding: 0 20px;
+
+        .form-content {
+            margin: 5px 20px;
+        }
 
         .verification-form {
             li {
                 list-style: none;
                 padding: 25px 0;
 
-                input {
+                input:not(.gender-input) {
                     padding: 5px;
-                    font-size: 18px;
+                    font-size: 14px;
                     border-color: rgba(0, 0, 0, 0.5);
+                    margin-left: 10px;
+                    // width: 200px;
+                }
+
+                label {
+                    font-size: 15px;
+                    display: inline-block;
+                }
+
+            }
+
+            .line-1 {
+
+                .gender-container,
+                .dob-container {
+                    display: inline-block;
+                }
+
+                .gender-container {
+                    padding-left: 100px;
+
+                    .male,
+                    .female {
+                        display: inline-block;
+                    }
+
+                    .male {
+                        margin-right: 20px;
+                    }
+
+                    .gender-input {
+                        padding: 5px;
+                        font-size: 14px;
+                        border-color: rgba(0, 0, 0, 0.5);
+                        margin-left: 10px;
+                    }
+
+                }
+
+                .date-input {
+                    width: 200px;
+                }
+            }
+
+            .line-2 {
+
+                .nationality-container,
+                .nation-container {
+                    display: inline-block;
+                }
+
+                .nation-container {
+                    padding-left: 100px;
+                }
+            }
+
+            .line-3 {
+
+                .providedCardDate,
+                .providedCardLocation {
+                    display: inline-block;
+                }
+
+                .providedCardLocation {
+                    padding-left: 100px;
+                }
+
+                .date-input {
+                    width: 200px;
                 }
             }
         }

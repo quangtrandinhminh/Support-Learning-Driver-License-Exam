@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": 1
+    },
+    {
+      "name": "",
+      "dob": "",
+      "gender": "",
+      "nationality": "",
+      "nation": "",
+      "residenceAddress": "",
+      "tempoAddress": "",
+      "cccdNo": "",
+      "providedCardDate": "",
+      "providedCadLocation": "",
+      "phoneNo": "",
+      "email": "",
+      "id": 2
+    },
+    {
+      "name": "",
+      "dob": "",
+      "gender": "",
+      "nationality": "",
+      "nation": "",
+      "residenceAddress": "",
+      "tempoAddress": "",
+      "cccdNo": "",
+      "providedCardDate": "",
+      "providedCadLocation": "",
+      "phoneNo": "",
+      "email": "",
+      "id": 3
+    }
+  ]
+}

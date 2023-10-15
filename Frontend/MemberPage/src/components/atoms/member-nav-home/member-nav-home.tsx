@@ -5,6 +5,11 @@ import LogoImg from '../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
 
 function MemberNavHome() {
+    const handleScroll = () => {
+        {
+            window.scrollTo(0, 0);
+        }
+    }
 
     return (
         <>
@@ -49,27 +54,29 @@ function MemberNavHome() {
                                 <img src={MemberImg} alt="member-img" className='member-home-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to=''>
                                             Thông tin cá nhân
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to='/khoa-hoc-cua-ban' onClick={handleScroll}>
                                             Khoá học của bạn
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to=''>
                                             Lịch học
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to=''>
                                             Hồ sơ thi
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li>
-                                        <button>Đăng xuất</button>
+                                        <Forward to='/'>
+                                            Đăng xuất
+                                        </Forward>
                                     </li>
                                 </ul>
                             </li>
