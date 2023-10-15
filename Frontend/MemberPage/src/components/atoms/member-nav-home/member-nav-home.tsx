@@ -50,36 +50,34 @@ function MemberNavHome() {
                             </Forward>
                         </div>
                         <div className='nav-home-items member-nav-home-items'>
-                            <li>
-                                <img src={MemberImg} alt="member-img" className='member-home-avatar' />
-                                <ul className="subnav-function">
-                                    <li className='receive-border'>
-                                        <Forward to=''>
-                                            Thông tin cá nhân
-                                        </Forward>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <Forward to='/khoa-hoc-cua-ban' onClick={handleScroll}>
-                                            Khoá học của bạn
-                                        </Forward>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <Forward to=''>
-                                            Lịch học
-                                        </Forward>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <Forward to=''>
-                                            Hồ sơ thi
-                                        </Forward>
-                                    </li>
-                                    <li>
-                                        <Forward to='/'>
-                                            Đăng xuất
-                                        </Forward>
-                                    </li>
-                                </ul>
-                            </li>
+                            <img src={MemberImg} alt="member-img" className='member-home-avatar' />
+                            <ul className="subnav-function">
+                                <li className='receive-border'>
+                                    <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
+                                        Thông tin cá nhân
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to='/khoa-hoc-cua-ban' onClick={handleScroll}>
+                                        Khoá học của bạn
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to=''>
+                                        Lịch học
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to=''>
+                                        Hồ sơ thi
+                                    </Forward>
+                                </li>
+                                <li>
+                                    <Forward to='/'>
+                                        Đăng xuất
+                                    </Forward>
+                                </li>
+                            </ul>
                         </div>
                     </ul>
                 </nav>

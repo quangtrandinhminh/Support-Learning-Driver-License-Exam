@@ -53,7 +53,7 @@ function MemberNav() {
                                 <img src={MemberImg} alt="member-img" className='member-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
-                                        <Forward to=''>
+                                        <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
                                             Thông tin cá nhân
                                         </Forward>
                                     </li>
