@@ -2,36 +2,6 @@
   "users": [
     {
       "id": 1
-    },
-    {
-      "name": "Nguyen Thanh Phong",
-      "dob": "2023-10-16",
-      "gender": "",
-      "nationality": "Việt Nam",
-      "nation": "079203011769",
-      "residenceAddress": "Lê Thánh Tôn",
-      "tempoAddress": "Hà Nội",
-      "cccdNo": "079203011769",
-      "providedCardDate": "2023-10-16",
-      "providedCadLocation": "Hồ Chí Minh",
-      "phoneNo": "0938555758",
-      "email": "nthanhphong941@gmail.com",
-      "id": 2
-    },
-    {
-      "name": "",
-      "dob": "",
-      "gender": "",
-      "nationality": "",
-      "nation": "",
-      "residenceAddress": "",
-      "tempoAddress": "",
-      "cccdNo": "",
-      "providedCardDate": "",
-      "providedCadLocation": "",
-      "phoneNo": "",
-      "email": "",
-      "id": 3
     }
   ]
 }
