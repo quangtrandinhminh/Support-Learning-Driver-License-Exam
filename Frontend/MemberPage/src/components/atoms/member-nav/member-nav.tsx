@@ -53,27 +53,29 @@ function MemberNav() {
                                 <img src={MemberImg} alt="member-img" className='member-avatar' />
                                 <ul className="subnav-function">
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
                                             Thông tin cá nhân
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to='/khoa-hoc-cua-ban' onClick={handleScroll}>
                                             Khoá học của bạn
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to=''>
                                             Lịch học
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li className='receive-border'>
-                                        <button type='button'>
+                                        <Forward to=''>
                                             Hồ sơ thi
-                                        </button>
+                                        </Forward>
                                     </li>
                                     <li>
-                                        <button>Đăng xuất</button>
+                                        <Forward to='/'>
+                                            Đăng xuất
+                                        </Forward>
                                     </li>
                                 </ul>
                             </li>

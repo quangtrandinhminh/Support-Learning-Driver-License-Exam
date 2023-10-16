@@ -12,9 +12,9 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         justify-content: center;
-        gap: 150px;
+        gap: 100px;
         position: relative;
-        margin: 0px 160px;
+        margin: 0px 80px;
         margin-top: 50px;
 
         img {
@@ -46,14 +46,14 @@
 
         button {
             position: relative;
-            margin-top: 25px;
+            margin-top: 50px;
             background-color: #4292EB;
-            width: 190px;
+            width: 150px;
             height: 50px;
             color: white;
-            font-size: 22px;
+            font-size: 17px;
             font-weight: bold;
-            border-radius: 20px;
+            border-radius: 15px;
             border: 0px;
             transform: translateX(-50%);
             left: 50%;
@@ -92,7 +92,8 @@
     grid-template-columns: repeat(3, 0fr);
     right: 0;
     gap: 30px;
-    margin-right: 150px;
+    transform: translateX(-30%);
+    right: 0;
 
     a {
         line-height: 35px;

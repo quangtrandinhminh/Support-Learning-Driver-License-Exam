@@ -1,6 +1,11 @@
 import './course.scss'
+import { Link } from 'react-router-dom'
 
 function Course() {
+
+    function handleScroll() {
+        window.scrollTo(0, 0);
+    }
 
     return (
         <div className='course-container' id='course-section'>
@@ -21,7 +26,7 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="/khoahoc">Xem khoá học</a>
+                        <Link to='/khoahoc' onClick={handleScroll}>Xem khoá học</Link>
                     </div>
                 </div>
 
@@ -40,7 +45,7 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="/khoahoc">Xem khoá học</a>
+                        <Link to='/khoahoc' onClick={handleScroll}>Xem khoá học</Link>
                     </div>
                 </div>
 
@@ -59,7 +64,7 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="/khoahoc">Xem khoá học</a>
+                        <Link to='/khoahoc' onClick={handleScroll}>Xem khoá học</Link>
                     </div>
                 </div>
             </div>
