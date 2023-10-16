@@ -5,6 +5,11 @@ import LogoImg from '../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
 
 function MemberNavHome() {
+    const handleScroll = () => {
+        {
+            window.scrollTo(0, 0);
+        }
+    }
 
     return (
         <>
@@ -45,34 +50,34 @@ function MemberNavHome() {
                             </Forward>
                         </div>
                         <div className='nav-home-items member-nav-home-items'>
-                            <li>
-                                <img src={MemberImg} alt="member-img" className='member-home-avatar' />
-                                <ul className="subnav-function">
-                                    <li className='receive-border'>
-                                        <button type='button'>
-                                            Thông tin cá nhân
-                                        </button>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <button type='button'>
-                                            Khoá học của bạn
-                                        </button>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <button type='button'>
-                                            Lịch học
-                                        </button>
-                                    </li>
-                                    <li className='receive-border'>
-                                        <button type='button'>
-                                            Hồ sơ thi
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button>Đăng xuất</button>
-                                    </li>
-                                </ul>
-                            </li>
+                            <img src={MemberImg} alt="member-img" className='member-home-avatar' />
+                            <ul className="subnav-function">
+                                <li className='receive-border'>
+                                    <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
+                                        Thông tin cá nhân
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to='/khoa-hoc-cua-ban' onClick={handleScroll}>
+                                        Khoá học của bạn
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to=''>
+                                        Lịch học
+                                    </Forward>
+                                </li>
+                                <li className='receive-border'>
+                                    <Forward to=''>
+                                        Hồ sơ thi
+                                    </Forward>
+                                </li>
+                                <li>
+                                    <Forward to='/'>
+                                        Đăng xuất
+                                    </Forward>
+                                </li>
+                            </ul>
                         </div>
                     </ul>
                 </nav>

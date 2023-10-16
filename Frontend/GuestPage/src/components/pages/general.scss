@@ -1,0 +1,21 @@
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    background-color: #4292EB;
+    height: 12.7%;
+}
+
+body {
+    width: 100%;
+    margin-top: 100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+footer {
+    top: 0;
+    height: 100%;
+    background-color: #4292EB;
+}
