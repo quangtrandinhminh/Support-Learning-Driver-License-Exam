@@ -3,39 +3,48 @@
     flex-direction: column;
     align-items: center;
 
+    .member-information-title {
+        text-transform: uppercase;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        margin-top: 50px;
+    }
+
     .member-information-content {
-        width: 1300px;
+        margin: 75px 100px 50px 100px;
+        width: auto;
         display: flex;
         flex-direction: row;
 
         // CSS for avatar
         .member-avatar {
-
             img {
-                width: 150px;
+                width: 190px;
             }
         }
 
-        li {
-            list-style: none;
-        }
-
-        form {
+        table {
             font-size: 17px;
-            margin-left: 50px;
-            margin-top: 75px;
+            margin: 0 50px;
             flex: 1;
             display: grid;
-            gap: 25px;
+            gap: 38px;
+            width: 1000px;
+            padding: 5px;
+            border: 1px solid black;
+
 
             label {
                 display: inline-block;
                 margin-right: 5px;
             }
 
-            input {
+            span {
                 font-size: 16px;
                 padding: 5px 5px;
+            }
+
+            li {
+                list-style: none;
             }
         }
 
@@ -72,6 +81,21 @@
 
             .nation-container {
                 margin-left: 200px;
+            }
+        }
+
+        .updateInf-btn {
+            justify-self: flex-end;
+            background-color: #3D88DE;
+            padding: 10px;
+
+            &:hover {
+                box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
+            }
+
+            a {
+                text-decoration: none;
+                color: white;
             }
         }
 

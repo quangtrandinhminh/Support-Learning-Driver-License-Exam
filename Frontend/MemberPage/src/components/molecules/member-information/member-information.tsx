@@ -1,5 +1,6 @@
 import './member-information.scss'
 import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import { Link } from 'react-router-dom'
 
 function MemberInformationForm() {
     return (
@@ -9,53 +10,59 @@ function MemberInformationForm() {
                 <div className='member-avatar'>
                     <img src={MemberImg} alt="" />
                 </div>
-                <form action="">
+                <table>
                     <li>
                         <label htmlFor="name">Họ và tên: </label>
-                        <input type="text" name="name" id="" />
+                        <span>Nguyễn Thanh Phong</span>
                     </li>
                     <li className='line-1'>
                         <div className='dob-container'>
                             <label htmlFor="dob">Ngày sinh: </label>
-                            <input type="date" name="" id="" />
+                            <span>21/09/2003</span>
                         </div>
                         <div className="gender-container">
-                            <div className='gender-male'>
-                                <label htmlFor="gender">Nam:</label>
-                                <input type="radio" name="gender-male" id="" />
-                            </div>
-                            <div className='gender-female'>
-                                <label htmlFor="gender">Nữ:</label>
-                                <input type="radio" name="gender-female" id="" />
-                            </div>
+                            <label htmlFor="gender">Giới tính: </label>
+                            <span>Nam</span>
                         </div>
                     </li>
                     <li className='line-2'>
                         <div className='nationality-container'>
                             <label htmlFor="nationality">Quốc tịch: </label>
-                            <input type="text" name="nationality" id="" />
+                            <span>Việt Nam</span>
                         </div>
                         <div className="nation-container">
                             <label htmlFor="nation">Dân tộc: </label>
-                            <input type="text" name="nation" id="" />
+                            <span>Kinh</span>
                         </div>
                     </li>
                     <li>
-
+                        <label htmlFor="phoneNo">Điện thoại di động: </label>
+                        <span>0938555758</span>
                     </li>
                     <li>
-
+                        <label htmlFor="email">Email: </label>
+                        <span>nthanhphong941@gmail.com</span>
                     </li>
                     <li>
-
+                        <label htmlFor="residenceAddress"><strong><i>Địa chỉ thường trú: </i></strong></label>
+                        <span >136/7 Lê Thánh Tôn</span>
                     </li>
                     <li>
-
+                        <label htmlFor="cccdNo"><strong><i>Số CCCD/CMND: </i></strong></label>
+                        <span>0792xxxxxxxx</span>
                     </li>
                     <li>
-
+                        <label htmlFor="studentID">Mã số học viên: </label>
+                        <span></span>
                     </li>
-                </form>
+                    <li>
+                        <label htmlFor="courseID">Khoá học: </label>
+                        <span></span>
+                    </li>
+                    <div className='updateInf-btn'>
+                        <Link to='/thong-tin-ca-nhan/cap-nhat'>Cập nhật</Link>
+                    </div>
+                </table>
             </div>
         </div>
     )
