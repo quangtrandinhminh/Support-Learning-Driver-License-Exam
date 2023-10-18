@@ -14,68 +14,53 @@
         }
 
         .practice-container-subtitle {
-            margin-top: 10px;
+            margin-top: 30px;
             line-height: 30px;
         }
+
+    }
+
+    .practice-information {
+        margin-top: 50px;
+        align-self: flex-start;
+        margin-left: 50px;
+        font-size: 20px;
+
+        .practice-date-expected {
+            display: flex;
+
+            .practice-session {
+                margin-left: 10px;
+
+                .evening-schedule {
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .practice-street-verify {
+            margin-top: 20px;
+        }
+
     }
 
     table {
-        width: 70%;
-        margin-top: 30px;
         font-size: 20px;
-        height: 800px;
+        margin-top: 30px;
+        text-align: center;
         border-collapse: collapse;
 
-        td,
-        th {
+        th,
+        td {
             border: 1px solid black;
         }
 
         thead {
             th {
                 padding: 8px;
-                background-color: #8B0000;
-                color: white;
-            }
-
-            .class-no {
-                width: 100px;
-            }
-
-            .class-time {
-                width: 200px;
-            }
-
-            .class-mentor {
-                width: 200px;
-            }
-
-            .class-content {
-                width: 350px;
-            }
-
-            .class-destination {
-                width: 200px;
             }
 
         }
-
-        tbody {
-            td {
-                padding: 8px;
-                text-align: center;
-            }
-        }
-    }
-
-    .practice-schedule-note {
-        justify-content: center;
-        display: flex;
-        margin: auto;
-        margin-top: 30px;
-        width: 95%;
-        color: red;
-        font-style: italic;
     }
 
 }
