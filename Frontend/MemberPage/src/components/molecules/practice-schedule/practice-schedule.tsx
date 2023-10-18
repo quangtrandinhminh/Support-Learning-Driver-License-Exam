@@ -12,78 +12,56 @@ function PracticeSchedule() {
                     <br />
                     Xe tự động: 51A-267.xx (Hạn TL: dd/mm/yyyy)
                 </h2>
-                <div>
-                    
+            </div>
+            <div className='practice-information'>
+                <div className='practice-date-expected'>
+                    Thời gian từ ... đến ...:
+                    <div className='practice-session'>
+                        <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
+                        <p className='evening-schedule'>Ca học đêm từ 18h00 đến 20h00</p>
+                    </div>
                 </div>
+                <p className='practice-street-verify'>
+                    Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
+                </p>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th className='class-no'>STT</th>
-                        <th className='class-time'>Thời gian</th>
-                        <th className='class-mentor'>Giáo viên</th>
-                        <th className='class-content'>Nội dung</th>
-                        <th className='class-destination'>Địa điểm</th>
+                        <th rowSpan={2} className='practice-time'>Thời gian</th>
+                        <th rowSpan={2} className='practice-yard'>Thực hành trên sân tập</th>
+                        <th rowSpan={2} className='practice-cabin'>Thực hành trên cabin</th>
+                        <th rowSpan={1} colSpan={3} className='practice-trafficLight'>Thực hành trên đường giao thông (DAT)</th>
+                        <th rowSpan={2} className='practice-note'>Ghi chú</th>
+                    </tr>
+                    <tr>
+                        <th colSpan={1}>Các ngày học</th>
+                        <th colSpan={1}>Ngày ca đêm</th>
+                        <th colSpan={1}>Ngày ca sáng</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td className='class-no-content'>1</td>
-                        <td className='class-time-content'>Ngày 16/09/2023
-                            <br />
-                            Thứ bảy</td>
-                        <td className='class-mentor-content'>Nguyễn Văn A</td>
-                        <td className='class-content-content'>Hướng dẫn lý thuyết Luật GTĐB.
-                            Hỗ trợ học viên cách điểm danh, quét Thẻ và phản hồi thông tin, thời gian</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td>1</td>
+                        <td>Thứ tư hàng tuần</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
                     </tr>
                     <tr>
-                        <td className='class-no-content'>2</td>
-                        <td className='class-time-content'>Ngày 17/09/2023
-                            <br />
-                            Chủ nhật</td>
-                        <td className='class-mentor-content'>Nguyễn Văn A</td>
-                        <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Quy tắc chung Luật GTĐB,
-                            Phần biển báo hiệu đường bộ. Ôn luyện</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td>1</td>
+                        <td>Thứ tư hàng tuần</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
                     </tr>
-                    <tr>
-                        <td className='class-no-content'>3</td>
-                        <td className='class-time-content'>Ngày 18/09/2023
-                            <br />
-                            Thứ hai</td>
-                        <td className='class-mentor-content'>Nguyễn Văn A</td>
-                        <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Nghiệp vụ vận tải,
-                            Phần Đạo đức người lái xe. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
-                    </tr>
-                    <tr>
-                        <td className='class-no-content'>4</td>
-                        <td className='class-time-content'>Ngày 19/09/2023
-                            <br />
-                            Thứ ba</td>
-                        <td className='class-mentor-content'>Nguyễn Văn A</td>
-                        <td className='class-content-content'>Hướng dẫn học viên học lý thuyết
-                            Phần Cấu tạo, sửa chữa thông thường. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
-                    </tr>
-                    <tr>
-                        <td className='class-no-content'>5</td>
-                        <td className='class-time-content'>Ngày 20/09/2023
-                            <br />
-                            Thứ tư</td>
-                        <td className='class-mentor-content'>Nguyễn Văn A</td>
-                        <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Cấu tạo,
-                            sửa chữa thông thường. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
-                    </tr>
+                    
                 </tbody>
             </table>
-            <h2 className='practice-schedule-note'>
-                Ghi chú: Học viên tham gia học và điểm danh đầy đủ theo quy định.
-                Học viên cần tham gia hơn 90% trong tổng số buổi lý thuyết để đủ điều kiện
-                tham gia cuộc thi sát hạch lái xe
-            </h2>
         </div>
     )
 }
