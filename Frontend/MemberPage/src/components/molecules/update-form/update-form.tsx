@@ -1,5 +1,5 @@
 import MemberImg from '../../../../../assets/imgs/member/member_img.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './update-information.scss'
 
 function UpdateInformationForm() {
@@ -12,6 +12,7 @@ function UpdateInformationForm() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        handleScroll();
         navigate('/thong-tin-ca-nhan');
     }
 
@@ -63,19 +64,19 @@ function UpdateInformationForm() {
                     </li>
                     <li>
                         <label htmlFor="residenceAddress"><strong><i>Địa chỉ thường trú: </i></strong></label>
-                        <input type="text" name="residenceAddress" id="" />
+                        <input type="text" name="residenceAddress" id="" disabled />
                     </li>
                     <li>
                         <label htmlFor="cccdNo"><strong><i>Số CCCD/CMND: </i></strong></label>
-                        <input type="text" name="cccdNo" id="" />
+                        <input type="text" name="cccdNo" id="" disabled />
                     </li>
                     <li>
                         <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                        <input type="text" name="studentID" id="" />
+                        <input type="text" name="studentID" id="" disabled />
                     </li>
                     <li>
                         <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                        <input type="text" name="courseID" id="" />
+                        <input type="text" name="courseID" id="" disabled />
                     </li>
                     <button type='submit' className='confirm-btn'>Xác nhận</button>
                 </form>
