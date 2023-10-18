@@ -56,17 +56,17 @@ function MemberInformationForm() {
                         <span>0792xxxxxxxx</span>
                     </li>
                     <li>
-                        <label htmlFor="studentID">Mã số học viên: </label>
+                        <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
                         <span></span>
                     </li>
                     <li>
-                        <label htmlFor="courseID">Khoá học: </label>
+                        <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
                         <span></span>
                     </li>
+                    <div className='updateInf-btn'>
+                        <Link to='/thong-tin-ca-nhan/cap-nhat' onClick={handleScroll}>Cập nhật</Link>
+                    </div>
                 </table>
-            </div>
-            <div className='updateInf-btn'>
-                <Link to='/thong-tin-ca-nhan/cap-nhat' onClick={handleScroll}>Cập nhật</Link>
             </div>
         </div>
     )

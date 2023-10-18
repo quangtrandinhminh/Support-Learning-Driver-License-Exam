@@ -3,7 +3,7 @@ import MemberFooter from '../../organisms/member-footer/member-footer'
 import '../general.scss'
 import CourseVerificationTemplate from '../../templates/course-verification-template/course-verification-template'
 
-function CourseVerification() {
+function CourseVerificationPage() {
     return (
         <>
             <header >
@@ -20,4 +20,4 @@ function CourseVerification() {
     )
 }
 
-export default CourseVerification
+export default CourseVerificationPage

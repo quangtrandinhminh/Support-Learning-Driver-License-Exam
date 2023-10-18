@@ -15,6 +15,10 @@
         font-weight: 500;
         padding-top: 40px;
 
+        table {
+            border-collapse: collapse;
+        }
+
         .course-no {
             width: 100px;
         }
@@ -29,6 +33,10 @@
         }
 
         .content-title {
+            th {
+                padding: 8px;
+            }
+
             color: red;
         }
 
