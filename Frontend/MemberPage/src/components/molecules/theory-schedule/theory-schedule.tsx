@@ -11,7 +11,7 @@ function TheorySchedule() {
                     Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
                 </h2>
             </div>
-            <table border={1}>
+            <table>
                 <thead>
                     <tr>
                         <th className='class-no'>STT</th>

@@ -4,14 +4,19 @@ function PracticeSchedule() {
     return (
         <div className='practice-schedule-container'>
             <div className='title-container'>
-                <h1 className='practice-container-title'>Lịch học lý thuyết</h1>
+                <h1 className='practice-container-title'>Lịch học thực hành</h1>
                 <h2 className='practice-container-subtitle'>
-                    Thời gian học lý thuyết từ ngày ... đến hết ngày ...
+                    Giáo viên: Nguyễn Văn A
                     <br />
-                    Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
+                    Xe số: 51A-012xx (Hạn TL: dd/mm/yyyy)
+                    <br />
+                    Xe tự động: 51A-267.xx (Hạn TL: dd/mm/yyyy)
                 </h2>
+                <div>
+                    
+                </div>
             </div>
-            <table border={1}>
+            <table>
                 <thead>
                     <tr>
                         <th className='class-no'>STT</th>
