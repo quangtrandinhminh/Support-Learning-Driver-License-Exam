@@ -1,8 +1,9 @@
+import PracticeSchedule from "../../molecules/practice-schedule/practice-schedule"
 
 function PracticeScheduleTemplate() {
     return (
         <>
-
+            <PracticeSchedule />
         </>
     )
 }
