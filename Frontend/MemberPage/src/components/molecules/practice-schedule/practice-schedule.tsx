@@ -1,11 +1,11 @@
-import './theory-schedule.scss'
+import './practice-schedule.scss'
 
-function TheorySchedule() {
+function PracticeSchedule() {
     return (
-        <div className='theory-schedule-container'>
+        <div className='practice-schedule-container'>
             <div className='title-container'>
-                <h1 className='theory-container-title'>Lịch học lý thuyết</h1>
-                <h2 className='theory-container-subtitle'>
+                <h1 className='practice-container-title'>Lịch học lý thuyết</h1>
+                <h2 className='practice-container-subtitle'>
                     Thời gian học lý thuyết từ ngày ... đến hết ngày ...
                     <br />
                     Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
@@ -74,7 +74,7 @@ function TheorySchedule() {
                     </tr>
                 </tbody>
             </table>
-            <h2 className='theory-schedule-note'>
+            <h2 className='practice-schedule-note'>
                 Ghi chú: Học viên tham gia học và điểm danh đầy đủ theo quy định.
                 Học viên cần tham gia hơn 90% trong tổng số buổi lý thuyết để đủ điều kiện
                 tham gia cuộc thi sát hạch lái xe
@@ -83,4 +83,4 @@ function TheorySchedule() {
     )
 }
 
-export default TheorySchedule
+export default PracticeSchedule
