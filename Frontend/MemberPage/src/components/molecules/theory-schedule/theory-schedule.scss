@@ -26,11 +26,13 @@
         height: 800px;
         border-collapse: collapse;
 
+
         thead {
             th {
                 padding: 8px;
                 background-color: #8B0000;
                 color: white;
+                border: 1px solid black;
             }
 
             .class-no {
@@ -57,6 +59,7 @@
 
         tbody {
             td {
+                border: 1px solid black;
                 padding: 8px;
                 text-align: center;
             }
