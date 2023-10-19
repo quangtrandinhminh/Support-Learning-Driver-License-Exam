@@ -15,6 +15,17 @@
         font-weight: 500;
         padding-top: 40px;
 
+        table {
+            font-size: 20px;
+            border-collapse: collapse;
+            text-align: center;
+
+            th,
+            td {
+                border: 1px solid black;
+            }
+        }
+
         .course-no {
             width: 100px;
         }
@@ -22,14 +33,25 @@
         .table-title {
             height: 50px;
             line-height: 50px;
-            border: 1px solid black;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
             background-color: #8B0000;
             color: white;
             text-transform: uppercase;
         }
 
         .content-title {
-            color: red;
+            color: black;
+
+            th {
+                padding: 8px;
+            }
+
+            .course-course {
+                width: 200px;
+            }
+
         }
 
         .course-date {
@@ -38,7 +60,7 @@
         }
 
         .course-mem {
-            width: 100px;
+            width: 150px;
         }
 
         .course-training-content {
@@ -69,7 +91,7 @@
                 font-size: 18px;
                 padding: 10px 10px;
                 background-color: #ffffff;
-                border: 1px solid rgba(0, 0, 0, 0.7);
+                border: 1px solid black;
 
                 &:hover {
                     cursor: pointer;

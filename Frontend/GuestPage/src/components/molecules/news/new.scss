@@ -1,0 +1,122 @@
+.news-container {
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .news-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        gap: 100px;
+        position: relative;
+        margin: 0px 80px;
+        margin-top: 50px;
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .news-1-title,
+        .news-2-title,
+        .news-3-title {
+            padding-left: 15px;
+            padding-top: 6px;
+        }
+
+        .news-1-content,
+        .news-2-content,
+        .news-3-content {
+            padding-left: 15px;
+            padding-top: 20px;
+            line-height: 30px;
+        }
+
+        .news-1-date,
+        .news-2-date,
+        .news-3-date {
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+
+        button {
+            position: relative;
+            margin-top: 50px;
+            background-color: #4292EB;
+            width: 150px;
+            height: 50px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 15px;
+            border: 0;
+            transform: translateX(-50%);
+            left: 50%;
+            right: 50%;
+
+            &:hover {
+                box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
+                cursor: pointer;
+            }
+        }
+
+        .news-section-1 {
+            border-radius: 15px;
+            height: 700px;
+            border: 2px solid black;
+        }
+
+        .news-section-2 {
+            border-radius: 15px;
+            height: 700px;
+            border: 2px solid black;
+        }
+
+        .news-section-3 {
+            border-radius: 15px;
+            height: 700px;
+            border: 2px solid black;
+        }
+    }
+}
+
+.news-page-nav {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(3, 0fr);
+    right: 0;
+    gap: 30px;
+    transform: translateX(-30%);
+    right: 0;
+
+    a {
+        line-height: 35px;
+        width: 35px;
+        height: 35px;
+        color: black;
+        text-decoration: none;
+        border: none;
+        margin-top: 50px;
+        transition: transform .2s;
+        text-align: center;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &:not(.page-nav-text) {
+            background-color: rgba(66, 146, 235);
+        }
+    }
+
+    .page-nav-text {
+        text-align: center;
+        width: 100px;
+    }
+}

@@ -1,0 +1,93 @@
+.practice-schedule-container {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+
+    .title-container {
+        text-align: center;
+        margin-top: 50px;
+
+        .practice-container-title {
+            text-transform: uppercase;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .practice-container-subtitle {
+            margin-top: 30px;
+            line-height: 30px;
+        }
+
+    }
+
+    .practice-information {
+        width: 80%;
+        margin-top: 50px;
+        align-self: flex-start;
+        margin-left: 152px;
+        font-size: 20px;
+
+        .practice-date-expected {
+            display: flex;
+
+            .practice-session {
+                margin-left: 10px;
+
+                .evening-schedule {
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .practice-street-verify {
+            margin-top: 20px;
+        }
+
+    }
+
+    table {
+        font-size: 20px;
+        margin-top: 30px;
+        text-align: center;
+        border-collapse: collapse;
+        width: 80%;
+
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        thead {
+            th {
+                padding: 8px;
+            }
+
+            .practice-time {
+                width: 150px;
+            }
+
+            .practice-yard {
+                width: 200px;
+            }
+
+            .practice-cabin {
+                width: 200px;
+            }
+
+            .practice-tLight-sub {
+                width: 170px;
+            }
+
+            .practice-note {
+                width: 150px;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 8px;
+            }
+        }
+    }
+
+}
