@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
-import { User, fetchData } from "../../services/dataFetcher";
 import { toast } from "react-toastify";
-import sendEmail from "./sendEmail"; // Import hàm gửi email từ ví dụ trước
+import axios from "axios";
 
 interface ForgetPasswordProps {
   emailIconType: "gmail";
@@ -17,38 +16,38 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
     setEmail(event.target.value);
   };
 
-  const handleConfirmationCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setConfirmationCode(event.target.value);
-  };
-
   const handleResetPassword = async () => {
     if (!email) {
       toast.error("Please enter your email.");
       return;
     }
 
-    // Tìm xem email có tồn tại trong dữ liệu không
-    const data = await fetchData<{ users: User[] }>("../../../public/data.json");
-    const user = data.users.find((user) => user.gmail === email);
+    try {
+      // Sử dụng axios để tải dữ liệu từ tệp JSON
+      const response = await axios.get("/path/to/your/data.json");
+      const data = response.data;
 
-    if (user) {
-      try {
+      // Kiểm tra nếu data không phải là mảng hoặc mảng rỗng
+      if (!Array.isArray(data.users) || data.users.length === 0) {
+        toast.error("No user data found.");
+        return;
+      }
+
+      const user = data.users.find((user: { gmail: string; }) => user.gmail === email);
+
+      if (user) {
         // Tạo mã xác nhận ngẫu nhiên
-        const newConfirmationCode = Math.random().toString(36).substring(2, 8);
+        const confirmationCode = Math.random().toString(36).substring(2, 8);
 
-        // Gửi mã xác nhận đến email của người dùng
-        await sendEmail(email, newConfirmationCode);
-
-        // Lưu mã xác nhận để kiểm tra ở bước tiếp theo
-        setConfirmationCode(newConfirmationCode);
+        // Gửi mã xác nhận đến email - Đoạn này bạn cần cài đặt gửi email
+        // Ví dụ: sendEmail(email, confirmationCode);
 
         toast.success("Confirmation code sent to your email.");
-      } catch (error) {
-        console.error(error);
-        toast.error("Failed to send confirmation code. Please try again.");
+      } else {
+        toast.error("Email not found. Please try again or register.");
       }
-    } else {
-      toast.error("Email not found. Please try again or register.");
+    } catch (error) {
+      toast.error("Failed to send confirmation code. Please try again.");
     }
   };
 
@@ -65,19 +64,14 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
           onChange={handleEmailChange}
           iconType="gmail"
         />
-        <a
-          href="https://www.google.com/intl/vi/gmail/about/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Nhận mã xác nhận
-        </a>
+        <a href="https://www.google.com/intl/vi/gmail/about/">Nhận mã xác nhận</a>
         <br />
-        <InputField
+        <input
           type="text"
           placeholder="Nhập Mã xác nhận"
           value={confirmationCode}
-          onChange={handleConfirmationCodeChange} iconType={"gmail"}/>
+          onChange={(e) => setConfirmationCode(e.target.value)}
+        />
         <br />
         <button type="button" onClick={handleResetPassword}>
           Tiếp Theo

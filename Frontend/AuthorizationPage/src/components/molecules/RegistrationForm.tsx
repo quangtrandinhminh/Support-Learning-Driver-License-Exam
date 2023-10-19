@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
 import { useNavigate } from "react-router-dom";
-import { User, fetchData } from "../../services/dataFetcher";
+import { User } from "../../../src/data/User";
 import axios from "axios";
 
 interface RegistrationFormProps {
@@ -54,44 +54,49 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     }
 
     try {
-      const data = await fetchData<{ users: User[] }>("../../../public/data.json");
+      // Sử dụng axios để tải dữ liệu từ tệp JSON
+      const response = await axios.get("../../../public/data.json");
+      if (response.status === 200) {
+        const data = response.data;
+        const userExists = data.users.some((user: User) => user.username === username);
+        const emailExists = data.users.some((user: User) => user.gmail === email);
 
-      const userExists = data.users.some((user) => user.username === username);
-      const emailExists = data.users.some((user) => user.gmail === email);
+        if (userExists) {
+          toast.error("Username already exists.");
+        } else if (emailExists) {
+          toast.error("Email already exists.");
+        } else {
+          // Tạo một ID mới cho người dùng
+          const maxId = data.users.reduce((max: number, user: User) => (user.id > max ? user.id : max), 0);
+          const newUserId = maxId + 1;
 
-      if (userExists) {
-        toast.error("Username already exists.");
-      } else if (emailExists) {
-        toast.error("Email already exists.");
+          // Thêm người dùng mới vào dữ liệu
+          data.users.push({
+            id: newUserId,
+            username,
+            gmail: email,
+            password,
+            phone: "null", 
+            role: "user", 
+          });
+
+          // Cập nhật tệp JSON với dữ liệu mới
+          await axios.post("../../../public/data.json", data);
+
+          toast.success("Hello new user");
+
+          // Xóa các trường đầu vào
+          setUsername("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
       } else {
-        // Generate a new user ID
-        const maxId = data.users.reduce((max, user) => (user.id > max ? user.id : max), 0);
-        const newUserId = maxId + 1;
-
-        // Add the new user to the data
-        data.users.push({
-          id: newUserId,
-          username,
-          gmail: email,
-          password,
-          phone: "null", // You can set this to null
-          role: "user", // You can set this to "user" as per your data structure
-        });
-
-        // Update the JSON file with the new data
-        await axios.post("../../../public/data.json", data);
-
-        toast.success("Hello new user");
-
-        // Clear the form fields
-        setUsername("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
+        toast.error("Failed to load user data.");
       }
     } catch (error) {
       console.log(error);
