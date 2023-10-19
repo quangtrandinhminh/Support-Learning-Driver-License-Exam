@@ -1,4 +1,3 @@
-import React from 'react'
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
 
