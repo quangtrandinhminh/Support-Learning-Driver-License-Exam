@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[User](
 )ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[User](
+CREATE TABLE [dbo].[Member](
   [memberID] INT IDENTITY(1,1),
   [dob] DATE NOT NULL,
   [gender] CHAR(6) NOT NULL,
