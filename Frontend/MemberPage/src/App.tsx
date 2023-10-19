@@ -7,8 +7,8 @@ import TheorySchedulePage from './components/pages/theory-schedule/theory-schedu
 import MemberInformationPage from './components/pages/member-information/member-information';
 import CourseVerificationPage from './components/pages/course-verification/course-verification';
 import MemberRegisteredCoursePage from './components/pages/member-course-registerd/member-registered-course';
-import PracticeSchedulePage from './components/pages/practice-schedule/practice-schedule';
 import MentorInformationPage from './components/pages/mentor-information/mentor-information';
+import PracticeListPage from './components/pages/practice-list-page/practice-list';
 
 function App() {
 
@@ -23,9 +23,9 @@ function App() {
         <Route path='khoa-hoc-cua-ban'>
           <Route index element={<MemberRegisteredCoursePage />} />
           <Route path='lich-hoc-ly-thuyet' element={<TheorySchedulePage />} />
-          <Route path='lich-hoc-thuc-hanh' element={<PracticeSchedulePage />} />
           <Route path='thong-tin-giao-vien' element={<MentorInformationPage />} />
         </Route>
+        <Route path='/danh-sach-khoa-hoc' element={<PracticeListPage />} />
       </Routes>
     </div>
   )

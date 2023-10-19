@@ -29,6 +29,11 @@ function RegisteredCourse() {
                         </label>
                     </li>
                     <li>
+                        <label htmlFor="course-theory-location">
+                            <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
+                        </label>
+                    </li>
+                    <li>
                         <label htmlFor="course-theory-location">Địa điểm học lý thuyết: </label>
                     </li>
                     <li>
