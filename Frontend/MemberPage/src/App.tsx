@@ -19,12 +19,13 @@ function App() {
         <Route path='/khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
         <Route path="/thong-tin-ca-nhan" element={<MemberInformationPage />} />
         <Route path='/thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />
-        <Route path='khoa-hoc-cua-ban' element={<MemberRegisteredCoursePage />}>
+        <Route path='/khoahoc' element={<MemberCoursePage />} />
+        <Route path='khoa-hoc-cua-ban'>
+          <Route index element={<MemberRegisteredCoursePage />} />
           <Route path='lich-hoc-ly-thuyet' element={<TheorySchedulePage />} />
           <Route path='lich-hoc-thuc-hanh' element={<PracticeSchedulePage />} />
           <Route path='thong-tin-giao-vien' element={<MentorInformationPage />} />
         </Route>
-        <Route path='/khoahoc' element={<MemberCoursePage />}></Route>
       </Routes>
     </div>
   )
