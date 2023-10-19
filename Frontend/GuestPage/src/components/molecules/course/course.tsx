@@ -43,7 +43,9 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="">Xem khóa học</a>
+                        <Link to='/khoahoc'>
+                            <a href="">Xem khóa học</a>
+                        </Link>
                     </div>
                 </div>
 
@@ -62,7 +64,9 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="">Xem khóa học</a>
+                        <Link to='/khoahoc'>
+                            <a href="">Xem khóa học</a>
+                        </Link>
                     </div>
                 </div>
             </div>
