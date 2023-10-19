@@ -12,7 +12,7 @@ function FooterInformation() {
                             <li>Liên hệ:</li>
                             <li>Hotline 1: 0987987654</li>
                             <li>Hotline 2: 0978234786</li>
-                            <li>Địa chỉ: 123/56 Trần Hưng Đạo Phường 5 Quận 1</li>
+                            <li>Địa chỉ: 123/56 Trần Hưng Đạo, Phường 5, Quận 1</li>
                         </ul>
                     </p>
                 </div>

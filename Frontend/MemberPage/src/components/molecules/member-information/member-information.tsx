@@ -3,6 +3,10 @@ import MemberImg from '../../../../../assets/imgs/member/member_img.png'
 import { Link } from 'react-router-dom'
 
 function MemberInformationForm() {
+    function handleScroll() {
+        window.scrollTo(0, 0);
+    }
+
     return (
         <div className='member-information-container'>
             <h1 className='member-information-title'>Thông tin cá nhân</h1>
@@ -52,15 +56,15 @@ function MemberInformationForm() {
                         <span>0792xxxxxxxx</span>
                     </li>
                     <li>
-                        <label htmlFor="studentID">Mã số học viên: </label>
+                        <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
                         <span></span>
                     </li>
                     <li>
-                        <label htmlFor="courseID">Khoá học: </label>
+                        <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
                         <span></span>
                     </li>
                     <div className='updateInf-btn'>
-                        <Link to='/thong-tin-ca-nhan/cap-nhat'>Cập nhật</Link>
+                        <Link to='/thong-tin-ca-nhan/cap-nhat' onClick={handleScroll}>Cập nhật</Link>
                     </div>
                 </table>
             </div>

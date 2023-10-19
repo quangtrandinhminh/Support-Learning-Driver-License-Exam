@@ -15,17 +15,22 @@ function RegisteredCourse() {
                     </li>
                     <li>
                         <label htmlFor="course-mentor">
-                            Giáo viên phụ trách: <Link to='/thong-tin-giao-vien'>Tên giáo viên</Link>
+                            Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>Tên giáo viên</Link>
                         </label>
                     </li>
                     <li>
                         <label htmlFor="course-theory">
-                            <Link to='/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
+                            <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
                         </label>
                     </li>
                     <li>
                         <label htmlFor="course-practice">
-                            <Link to='/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
+                            <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
+                        </label>
+                    </li>
+                    <li>
+                        <label htmlFor="course-theory-location">
+                            <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
                         </label>
                     </li>
                     <li>

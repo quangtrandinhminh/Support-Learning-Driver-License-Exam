@@ -25,7 +25,7 @@ function GuestNavHome() {
                                 </li></Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="news-section" spy={true} smooth={true} offset={-120} duration={500}>
+                            <Link to="consultation" spy={true} smooth={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Tư vấn</a>
                                 </li>
