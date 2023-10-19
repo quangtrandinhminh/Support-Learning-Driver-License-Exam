@@ -7,19 +7,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = @"Server=(local);uid=sa;pwd=12345;database=DrivingLicense;TrustServerCertificate=True";
+//string connectionString = @"Server=(local);uid=sa;pwd=12345;database=DrivingLicense;TrustServerCertificate=True";
 
-builder.Services.AddDbContext<DrivingLicenseContext>(options => {
-    options.UseSqlServer(
-        connectionString,
-        sqlServerOptionsAction: sqlServerOptions => {
-            sqlServerOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,          // Number of retry attempts
-                maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
-                errorNumbersToAdd: null   // List of specific error numbers to retry (optional)
-            );
-        });
-});
+//builder.Services.AddDbContext<DrivingLicenseContext>(options => {
+//    options.UseSqlServer(
+//        connectionString,
+//        sqlServerOptionsAction: sqlServerOptions => {
+//            sqlServerOptions.EnableRetryOnFailure(
+//                maxRetryCount: 5,          // Number of retry attempts
+//                maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
+//                errorNumbersToAdd: null   // List of specific error numbers to retry (optional)
+//            );
+//        });
+//});
 
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
