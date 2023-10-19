@@ -3,9 +3,10 @@ import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
 import { User, fetchData } from "../../services/dataFetcher";
 import { toast } from "react-toastify";
+import sendEmail from "./sendEmail"; // Import hàm gửi email từ ví dụ trước
 
 interface ForgetPasswordProps {
-    emailIconType: "gmail";
+  emailIconType: "gmail";
 }
 
 const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
@@ -21,29 +22,33 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
   };
 
   const handleResetPassword = async () => {
+    if (!email) {
+      toast.error("Please enter your email.");
+      return;
+    }
+
     // Tìm xem email có tồn tại trong dữ liệu không
     const data = await fetchData<{ users: User[] }>("../../../public/data.json");
-    const emailExists = data.users.some((user) => user.gmail === email);
-  
-    if (emailExists) {
+    const user = data.users.find((user) => user.gmail === email);
+
+    if (user) {
       try {
         // Tạo mã xác nhận ngẫu nhiên
-        const confirmationCode = Math.random().toString(36).substring(2, 8);
-  
-        // Gửi mã xác nhận đến email
-        // Ở đây, bạn có thể sử dụng một thư viện gửi email thật hoặc giả lập
-        // Ví dụ:
-        // sendEmail(email, confirmationCode);
-  
-        toast.error("Confirmation code sent to your email.");
-        toast.error(null);
+        const newConfirmationCode = Math.random().toString(36).substring(2, 8);
+
+        // Gửi mã xác nhận đến email của người dùng
+        await sendEmail(email, newConfirmationCode);
+
+        // Lưu mã xác nhận để kiểm tra ở bước tiếp theo
+        setConfirmationCode(newConfirmationCode);
+
+        toast.success("Confirmation code sent to your email.");
       } catch (error) {
+        console.error(error);
         toast.error("Failed to send confirmation code. Please try again.");
-        toast.error(null);
       }
     } else {
       toast.error("Email not found. Please try again or register.");
-      toast.error(null);
     }
   };
 
@@ -58,20 +63,27 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
           placeholder="Nhập Email của bạn"
           value={email}
           onChange={handleEmailChange}
-          iconType="gmail" // Use "gmail" as iconType
-          />
-          <a href="https://www.google.com/intl/vi/gmail/about/">Nhận mã xác nhận</a> {/* Đường liên kết "Nhận mã xác nhận" */}<br/>
-          <input
-            type="text"
-            placeholder="Nhập Mã xác nhận"
-            value={confirmationCode}
-            onChange={handleConfirmationCodeChange}
-          /><br/>
-          <button type="button" onClick={handleResetPassword}>
-            Tiếp Theo
-          </button>
-        </div>
+          iconType="gmail"
+        />
+        <a
+          href="https://www.google.com/intl/vi/gmail/about/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Nhận mã xác nhận
+        </a>
+        <br />
+        <InputField
+          type="text"
+          placeholder="Nhập Mã xác nhận"
+          value={confirmationCode}
+          onChange={handleConfirmationCodeChange} iconType={"gmail"}/>
+        <br />
+        <button type="button" onClick={handleResetPassword}>
+          Tiếp Theo
+        </button>
       </div>
+    </div>
   );
 };
 
