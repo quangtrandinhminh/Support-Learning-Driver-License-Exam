@@ -1,15 +1,16 @@
-import { BrowserRouter as Routes, Route} from 'react-router-dom';
-
 import './App.scss'
-import GuestHomePage from './components/pages/guest-home/guest-home'
 import GuestCoursePage from './components/pages/guest-course/guest-course'
+import GuestHomePage from './components/pages/guest-home/guest-home'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
 
   return (
     <>
-    <GuestHomePage />
-    {/* <GuestCoursePage /> */}
+      <Routes>
+        <Route path='/' element={<GuestHomePage />} />
+        <Route path='/khoahoc' element={<GuestCoursePage />} />
+      </Routes>
     </>
   )
 }
