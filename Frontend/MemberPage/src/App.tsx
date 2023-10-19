@@ -9,6 +9,7 @@ import CourseVerificationPage from './components/pages/course-verification/cours
 import MemberRegisteredCoursePage from './components/pages/member-course-registerd/member-registered-course';
 import MentorInformationPage from './components/pages/mentor-information/mentor-information';
 import PracticeListPage from './components/pages/practice-list-page/practice-list';
+import PracticeSpecificPage from './components/pages/practice-specific-page/practice-specific';
 
 function App() {
 
@@ -25,7 +26,10 @@ function App() {
           <Route path='lich-hoc-ly-thuyet' element={<TheorySchedulePage />} />
           <Route path='thong-tin-giao-vien' element={<MentorInformationPage />} />
         </Route>
-        <Route path='/danh-sach-khoa-hoc' element={<PracticeListPage />} />
+        <Route path='danh-sach-khoa-hoc'>
+          <Route index element={<PracticeListPage />} />
+          <Route path='khoa-hoc/:id-khoa-hoc' element={<PracticeSpecificPage />} />
+        </Route>
       </Routes>
     </div>
   )

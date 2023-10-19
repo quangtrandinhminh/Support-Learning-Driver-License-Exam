@@ -20,21 +20,21 @@ function PracticeList() {
                         <td className='course-no-content'>1</td>
                         <td className='course-mentor-content'>Nguyễn Văn A</td>
                         <td className='course-schedule-content'>
-                            <Link to=''>Xem chi tiết</Link>
+                            <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>
                     </tr>
                     <tr>
                         <td className='course-no-content'>2</td>
                         <td className='course-mentor-content'>Nguyễn Văn B</td>
                         <td className='course-schedule-content'>
-                            <Link to=''>Xem chi tiết</Link>
+                            <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>
                     </tr>
                     <tr>
                         <td className='course-no-content'>3</td>
                         <td className='course-mentor-content'>Nguyễn Văn C</td>
                         <td className='course-schedule-content'>
-                            <Link to=''>Xem chi tiết</Link>
+                            <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>
                     </tr>
                 </tbody>
