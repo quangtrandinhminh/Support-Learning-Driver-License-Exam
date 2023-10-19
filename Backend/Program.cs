@@ -17,35 +17,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// add database
-builder.Services.AddDbContext<DrivingLicenseContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptionsAction: sqlServerOptions =>
-        {
-            sqlServerOptions.EnableRetryOnFailure(
-                maxRetryCount: 5, // Number of retry attempts
-                maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
-                errorNumbersToAdd: null // List of specific error numbers to retry (optional)
-            );
-        }
-    ));
-//Add Cors
-builder.Services.AddCors(options =>
-    options.AddPolicy("AllowAll", corsPolicyBuilder => 
-    {
-        corsPolicyBuilder.WithOrigins("*")
-            .AllowCredentials()
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    })
-);
 
+//Add Cors
 var app = builder.Build();
 
+app.UseCors(builder => {
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}
+);
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
