@@ -21,6 +21,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DrivingLicenseContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+//Add Cors
+builder.Services.AddCors(options =>
+    options.AddPolicy("AllowAll", corsPolicyBuilder => 
+    {
+        corsPolicyBuilder.WithOrigins("*")
+            .AllowCredentials()
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    })
+);
 
 var app = builder.Build();
 
