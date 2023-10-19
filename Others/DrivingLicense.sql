@@ -41,12 +41,8 @@ CREATE TABLE [dbo].[User](
 )ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[Member](
   [memberID] INT IDENTITY(1,1),
   [dob] DATE NOT NULL,
-  [gender] CHAR(6) NOT NULL,
-  [nationality] VARCHAR(50) NOT NULL,
-  [residenceAddress_] VARCHAR(255) NOT NULL,
   [cardProvidedDate] DATE NOT NULL,
   [cardProvidedLocation] VARCHAR(255) NOT NULL,
   [drivingLicenseNumber] VARCHAR(20) NULL,
