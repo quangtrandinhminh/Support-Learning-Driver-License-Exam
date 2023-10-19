@@ -28,15 +28,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
-		<Folder Include="DB\Models\" />
-		<Folder Include="DTO\" />
 		<Folder Include="Helpers\" />
-		<Folder Include="Repository\" />
 		<Folder Include="Services\Member\" />
 		<Folder Include="Services\Mentor\" />
-		<Folder Include="Services\Account\" />
-		<Folder Include="Services\Course\" />
+		<Folder Include="Services\User\" />
 		<Folder Include="Services\Classes\" />
 		<Folder Include="Services\Exam\" />
 		<Folder Include="Services\Mark\" />
