@@ -31,18 +31,36 @@ function PracticeSchedule() {
                         <th rowSpan={2} className='practice-time'>Thời gian</th>
                         <th rowSpan={2} className='practice-yard'>Thực hành trên sân tập</th>
                         <th rowSpan={2} className='practice-cabin'>Thực hành trên cabin</th>
-                        <th rowSpan={1} colSpan={3} className='practice-trafficLight'>Thực hành trên đường giao thông (DAT)</th>
+                        <th rowSpan={1} colSpan={3} className='practice-tLight'>Thực hành trên đường giao thông (DAT)</th>
                         <th rowSpan={2} className='practice-note'>Ghi chú</th>
                     </tr>
                     <tr>
-                        <th colSpan={1}>Các ngày học</th>
-                        <th colSpan={1}>Ngày ca đêm</th>
-                        <th colSpan={1}>Ngày ca sáng</th>
+                        <th className='practice-tLight-sub' colSpan={1}>Các ngày học</th>
+                        <th className='practice-tLight-sub' colSpan={1}>Ngày ca đêm</th>
+                        <th className='practice-tLight-sub' colSpan={1}>Ngày ca sáng</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
+                        <td>Thứ hai hàng tuần</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Thứ ba hàng tuần</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
                         <td>Thứ tư hàng tuần</td>
                         <td>1</td>
                         <td>1</td>
@@ -51,15 +69,23 @@ function PracticeSchedule() {
                         <td>1</td>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>Thứ tư hàng tuần</td>
+                        <td>4</td>
+                        <td>Thứ năm hàng tuần</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
                     </tr>
-                    
+                    <tr>
+                        <td>5</td>
+                        <td>Thứ sáu hàng tuần</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

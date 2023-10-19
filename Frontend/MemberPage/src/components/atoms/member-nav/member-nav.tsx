@@ -62,11 +62,6 @@ function MemberNav() {
                                     </Forward>
                                 </li>
                                 <li className='receive-border'>
-                                    <Forward to='/lich-hoc'>
-                                        Lịch học
-                                    </Forward>
-                                </li>
-                                <li className='receive-border'>
                                     <Forward to=''>
                                         Hồ sơ thi
                                     </Forward>
