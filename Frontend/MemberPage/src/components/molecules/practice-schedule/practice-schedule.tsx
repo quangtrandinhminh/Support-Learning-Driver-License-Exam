@@ -10,7 +10,7 @@ function PracticeSchedule() {
                     <br />
                     Xe số: 51A-012xx (Hạn TL: dd/mm/yyyy)
                     <br />
-                    Xe tự động: 51A-267.xx (Hạn TL: dd/mm/yyyy)
+                    Xe tự động: 51A-267xx (Hạn TL: dd/mm/yyyy)
                 </h2>
             </div>
             <div className='practice-information'>
@@ -44,46 +44,18 @@ function PracticeSchedule() {
                     <tr>
                         <td>1</td>
                         <td>Thứ hai hàng tuần</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Thứ ba hàng tuần</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Thứ tư hàng tuần</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Thứ năm hàng tuần</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Thứ sáu hàng tuần</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>
+                            Thứ hai
+                            13h10 - 14h40
+                            và 15h00 - 16h30
+                            07/08/2023
+                        </td>
+                        <td>
+                            Thứ năm các ngày
+                            12, 13, 14, 15, 16, 17/08/2023
+                        </td>
+                        <td>dd/mm/yyyy, dd/mm/yyyy</td>
+                        <td>dd/mm/yyyy</td>
                         <td>1</td>
                     </tr>
                 </tbody>
