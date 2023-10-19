@@ -2,6 +2,21 @@
   "users": [
     {
       "id": 1
+    },
+    {
+      "name": "Nguyễn Thanh Phong",
+      "dob": "2003-09-21",
+      "gender": "nam",
+      "nationality": "Việt Nam",
+      "nation": "Kinh",
+      "residenceAddress": "136/7 Lê Thánh Tôn, Phường Bến Thành, Quận 1",
+      "tempoAddress": "136/7 lê thánh tôn",
+      "cccdNo": "079203011769",
+      "providedCardDate": "2003-09-21",
+      "providedCadLocation": "Hồ Chí Minh",
+      "phoneNo": "0938555758",
+      "email": "phongntse171371@fpt.edu.vn",
+      "id": 2
     }
   ]
 }

@@ -64,11 +64,6 @@ function MemberNavHome() {
                                 </li>
                                 <li className='receive-border'>
                                     <Forward to=''>
-                                        Lịch học
-                                    </Forward>
-                                </li>
-                                <li className='receive-border'>
-                                    <Forward to=''>
                                         Hồ sơ thi
                                     </Forward>
                                 </li>
