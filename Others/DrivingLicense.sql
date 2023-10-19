@@ -101,6 +101,7 @@ CREATE TABLE [dbo].[Course](
   [endDate] DATE NOT NULL,
   [numberOfStudents] INT NULL,
   [limitStudent] INT NOT NULL,
+  [courseMonth] INT NOT NULL,
   CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED 
   (
     [courseID] ASC
