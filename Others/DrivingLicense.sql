@@ -1,7 +1,7 @@
 USE [master]
 GO 
 
-/--Run from master to here to drop db--/
+/* Run from master to here to drop db */
 /* DROP DATABASE [DrivingLicense] */
 
 CREATE DATABASE [DrivingLicense] 
@@ -301,7 +301,7 @@ CREATE TABLE [dbo].[TestQuestion](
   CONSTRAINT [FK_TestQuestion_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID])
 )ON [PRIMARY]
 GO
-/-- Add data: Role -- 16/10/2023/ ---/
+/* Add data: Role -- 16/10/2023/ */
 SET IDENTITY_INSERT [dbo].[Role] ON 
 GO
 INSERT [dbo].[Role] ([roleID], [roleName]) VALUES (1, 'Administrator');
@@ -314,7 +314,7 @@ INSERT [dbo].[Role] ([roleID], [roleName]) VALUES (4, 'Member');
 GO
 SET IDENTITY_INSERT [dbo].[Role] OFF
 GO
-/-- Add data: User -- 16/10/2023/ ---/
+/* Add data: User -- 16/10/2023/ */
 SET IDENTITY_INSERT [dbo].[User] ON
 GO
 INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [phone], [createTime], [roleID], [status]) 
