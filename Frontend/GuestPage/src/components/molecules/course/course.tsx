@@ -1,6 +1,8 @@
 import './course.scss'
+import { Link } from 'react-router-dom'
 
 function Course() {
+
     return (
         <div className='course-container' id='course-section'>
             <h1>Các khóa học</h1>
@@ -20,7 +22,9 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="">Xem khóa học</a>
+                        <Link to='/khoahoc'>
+                            <a href="">Xem khóa học</a>
+                        </Link>
                     </div>
                 </div>
 
@@ -39,7 +43,9 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="">Xem khóa học</a>
+                        <Link to='/khoahoc'>
+                            <a href="">Xem khóa học</a>
+                        </Link>
                     </div>
                 </div>
 
@@ -58,7 +64,9 @@ function Course() {
                         </div>
                     </div>
                     <div className='underbox'>
-                        <a href="">Xem khóa học</a>
+                        <Link to='/khoahoc'>
+                            <a href="">Xem khóa học</a>
+                        </Link>
                     </div>
                 </div>
             </div>

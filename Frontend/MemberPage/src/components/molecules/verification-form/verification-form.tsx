@@ -2,12 +2,13 @@ import { useState } from 'react'
 import './verification-form.scss'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { TRUE } from 'sass';
 
 function VerificationForm() {
   const [inputData, setInputData] = useState({
     name: '',
     dob: '',
-    gender: '',
+    gender: 'nam',
     nationality: '',
     nation: '',
     residenceAddress: '',
@@ -50,7 +51,7 @@ function VerificationForm() {
               <div className='gender-container'>
                 <div className='male'>
                   <label htmlFor="gender">Nam:</label>
-                  <input type="radio" name="gender" value={'nam'} checked={true} className='gender-input'
+                  <input type="radio" name="gender" value={'nam'} checked className='gender-input'
                     onChange={e => setInputData({ ...inputData, gender: e.target.value })} />
                 </div>
                 <div className='female'>

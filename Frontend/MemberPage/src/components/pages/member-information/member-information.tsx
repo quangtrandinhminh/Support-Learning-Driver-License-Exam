@@ -2,7 +2,7 @@ import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
 import MemberInformationTemplate from '../../templates/member-information-template/member-information-template'
 
-function MemberInformation() {
+function MemberInformationPage() {
     return (
         <>
             <header>
@@ -20,4 +20,4 @@ function MemberInformation() {
     )
 }
 
-export default MemberInformation
+export default MemberInformationPage
