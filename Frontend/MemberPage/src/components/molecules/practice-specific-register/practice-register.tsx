@@ -1,10 +1,23 @@
-import './practice-schedule.scss'
+import React from 'react'
+import './practice-register.scss'
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
-function PracticeSchedule() {
+function PracticeSpecificRegister() {
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+        toast.success("Đăng ký thành công");
+        navigate('/khoa-hoc-cua-ban');
+    }
+
     return (
-        <div className='practice-schedule-container'>
+        <div className='practice-register-container'>
             <div className='title-container'>
-                <h1 className='practice-container-title'>Lịch học thực hành</h1>
+                <h1 className='practice-container-title'>Đăng ký lịch học thực hành</h1>
                 <h2 className='practice-container-subtitle'>
                     Giáo viên: Nguyễn Văn A
                     <br />
@@ -13,19 +26,20 @@ function PracticeSchedule() {
                     Xe tự động: 51A-267xx (Hạn TL: dd/mm/yyyy)
                 </h2>
             </div>
-            <div className='practice-schedule-body'><div className='practice-information'>
-                <div className='practice-date-expected'>
-                    Thời gian từ ... đến ...:
-                    <div className='practice-session'>
-                        <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
-                        <p className='evening-schedule'>Ca học đêm từ 18h00 đến 20h00</p>
+            <div className="practice-register-body">
+                <div className='practice-information'>
+                    <div className='practice-date-expected'>
+                        Thời gian từ ... đến ...:
+                        <div className='practice-session'>
+                            <p className='afternoon-register'>Ca học chiều từ 13h00 - 17h00</p>
+                            <p className='evening-register'>Ca học đêm từ 18h00 đến 20h00</p>
+                        </div>
                     </div>
+                    <p className='practice-street-verify'>
+                        Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
+                    </p>
                 </div>
-                <p className='practice-street-verify'>
-                    Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
-                </p>
-            </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <thead>
                         <tr>
                             <th rowSpan={2} className='practice-time'>Thời gian</th>
@@ -59,10 +73,11 @@ function PracticeSchedule() {
                             <td>1</td>
                         </tr>
                     </tbody>
+                    <button className='register-btn'>Đăng ký</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default PracticeSchedule
+export default PracticeSpecificRegister

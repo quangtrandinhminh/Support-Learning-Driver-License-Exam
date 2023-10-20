@@ -1,6 +1,6 @@
 import PracticeList from "../../molecules/practice-list-table/practice-list-table"
 
-function PracticeListTemplate() {
+function PracticeRegisterTemplate() {
     return (
         <>
             <PracticeList />
@@ -8,4 +8,4 @@ function PracticeListTemplate() {
     )
 }
 
-export default PracticeListTemplate
+export default PracticeRegisterTemplate
