@@ -38,7 +38,7 @@ function GuestNavHome() {
                         </div>
                         <div className='nav-home-items'>
                             <li className='inline-block'>
-                                <a href="">Đăng kí</a>
+                                <a href="">Đăng ký</a>
                             </li>
                         </div>
                     </ul>

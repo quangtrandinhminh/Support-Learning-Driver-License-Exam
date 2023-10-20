@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './guest-nav-course.scss'
 
 function GuestNavCourse() {
@@ -7,22 +8,28 @@ function GuestNavCourse() {
                 <nav>
                     <ul>
                         <div className='nav-course-items'>
+                            <Link to='/'>
                                 <img src='./res/imgs/logo.png' alt='logo-img' className='logo-home' />
+                            </Link>
                         </div>
                         <div className='nav-course-items'>
-                                <li className='inline-block'>
+                            <li className='inline-block'>
+                                <Link to='/'>
                                     <a href="">Trang chủ</a>
-                                </li>
+                                </Link>
+                            </li>
                         </div>
                         <div className='nav-course-items'>
-                                <li className='inline-block'>
-                                    <a href="">Khóa học</a>
-                                </li> 
+                            <li className='inline-block'>
+                                <a href="">Khóa học</a>
+                            </li>
                         </div>
-                        <div className='nav-course-items'>                           
-                                <li className='inline-block'>
+                        <div className='nav-course-items'>
+                            <li className='inline-block'>
+                                <Link to='/'>
                                     <a href="">Tư vấn</a>
-                                </li>
+                                </Link>
+                            </li>
                         </div>
                         <div className='nav-course-items'>
                             <li className='inline-block'>
