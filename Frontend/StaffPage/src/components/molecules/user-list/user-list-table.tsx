@@ -13,9 +13,35 @@ function UserListTable() {
             });
     }
 
+    //paganition part
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordPage = 9;
+    const lastIndex = currentPage * recordPage;
+    const firsIndex = lastIndex - recordPage;
+    const records = data.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(data.length / recordPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1)
+
     useEffect(() => {
         getAllUser();
     }, [])
+
+    const prePage = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const changeCPage = (id: number) => {
+        setCurrentPage(id);
+    }
+
+    const nextPage = () => {
+        if (currentPage !== npage) {
+            setCurrentPage(currentPage + 1);
+        }
+        console.log(npage);
+    }
 
     return (
         <div className='user-table-container'>
@@ -23,7 +49,7 @@ function UserListTable() {
                 <h1>Danh sách người dùng</h1>
             </div>
             <div className='user-table-content'>
-                <table className='table table-striped' border={1}>
+                <table className='table table-hover   table-striped' border={1}>
                     <thead>
                         <tr>
                             <th scope='col'>ID</th>
@@ -32,9 +58,9 @@ function UserListTable() {
                             <th scope='col'>roleID</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='table-group-divider align-bottom'>
                         {
-                            data.map((user, i: number = 1) => (
+                            records.map((user, i: number = 1) => (
                                 <tr key={i}>
                                     <td>{user.userID}</td>
                                     <td>{user.fullName}</td>
@@ -45,6 +71,26 @@ function UserListTable() {
                         }
                     </tbody>
                 </table>
+                <nav>
+                    <ul className='pagination'>
+                        <li className='page-item'>
+                            <a href="#" className='page-link'
+                                onClick={prePage}>Prev</a>
+                        </li>
+                        {
+                            numbers.map((n, i) => (
+                                <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                                    <a href="#" className='page-link'
+                                        onClick={() => changeCPage(n) }>{n}</a>
+                                </li>
+                            ))
+                        }
+                        <li className='page-item'>
+                            <a href="#" className='page-link'
+                                onClick={nextPage}>Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     )
