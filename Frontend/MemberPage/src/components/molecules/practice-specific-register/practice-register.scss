@@ -1,4 +1,4 @@
-.practice-schedule-container {
+.practice-register-container {
     display: flex;
     align-items: center;
     justify-self: center;
@@ -20,10 +20,12 @@
 
     }
 
-    .practice-schedule-body {
+    .practice-register-body {
+
         .practice-information {
             margin: auto;
             width: 90%;
+            align-self: flex-start;
             margin-top: 50px;
             font-size: 20px;
 
@@ -33,7 +35,7 @@
                 .practice-session {
                     margin-left: 10px;
 
-                    .evening-schedule {
+                    .evening-register {
                         margin-top: 5px;
                     }
                 }
@@ -47,6 +49,7 @@
 
         form {
             width: 90%;
+            align-self: center;
             margin: auto;
             font-size: 20px;
             margin-top: 30px;
@@ -87,6 +90,25 @@
             tbody {
                 td {
                     padding: 8px;
+                }
+            }
+
+            .register-btn {
+                margin: auto;
+                width: 100px;
+                background-color: #3D88DE;
+                border-radius: 10px;
+                display: block;
+                padding: 10px;
+                text-decoration: none;
+                color: white;
+                border: none;
+                font-size: 16px;
+                margin-top: 50px;
+
+                &:hover {
+                    cursor: pointer;
+                    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
                 }
             }
         }

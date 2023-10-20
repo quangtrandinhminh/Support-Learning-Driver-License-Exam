@@ -1,9 +1,9 @@
-import PracticeSchedule from "../../molecules/practice-schedule/practice-schedule"
+import PracticeSpecificRegister from "../../molecules/practice-specific-register/practice-register"
 
 function PracticeSpecificTemplate() {
     return (
         <>
-            <PracticeSchedule />
+            <PracticeSpecificRegister />
         </>
     )
 }

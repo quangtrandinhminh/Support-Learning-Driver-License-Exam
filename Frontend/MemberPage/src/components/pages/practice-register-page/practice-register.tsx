@@ -1,15 +1,15 @@
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
-import PracticeListTemplate from '../../templates/practice-list-template/practice-list'
+import PracticeRegisterTemplate from '../../templates/practice-register-template/practice-list'
 
-function PracticeListPage() {
+function PracticeRegisterPage() {
     return (
         <>
             <header>
                 <MemberHeader />
             </header>
             <body>
-                <PracticeListTemplate />
+                <PracticeRegisterTemplate />
             </body>
             <footer>
                 <MemberFooter />
@@ -18,4 +18,4 @@ function PracticeListPage() {
     )
 }
 
-export default PracticeListPage
+export default PracticeRegisterPage

@@ -12,6 +12,7 @@ function PracticeList() {
                     <tr>
                         <th className='course-no'>STT</th>
                         <th className='course-mentor'>Giảng viên</th>
+                        <th className='course-course'>Khoá</th>
                         <th className='course-schedule'>Lịch dạy của giáo viên</th>
                     </tr>
                 </thead>
@@ -19,6 +20,7 @@ function PracticeList() {
                     <tr>
                         <td className='course-no-content'>1</td>
                         <td className='course-mentor-content'>Nguyễn Văn A</td>
+                        <td className='course-course-name'>XXB2</td>
                         <td className='course-schedule-content'>
                             <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>
@@ -26,6 +28,7 @@ function PracticeList() {
                     <tr>
                         <td className='course-no-content'>2</td>
                         <td className='course-mentor-content'>Nguyễn Văn B</td>
+                        <td className='course-course-name'>XXB2</td>
                         <td className='course-schedule-content'>
                             <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>
@@ -33,6 +36,7 @@ function PracticeList() {
                     <tr>
                         <td className='course-no-content'>3</td>
                         <td className='course-mentor-content'>Nguyễn Văn C</td>
+                        <td className='course-course-name'>XXB2</td>
                         <td className='course-schedule-content'>
                             <Link to='/danh-sach-khoa-hoc/khoa-hoc/:id-khoa-hoc'>Xem chi tiết</Link>
                         </td>

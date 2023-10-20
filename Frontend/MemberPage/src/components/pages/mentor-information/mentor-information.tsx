@@ -1,5 +1,6 @@
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
+import MentorInformationTemplate from '../../templates/mentor-inf-template/mentor-inf'
 
 function MentorInformationPage() {
     return (
@@ -8,7 +9,7 @@ function MentorInformationPage() {
                 <MemberHeader />
             </header>
             <body>
-
+                <MentorInformationTemplate />
             </body>
             <footer>
                 <MemberFooter />
