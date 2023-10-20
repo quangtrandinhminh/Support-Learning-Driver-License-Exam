@@ -12,17 +12,19 @@ import PracticeSpecificPage from './components/pages/practice-specific-page/prac
 import PracticeSchedulePage from './components/pages/practice-schedule/practice-schedule';
 import PracticeRegisterPage from './components/pages/practice-register-page/practice-register';
 import 'react-toastify/ReactToastify.css';
-import { ToastContainer } from 'react-toastify'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 function App() {
   return (
     <div>
-      <ToastContainer 
-      pauseOnHover={false}
-      position='top-right'
-      limit={3}
-      autoClose={2000} 
-      className='toast-notify' />
+      <ToastContainer
+        pauseOnHover={false}
+        position='top-right'
+        limit={3}
+        autoClose={2000}
+        className='toast-notify'
+        transition={Bounce} 
+        newestOnTop />
       <Routes>
         <Route path='/' element={<MemberHomePage />} />
         <Route path='/khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
