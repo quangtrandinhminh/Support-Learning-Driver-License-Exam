@@ -47,6 +47,8 @@ CREATE TABLE [dbo].[Member](
   [gender] CHAR(6) NOT NULL,
   [nationality] VARCHAR(50) NOT NULL,
   [residenceAddress] VARCHAR(255) NOT NULL,
+  [identityCardNumber] VARCHAR(20) NULL,
+  [passport] VARCHAR(20) NULL,
   [cardProvidedDate] DATE NOT NULL,
   [cardProvidedLocation] VARCHAR(255) NOT NULL,
   [drivingLicenseNumber] VARCHAR(20) NULL,
@@ -54,11 +56,10 @@ CREATE TABLE [dbo].[Member](
   [drivingLicenseProvider] VARCHAR(255) NULL,
   [drivingLicenseProvidedDate] DATE NULL,
   [drivingTestTier] VARCHAR(5) NULL,
-  [integratedDrivingLicense] VARCHAR(5) NULL,
-  [revokedDrivingLicense] VARCHAR(20) NULL,
+  [integratedDrivingLicense] BIT NULL,
+  [revokedDrivingLicense] BIT NULL,
   [relatedDocument] VARCHAR(255) NULL,
   [registrationDate] DATE NOT NULL,
-  [status] BIT NOT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -66,20 +67,14 @@ CREATE TABLE [dbo].[Member](
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Member_User] FOREIGN KEY ([userID]) REFERENCES [dbo].[User] ([userID]),
   CONSTRAINT [UC_Member_User] UNIQUE ([userID]),
-  CONSTRAINT [UC_DrivingLicenseNumber] UNIQUE ([drivingLicenseNumber]),
-  CONSTRAINT [UC_DrivingLicenseTier] UNIQUE ([drivingLicenseTier]),
-  CONSTRAINT [UC_DrivingTestTier] UNIQUE ([drivingTestTier]),
-  CONSTRAINT [UC_IntegratedDrivingLicense] UNIQUE ([integratedDrivingLicense]),
-  CONSTRAINT [UC_RevokedDrivingLicense] UNIQUE ([revokedDrivingLicense])
+  CONSTRAINT [UC_IdentityCardNumber] UNIQUE ([IdentityCardNumber]),
+  CONSTRAINT [UC_Passport] UNIQUE ([Passport]),
+  CONSTRAINT [UC_DrivingLicenseNumber] UNIQUE ([drivingLicenseNumber])
 )ON [PRIMARY]
 GO
 
 CREATE TABLE [dbo].[Mentor](
   [mentorID] INT IDENTITY(1,1),
-  [name] NVARCHAR(50) NOT NULL,
-  [phone] CHAR(10) NOT NULL,
-  [email] VARCHAR(50) NOT NULL,
-  [password] VARCHAR(50) NOT NULL,
   [residenceAddress] NVARCHAR(255) NOT NULL,
   [status] BIT NOT NULL,
   [userID] INT NOT NULL
@@ -89,18 +84,19 @@ CREATE TABLE [dbo].[Mentor](
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Mentor_User] FOREIGN KEY ([userID]) REFERENCES [dbo].[User] ([userID]),
   CONSTRAINT [UC_Mentor_User] UNIQUE ([userID]),
-  CONSTRAINT [UC_MentorPhone] UNIQUE ([phone]),
-  CONSTRAINT [UC_MentorEmail] UNIQUE ([email])
 )ON [PRIMARY]
 GO
 
 CREATE TABLE [dbo].[Course](
   [courseID] VARCHAR(10) NOT NULL,
   [name] NVARCHAR(500) NOT NULL,
-  [startDate] DATE NOT NULL,
-  [endDate] DATE NOT NULL,
+  [duration] INT NOT NULL,
+  [startDate] DATE NULL,
+  [endDate] DATE NULL,
   [numberOfStudents] INT NULL,
   [limitStudent] INT NOT NULL,
+  [createTime] DATETIME NOT NULL,
+  [status] BIT NOT NULL,
   CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED 
   (
     [courseID] ASC
@@ -110,11 +106,6 @@ GO
 
 CREATE TABLE [dbo].[Staff](
   [staffID] INT IDENTITY(1,1),
-  [name] NVARCHAR(50) NOT NULL,
-  [email] VARCHAR(50) NULL,
-  [password] VARCHAR(50) NOT NULL,
-  [isAdmin] BIT NOT NULL,
-  [status] INT NOT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Staff] PRIMARY KEY CLUSTERED 
   (
@@ -122,7 +113,6 @@ CREATE TABLE [dbo].[Staff](
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Staff_User] FOREIGN KEY ([userID]) REFERENCES [dbo].[User] ([userID]),
   CONSTRAINT [UC_Staff_User] UNIQUE ([userID]),
-  CONSTRAINT [UC_StaffEmail] UNIQUE ([email])
 )ON [PRIMARY]
 GO
 
@@ -216,11 +206,14 @@ GO
 
 CREATE TABLE [dbo].[Exam](
   [examID] INT IDENTITY(1,1),
-  [description] NVARCHAR(MAX) NOT NULL,
+  [examName] NVARCHAR(MAX) NOT NULL,
+  [description] NVARCHAR(MAX) NULL,
+  [duration] INT NOT NULL,
+  [courseID] VARCHAR(10) NOT NULL,
   [limitQuestion] INT NOT NULL,
   [limitKeyQuestion] INT NOT NULL,
+  [password] VARCHAR(50) NOT NULL,
   [createdTime] DATETIME NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
   [staffID] INT NOT NULL,
   CONSTRAINT [PK_Exam] PRIMARY KEY CLUSTERED 
   (
