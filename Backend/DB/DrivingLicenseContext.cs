@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Backend.DB.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.DB;
+namespace Backend.DB.Models;
 
 public partial class DrivingLicenseContext : DbContext
 {
@@ -120,6 +119,7 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.StartDate)
                 .HasColumnType("date")
                 .HasColumnName("startDate");
+            entity.Property(e => e.Status).HasColumnName("status");
         });
 
         modelBuilder.Entity<Exam>(entity =>
@@ -299,7 +299,7 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("residenceAddress_");
+                .HasColumnName("residenceAddress");
             entity.Property(e => e.RevokedDrivingLicense)
                 .HasMaxLength(20)
                 .IsUnicode(false)

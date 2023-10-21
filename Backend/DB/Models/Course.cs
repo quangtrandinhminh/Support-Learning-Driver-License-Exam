@@ -17,6 +17,8 @@ public partial class Course
 
     public int LimitStudent { get; set; }
 
+    public bool Status { get; set; }
+
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
     public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
