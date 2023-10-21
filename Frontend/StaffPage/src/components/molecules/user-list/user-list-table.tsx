@@ -59,7 +59,7 @@ function UserListTable() {
                         </tr>
                     </thead>
                     <tbody className='table-group-divider align-bottom'>
-                        {
+                        {records.length > 0 ? (
                             records.map((user, i: number = 1) => (
                                 <tr key={i}>
                                     <td>{user.userID}</td>
@@ -68,6 +68,13 @@ function UserListTable() {
                                     <td className='text-left'>{user.roleId}</td>
                                 </tr>
                             ))
+                        ) : (
+                            <tr>
+                                <td colSpan={4}>
+                                    <h1 className='text-center text-red-600 p-5'>No data found. Check data source again</h1>
+                                </td>
+                            </tr>
+                        )
                         }
                     </tbody>
                 </table>
@@ -81,7 +88,7 @@ function UserListTable() {
                             numbers.map((n, i) => (
                                 <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
                                     <a href="#" className='page-link'
-                                        onClick={() => changeCPage(n) }>{n}</a>
+                                        onClick={() => changeCPage(n)}>{n}</a>
                                 </li>
                             ))
                         }

@@ -12,6 +12,7 @@ function CourseTable() {
     return (
         <>
             <div className='course-table-container' id='course-nav'>
+                <h1 className='text-center course-title'>Thông tin khoá học</h1>
                 <div className='course-table'>
                     <form onSubmit={handleSubmit}>
                         <table>
