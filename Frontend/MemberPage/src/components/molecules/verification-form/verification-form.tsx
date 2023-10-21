@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './verification-form.scss'
-import axios from 'axios';
+// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { TRUE } from 'sass';
+import {toast} from 'react-toastify'
 
 function VerificationForm() {
   const [inputData, setInputData] = useState({
@@ -22,13 +22,16 @@ function VerificationForm() {
 
   const navigation = useNavigate();
 
-  function handleSubmit(e: void) {
-    axios.post('http://localhost:3000/users', inputData)
-      .then(res => {
-        alert('Success, view db.json file to see information');
-        window.scrollTo(0, 0);
-        navigation('/khoa-hoc-cua-ban');
-      })
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    // axios.post('http://localhost:3000/users', inputData)
+    //   .then(res => {
+    //     console.log(res);
+    //     alert('Success, view db.json file to see information');
+    //     window.scrollTo(0, 0);
+    toast.success("Bạn đã đăng ký khoá học {tên khoá học} thành công"); 
+    navigation('/khoa-hoc-cua-ban');
+    //   })
   }
 
   return (
@@ -36,7 +39,7 @@ function VerificationForm() {
       <h3 className='form-title'>Các thông tin sau được dùng để hoàn tất hồ sơ thi. Học viên vui lòng điền đầy đủ và chính xác!</h3>
       <div className="form-container">
         <div className="form-content">
-          <form className='verification-form' action='post' onSubmit={e => handleSubmit(e.preventDefault())}>
+          <form className='verification-form' action='post' onSubmit={handleSubmit}>
             <li>
               <label htmlFor="name">Họ và tên:</label>
               <input type="text" name='name' id=''
@@ -85,7 +88,7 @@ function VerificationForm() {
             </li>
             <li>
               <label htmlFor="residenceAddress">Nơi đăng ký hộ khẩu thường trú:</label>
-              <input type="text" name="residenceAddress" className='residence-input' 
+              <input type="text" name="residenceAddress" className='residence-input'
                 onChange={e => setInputData({ ...inputData, residenceAddress: e.target.value })} />
             </li>
             <li>

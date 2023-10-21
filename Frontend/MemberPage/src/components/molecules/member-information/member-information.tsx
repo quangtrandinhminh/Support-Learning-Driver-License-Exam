@@ -12,7 +12,7 @@ function MemberInformationForm() {
             <h1 className='member-information-title'>Thông tin cá nhân</h1>
             <div className='member-information-content'>
                 <div className='member-avatar'>
-                    <img src={MemberImg} alt="" />
+                    <img src={MemberImg} alt="hinh-anh-giang-vien" />
                 </div>
                 <table>
                     <li>

@@ -1,4 +1,3 @@
-import React from 'react'
 import UpdateInformationForm from '../../molecules/update-form/update-form'
 
 function UpdateInformationTemplate() {

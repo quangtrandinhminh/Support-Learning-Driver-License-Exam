@@ -1,3 +1,4 @@
+// src/components/atoms/Icon.tsx
 import React from 'react';
 
 interface IconProps {
@@ -5,6 +6,7 @@ interface IconProps {
 }
 
 const Icon: React.FC<IconProps> = ({ iconType }) => {
+  // Đường dẫn đến thư mục chứa hình ảnh (tương đối từ thư mục public)
   const basePath = '/images';
 
   let iconSrc = '';

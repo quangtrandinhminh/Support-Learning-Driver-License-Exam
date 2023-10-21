@@ -1,3 +1,4 @@
+// src/components/atoms/Logo.tsx
 import React from 'react';
 
 interface LogoProps {

@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Sử dụng useNavigate để điều hướng
+import { useNavigate } from "react-router-dom";
 import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
-import { User, fetchData } from "../../services/dataFetcher";
+import axios from "axios"; // Import axios
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,7 +17,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate(); // Sử dụng useNavigate để điều hướng
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -34,34 +34,33 @@ const LoginForm: React.FC<LoginFormProps> = ({
     }
 
     try {
-      // Sử dụng fetchData để tải dữ liệu từ tệp JSON
-      const data = await fetchData<{ users: User[] }>("../../../public/data.json");
+      // Sử dụng axios để tải dữ liệu từ tệp JSON
+      const response = await axios.get("../../../public/data.json");
 
-      // Kiểm tra nếu data không phải là mảng hoặc mảng rỗng
-      if (!Array.isArray(data.users) || data.users.length === 0) {
-        toast.error("No user data found.");
-        return;
-      }
+      if (response.status === 200) {
+        const data = response.data;
+        const user = data.users.find(
+          (user: { username: string; password: string; }) =>
+            user.username === username &&
+            user.password === password
+        );
 
-      const user = data.users.find(
-        (user) =>
-          user.username === username &&
-          user.password === password
-      );
-
-      if (user) {
-        if (user.role === "admin") {
-          toast.success("Welcome admin");
-             navigate("/adminPage"); // Điều hướng đến trang adminPage
-        } else if (user.role === "staff") {
-          toast.success("Welcome staff");
-            navigate("/staffPage"); // Điều hướng đến trang staffPage
+        if (user) {
+          if (user.role === "admin") {
+            toast.success("Welcome admin");
+            navigate("/adminPage");
+          } else if (user.role === "staff") {
+            toast.success("Welcome staff");
+            navigate("/staffPage");
+          } else {
+            toast.success("Hello user");
+            navigate("/userPage");
+          }
         } else {
-          toast.success("Hello user");
-            navigate("/userPage"); // Điều hướng đến trang userPage
+          toast.error("Invalid username or password");
         }
       } else {
-        toast.error("Invalid username or password");
+        toast.error("Failed to load user data.");
       }
     } catch (error) {
       console.error(error);
@@ -70,7 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   };
 
   const handleRegister = () => {
-    navigate("/register"); // Điều hướng đến trang đăng ký
+    navigate("/register");
   };
 
   return (
@@ -79,14 +78,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
       <div className="rectangle-border">
         <InputField
           type="text"
-          placeholder={`Nhập tên đăng nhập`}
+          placeholder="Nhập tên đăng nhập"
           value={username}
           onChange={handleUsernameChange}
           iconType={usernameIconType}
         />
         <InputField
           type="password"
-          placeholder={`Nhập mật khẩu của bạn`}
+          placeholder="Nhập mật khẩu của bạn"
           value={password}
           onChange={handlePasswordChange}
           iconType={passwordIconType}

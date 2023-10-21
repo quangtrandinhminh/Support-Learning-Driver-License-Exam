@@ -12,6 +12,8 @@
         text-align: center;
         margin-top: 40px;
         border-collapse: collapse;
+        font-size: 20px;
+        height: 400px;
 
         td,
         th {
@@ -25,6 +27,14 @@
             }
 
             .course-mentor {
+                width: 250px;
+            }
+
+            .course-schedule {
+                width: 300px;
+            }
+
+            .course-course {
                 width: 200px;
             }
         }

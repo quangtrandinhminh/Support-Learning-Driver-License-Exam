@@ -8,19 +8,21 @@
     .footer-information {
         grid-column: 1;
         justify-self: center;
-        color: white;
+        color: white;   
 
         h1 {
-            // padding-top: 40px;
+            padding-top: 40px;
             text-align: center;
-            width: 550px;
-            font-size: 40px;
+            width: 75%;
+            font-size: 30px;
+            margin: auto;
         }
 
         ul {
+            margin: auto;
             margin-top: 25px;
             padding-left: 50px;
-            max-width: 450px;
+            max-width: 460px;
         }
 
         li {

@@ -5,6 +5,11 @@
     /* Center vertically */
     align-items: center;
 
+    .course-title {
+        text-transform: uppercase;
+        text-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+    }
+
     .course-information {
         text-transform: uppercase;
         text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
