@@ -23,7 +23,7 @@ function App() {
         limit={3}
         autoClose={2000}
         className='toast-notify'
-        transition={Bounce} 
+        transition={Bounce}
         newestOnTop />
       <Routes>
         <Route path='/' element={<MemberHomePage />} />
