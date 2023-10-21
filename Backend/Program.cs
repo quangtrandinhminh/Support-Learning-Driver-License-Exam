@@ -1,4 +1,5 @@
 using Backend.DB;
+using Backend.DB.Models;
 using Backend.Repository.CourseRepository;
 using Backend.Repository.NewsRepository;
 using Backend.Services.Course;
