@@ -31,6 +31,7 @@ function PracticeSpecificRegister() {
                     <div className='practice-date-expected'>
                         Thời gian từ ... đến ...:
                         <div className='practice-session'>
+                            <p className='morning-register'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-register'>Ca học chiều từ 13h00 - 17h00</p>
                             <p className='evening-register'>Ca học đêm từ 18h00 đến 20h00</p>
                         </div>
@@ -42,7 +43,7 @@ function PracticeSpecificRegister() {
                 <form onSubmit={handleSubmit}>
                     <thead>
                         <tr>
-                            <th rowSpan={2} className='practice-time'>Thời gian</th>
+                            <th rowSpan={2} className='practice-time'>Ca học</th>
                             <th rowSpan={2} className='practice-yard'>Thực hành trên sân tập</th>
                             <th rowSpan={2} className='practice-cabin'>Thực hành trên cabin</th>
                             <th rowSpan={1} colSpan={3} className='practice-tLight'>Thực hành trên đường giao thông (DAT)</th>
@@ -56,7 +57,7 @@ function PracticeSpecificRegister() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
+                            <td>Sáng</td>
                             <td>Thứ hai hàng tuần</td>
                             <td>
                                 Thứ hai
@@ -70,10 +71,34 @@ function PracticeSpecificRegister() {
                             </td>
                             <td>dd/mm/yyyy, dd/mm/yyyy</td>
                             <td>dd/mm/yyyy</td>
-                            <td>1</td>
+                            <td>
+                                <button className='register-btn'>Đăng ký</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Chiều</td>
+                            <td>Thứ hai hàng tuần</td>
+                            <td>
+                                Thứ hai
+                                13h10 - 14h40
+                                và 15h00 - 16h30
+                                07/08/2023
+                            </td>
+                            <td>
+                                Thứ năm các ngày
+                                12, 13, 14, 15, 16, 17/08/2023
+                            </td>
+                            <td>dd/mm/yyyy, dd/mm/yyyy</td>
+                            <td>dd/mm/yyyy</td>
+                            <td>
+                                <button className='register-btn'>Đăng ký</button>
+                            </td>
                         </tr>
                     </tbody>
-                    <button className='register-btn'>Đăng ký</button>
+
+                    <div className='practice-register-note'>
+                        <h2>Lưu ý: </h2>
+                    </div>
                 </form>
             </div>
         </div>

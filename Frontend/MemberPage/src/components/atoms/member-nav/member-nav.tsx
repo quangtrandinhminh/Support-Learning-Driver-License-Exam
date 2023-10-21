@@ -1,5 +1,5 @@
 import './member-nav.scss'
-import { Link as Forward } from 'react-router-dom'
+import { Link as Forward, useLocation } from 'react-router-dom'
 import MemberImg from '../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../assets/imgs/logo.png'
 
