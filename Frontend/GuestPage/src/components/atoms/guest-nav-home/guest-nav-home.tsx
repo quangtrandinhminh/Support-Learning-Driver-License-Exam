@@ -1,5 +1,6 @@
 import { Link } from 'react-scroll';
 import './guest-nav-home.scss'
+import { Link as Forward, Route, Routes } from 'react-router-dom'
 
 function GuestNavHome() {
     return (
@@ -32,9 +33,16 @@ function GuestNavHome() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng nhập</a>
-                            </li>
+                            <Routes>
+                                <Route path='/login' element={'/AuthorizationPage/src/App.tsx'}>
+                                    <Forward to='../../../../../AuthorizationPage/src/App.tsx' >
+                                    <li className='inline-block'>
+                                        <a href="">Đăng nhập</a>
+                                    </li>
+                                    </Forward>  
+                                </Route>
+                            </Routes>
+
                         </div>
                         <div className='nav-home-items'>
                             <li className='inline-block'>
