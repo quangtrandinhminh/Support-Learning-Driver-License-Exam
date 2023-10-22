@@ -5,10 +5,6 @@ import './course.scss';
 function Course() {
     const [numArray, setNumArray] = useState<string[]>([]);
 
-    function handleScroll() {
-        window.scrollTo(0, 0);
-    }
-
     const getCourseMonth = async () => {
         try {
             const response = await api.get('/Course');
@@ -51,14 +47,14 @@ function Course() {
                                     </div>
                                 </div>
                                 <div className='underbox'>
-                                    <a href={`/khoahoc/${month}`} onClick={handleScroll} type='submit'>Xem khoá học</a>
+                                    <a href={`/khoahoc/${month}`} type='submit'>Xem khoá học</a>
                                 </div>
                             </div>
                         </form>
 
                     ))
                 ) : (
-                    <h1>No data to display.</h1>
+                    <h1 className='text-center'>No data to display.</h1>
                 )}
             </div>
         </div >

@@ -48,7 +48,7 @@ function UserListTable() {
                 <h1>Danh sách người dùng</h1>
             </div>
             <div className='user-table-content'>
-                <table className='table table-hover   table-striped' border={1}>
+                <table className='table table-hover table-striped' border={1}>
                     <thead>
                         <tr>
                             <th scope='col'>ID</th>
