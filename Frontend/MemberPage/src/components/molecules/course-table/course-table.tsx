@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './course-table.scss'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 function CourseTable() {
+    const { month } = useParams();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         window.scrollTo(0, 0);
     }
+
+    useEffect(() => {
+        console.log(month);
+    }, [])
 
     return (
         <>
@@ -17,7 +22,7 @@ function CourseTable() {
                     <form onSubmit={handleSubmit}>
                         <table>
                             <caption className='table-title'>
-                                <h2>Các khoá học tháng 10</h2>
+                                <h2>Các khoá học tháng {month === "1" ? `${month}/2024` : `${month}/2023`}</h2>
                             </caption>
                             <tr className='content-title'>
                                 <th>Thứ tự</th>

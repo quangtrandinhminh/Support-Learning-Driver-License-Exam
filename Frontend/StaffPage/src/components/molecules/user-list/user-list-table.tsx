@@ -3,7 +3,6 @@ import './user-list-table.scss'
 import { useEffect, useState } from 'react';
 
 function UserListTable() {
-
     const [data, setData] = useState<any[]>([])
 
     const getAllUser = async () => {
@@ -75,7 +74,9 @@ function UserListTable() {
                         ) : (
                             <tr>
                                 <td colSpan={6}>
-                                    <h1 className='text-center text-red-600 p-5'>No data found. Check data source again</h1>
+                                    <h1 className='text-center text-red-600 p-5'>
+                                        Không tìm thấy thông tin. Vui lòng kiểm tra lại!
+                                    </h1>
                                 </td>
                             </tr>
                         )
