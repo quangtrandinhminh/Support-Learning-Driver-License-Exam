@@ -1,16 +1,16 @@
 import HomeTemplate from '../../templates/home/home-template'
-import StaffHeader from '../../organisms/header/header'
+import StaffSidebar from '../../organisms/header/header'
 
 function HomePage() {
   return (
-    <>
+    <div className='page-container'>
       <header>
-        <StaffHeader />
+        <StaffSidebar />
       </header>
       <body>
         <HomeTemplate />
       </body>
-    </>
+    </div>
   )
 }
 

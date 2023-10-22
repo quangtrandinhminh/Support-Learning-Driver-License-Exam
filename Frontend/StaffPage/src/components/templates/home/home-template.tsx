@@ -1,12 +1,11 @@
-import MemberManagement from '../../molecules/home-page/member-management'
 import '../template.scss'
 
-function HomeTemplate() {
+function Dashboard() {
     return (
         <div className="template-container-home">
-            <MemberManagement />
+
         </div>
     )
 }
 
-export default HomeTemplate
+export default Dashboard

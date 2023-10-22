@@ -7,7 +7,7 @@ function UserListTable() {
     const [data, setData] = useState<any[]>([])
 
     const getAllUser = async () => {
-        await axios.get('https://localhost:7238/api/User')
+        await axios.get('https://localhost:7240/Users')
             .then(res => {
                 setData(res.data)
             });
@@ -54,8 +54,10 @@ function UserListTable() {
                         <tr>
                             <th scope='col'>ID</th>
                             <th scope='col'>Name</th>
+                            <th scope='col'>Phone</th>
                             <th scope='col'>Email</th>
-                            <th scope='col'>roleID</th>
+                            <th scope='col' className='text-center'>Status</th>
+                            <th scope='col' className='text-center'>roleID</th>
                         </tr>
                     </thead>
                     <tbody className='table-group-divider align-bottom'>
@@ -64,13 +66,15 @@ function UserListTable() {
                                 <tr key={i}>
                                     <td>{user.userID}</td>
                                     <td>{user.fullName}</td>
+                                    <td>{user.phone}</td>
                                     <td>{user.email}</td>
-                                    <td className='text-left'>{user.roleId}</td>
+                                    <td className='text-center'>{user.status.toString()}</td>
+                                    <td className='text-center'>{user.roleId}</td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={4}>
+                                <td colSpan={6}>
                                     <h1 className='text-center text-red-600 p-5'>No data found. Check data source again</h1>
                                 </td>
                             </tr>
