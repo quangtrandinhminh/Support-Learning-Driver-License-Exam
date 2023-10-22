@@ -19,7 +19,7 @@ function GuestNavCourse() {
                                 </Link>
                             </li>
                         </div>
-                        <div className='nav-course-items'>
+                        <div className='nav-course-items-course' >
                             <li className='inline-block'>
                                 <a href="">Khóa học</a>
                             </li>
@@ -32,14 +32,18 @@ function GuestNavCourse() {
                             </li>
                         </div>
                         <div className='nav-course-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng nhập</a>
-                            </li>
+                            <Link to='/login'>
+                                <li className='inline-block'>
+                                    <a href="">Đăng nhập</a>
+                                </li>
+                            </Link>
                         </div>
                         <div className='nav-course-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng kí</a>
-                            </li>
+                            <Link to='/login'>
+                                <li className='inline-block'>
+                                    <a href="">Đăng kí</a>
+                                </li>
+                            </Link>
                         </div>
                     </ul>
                 </nav>
