@@ -1,5 +1,6 @@
 .course-container {
     margin-top: 100px;
+    height: auto;
 
     h1 {
         text-align: center;
@@ -9,17 +10,18 @@
 }
 
 .course-list {
-    margin-top: 50px;
     display: grid;
-    grid-template-columns: repeat(3, 0fr);
-    gap: 150px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 100px;
     justify-content: center;
     align-items: center;
+    margin: 0 80px;
+    margin-top: 50px;
+    height: auto;
 
     .course-section1 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
@@ -45,7 +47,6 @@
     .course-section2 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
@@ -71,7 +72,6 @@
     .course-section3 {
         position: relative;
         border: 2px solid black;
-        width: 420px;
         height: 560px;
         border-radius: 15px;
 
@@ -98,7 +98,7 @@
 
 .underbox a {
     text-transform: capitalize;
-    font-size: 28px;
+    font-size: 20px;
     color: white;
     display: grid;
     text-decoration: none;
@@ -132,6 +132,6 @@
         padding-left: 15px;
         text-align: left;
         line-height: 60px;
-        font-size: 24px;
+        font-size: 18px;
     }
 }

@@ -1,18 +1,15 @@
 import MemberImg from '../../../../../assets/imgs/member/member_img.png'
 import { useNavigate } from 'react-router-dom'
 import './update-information.scss'
+import { toast } from 'react-toastify';
 
 function UpdateInformationForm() {
 
     const navigate = useNavigate();
-
-    function handleScroll() {
-        window.scrollTo(0, 0);
-    }
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        handleScroll();
+        window.scrollTo(0, 0);
+        toast.success("Cập nhật thông tin thành công.");
         navigate('/thong-tin-ca-nhan');
     }
 

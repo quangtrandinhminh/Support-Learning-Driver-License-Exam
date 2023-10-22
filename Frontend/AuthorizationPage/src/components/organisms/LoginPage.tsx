@@ -1,3 +1,4 @@
+// LoginPage.tsx
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -10,28 +11,35 @@ import StaffPage from "../molecules/staff";
 import UserPage from "../molecules/user";
 const LoginPage: React.FC = () => {
   return (
-    <><ToastContainer /><Router>
+    <>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"
-          element={<LoginForm
-            usernameIconType="user"
-            passwordIconType="lock" />} />
+          element={
+            <LoginForm usernameIconType="user" passwordIconType="lock" />
+          }
+        />
         <Route
           path="/register"
-          element={<RegistrationForm
-            usernameIconType="user"
-            emailIconType="gmail"
-            passwordIconType="lock"
-            confirmPasswordIconType="lock" />} />
+          element={
+            <RegistrationForm
+              usernameIconType="user"
+              emailIconType="gmail"
+              passwordIconType="lock"
+              confirmPasswordIconType="lock"
+            />
+          }
+        />
         <Route
           path="/forgotPassword"
-          element={<ForgetPassword emailIconType={"gmail"} />} />
+          element={<ForgetPassword emailIconType={"gmail"} />}
+        />
         <Route path="/adminPage" element={<AdminPage />} />
         <Route path="/staffPage" element={<StaffPage />} />
         <Route path="/userPage" element={<UserPage />} />
       </Routes>
-    </Router></>
+    </>
   );
 };
 
