@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './verification-form.scss'
 // import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 function VerificationForm() {
   const [inputData, setInputData] = useState({
@@ -29,10 +29,14 @@ function VerificationForm() {
     //     console.log(res);
     //     alert('Success, view db.json file to see information');
     //     window.scrollTo(0, 0);
-    toast.success("Bạn đã đăng ký khoá học {tên khoá học} thành công"); 
+    toast.success("Bạn đã đăng ký khoá học {tên khoá học} thành công");
     navigation('/khoa-hoc-cua-ban');
     //   })
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   return (
     <div className='verification-form-container'>
