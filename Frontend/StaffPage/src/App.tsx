@@ -9,6 +9,7 @@ import './components/general.scss'
 import CourseManagementPage from './components/pages/course-management/course-management';
 import MemberManagementPage from './components/pages/member-management/member-management';
 import MentorMamagementPage from './components/pages/mentor-management/mentor-management';
+import ReportPage from './components/pages/report/report';
 
 function App() {
 
@@ -21,7 +22,8 @@ function App() {
           <Route path='danh-sach-nguoi-dung' element={<UserListPage />} />
           <Route path='quan-ly-khoa-hoc' element={<CourseManagementPage />} />
           <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
-          <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />}/>
+          <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
+          <Route path='bao-cao' element={<ReportPage />} />
         </Route>
       </Routes>
     </>
