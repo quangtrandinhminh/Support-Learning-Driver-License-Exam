@@ -6,17 +6,16 @@ import ForgetPasswordPage from "./components/pages/ForgetPasswordPage";
 import AdminPage from "./components/pages/AdminPage";
 import StaffPage from "./components/pages/StaffPage";
 import UserPage from "./components/pages/UserPage";
-
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage />} index={true} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/forgotPassword" element={<ForgetPasswordPage />} />
-        <Route path="/adminPage" element={<AdminPage />} />
-        <Route path="/staffPage" element={<StaffPage />} />
-        <Route path="/userPage" element={<UserPage />} />
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/register" element={<RegistrationPage />}/>
+        <Route path="/forgotPassword" element={<ForgetPasswordPage />}/>
+        <Route path="/adminPage" element={<AdminPage />}/>
+        <Route path="/staffPage" element={<StaffPage />}/>
+        <Route path="/userPage" element={<UserPage />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../atoms/InputField";
 import axios from "axios"; // Import axios
 import { ToastContainer, toast } from "react-toastify";
@@ -29,8 +29,7 @@ const LoginForm: React.FC = () => {
 
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("../../../public/data.json");
-
+      const response = await axios.get("data.json");
       if (response.status === 200) {
         const data = response.data;
         const user = data.users.find(
@@ -49,7 +48,6 @@ const LoginForm: React.FC = () => {
             setTimeout(() => {
               navigate("/staffPage");
             }, 2000);
-            navigate("/staffPage");
           } else {
             toast.success("Hello user");
             setTimeout(() => {
@@ -99,8 +97,8 @@ const LoginForm: React.FC = () => {
           Register
         </button>
       </div>
-      <a href="/forgotPassword">Forgot your password?</a>
-      <ToastContainer autoClose={3000} />
+      <Link to="/forgotPassword">Forgot your password?</Link>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };
