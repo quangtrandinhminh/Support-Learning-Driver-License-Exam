@@ -13,6 +13,8 @@ import PracticeSchedulePage from './components/pages/practice-schedule/practice-
 import PracticeRegisterPage from './components/pages/practice-register-page/practice-register';
 import 'react-toastify/ReactToastify.css';
 import { Bounce, ToastContainer } from 'react-toastify'
+import ExamDocumentPage from './components/pages/exam-document/exam-document';
+import ExamDocumentUpdatePage from './components/pages/exam-document-update/exam-document-update';
 
 function App() {
   return (
@@ -40,6 +42,10 @@ function App() {
         <Route path='danh-sach-khoa-hoc'>
           <Route index element={<PracticeRegisterPage />} />
           <Route path='khoa-hoc/:id-khoa-hoc' element={<PracticeSpecificPage />} />
+        </Route>
+        <Route path='/ho-so-thi'>
+          <Route index element={<ExamDocumentPage />} />
+          <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
         </Route>
       </Routes>
     </div>

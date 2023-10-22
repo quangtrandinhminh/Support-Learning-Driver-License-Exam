@@ -1,9 +1,9 @@
-import MemberManagement from '../../molecules/home-page/member-management/member-management'
-import './home-template.scss'
+import MemberManagement from '../../molecules/home-page/member-management'
+import '../template.scss'
 
 function HomeTemplate() {
     return (
-        <div className="template-container">
+        <div className="template-container-home">
             <MemberManagement />
         </div>
     )

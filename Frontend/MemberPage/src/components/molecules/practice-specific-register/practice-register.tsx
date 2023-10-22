@@ -95,9 +95,8 @@ function PracticeSpecificRegister() {
                             </td>
                         </tr>
                     </tbody>
-
                     <div className='practice-register-note'>
-                        <h2>Lưu ý: </h2>
+                        <h2>Lưu ý: Học viên phải bắt buộc tham gia ca học đêm và  học đủ các buổi học để có thể tham gia thi bằng lái xe B2</h2>
                     </div>
                 </form>
             </div>

@@ -40,9 +40,11 @@ function RegisteredCourse() {
                         <label htmlFor="course-practice-location">Địa điểm học thực hành: </label>
                     </li>
                     <li>
-                        <label htmlFor="exam-application">
-                            <Link to='/ho-so-thi'>Hồ sơ thi</Link>
-                        </label>
+                        <form>
+                            <label htmlFor="exam-application">
+                                <Link to='/ho-so-thi'>Hồ sơ thi</Link>
+                            </label>
+                        </form>
                     </li>
                 </ul>
             </div>

@@ -12,8 +12,7 @@ body {
     margin-top: 100px;
     margin-right: auto;
     margin-left: auto;
-    height: 100%;
-    min-height: 100%;
+    min-height: 500px;
 }
 
 footer {
@@ -31,9 +30,11 @@ footer {
     margin-top: 200px;
 }
 
-.course-verification-body {
-    width: 100%;
-    margin-top: 100px;
-    margin-right: auto;
-    margin-left: auto;
+.course-verification-footer {
+    margin-top: 140px;
+}
+
+.exam-document-footer,
+.exam-document-update-footer {
+    margin-top: 130px;
 }
