@@ -1,25 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../src/data/User";
 import axios from "axios";
+import logo from "../../assets/images/Logo.svg";
+import user from "../../assets/images/userblur.svg";
+import gmail from "../../assets/images/gmail logo.svg";
+import lock from "../../assets/images/lock.svg";
 
-interface RegistrationFormProps {
-  usernameIconType: "user";
-  emailIconType: "gmail";
-  passwordIconType: "lock";
-  confirmPasswordIconType: "lock";
-}
-
-const RegistrationForm: React.FC<RegistrationFormProps> = ({
-  usernameIconType,
-  emailIconType,
-  passwordIconType,
-  confirmPasswordIconType,
-}) => {
+const RegistrationForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -92,7 +83,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           setConfirmPassword("");
 
           setTimeout(() => {
-            navigate("/");
+            navigate("/login");
           }, 2000);
         }
       } else {
@@ -106,35 +97,35 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
   return (
     <div className="registration-form">
-      <Logo src="/images/Logo.svg" alt="logo" />
+      <img src={logo} alt="logo" />
       <div className="rectangle-border">
         <InputField
           type="text"
           placeholder="Nhập tên đăng nhập"
           value={username}
           onChange={handleUsernameChange}
-          iconType={usernameIconType}
+          iconSrc={user}
         />
         <InputField
           type="email"
           placeholder="Nhập email của bạn"
           value={email}
           onChange={handleEmailChange}
-          iconType={emailIconType}
+          iconSrc={gmail}
         />
         <InputField
           type="password"
           placeholder="Nhập mật khẩu của bạn"
           value={password}
           onChange={handlePasswordChange}
-          iconType={passwordIconType}
+          iconSrc={lock}
         />
         <InputField
           type="password"
           placeholder="Nhập lại mật khẩu của bạn"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
-          iconType={confirmPasswordIconType}
+          iconSrc={lock}
         />
       </div>
       <div className="registration-buttons">

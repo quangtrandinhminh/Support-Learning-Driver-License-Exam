@@ -1,14 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
 import { toast } from "react-toastify";
 import axios from "axios";
+import logo from "../../assets/images/Logo.svg";
+import gmail from "../../assets/images/gmail logo.svg";
 
-interface ForgetPasswordProps {
-  emailIconType: "gmail";
-}
-
-const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
+const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [confirmationCode, setConfirmationCode] = useState<string>("");
 
@@ -53,7 +50,7 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
 
   return (
     <div className="forget-password">
-      <Logo src="/images/Logo.svg" alt="logo" />
+      <img src={logo} alt="logo" />
       <div className="rectangle-border">
         <h2>Đặt lại mật khẩu</h2>
         <h5>Nhập gmail của bạn để nhận xác minh đặt lại mật khẩu</h5>
@@ -62,7 +59,7 @@ const ForgetPassword: React.FC<ForgetPasswordProps> = () => {
           placeholder="Nhập Email của bạn"
           value={email}
           onChange={handleEmailChange}
-          iconType="gmail"
+          iconSrc={gmail}
         />
         <a href="https://www.google.com/intl/vi/gmail/about/">Nhận mã xác nhận</a>
         <br />

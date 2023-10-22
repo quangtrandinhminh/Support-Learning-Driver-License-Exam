@@ -1,14 +1,11 @@
 // NewPassword.tsx
 import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
+import lock from "../../assets/images/lock.svg";
+import logo from "../../assets/images/Logo.svg";
 
-interface NewPasswordProps {
-  email: string; // Nhận thông tin Gmail từ trang ForgetPassword.tsx
-}
-
-const NewPassword: React.FC<NewPasswordProps> = ({ email }) => {
+const NewPassword: React.FC= () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -39,23 +36,22 @@ const NewPassword: React.FC<NewPasswordProps> = ({ email }) => {
 
   return (
     <div className="new-password">
-      <Logo src="/images/Logo.svg" alt="logo" />
+       <img src={logo} alt="logo" />
       <div className="rectangle-border">
-        <h2>New Password for {email}</h2> {/* Hiển thị Gmail */}
         {error && <div className="error-message">{error}</div>}
         <InputField
           type="password"
           placeholder="Enter your new password..."
           value={password}
           onChange={handlePasswordChange}
-          iconType="lock"
+          iconSrc={lock}
         />
         <InputField
           type="password"
           placeholder="Confirm your new password..."
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
-          iconType="lock"
+          iconSrc={lock}
         />
         <button type="button" onClick={handleResetPassword}>
           Reset Password
