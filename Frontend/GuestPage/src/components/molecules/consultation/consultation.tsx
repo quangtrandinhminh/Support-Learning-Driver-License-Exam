@@ -3,7 +3,7 @@ import './consultation.scss'
 function Consultation() {
   return (
     <>
-      <div className="center-consultation-container">
+      <div className="center-consultation-container" id='center-consultation'>
         <h1>Liên hệ để được tư vấn</h1>
         <ul className='text-box-list'>
           <li>
