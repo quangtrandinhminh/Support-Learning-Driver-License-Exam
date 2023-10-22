@@ -1,20 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../atoms/Logo";
 import InputField from "../atoms/InputField";
 import axios from "axios"; // Import axios
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../../assets/images/Logo.svg";
+import user from "../../assets/images/userblur.svg";
+import lock from "../../assets/images/lock.svg";
 
-interface LoginFormProps {
-  usernameIconType: "user";
-  passwordIconType: "lock";
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({
-  usernameIconType,
-  passwordIconType,
-}) => {
+const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -44,17 +38,23 @@ const LoginForm: React.FC<LoginFormProps> = ({
             user.username === username &&
             user.password === password
         );
-
         if (user) {
           if (user.role === "admin") {
             toast.success("Welcome admin");
-            navigate("/adminPage");
+            setTimeout(() => {
+              navigate("/adminPage");
+            }, 2000);
           } else if (user.role === "staff") {
             toast.success("Welcome staff");
+            setTimeout(() => {
+              navigate("/staffPage");
+            }, 2000);
             navigate("/staffPage");
           } else {
             toast.success("Hello user");
-            navigate("/userPage");
+            setTimeout(() => {
+              navigate("/userPage");
+            }, 2000);
           }
         } else {
           toast.error("Invalid username or password");
@@ -74,21 +74,21 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   return (
     <div className="login-form">
-      <Logo src="/images/Logo.svg" alt="logo" />
+      <img src={logo} alt="logo" />
       <div className="rectangle-border">
         <InputField
           type="text"
           placeholder="Nhập tên đăng nhập"
           value={username}
           onChange={handleUsernameChange}
-          iconType={usernameIconType}
+          iconSrc={user}
         />
         <InputField
           type="password"
           placeholder="Nhập mật khẩu của bạn"
           value={password}
           onChange={handlePasswordChange}
-          iconType={passwordIconType}
+          iconSrc={lock}
         />
       </div>
       <div className="login-buttons">
