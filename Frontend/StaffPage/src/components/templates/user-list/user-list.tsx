@@ -3,7 +3,7 @@ import './user-list.scss'
 
 function UserListTemplate() {
   return (
-    <div className='user-list-container'>
+    <div className='template-container'>
       <UserListTable />
     </div>
   )
