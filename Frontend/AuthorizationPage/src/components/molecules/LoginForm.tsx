@@ -1,27 +1,19 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import InputField from "../atoms/InputField";
 import axios from "axios"; // Import axios
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/images/Logo.svg";
+import Lock from "../../assets/images/lock.svg";
 import user from "../../assets/images/userblur.svg";
-import lock from "../../assets/images/lock.svg";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!username || !password) {
       toast.error("Please enter both username and password.");
       return;
@@ -29,21 +21,26 @@ const LoginForm: React.FC = () => {
 
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("data.json");
+      const response = await axios.post(
+        "https://localhost:7240/login?username=" +
+          username +
+          "&password=" +
+          password
+      );
       if (response.status === 200) {
         const data = response.data;
-        const user = data.users.find(
-          (user: { username: string; password: string; }) =>
-            user.username === username &&
-            user.password === password
-        );
+        console.log(username);
+        console.log(password);
+        console.log(data);
+        const user = Object.assign(data);
+
         if (user) {
-          if (user.role === "admin") {
+          if (user.roleId === "admin") {
             toast.success("Welcome admin");
             setTimeout(() => {
               navigate("/adminPage");
             }, 2000);
-          } else if (user.role === "staff") {
+          } else if (user.roleId === "staff") {
             toast.success("Welcome staff");
             setTimeout(() => {
               navigate("/staffPage");
@@ -72,33 +69,36 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login-form">
-      <img src={logo} alt="logo" />
-      <div className="rectangle-border">
-        <InputField
-          type="text"
-          placeholder="Nhập tên đăng nhập"
-          value={username}
-          onChange={handleUsernameChange}
-          iconSrc={user}
-        />
-        <InputField
-          type="password"
-          placeholder="Nhập mật khẩu của bạn"
-          value={password}
-          onChange={handlePasswordChange}
-          iconSrc={lock}
-        />
-      </div>
-      <div className="login-buttons">
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-        <button type="button" onClick={handleRegister}>
-          Register
-        </button>
-      </div>
-      <Link to="/forgotPassword">Forgot your password?</Link>
-      <ToastContainer autoClose={2000} />
+      <form onSubmit={handleLogin}>
+        <img src={logo} alt="logo" />
+        <div className="rectangle-border">
+          <div>
+            <img src={user} alt="user" />
+            <input
+              type="text"
+              placeholder="Nhập tên đăng nhập"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <img src={Lock} alt="lock" />
+            <input
+              type="password"
+              placeholder="Nhập mật khẩu của bạn"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="login-buttons">
+          <button type="submit">Login</button>
+          <button type="button" onClick={handleRegister}>
+            Register
+          </button>
+        </div>
+        <Link to="/forgotPassword">Forgot your password?</Link>
+      </form>
     </div>
   );
 };
