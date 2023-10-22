@@ -19,17 +19,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // add database
-builder.Services.AddDbContext<DrivingLicenseContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptionsAction: sqlServerOptions =>
-        {
-            sqlServerOptions.EnableRetryOnFailure(
-                maxRetryCount: 5, // Number of retry attempts
-                maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
-                errorNumbersToAdd: null // List of specific error numbers to retry (optional)
-            );
-        }
-    ));
+builder.Services.AddDbContext<DrivingLicenseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // Number of retry attempts
+            maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
+            errorNumbersToAdd: null // List of specific error numbers to retry (optional)
+        )
+    ), ServiceLifetime.Transient);
 //Add Cors
 builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", corsPolicyBuilder => 

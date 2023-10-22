@@ -1,4 +1,5 @@
-﻿using Backend.Services.Course;
+﻿using Backend.DTO.Course;
+using Backend.Services.Course;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -14,43 +15,93 @@ namespace Backend.Controllers
             _courseService = courseService;
         }
 
-        [HttpGet("courses")]
+        [HttpGet("list")]
         public IActionResult GetAll()
         {
-            try
+            var result = _courseService.GetAllCourses();
+            if (result.IsError)
             {
-                var courses = _courseService.GetCourses();
-                if (courses is null)
-                {
-                    return NotFound("No courses found !");
-                }
-                return Ok(courses);
+                return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
             }
-            catch (Exception e)
+
+            return Ok(result.Payload);
+        }
+
+        [HttpGet("inactive-courses")]
+        public IActionResult GetInactiveCourses()
+        {
+            var result = _courseService.GetInactiveCourses();
+            if (result.IsError)
             {
-                Console.WriteLine(e);
-                throw;
+                return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
             }
+
+            return Ok(result.Payload);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourseById(string id)
         {
-            try
+            var result = await _courseService.GetCourseById(id);
+            if (result.IsError)
             {
-                var course = await _courseService.GetCourseById(id)!;
-                if (course is null)
-                {
-                    return NotFound("The course is not exist!");
-                }
+                return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+            }
 
-                return Ok(course);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            return Ok(result.Payload);
+
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddCourse(CourseDTO courseDTO)
+        {
+            var result = await _courseService.CreateCourse(courseDTO);
+
+            if (result.IsError)
+                return BadRequest(new
+                    {
+                        error = result.ErrorMessage
+                    });
+            
+
+            return Ok("Add course successfully!");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCourse(CourseDTO courseDTO)
+        {
+            var result = await _courseService.UpdateCourse(courseDTO);
+
+            if (result.IsError)
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+
+            return Ok("Update course successfully!");
+        }
+
+        [HttpDelete("deactivate/{id}")]
+        public async Task<IActionResult> DeactivateCourse(string id)
+        {
+            var result = await _courseService.DeactivateCourse(id);
+
+            if (result.IsError)
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+
+            return Ok("Delete course successfully!");
         }
     }
 }
