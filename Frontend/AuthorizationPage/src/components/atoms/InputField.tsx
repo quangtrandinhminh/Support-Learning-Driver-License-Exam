@@ -1,20 +1,18 @@
-// Sử dụng atom Icon trong InputField
 import React, { ChangeEvent } from 'react';
-import Icon from './Icon';
 
 interface InputFieldProps {
   type: string;
   placeholder: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  iconType: 'user' | 'gmail' | 'lock'; // Loại biểu tượng
+  iconSrc: string; // Đường dẫn đến hình ảnh biểu tượng
 }
 
-const InputField: React.FC<InputFieldProps> = ({ type, placeholder, value, onChange, iconType }) => {
+const InputField: React.FC<InputFieldProps> = ({ type, placeholder, value, onChange, iconSrc }) => {
   return (
     <div className="input-field">
-      <Icon iconType={iconType} />
-      <input type={type} placeholder={placeholder} value={value} onChange={onChange} required/>
+      <img src={iconSrc} alt="icon" /> {/* Sử dụng đường dẫn hình ảnh từ prop iconSrc */}
+      <input type={type} placeholder={placeholder} value={value} onChange={onChange} required />
     </div>
   );
 };
