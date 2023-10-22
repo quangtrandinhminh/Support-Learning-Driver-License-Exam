@@ -13,6 +13,8 @@ public partial class Class
 
     public string CourseId { get; set; } = null!;
 
+    public bool Passed { get; set; }
+
     public virtual Course Course { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

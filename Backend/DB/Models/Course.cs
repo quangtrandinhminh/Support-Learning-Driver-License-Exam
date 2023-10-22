@@ -9,17 +9,25 @@ public partial class Course
 
     public string Name { get; set; } = null!;
 
-    public DateTime StartDate { get; set; }
+    public DateTime? StartDate { get; set; }
 
-    public DateTime EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public int? NumberOfStudents { get; set; }
 
     public int LimitStudent { get; set; }
 
+    public DateTime CreateTime { get; set; }
+
+    public int CourseMonth { get; set; }
+
+    public int CourseYear { get; set; }
+
     public bool Status { get; set; }
 
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
+
+    public virtual ICollection<CourseDetail> CourseDetails { get; set; } = new List<CourseDetail>();
 
     public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
 
