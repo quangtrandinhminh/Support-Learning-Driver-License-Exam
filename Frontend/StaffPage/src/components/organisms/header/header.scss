@@ -1,11 +1,32 @@
 .header-container {
     .header-title {
         text-align: center;
+
         h1 {
+            padding: 20px;
+            display: inline-block;
             text-transform: uppercase;
             color: white;
             font-size: 30px;
-            line-height: 60px;
         }
     }
+
+    .staff-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        li {
+            list-style: none;
+            margin-left: 20px;
+
+            a {
+                display: inline-block;
+                padding: 8px;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
 }

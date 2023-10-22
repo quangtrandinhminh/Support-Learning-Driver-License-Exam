@@ -1,17 +1,16 @@
-import StaffHeader from '../../organisms/header/header'
-import MemberManagement from '../../templates/menber-management/member-management'
+import StaffSidebar from '../../organisms/header/header'
 import MentorManagementTemplate from '../../templates/mentor-management/mentor-management'
 
 function MentorMamagementPage() {
     return (
-        <>
+        <div className='page-container'>
             <header>
-                <StaffHeader />
+                <StaffSidebar />
             </header>
             <body>
                 <MentorManagementTemplate />
             </body>
-        </>
+        </div>
     )
 }
 
