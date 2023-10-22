@@ -34,19 +34,22 @@ const RegistrationForm: React.FC = () => {
   };
 
   const handleRegister = async () => {
+    // check if user not input all fields
     if (!username || !email || !password || !confirmPassword) {
       toast.error("Please fill in all the fields.");
       return;
     }
 
+    // check password is matched or not
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
       return;
     }
 
+    //get user
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("../../../public/data.json");
+      const response = await axios.get("data.json");
       if (response.status === 200) {
         const data = response.data;
         const userExists = data.users.some((user: User) => user.username === username);
@@ -71,9 +74,8 @@ const RegistrationForm: React.FC = () => {
             role: "user", 
           });
 
-          // Cập nhật tệp JSON với dữ liệu mới
-          await axios.post("../../../public/data.json", data);
-
+          // // Cập nhật tệp JSON với dữ liệu mới
+          await axios.post("data.json", data);
           toast.success("Hello new user");
 
           // Xóa các trường đầu vào

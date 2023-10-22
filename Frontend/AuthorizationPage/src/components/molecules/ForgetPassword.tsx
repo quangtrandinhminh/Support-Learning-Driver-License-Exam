@@ -21,7 +21,7 @@ const ForgetPassword: React.FC = () => {
 
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("/path/to/your/data.json");
+      const response = await axios.get("data.json");
       const data = response.data;
 
       // Kiểm tra nếu data không phải là mảng hoặc mảng rỗng
