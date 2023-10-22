@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Backend.DB.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.DB;
+namespace Backend.DB.Models;
 
 public partial class DrivingLicenseContext : DbContext
 {
@@ -19,6 +18,8 @@ public partial class DrivingLicenseContext : DbContext
     public virtual DbSet<Class> Classes { get; set; }
 
     public virtual DbSet<Course> Courses { get; set; }
+
+    public virtual DbSet<CourseDetail> CourseDetails { get; set; }
 
     public virtual DbSet<Exam> Exams { get; set; }
 
@@ -65,6 +66,7 @@ public partial class DrivingLicenseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.Passed).HasColumnName("passed");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.CourseId)
@@ -109,6 +111,11 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("courseID");
+            entity.Property(e => e.CourseMonth).HasColumnName("courseMonth");
+            entity.Property(e => e.CourseYear).HasColumnName("courseYear");
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createTime");
             entity.Property(e => e.EndDate)
                 .HasColumnType("date")
                 .HasColumnName("endDate");
@@ -120,6 +127,34 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.StartDate)
                 .HasColumnType("date")
                 .HasColumnName("startDate");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<CourseDetail>(entity =>
+        {
+            entity.HasKey(e => e.CourseDetailsId);
+
+            entity.Property(e => e.CourseDetailsId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("courseDetailsID");
+            entity.Property(e => e.CourseContent).HasColumnName("courseContent");
+            entity.Property(e => e.CourseId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("courseID");
+            entity.Property(e => e.CourseTimeEnd)
+                .HasColumnType("datetime")
+                .HasColumnName("courseTimeEnd");
+            entity.Property(e => e.CourseTimeStart)
+                .HasColumnType("datetime")
+                .HasColumnName("courseTimeStart");
+            entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.CourseDetails)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CourseDetails_Course");
         });
 
         modelBuilder.Entity<Exam>(entity =>
@@ -135,8 +170,14 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("createdTime");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Duration).HasColumnName("duration");
+            entity.Property(e => e.ExamName).HasColumnName("examName");
             entity.Property(e => e.LimitKeyQuestion).HasColumnName("limitKeyQuestion");
             entity.Property(e => e.LimitQuestion).HasColumnName("limitQuestion");
+            entity.Property(e => e.Password)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("password");
             entity.Property(e => e.StaffId).HasColumnName("staffID");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Exams)
@@ -234,17 +275,9 @@ public partial class DrivingLicenseContext : DbContext
         {
             entity.ToTable("Member");
 
-            entity.HasIndex(e => e.DrivingLicenseNumber, "UC_DrivingLicenseNumber").IsUnique();
-
-            entity.HasIndex(e => e.DrivingLicenseTier, "UC_DrivingLicenseTier").IsUnique();
-
-            entity.HasIndex(e => e.DrivingTestTier, "UC_DrivingTestTier").IsUnique();
-
-            entity.HasIndex(e => e.IntegratedDrivingLicense, "UC_IntegratedDrivingLicense").IsUnique();
+            entity.HasIndex(e => e.IdentityCardNumber, "UC_IdentityCardNumber").IsUnique();
 
             entity.HasIndex(e => e.UserId, "UC_Member_User").IsUnique();
-
-            entity.HasIndex(e => e.RevokedDrivingLicense, "UC_RevokedDrivingLicense").IsUnique();
 
             entity.Property(e => e.MemberId).HasColumnName("memberID");
             entity.Property(e => e.CardProvidedDate)
@@ -281,14 +314,20 @@ public partial class DrivingLicenseContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("gender");
-            entity.Property(e => e.IntegratedDrivingLicense)
-                .HasMaxLength(5)
+            entity.Property(e => e.IdentityCardNumber)
+                .HasMaxLength(20)
                 .IsUnicode(false)
-                .HasColumnName("integratedDrivingLicense");
+                .HasColumnName("identityCardNumber");
+            entity.Property(e => e.IntegratedDrivingLicense).HasColumnName("integratedDrivingLicense");
+            entity.Property(e => e.IsPaid).HasColumnName("isPaid");
             entity.Property(e => e.Nationality)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("nationality");
+            entity.Property(e => e.Passport)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("passport");
             entity.Property(e => e.RegistrationDate)
                 .HasColumnType("date")
                 .HasColumnName("registrationDate");
@@ -299,12 +338,8 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("residenceAddress_");
-            entity.Property(e => e.RevokedDrivingLicense)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("revokedDrivingLicense");
-            entity.Property(e => e.Status).HasColumnName("status");
+                .HasColumnName("residenceAddress");
+            entity.Property(e => e.RevokedDrivingLicense).HasColumnName("revokedDrivingLicense");
             entity.Property(e => e.UserId).HasColumnName("userID");
 
             entity.HasOne(d => d.User).WithOne(p => p.Member)
@@ -317,29 +352,9 @@ public partial class DrivingLicenseContext : DbContext
         {
             entity.ToTable("Mentor");
 
-            entity.HasIndex(e => e.Email, "UC_MentorEmail").IsUnique();
-
-            entity.HasIndex(e => e.Phone, "UC_MentorPhone").IsUnique();
-
             entity.HasIndex(e => e.UserId, "UC_Mentor_User").IsUnique();
 
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("password");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("phone");
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
                 .HasColumnName("residenceAddress");
@@ -422,24 +437,9 @@ public partial class DrivingLicenseContext : DbContext
 
         modelBuilder.Entity<Staff>(entity =>
         {
-            entity.HasIndex(e => e.Email, "UC_StaffEmail").IsUnique();
-
             entity.HasIndex(e => e.UserId, "UC_Staff_User").IsUnique();
 
             entity.Property(e => e.StaffId).HasColumnName("staffID");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("password");
-            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserId).HasColumnName("userID");
 
             entity.HasOne(d => d.User).WithOne(p => p.Staff)

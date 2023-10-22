@@ -13,5 +13,11 @@
         public int? NumberOfStudents { get; set; }
 
         public int LimitStudent { get; set; }
+
+        public int CourseMonth { get; set; }
+
+        public int CourseYear { get; set; }
+
+        public bool Status { get; set; }
     }
 }

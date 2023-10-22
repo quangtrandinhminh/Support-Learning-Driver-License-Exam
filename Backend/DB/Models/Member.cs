@@ -15,6 +15,10 @@ public partial class Member
 
     public string ResidenceAddress { get; set; } = null!;
 
+    public string? IdentityCardNumber { get; set; }
+
+    public string? Passport { get; set; }
+
     public DateTime CardProvidedDate { get; set; }
 
     public string CardProvidedLocation { get; set; } = null!;
@@ -29,15 +33,15 @@ public partial class Member
 
     public string? DrivingTestTier { get; set; }
 
-    public string? IntegratedDrivingLicense { get; set; }
+    public bool? IntegratedDrivingLicense { get; set; }
 
-    public string? RevokedDrivingLicense { get; set; }
+    public bool? RevokedDrivingLicense { get; set; }
 
     public string? RelatedDocument { get; set; }
 
     public DateTime RegistrationDate { get; set; }
 
-    public bool Status { get; set; }
+    public bool? IsPaid { get; set; }
 
     public int UserId { get; set; }
 
