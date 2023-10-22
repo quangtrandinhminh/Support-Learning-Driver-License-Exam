@@ -24,7 +24,7 @@ namespace Backend.Services.Course
                 var courses = _courseRepository.GetAll().Where(x => x.Status == true);
                 if (!courses.Any())
                 {
-                    result.IsError = false;
+                    result.IsError = true;
                     result.ErrorMessage = "No course found!";
                 }
 
@@ -32,7 +32,7 @@ namespace Backend.Services.Course
             }
             catch (Exception e)
             {
-                result.IsError = false;
+                result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
             return result;
@@ -47,7 +47,7 @@ namespace Backend.Services.Course
                 var courses = _courseRepository.GetAll().Where(x => x.Status == false);
                 if (!courses.Any())
                 {
-                    result.IsError = false;
+                    result.IsError = true;
                     result.ErrorMessage = "No course found!";
                 }
 
@@ -55,7 +55,7 @@ namespace Backend.Services.Course
             }
             catch (Exception e)
             {
-                result.IsError = false;
+                result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
 
@@ -79,7 +79,7 @@ namespace Backend.Services.Course
             }
             catch (Exception e)
             {
-                result.IsError = false;
+                result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
             return result;
@@ -98,6 +98,8 @@ namespace Backend.Services.Course
                 }
 
                 var course = _mapper.Map<DB.Models.Course>(courseDTO);
+                course.CreateTime = DateTime.Now;
+
                 await _courseRepository.AddAsync(course);
             }
             catch (Exception e)
