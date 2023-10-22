@@ -22,7 +22,7 @@ function CourseTable() {
                     <form onSubmit={handleSubmit}>
                         <table>
                             <caption className='table-title'>
-                                <h2>Các khoá học tháng {month}</h2>
+                                <h2>Các khoá học tháng {month === "1" ? `${month}/2024` : `${month}/2023`}</h2>
                             </caption>
                             <tr className='content-title'>
                                 <th>Thứ tự</th>
