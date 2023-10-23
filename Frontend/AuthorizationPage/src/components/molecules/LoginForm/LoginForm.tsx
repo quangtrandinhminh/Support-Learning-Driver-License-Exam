@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import logo from "../../assets/images/Logo.svg";
-import Lock from "../../assets/images/lock.svg";
-import user from "../../assets/images/userblur.svg";
+import logo from "../../../assets/images/logo.svg";
+import Lock from "../../../assets/images/lock.svg";
+import user from "../../../assets/images/userblur.svg";
+import "./index.scss"
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -21,44 +22,30 @@ const LoginForm: React.FC = () => {
 
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.post(
-        "https://localhost:7240/login?username=" +
-          username +
-          "&password=" +
-          password
-      );
+      const response = await axios.post("https://localhost:7240/login?username=" + username);
       if (response.status === 200) {
         const data = response.data;
-        console.log(username);
-        console.log(password);
-        console.log(data);
         const user = Object.assign(data);
-
-        if (user) {
-          if (user.roleId === "admin") {
-            toast.success("Welcome admin");
-            setTimeout(() => {
-              navigate("/adminPage");
-            }, 2000);
-          } else if (user.roleId === "staff") {
-            toast.success("Welcome staff");
-            setTimeout(() => {
-              navigate("/staffPage");
-            }, 2000);
-          } else {
-            toast.success("Hello user");
-            setTimeout(() => {
-              navigate("/userPage");
-            }, 2000);
-          }
+        if (data.payload == null) {
+          toast.error("Tên đăng nhập không có trong hệ thống. Vui lòng kiểm tra lại!");
+          return;
         } else {
-          toast.error("Invalid username or password");
+          if (user) {
+            if (user.roleId === "admin") {
+              toast.success("Welcome admin");
+            } else if (user.roleId === "staff") {
+              toast.success("Welcome staff");
+            } else {
+              toast.success("Hello user");
+            }
+          } else {
+            toast.error("Invalid username or password");
+          }
         }
       } else {
         toast.error("Failed to load user data.");
       }
     } catch (error) {
-      console.error(error);
       toast.error("Error loading data");
     }
   };
@@ -72,7 +59,7 @@ const LoginForm: React.FC = () => {
       <form onSubmit={handleLogin}>
         <img src={logo} alt="logo" />
         <div className="rectangle-border">
-          <div>
+          <div className="inputField">
             <img src={user} alt="user" />
             <input
               type="text"
@@ -81,7 +68,7 @@ const LoginForm: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div>
+          <div className="inputField">
             <img src={Lock} alt="lock" />
             <input
               type="password"
