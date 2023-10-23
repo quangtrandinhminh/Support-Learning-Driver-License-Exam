@@ -1,10 +1,10 @@
 import './App.scss'
-import MentorHomePage from './components/molecules/home-page/home-page'
+import Sidebar from './components/atoms/mentor-home-sidebar/sidebar'
 
 function App() {
   return (
     <>
-      <MentorHomePage />
+      <Sidebar />
     </>
   )
 }
