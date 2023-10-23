@@ -22,7 +22,7 @@ function FooterInformation() {
                 <div className="commiting-information">
                     <p className="line-1">Quyết định thành lập số 773/QĐ – UBND ngày 27/02/2009.</p>
                     <p className="line-2">Giấy phép số 69/TCĐBVN-QLPT&NL ngày 08/07/2011 của Tổng Cục Đường bộ Việt Nam.</p>
-                    <img src="/res/imgs/commiting/commiting.png" alt="commiting-picture" />
+                    <img src={CommitmentImg} alt="commiting-picture" />
                 </div>
             </div>
         </>

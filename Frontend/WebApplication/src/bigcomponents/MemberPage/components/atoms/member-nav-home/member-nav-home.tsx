@@ -1,10 +1,16 @@
-import { Link as Forward } from 'react-router-dom';
+import { NavLink as Forward, useNavigate } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
+import api from '../../../config/axios';
+import { useEffect } from 'react'
 
 function MemberNavHome() {
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    const username = user.username;
+    const navigate = useNavigate()
+
     const handleScroll = () => {
         {
             window.scrollTo(0, 0);
@@ -13,8 +19,20 @@ function MemberNavHome() {
 
     const handleLogout = () => {
         sessionStorage.removeItem('loginedUser');
-        window.location.reload();
+        navigate('/');
+        location.reload();
+        handleScroll();
     }
+
+    const getUserbyUsername = async () => {
+        const response = await api.get('User?username=' + username);
+        const user = response.data;
+        console.log(user.payload);
+    }
+
+    useEffect(() => {
+        getUserbyUsername();
+    }, [])
 
     return (
         <>
@@ -58,7 +76,7 @@ function MemberNavHome() {
                             <img src={MemberImg} alt="member-img" className='member-home-avatar' />
                             <ul className="subnav-function">
                                 <li className='receive-border'>
-                                    <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
+                                    <Forward to={`/thong-tin-ca-nhan/${username}`} onClick={handleScroll}>
                                         Thông tin cá nhân
                                     </Forward>
                                 </li>
@@ -73,7 +91,7 @@ function MemberNavHome() {
                                     </Forward>
                                 </li>
                                 <li>
-                                    <Forward to='/' onClick={handleLogout}>
+                                    <Forward to='/' onClick={handleLogout} >
                                         Đăng xuất
                                     </Forward>
                                 </li>

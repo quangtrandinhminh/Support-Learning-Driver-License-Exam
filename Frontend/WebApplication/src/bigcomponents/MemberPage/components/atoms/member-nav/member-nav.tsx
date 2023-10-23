@@ -1,13 +1,25 @@
 import './member-nav.scss'
-import { Link as Forward, useLocation } from 'react-router-dom'
+import { Link as Forward, useNavigate } from 'react-router-dom'
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 
 function MemberNav() {
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    const username = user.username;
+
     const handleScroll = () => {
         {
             window.scrollTo(0, 0);
         }
+    }
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('loginedUser');
+        navigate('/');
+        location.reload();
+        handleScroll();
     }
 
     return (
@@ -52,7 +64,7 @@ function MemberNav() {
                             <img src={MemberImg} alt="member-img" className='member-avatar' />
                             <ul className="subnav-function">
                                 <li className='receive-border'>
-                                    <Forward to='/thong-tin-ca-nhan' onClick={handleScroll}>
+                                    <Forward to={`/thong-tin-ca-nhan/${username}`} onClick={handleScroll}>
                                         Thông tin cá nhân
                                     </Forward>
                                 </li>
@@ -67,7 +79,7 @@ function MemberNav() {
                                     </Forward>
                                 </li>
                                 <li>
-                                    <Forward to='/'>
+                                    <Forward to='/' onClick={handleLogout}>
                                         Đăng xuất
                                     </Forward>
                                 </li>
