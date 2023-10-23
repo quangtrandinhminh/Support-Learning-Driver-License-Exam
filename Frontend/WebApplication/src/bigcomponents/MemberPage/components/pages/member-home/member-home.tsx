@@ -4,6 +4,7 @@ import HomeTemplate from '../../templates/member-home-template/home-template'
 import MemberFooter from '../../organisms/member-footer/member-footer'
 
 function MemberHomePage() {
+
     return (
         <>
             <div id='container'>
