@@ -1,5 +1,5 @@
 import './member-information.scss'
-import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import { useNavigate } from 'react-router-dom'
 
 function MemberInformationForm() {

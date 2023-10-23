@@ -1,4 +1,4 @@
-import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import { useNavigate } from 'react-router-dom'
 import './update-information.scss'
 import { toast } from 'react-toastify';
