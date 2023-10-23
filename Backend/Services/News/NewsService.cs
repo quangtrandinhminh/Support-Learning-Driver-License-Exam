@@ -94,7 +94,7 @@ namespace Backend.Services.News
             return result;
         }
 
-        public async Task<ServiceResult> PostNews(NewsRequestDTO newsDto)
+        public async Task<ServiceResult> PostNews(NewsDTO newsDto)
         {
             var result = new ServiceResult();
 
@@ -120,10 +120,19 @@ namespace Backend.Services.News
 
             try
             {
-                var news = _mapper.Map<DB.Models.News>(newsDto);
-                news.CreatedTime = _newsRepository.GetByIdAsync(newsDto.NewsId).Result.CreatedTime;
-
-                await _newsRepository.UpdateAsync(news);
+                var news = _newsRepository.GetByIdAsync(newsDto.NewsId).Result;
+                if (news == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "The news id is not exist!";
+                }
+                else
+                {
+                    news.Title = newsDto.Title;
+                    news.Content = newsDto.Content;
+                    news.StaffId = newsDto.StaffId;
+                    await _newsRepository.UpdateAsync(news);
+                }
             }
             catch (Exception e)
             {
@@ -144,7 +153,7 @@ namespace Backend.Services.News
                 if (news == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "The news is not exist!";
+                    result.ErrorMessage = "The news id is not exist!";
                     return result;
                 }
 
