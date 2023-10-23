@@ -19,8 +19,7 @@ namespace Backend.Repository.NewsRepository
         {
             try
             {
-                var news = _dbSet.AsQueryable();
-                return news;
+                return _dbSet.AsQueryable(); ;
             }
             catch (Exception e)
             {
