@@ -11,7 +11,6 @@
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
             CreateMap<DTO.News.NewsDTO, DB.Models.News>();
-            CreateMap<DTO.News.NewsRequestDTO, DB.Models.News>();
         }
     }
 }

@@ -66,7 +66,7 @@ namespace Backend.Controllers
 
         // POST: api/News/post-news
         [HttpPost("post-news")]
-        public async Task<IActionResult> PostNews(NewsRequestDTO news)
+        public async Task<IActionResult> PostNews(NewsDTO news)
         {
             var result = await _newsService.PostNews(news);
             if (result.IsError)
