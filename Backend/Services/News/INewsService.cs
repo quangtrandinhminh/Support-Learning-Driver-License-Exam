@@ -10,7 +10,7 @@ namespace Backend.Services.News
 
         Task<ServiceResult<NewsDTO>> GetNewsById(int id);
 
-        Task<ServiceResult> PostNews(NewsRequestDTO newsDto);
+        Task<ServiceResult> PostNews(NewsDTO newsDto);
 
         Task<ServiceResult> UpdateNews(NewsDTO newsDto);
 
