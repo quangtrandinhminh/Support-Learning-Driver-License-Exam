@@ -1,0 +1,128 @@
+.verification-form-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .form-title {
+        margin-top: 50px;
+        color: red;
+        text-align: center;
+        width: 800px;
+        font-style: italic;
+        font-size: 22px;
+    }
+
+    .form-container {
+        position: relative;
+        margin-top: 50px;
+        width: auto;
+        height: auto;
+        border: 1px solid black;
+
+        .form-content {
+            margin: 5px 20px;
+        }
+
+        .verification-form {
+            li {
+                list-style: none;
+                padding: 25px 0;
+
+                input:not(.gender-input) {
+                    padding: 5px;
+                    font-size: 14px;
+                    border-color: rgba(0, 0, 0, 0.5);
+                    margin-left: 10px;
+                    // width: 200px;
+                }
+
+                label {
+                    font-size: 15px;
+                    display: inline-block;
+                }
+
+            }
+
+            .line-1 {
+
+                .gender-container,
+                .dob-container {
+                    display: inline-block;
+                }
+
+                .gender-container {
+                    padding-left: 100px;
+
+                    .male,
+                    .female {
+                        display: inline-block;
+                    }
+
+                    .male {
+                        margin-right: 20px;
+                    }
+
+                    .gender-input {
+                        padding: 5px;
+                        font-size: 14px;
+                        border-color: rgba(0, 0, 0, 0.5);
+                        margin-left: 10px;
+                    }
+
+                }
+
+                .date-input {
+                    width: 200px;
+                }
+            }
+
+            .line-2 {
+
+                .nationality-container,
+                .nation-container {
+                    display: inline-block;
+                }
+
+                .nation-container {
+                    padding-left: 100px;
+                }
+            }
+
+            .line-3 {
+
+                .providedCardDate,
+                .providedCardLocation {
+                    display: inline-block;
+                }
+
+                .providedCardLocation {
+                    padding-left: 100px;
+                }
+
+                .date-input {
+                    width: 200px;
+                }
+            }
+        }
+
+        .cont-button {
+            text-transform: uppercase;
+            font-size: 18px;
+            color: white;
+            background-color: #4891e4;
+            padding: 8px 10px;
+            position: absolute;
+            right: 0;
+            bottom: -70px;
+            border: none;
+            border-radius: 8px;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.15);
+                transition-duration: 0.23s;
+            }
+        }
+    }
+}

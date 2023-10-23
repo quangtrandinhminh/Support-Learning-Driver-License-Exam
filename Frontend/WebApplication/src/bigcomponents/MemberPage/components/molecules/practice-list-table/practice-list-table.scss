@@ -1,0 +1,43 @@
+.practice-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .practice-list-title {
+        text-transform: uppercase;
+        margin-top: 50px;
+    }
+
+    table {
+        text-align: center;
+        margin-top: 40px;
+        border-collapse: collapse;
+        font-size: 20px;
+        height: 400px;
+
+        td,
+        th {
+            padding: 8px;
+            border: 1px solid black;
+        }
+
+        thead {
+            .course-no {
+                width: 100px;
+            }
+
+            .course-mentor {
+                width: 250px;
+            }
+
+            .course-schedule {
+                width: 300px;
+            }
+
+            .course-course {
+                width: 200px;
+            }
+        }
+
+    }
+}

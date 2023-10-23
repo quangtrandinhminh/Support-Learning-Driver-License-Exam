@@ -1,0 +1,24 @@
+.course-commitment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 24px 0;
+    justify-content: center;
+
+    .course-commitment-title {
+        color: red;
+        text-transform: uppercase;
+        font-style: italic;
+    }
+
+    .commitment-content {
+        margin-top: 20px;
+        line-height: 200%;
+        font-size: 16px;
+        padding: 0 50px;
+        width: 100%;
+    }
+}
