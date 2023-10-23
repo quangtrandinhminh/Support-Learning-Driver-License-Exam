@@ -12,7 +12,7 @@ function CourseVerificationPage() {
             <body>
                 <CourseVerificationTemplate />
             </body>
-            <footer>
+            <footer className='course-verification-footer'>
                 <MemberFooter />
             </footer>
         </>

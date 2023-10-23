@@ -1,0 +1,32 @@
+.header-container {
+    .header-title {
+        text-align: center;
+
+        h1 {
+            padding: 20px;
+            display: inline-block;
+            text-transform: uppercase;
+            color: white;
+            font-size: 34px;
+        }
+    }
+
+    .staff-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        li {
+            list-style: none;
+            margin-left: 20px;
+
+            a {
+                display: block;
+                padding: 8px 0;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+}

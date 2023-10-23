@@ -7,15 +7,21 @@ public partial class Exam
 {
     public int ExamId { get; set; }
 
-    public string Description { get; set; } = null!;
+    public string ExamName { get; set; } = null!;
+
+    public string? Description { get; set; }
+
+    public int Duration { get; set; }
+
+    public string CourseId { get; set; } = null!;
 
     public int LimitQuestion { get; set; }
 
     public int LimitKeyQuestion { get; set; }
 
-    public DateTime CreatedTime { get; set; }
+    public string Password { get; set; } = null!;
 
-    public string CourseId { get; set; } = null!;
+    public DateTime CreatedTime { get; set; }
 
     public int StaffId { get; set; }
 

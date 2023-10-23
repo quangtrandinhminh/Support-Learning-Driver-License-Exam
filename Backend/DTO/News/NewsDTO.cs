@@ -8,6 +8,10 @@
 
         public string Content { get; set; }
 
-        public DateTime CreatedTime { get; set; }
+        public int StaffId { get; set; }
+
+        public DateTime CreatedTime { get; }
+
+        public bool Status { get; set; }
     }
 }
