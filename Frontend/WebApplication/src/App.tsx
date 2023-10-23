@@ -8,6 +8,8 @@ import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-h
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import { useEffect } from 'react'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
+import MemberInformationPage from './bigcomponents/MemberPage/components/pages/member-information/member-information'
+import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/update-information/update-information'
 
 function App() {
 
@@ -35,9 +37,13 @@ function App() {
               ) : (
                 <Route path='/'>
                   <Route index element={<MemberHomePage />} />
-                  <Route path=''/>
+                  <Route path='' />
                   <Route path='khoahoc/:month' element={<MemberCoursePage />} />
                   <Route path='khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
+                  <Route path='thong-tin-ca-nhan'>
+                    <Route index element={<MemberInformationPage />} />
+                    <Route path='cap-nhat' element={<UpdateInformationPage />} />
+                  </Route>
                 </Route>
               )
             }
