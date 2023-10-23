@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import InputField from "../atoms/InputField";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../src/data/User";
 import axios from "axios";
@@ -17,29 +16,13 @@ const RegistrationForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleRegister = async () => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     // check if user not input all fields
+    e.preventDefault();
     if (!username || !email || !password || !confirmPassword) {
       toast.error("Please fill in all the fields.");
       return;
     }
-
     // check password is matched or not
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
@@ -99,44 +82,51 @@ const RegistrationForm: React.FC = () => {
 
   return (
     <div className="registration-form">
+      <form onSubmit={handleRegister}>
       <img src={logo} alt="logo" />
       <div className="rectangle-border">
-        <InputField
-          type="text"
-          placeholder="Nhập tên đăng nhập"
-          value={username}
-          onChange={handleUsernameChange}
-          iconSrc={user}
-        />
-        <InputField
-          type="email"
-          placeholder="Nhập email của bạn"
-          value={email}
-          onChange={handleEmailChange}
-          iconSrc={gmail}
-        />
-        <InputField
-          type="password"
-          placeholder="Nhập mật khẩu của bạn"
-          value={password}
-          onChange={handlePasswordChange}
-          iconSrc={lock}
-        />
-        <InputField
-          type="password"
-          placeholder="Nhập lại mật khẩu của bạn"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-          iconSrc={lock}
-        />
+        <div>
+          <img src={user} alt="user" />
+          <input
+              type="text"
+              placeholder="Nhập tên đăng nhập"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+        </div>
+        <div>
+        <img src={gmail} alt="gmail" />
+          <input
+              type="text"
+              placeholder="Nhập tên đăng nhập"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+        </div>
+        <div>
+        <img src={lock} alt="password" />
+          <input
+              type="password"
+              placeholder="Nhập tên đăng nhập"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+        </div>
+        <div>
+        <img src={lock} alt="repeatPassword" />
+          <input
+              type="password"
+              placeholder="Nhập tên đăng nhập"
+              value={password}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+        </div>
       </div>
       <div className="registration-buttons">
-        <button type="submit" onClick={handleRegister}>
-          Register
-        </button>
+        <button type="submit">Register</button>
       </div>
-      <ToastContainer autoClose={3000} />
-    </div>
+      </form>
+    </div>    
   );
 };
 
