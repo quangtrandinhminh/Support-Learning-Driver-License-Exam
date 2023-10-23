@@ -63,7 +63,7 @@ function MemberNavHome() {
                                     </Forward>
                                 </li>
                                 <li className='receive-border'>
-                                    <Forward to=''>
+                                    <Forward to='/ho-so-thi'>
                                         Hồ sơ thi
                                     </Forward>
                                 </li>

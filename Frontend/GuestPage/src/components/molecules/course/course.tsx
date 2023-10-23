@@ -7,7 +7,7 @@ function Course() {
         <div className='course-container' id='course-section'>
             <h1>Các khóa học</h1>
             <div className='course-list'>
-                <div className='course-section1'>
+                <div className='course-section-1'>
                     <div className='upperbox'>
                         <h2>Khóa học tháng 10/2023</h2>
                     </div>
@@ -28,7 +28,7 @@ function Course() {
                     </div>
                 </div>
 
-                <div className='course-section2'>
+                <div className='course-section-2'>
                     <div className='upperbox'>
                         <h2>Khóa học tháng 10/2023</h2>
                     </div>
@@ -49,7 +49,7 @@ function Course() {
                     </div>
                 </div>
 
-                <div className='course-section3'>
+                <div className='course-section-3'>
                     <div className='upperbox'>
                         <h2>Khóa học tháng 10/2023</h2>
                     </div>

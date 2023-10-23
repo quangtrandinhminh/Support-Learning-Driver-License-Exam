@@ -1,6 +1,6 @@
 import { Link } from 'react-scroll';
 import './guest-nav-home.scss'
-import { Link as Forward, Route, Routes } from 'react-router-dom'
+import { Link as Forward } from 'react-router-dom'
 
 function GuestNavHome() {
     return (
@@ -26,28 +26,25 @@ function GuestNavHome() {
                                 </li></Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="consultation" spy={true} smooth={true} offset={-120} duration={500}>
+                            <Link to="center-consultation" spy={true} smooth={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Tư vấn</a>
                                 </li>
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Routes>
-                                <Route path='/login' element={'/AuthorizationPage/src/App.tsx'}>
-                                    <Forward to='../../../../../AuthorizationPage/src/App.tsx' >
-                                    <li className='inline-block'>
-                                        <a href="">Đăng nhập</a>
-                                    </li>
-                                    </Forward>  
-                                </Route>
-                            </Routes>
-
+                            <Forward to='/login' >
+                                <li className='inline-block'>
+                                    <a href="">Đăng nhập</a>
+                                </li>
+                            </Forward>
                         </div>
                         <div className='nav-home-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng ký</a>
-                            </li>
+                            <Forward to='/login' >
+                                <li className='inline-block'>
+                                    <a href="">Đăng ký</a>
+                                </li>
+                            </Forward>
                         </div>
                     </ul>
                 </nav>

@@ -1,7 +1,12 @@
+import { useEffect } from 'react'
 import './practice-list-table.scss'
 import { Link } from 'react-router-dom'
 
 function PracticeList() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <div className='practice-list-container'>
             <h1 className='practice-list-title'>

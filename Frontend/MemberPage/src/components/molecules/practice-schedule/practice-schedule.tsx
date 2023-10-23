@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import './practice-schedule.scss'
 
 function PracticeSchedule() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <div className='practice-schedule-container'>
             <div className='title-container'>

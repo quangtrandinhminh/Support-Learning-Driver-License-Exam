@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './exam-document.scss'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,6 +10,10 @@ function ExamDocument() {
     window.scrollTo(0, 0);
     navigate('/ho-so-thi/cap-nhat');
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   return (
     <div className='exam-document-container'>

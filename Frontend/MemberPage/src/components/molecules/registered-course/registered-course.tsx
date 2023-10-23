@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
 import './registered-course.scss'
+import { useEffect } from 'react'
 
 function RegisteredCourse() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <div className="registered-course-container">
             <h1 className='registered-course-title'>khoá học của bạn</h1>

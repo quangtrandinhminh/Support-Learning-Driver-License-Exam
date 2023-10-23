@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import './mentor-management.scss'
+import { Moment } from 'moment';
 
 function MentorTable() {
     const [data, setData] = useState<any[]>([])
 
     const getAllUser = async () => {
-        await axios.get('https://localhost:7238/api/User')
+        await axios.get('https://localhost:7240/Users')
             .then(res => {
-                setData(res.data)
+                // setData(res.data)
             });
     }
 
@@ -75,7 +76,9 @@ function MentorTable() {
                             ) : (
                                 <tr>
                                     <td colSpan={5}>
-                                        <h1 className='text-center text-red-600 p-5'>No data found. Check data source again</h1>
+                                        <h1 className='text-center text-red-600 p-5'>
+                                            Không tìm thấy thông tin. Vui lòng kiểm tra lại!
+                                        </h1>
                                     </td>
                                 </tr>
                             )
