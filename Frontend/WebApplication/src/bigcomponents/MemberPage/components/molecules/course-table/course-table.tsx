@@ -65,7 +65,7 @@ function CourseTable() {
                                                     <p>{i + 1}</p>
                                                 </td>
                                                 <td className='course-date'>
-                                                    <p>Khoá {course[i].courseName}</p>
+                                                    <p>Khoá {course[i].name}</p>
                                                     <p>KG: {formatDate(course[0].courseTimeStart)}</p>
                                                     <p>BG: {formatDate(course[5].courseTimeEnd)}</p>
                                                 </td>
