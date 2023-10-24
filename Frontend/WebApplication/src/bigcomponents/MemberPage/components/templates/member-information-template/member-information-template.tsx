@@ -3,7 +3,9 @@ import MemberInformationForm from '../../molecules/member-information/member-inf
 function MemberInformationTemplate() {
     return (
         <>
-            <MemberInformationForm />
+            <div className='template'>
+                <MemberInformationForm />
+            </div>
         </>
     )
 }

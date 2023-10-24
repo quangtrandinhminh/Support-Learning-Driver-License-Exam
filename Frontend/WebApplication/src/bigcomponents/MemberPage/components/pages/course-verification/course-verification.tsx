@@ -1,17 +1,16 @@
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
-import '../general.scss'
 import CourseVerificationTemplate from '../../templates/course-verification-template/course-verification-template'
 
 function CourseVerificationPage() {
     return (
         <>
-            <header >
+            <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body'>
                 <CourseVerificationTemplate />
-            </body>
+            </div>
             <footer className='course-verification-footer'>
                 <MemberFooter />
             </footer>

@@ -3,7 +3,9 @@ import RegisteredCourse from "../../molecules/registered-course/registered-cours
 function MemberRegisteredCourseTemplate() {
     return (
         <>
-            <RegisteredCourse />
+            <div className='template'>
+                <RegisteredCourse />
+            </div>
         </>
     )
 }

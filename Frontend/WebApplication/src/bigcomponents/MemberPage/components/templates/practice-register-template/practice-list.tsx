@@ -3,7 +3,9 @@ import PracticeList from "../../molecules/practice-list-table/practice-list-tabl
 function PracticeRegisterTemplate() {
     return (
         <>
-            <PracticeList />
+            <div className="template">
+                <PracticeList />
+            </div>
         </>
     )
 }

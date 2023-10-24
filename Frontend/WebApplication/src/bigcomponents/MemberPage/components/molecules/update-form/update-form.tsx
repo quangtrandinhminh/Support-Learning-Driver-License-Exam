@@ -4,13 +4,15 @@ import './update-information.scss'
 import { toast } from 'react-toastify';
 
 function UpdateInformationForm() {
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    const username = user.username;
 
     const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         window.scrollTo(0, 0);
         toast.success("Cập nhật thông tin thành công.");
-        navigate('/thong-tin-ca-nhan');
+        navigate(`/thong-tin-ca-nhan/${username}`);
     }
 
     return (

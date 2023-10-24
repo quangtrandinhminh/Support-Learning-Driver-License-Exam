@@ -3,7 +3,9 @@ import ExamDocumentUpdate from '../../molecules/exam-document-update/exam-docume
 function ExamDocumentUpdateTemplate() {
     return (
         <>
-            <ExamDocumentUpdate />
+            <div className='template'>
+                <ExamDocumentUpdate />
+            </div>
         </>
     )
 }

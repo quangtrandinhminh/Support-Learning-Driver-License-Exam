@@ -1,5 +1,5 @@
 import './App.scss'
-import { Route, Routes, json } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
 import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-course/guest-course'
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
@@ -9,6 +9,13 @@ import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
 import MemberInformationPage from './bigcomponents/MemberPage/components/pages/member-information/member-information'
 import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/update-information/update-information'
+import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
+import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
+import './bigcomponents/StaffPage/components/staff-general.scss'
+import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/user-list'
+import 'bootstrap/dist/css/bootstrap.css'
+import './bigcomponents/general-template.scss'
+import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
 
 function App() {
 
@@ -35,20 +42,40 @@ function App() {
                 console.log(user),
                 <>
                   <Route index element={<GuestHomePage />} />
-                  <Route path='login' element={<LoginPage />} />
+                  <Route path='login' element={<LoginPage />}>
+                    {
+                      !user(
+                        <Route index element={<MemberHomePage />} />
+                      )
+                    }
+                  </Route>
                   <Route path='khoahoc' element={<GuestCoursePage />} />
                 </>
               ) : (
-                console.log(user),
-                <Route path='/'>
-                  <Route index element={<MemberHomePage />} />
-                  <Route path='khoahoc/:month' element={<MemberCoursePage />} />
-                  <Route path='khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
-                  <Route path='thong-tin-ca-nhan/:username'>
-                    <Route index element={<MemberInformationPage />} />
-                  </Route>
-                  <Route path='thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />
-                </Route>
+                <>
+                  {user.roleId === 1 && (
+                    <Route index element={<MemberHomePage />} />
+                  )}
+                  {user.roleId === 2 && (
+                    <>
+                      <Route index element={<StaffPage />} />
+                      <Route path='danh-sach-nguoi-dung' element={<UserListPage />} />
+                    </>
+                  )}
+                  {user.roleId === 3 && (
+                    <Route index element={<MentorMamagementPage />} />
+                  )}
+                  {user.roleId === 4 && (
+                    <>
+                      <Route index element={<MemberHomePage />} />
+                      <Route path='khoahoc/:month' element={<MemberCoursePage />} />
+                      <Route path='khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
+                      <Route path='thong-tin-ca-nhan/:username' element={<MemberInformationPage />} />
+                      <Route path='thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />
+                      <Route path='khoa-hoc-cua-ban' element={<MemberRegisteredCoursePage />} />
+                    </>
+                  )}
+                </>
               )
             }
           </Route>

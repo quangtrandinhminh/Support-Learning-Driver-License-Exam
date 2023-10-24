@@ -7,11 +7,13 @@ import News from '../../molecules/news/news'
 function HomeTemplate() {
     return (
         <>
-            <AboutCenter />
-            <Course />
-            <Information />
-            <News />
-            <Consultation />
+            <div className='template'>
+                <AboutCenter />
+                <Course />
+                <Information />
+                <News />
+                <Consultation />
+            </div>
         </>
     )
 }

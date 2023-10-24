@@ -5,9 +5,11 @@ import CourseTable from "../../molecules/course-table/course-table"
 function CourseTemplate() {
   return (
     <>
-      <CourseTable />
-      <CourseContent />
-      <CourseCommitment />
+      <div className='template'>
+        <CourseTable />
+        <CourseContent />
+        <CourseCommitment />
+      </div>
     </>
   )
 }

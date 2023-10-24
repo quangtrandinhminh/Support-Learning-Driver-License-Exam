@@ -4,7 +4,9 @@ import ExamDocument from '../../molecules/exam-document/exam-document'
 function ExamDocumentTemplate() {
     return (
         <>
-            <ExamDocument />
+            <div className='template'>
+                <ExamDocument />
+            </div>
         </>
     )
 }

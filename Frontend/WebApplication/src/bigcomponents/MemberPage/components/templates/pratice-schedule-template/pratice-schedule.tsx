@@ -3,7 +3,9 @@ import PracticeSchedule from "../../molecules/practice-schedule/practice-schedul
 function PracticeScheduleTemplate() {
     return (
         <>
+        <div className="template">
             <PracticeSchedule />
+        </div>
         </>
     )
 }
