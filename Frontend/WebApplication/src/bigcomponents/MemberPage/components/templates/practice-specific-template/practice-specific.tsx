@@ -3,7 +3,9 @@ import PracticeSpecificRegister from "../../molecules/practice-specific-register
 function PracticeSpecificTemplate() {
     return (
         <>
-            <PracticeSpecificRegister />
+            <div className="template">
+                <PracticeSpecificRegister />
+            </div>
         </>
     )
 }

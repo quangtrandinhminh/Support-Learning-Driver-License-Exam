@@ -3,7 +3,9 @@ import TheorySchedule from '../../molecules/theory-schedule/theory-schedule'
 function TheoryScheduleTemplate() {
     return (
         <>
-            <TheorySchedule />
+            <div className="template">
+                <TheorySchedule />
+            </div>
         </>
     )
 }

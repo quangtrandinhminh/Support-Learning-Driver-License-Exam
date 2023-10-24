@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
       if (response.status === 200) {
         const data = response.data;
         const user = Object.assign(data);
-        console.log(user.payload.username);
+        console.log(user.payload);
         if (data.payload == null) {
           toast.error("Tên đăng nhập không có trong hệ thống. Vui lòng kiểm tra lại!");
         } else {

@@ -3,7 +3,9 @@ import MentorInformation from '../../molecules/mentor-inf/mentor-inf'
 function MentorInformationTemplate() {
   return (
     <>
-      <MentorInformation />
+      <div className='template'>
+        <MentorInformation />
+      </div>
     </>
   )
 }

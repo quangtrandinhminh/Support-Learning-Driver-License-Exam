@@ -3,7 +3,9 @@ import VerificationForm from '../../molecules/verification-form/verification-for
 function CourseVerificationTemplate() {
   return (
     <>
-      <VerificationForm />
+      <div className='template'>
+        <VerificationForm />
+      </div>
     </>
   )
 }

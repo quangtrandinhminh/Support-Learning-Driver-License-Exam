@@ -3,7 +3,9 @@ import UpdateInformationForm from '../../molecules/update-form/update-form'
 function UpdateInformationTemplate() {
   return (
     <>
-      <UpdateInformationForm />
+      <div className="template">
+        <UpdateInformationForm />
+      </div>
     </>
   )
 }

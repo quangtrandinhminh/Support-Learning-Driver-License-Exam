@@ -43,26 +43,24 @@
     }
 
     .commiting-information {
+        display: flex;
         padding-top: 40px;
         grid-column: 2;
         max-width: 700px;
         align-self: center;
         justify-self: center;
+        flex-direction: column;
 
         p {
-            max-width: 500px;
+            width: auto;
             font-size: 18px;
             color: white;
-
-        }
-
-        .line-2 {
-            margin-top: 30px;
         }
 
         img {
             width: 80%;
-            margin-top: 20px;
+            margin: auto;
+            margin-top: 0;
         }
     }
 

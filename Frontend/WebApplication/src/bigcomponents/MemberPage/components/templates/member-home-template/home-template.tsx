@@ -5,12 +5,12 @@ import News from '../../molecules/news/news'
 
 function HomeTemplate() {
     return (
-        <>
+        <div className='template'>
             <AboutCenter />
             <Course />
             <Information />
             <News />
-        </>
+        </div>
     )
 }
 
