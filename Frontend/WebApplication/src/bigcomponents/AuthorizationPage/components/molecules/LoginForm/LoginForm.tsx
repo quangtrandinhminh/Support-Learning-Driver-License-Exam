@@ -55,7 +55,7 @@ const LoginForm: React.FC = () => {
   };
 
   const handleRegister = () => {
-    navigate("/register");
+    navigate("/dang-nhap");
   };
 
   return (
