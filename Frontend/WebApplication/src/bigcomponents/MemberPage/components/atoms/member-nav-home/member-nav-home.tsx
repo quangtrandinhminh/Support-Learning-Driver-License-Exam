@@ -36,7 +36,7 @@ function MemberNavHome() {
 
     return (
         <>
-            <div className='guest-nav-home-container'>
+            <div className='member-nav-home-container'>
                 <nav>
                     <ul>
                         <div className="nav-home-items">

@@ -34,14 +34,14 @@ function GuestNavHome() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Forward to='/login' >
+                            <Forward to='/dang-nhap' >
                                 <li className='inline-block'>
                                     <a href="">Đăng nhập</a>
                                 </li>
                             </Forward>
                         </div>
                         <div className='nav-home-items'>
-                            <Forward to='/login' >
+                            <Forward to='/dang-ky' >
                                 <li className='inline-block'>
                                     <a href="">Đăng ký</a>
                                 </li>

@@ -9,7 +9,6 @@ import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
 import MemberInformationPage from './bigcomponents/MemberPage/components/pages/member-information/member-information'
 import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/update-information/update-information'
-import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
 import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import './bigcomponents/StaffPage/components/staff-general.scss'
 import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/user-list'
@@ -49,6 +48,7 @@ function App() {
                 </>
               ) : (
                 <>
+                  <Route path='dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
                     <Route index element={<MemberHomePage />} />
                   )}
@@ -59,7 +59,8 @@ function App() {
                     </>
                   )}
                   {user.roleId === 3 && (
-                    <Route index element={<MentorMamagementPage />} />
+                    <Route index element={<MemberHomePage />} />
+                    //temp page
                   )}
                   {user.roleId === 4 && (
                     <>
