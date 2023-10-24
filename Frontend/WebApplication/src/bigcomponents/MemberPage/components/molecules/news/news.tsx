@@ -4,7 +4,7 @@ import Image from '../../../../../../assets/imgs/news/news-img.jpeg'
 function News() {
 
     return (
-        <div className='news-container' id='newss-section'>
+        <div className='news-container' id='news-section'>
             <h1>Tin tức</h1>
             <div className="news-list">
                 <div className="news-section-1">

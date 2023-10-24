@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -57,6 +57,14 @@ const LoginForm: React.FC = () => {
   const handleRegister = () => {
     navigate("/dang-ky");
   };
+
+  useEffect(() => {
+    const user = sessionStorage.getItem("loginedUser") ? JSON.stringify(sessionStorage.getItem("loginedUser")) : null;
+    if (user !== null) {
+      console.log("Hello");
+      navigate('/');
+    }
+  })
 
   return (
     <div className="login-form">
