@@ -6,12 +6,15 @@ import { Backdrop, CircularProgress } from '@mui/material';
 function Course() {
     const [numArray, setNumArray] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [course, setCourse] = useState(null);
 
     const getCourseMonth = async () => {
         try {
             const response = await api.get('/Course');
             const uniqueMonths: string[] = Array.from(new Set(response.data.map(item => item.courseMonth)));
+            const data = Array.from(new Set(response.data.map(item => item)));
             setNumArray(uniqueMonths);
+            setCourse(data);
             setIsLoading(false);
         } catch (error) {
             console.error(error);
