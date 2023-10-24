@@ -73,11 +73,16 @@
         .course-training-content {
             width: 370px;
 
-            li {
-                padding-left: 10px;
-                text-align: left;
-                line-height: 50px;
-                list-style: decimal;
+            ul {
+                padding: 0;
+                margin-bottom: 0;
+
+                li {
+                    list-style: decimal;
+                    padding-left: 10px;
+                    text-align: left;
+                    line-height: 50px;
+                }
             }
         }
 

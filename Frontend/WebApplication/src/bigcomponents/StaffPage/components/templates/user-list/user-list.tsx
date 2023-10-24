@@ -1,5 +1,5 @@
 import UserListTable from '../../molecules/user-list/user-list-table'
-import './user-list.scss'
+import '../template.scss'
 
 function UserListTemplate() {
   return (

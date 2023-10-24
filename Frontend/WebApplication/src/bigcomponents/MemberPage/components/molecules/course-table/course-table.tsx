@@ -71,12 +71,14 @@ function CourseTable() {
                                                 <p>20</p>
                                             </td>
                                             <td className="course-training-content">
-                                                <li className='border-receive'>Đào tạo lí thuyết</li>
-                                                <li className='border-receive'>Thực hành trong hình</li>
-                                                <li className='border-receive'>Thực hành trên cabin</li>
-                                                <li className='border-receive'>Thực hành trên đường</li>
-                                                <li className='border-receive'>Thực hành trên xe tự động</li>
-                                                <li>Thực hành tổng hợp trong hình</li>
+                                                <ul>
+                                                    <li className='border-receive'>Đào tạo lí thuyết</li>
+                                                    <li className='border-receive'>Thực hành trong hình</li>
+                                                    <li className='border-receive'>Thực hành trên cabin</li>
+                                                    <li className='border-receive'>Thực hành trên đường</li>
+                                                    <li className='border-receive'>Thực hành trên xe tự động</li>
+                                                    <li>Thực hành tổng hợp trong hình</li>
+                                                </ul>
                                             </td>
                                             <td className="course-training-time">
                                                 <li className='border-receive'>{formatDate(course[i].courseTimeStart)} - {formatDate(course[i].courseTimeEnd)}</li>
