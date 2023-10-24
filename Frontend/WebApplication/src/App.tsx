@@ -24,6 +24,8 @@ import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/pr
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import PracticeList from './bigcomponents/MemberPage/components/molecules/practice-list-table/practice-list-table'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
+import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
+import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 
 function App() {
 
@@ -93,7 +95,11 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:{courseId}'/>
+                        <Route path='khoa-hoc/:{courseId}' />
+                      </Route>
+                      <Route path='ho-so-thi'>
+                        <Route index element={<ExamDocumentPage />} />
+                        <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
                       </Route>
                     </>
                   )}
