@@ -73,12 +73,12 @@
         .course-training-content {
             width: 370px;
 
-            ul {
+            ol {
                 padding: 0;
                 margin-bottom: 0;
+                list-style-position: inside;
 
                 li {
-                    list-style: decimal;
                     padding-left: 10px;
                     text-align: left;
                     line-height: 50px;
@@ -89,10 +89,16 @@
         .course-training-time {
             width: 350px;
 
-            li {
-                text-align: center;
-                line-height: 50px;
-                list-style: none;
+            ol {
+                padding: 0;
+                margin-bottom: 0;
+                list-style-position: inside;
+
+                li {
+                    text-align: center;
+                    line-height: 50px;
+                    list-style: none;
+                }
             }
         }
 

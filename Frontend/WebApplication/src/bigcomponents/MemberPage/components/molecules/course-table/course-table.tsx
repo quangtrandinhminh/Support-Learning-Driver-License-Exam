@@ -56,46 +56,52 @@ function CourseTable() {
                                 <th></th>
                             </tr>
                             {
-                                !isLoading ? (
-                                    data.map((course, i) => (
-                                        <tr key={i}>
-                                            <td className='course-no'>
-                                                <p>{i + 1}</p>
-                                            </td>
-                                            <td className='course-date'>
-                                                <p>Khoá {course[i].courseName}</p>
-                                                <p>KG: {formatDate(course[0].courseTimeStart)}</p>
-                                                <p>BG: {formatDate(course[5].courseTimeEnd)}</p>
-                                            </td>
-                                            <td className='course-mem'>
-                                                <p>20</p>
-                                            </td>
-                                            <td className="course-training-content">
-                                                <ul>
-                                                    <li className='border-receive'>Đào tạo lí thuyết</li>
-                                                    <li className='border-receive'>Thực hành trong hình</li>
-                                                    <li className='border-receive'>Thực hành trên cabin</li>
-                                                    <li className='border-receive'>Thực hành trên đường</li>
-                                                    <li className='border-receive'>Thực hành trên xe tự động</li>
-                                                    <li>Thực hành tổng hợp trong hình</li>
-                                                </ul>
-                                            </td>
-                                            <td className="course-training-time">
-                                                <li className='border-receive'>{formatDate(course[i].courseTimeStart)} - {formatDate(course[i].courseTimeEnd)}</li>
-                                                <li className='border-receive'>{formatDate(course[i + 1].courseTimeStart)} - {formatDate(course[i + 1].courseTimeEnd)}</li>
-                                                <li className='border-receive'>{formatDate(course[i + 2].courseTimeStart)} - {formatDate(course[i + 2].courseTimeEnd)}</li>
-                                                <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
-                                                <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
-                                                <li>{formatDate(course[5].courseTimeStart)} - {formatDate(course[5].courseTimeEnd)}</li>
-                                            </td>
-                                            <td className='course-register'>
-                                                <Link to='/khoahoc/xac-nhan-khoa-hoc'>
-                                                    <button className='btnRegister'>Đăng ký</button>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
+                                data.length > 0 ? (
+                                    console.log(data.length),
+                                    !isLoading ? (
+                                        data.map((course, i) => (
+                                            <tr key={i}>
+                                                <td className='course-no'>
+                                                    <p>{i + 1}</p>
+                                                </td>
+                                                <td className='course-date'>
+                                                    <p>Khoá {course[i].courseName}</p>
+                                                    <p>KG: {formatDate(course[0].courseTimeStart)}</p>
+                                                    <p>BG: {formatDate(course[5].courseTimeEnd)}</p>
+                                                </td>
+                                                <td className='course-mem'>
+                                                    <p>20</p>
+                                                </td>
+                                                <td className="course-training-content">
+                                                    <ol>
+                                                        <li className='border-receive'>1. Đào tạo lí thuyết</li>
+                                                        <li className='border-receive'>2. Thực hành trong hình</li>
+                                                        <li className='border-receive'>3. Thực hành trên cabin</li>
+                                                        <li className='border-receive'>4. Thực hành trên đường</li>
+                                                        <li className='border-receive'>5. Thực hành trên xe tự động</li>
+                                                        <li>6. Thực hành tổng hợp trong hình</li>
+                                                    </ol>
+                                                </td>
+                                                <td className="course-training-time">
+                                                    <ol>
+                                                        <li className='border-receive'>{formatDate(course[i].courseTimeStart)} - {formatDate(course[i].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(course[i + 1].courseTimeStart)} - {formatDate(course[i + 1].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(course[i + 2].courseTimeStart)} - {formatDate(course[i + 2].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
+                                                        <li>{formatDate(course[5].courseTimeStart)} - {formatDate(course[5].courseTimeEnd)}</li>
+                                                    </ol>
+                                                </td>
+                                                <td className='course-register'>
+                                                    <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                                        <button className='btnRegister'>Đăng ký</button>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <h1>no</h1>
+                                    )) : (
                                     <>
                                         <Backdrop
                                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
