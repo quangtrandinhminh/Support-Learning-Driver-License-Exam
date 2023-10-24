@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './bigcomponents/general-template.scss'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
+import '../../StaffPage/src/components/templates/template.scss'
 
 function App() {
 
