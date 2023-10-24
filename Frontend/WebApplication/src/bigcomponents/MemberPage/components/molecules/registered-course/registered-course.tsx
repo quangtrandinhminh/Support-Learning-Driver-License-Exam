@@ -33,6 +33,7 @@ function RegisteredCourse() {
             const respone = await api.post('Member?userID=' + userInf.userID);
             const res = respone.data;
             setMember(res.payload);
+            console.log(member);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
@@ -45,9 +46,9 @@ function RegisteredCourse() {
 
     useEffect(() => {
         getMemberById();
+        console.log(member);
     }, [userInf])
 
-    console.log(member);
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -65,7 +66,7 @@ function RegisteredCourse() {
                     <div className='registered-course-content'>
                         <ul>
                             <li>
-                                <label htmlFor="course-name">Khoá học: </label>
+                                <label htmlFor="course-name">Khoá học: {member.courseId}</label>
                             </li>
                             <li>
                                 <label htmlFor="course-start">Ngày khai giảng: </label>

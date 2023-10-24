@@ -1,10 +1,10 @@
 import './mentor-inf.scss'
-import MemberImg from '../../../../../assets/imgs/member/member_img.png'
+import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 
 function MentorInformation() {
     return (
         <div className="mentor-info-conatiner">
-            <h1 className='main-title'>Thông tin giảng viên</h1>
+            <h1 className='main-title'>Thông tin giáo viên</h1>
             <div className='info-content'>
                 <div className='mentor-img' >
                     <img src={MemberImg} alt="" />

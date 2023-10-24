@@ -13,7 +13,7 @@ function TheorySchedule() {
             </div>
             <table>
                 <thead>
-                    <tr>
+                    <tr className='text-center'>
                         <th className='class-no'>STT</th>
                         <th className='class-time'>Thời gian</th>
                         <th className='class-mentor'>Giáo viên</th>
