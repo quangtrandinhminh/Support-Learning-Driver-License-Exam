@@ -55,7 +55,7 @@ const LoginForm: React.FC = () => {
   };
 
   const handleRegister = () => {
-    navigate("/");
+    navigate("/register");
   };
 
   return (
@@ -83,12 +83,12 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
         <div className="login-buttons">
-          <button type="submit">Login</button>
+          <button type="submit"><p>Đăng Nhập</p></button>
           <button type="button" onClick={handleRegister}>
-            Register
+            <p>Đăng Ký</p>
           </button>
         </div>
-        <Link to="/forgotPassword">Forgot your password?</Link>
+        <Link to="/forgotPassword" className="forgot_password"><p>Quên mật khẩu?</p></Link>
       </form>
     </div>
   );

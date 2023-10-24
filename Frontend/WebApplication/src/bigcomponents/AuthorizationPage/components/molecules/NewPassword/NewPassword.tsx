@@ -1,22 +1,13 @@
 // NewPassword.tsx
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import InputField from "../atoms/InputField";
-import lock from "../../assets/images/lock.svg";
+import lock from "../../../../AuthorizationPage/assets/images/lock.svg";
 import logo from "../../assets/images/Logo.svg";
 
 const NewPassword: React.FC= () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
-  };
 
   const handleResetPassword = () => {
     if (!password || !confirmPassword) {
@@ -39,20 +30,24 @@ const NewPassword: React.FC= () => {
        <img src={logo} alt="logo" />
       <div className="rectangle-border">
         {error && <div className="error-message">{error}</div>}
-        <InputField
-          type="password"
-          placeholder="Enter your new password..."
-          value={password}
-          onChange={handlePasswordChange}
-          iconSrc={lock}
-        />
-        <InputField
-          type="password"
-          placeholder="Confirm your new password..."
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-          iconSrc={lock}
-        />
+        <div className="inputField">
+            <img src={lock} alt="lock" />
+            <input
+              type="password"
+              placeholder="Nhập mật khẩu của bạn"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="inputField">
+            <img src={lock} alt="lock" />
+            <input
+              type="password"
+              placeholder="Nhập mật khẩu của bạn"
+              value={password}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
         <button type="button" onClick={handleResetPassword}>
           Reset Password
         </button>

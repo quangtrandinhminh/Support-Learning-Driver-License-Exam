@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../src/data/User";
+import { User } from "../../../../AuthorizationPage/data/User";
 import axios from "axios";
 import logo from "../../assets/images/Logo.svg";
 import user from "../../assets/images/userblur.svg";

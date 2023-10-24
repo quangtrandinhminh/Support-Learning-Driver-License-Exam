@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "../../assets/images/Logo.svg";
 import gmail from "../../assets/images/gmail logo.svg";
+import "./index.scss";
 
 const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState<string>("");
