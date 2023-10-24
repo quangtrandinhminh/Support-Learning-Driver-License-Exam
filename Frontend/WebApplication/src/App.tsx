@@ -42,13 +42,7 @@ function App() {
                 console.log(user),
                 <>
                   <Route index element={<GuestHomePage />} />
-                  <Route path='login' element={<LoginPage />}>
-                    {
-                      !user(
-                        <Route index element={<MemberHomePage />} />
-                      )
-                    }
-                  </Route>
+                  <Route path='login' element={<LoginPage />} />
                   <Route path='khoahoc' element={<GuestCoursePage />} />
                 </>
               ) : (
