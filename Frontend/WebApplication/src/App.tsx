@@ -43,8 +43,8 @@ function App() {
                 console.log(user),
                 <>
                   <Route index element={<GuestHomePage />} />
-                  <Route path='login' element={<LoginPage />} />
-                  <Route path='register' element={<RegistrationPage />} />
+                  <Route path='dang-nhap' element={<LoginPage />} />
+                  <Route path='dang-ky' element={<RegistrationPage />} />
                   <Route path='khoahoc' element={<GuestCoursePage />} />
                 </>
               ) : (
