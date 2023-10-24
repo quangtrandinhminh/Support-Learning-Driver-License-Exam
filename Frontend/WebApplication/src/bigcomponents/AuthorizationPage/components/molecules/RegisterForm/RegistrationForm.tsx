@@ -68,7 +68,7 @@ const RegistrationForm: React.FC = () => {
           setConfirmPassword("");
 
           setTimeout(() => {
-            navigate("/login");
+            navigate("/dang-nhap");
           }, 2000);
         }
       } else {
