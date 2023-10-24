@@ -16,6 +16,7 @@ import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/u
 import 'bootstrap/dist/css/bootstrap.css'
 import './bigcomponents/general-template.scss'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
+import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                 <>
                   <Route index element={<GuestHomePage />} />
                   <Route path='login' element={<LoginPage />} />
+                  <Route path='register' element={<RegistrationPage />} />
                   <Route path='khoahoc' element={<GuestCoursePage />} />
                 </>
               ) : (
