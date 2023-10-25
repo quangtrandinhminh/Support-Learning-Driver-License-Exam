@@ -12,7 +12,7 @@ namespace Backend.Controllers
             _memberService = memberService;
         }
 
-        [HttpGet("Member")]
+        [HttpGet("/api/Member")]
         public IActionResult GetAll()
         {
             try
@@ -31,7 +31,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("/Member")]
+        [HttpPost("/api/Member")]
         public async Task<IActionResult> GetMember(int userID)
         {
             try

@@ -12,7 +12,7 @@ namespace Backend.Controllers
             _userService = userService;
         }
 
-        [HttpGet("Users")]
+        [HttpGet("/api/Users")]
         public IActionResult GetAll()
         {
             try
@@ -31,7 +31,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/User")]
+        [HttpGet("/api/User")]
         public async Task<IActionResult> GetUser(string username)
         {
             try
@@ -51,7 +51,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("/login")]
+        [HttpPost("/api/login")]
         public async Task<IActionResult> Login(string username)
         {
             try
