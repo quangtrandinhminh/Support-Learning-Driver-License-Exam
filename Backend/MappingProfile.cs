@@ -33,8 +33,8 @@ namespace Backend
             CreateMap<DTO.News.NewsRequestDTO, DB.Models.News>();
 
             // Mentor
-            CreateMap<DB.Models.Mentor, DTO.Mentor.MentorDTO>();
-            CreateMap<DTO.Mentor.MentorDTO, DB.Models.Mentor>();
+            //CreateMap<DB.Models.Mentor, DTO.Mentor.MentorDTO>();
+            //CreateMap<DTO.Mentor.MentorDTO, DB.Models.Mentor>();
         }
     }
 }
