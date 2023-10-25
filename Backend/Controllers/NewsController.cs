@@ -1,7 +1,6 @@
 ﻿using Backend.DTO.News;
 using Backend.Services.News;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace Backend.Controllers
 {
@@ -66,11 +65,19 @@ namespace Backend.Controllers
 
         // POST: api/News/post-news
         [HttpPost("post-news")]
-        public async Task<IActionResult> PostNews(NewsDTO news)
+        public async Task<IActionResult> PostNews(NewsRequestDTO newsRequestDto)
         {
-            var result = await _newsService.PostNews(news);
+            var result = await _newsService.PostNews(newsRequestDto);
             if (result.IsError)
             {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
@@ -83,11 +90,19 @@ namespace Backend.Controllers
         // Not available 
         // PUT: api/News/5
         [HttpPut("edit-news")]
-        public async Task<IActionResult> EditNews(NewsDTO news)
+        public async Task<IActionResult> EditNews(NewsRequestDTO newsRequestDto)
         {
-            var result = await _newsService.UpdateNews(news);
+            var result = await _newsService.UpdateNews(newsRequestDto);
             if (result.IsError)
             {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
@@ -104,6 +119,14 @@ namespace Backend.Controllers
             var result = await _newsService.DeactivateNews(id);
             if (result.IsError)
             {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
