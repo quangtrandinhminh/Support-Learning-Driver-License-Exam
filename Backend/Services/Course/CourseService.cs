@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Backend.DTO.Course;
 using Backend.Repository.CourseRepository;
+using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace Backend.Services.Course
 {
@@ -15,12 +17,26 @@ namespace Backend.Services.Course
             _mapper = mapper;
         }
 
+        public ICollection<CourseDTO>? GetAll()
+        {
+            try
+            {
+                var courses = _courseRepository.GetAll();
+                return courses is null ? null : _mapper.Map<ICollection<CourseDTO>>(courses);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public ServiceResult<ICollection<CourseDTO>> GetAllCourses()
         {
             var result = new ServiceResult<ICollection<CourseDTO>>();
             try
             {
-                var courses = _courseRepository.GetAll().Where(x => x.Status == true);
+                var courses = _courseRepository.GetAll();
                 if (!courses.Any())
                 {
                     result.IsError = true;
@@ -44,6 +60,30 @@ namespace Backend.Services.Course
             try
             {
                 var courses = _courseRepository.GetAll().Where(x => x.Status == false);
+                if (!courses.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "No course found!";
+                }
+
+                result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
+        public ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month)
+        {
+            var result = new ServiceResult<ICollection<CourseDTO>>();
+
+            try
+            {
+                var courses = _courseRepository.GetAll().Where(p => p.CourseMonth == month);
                 if (!courses.Any())
                 {
                     result.IsError = true;

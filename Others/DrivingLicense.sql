@@ -96,7 +96,7 @@ CREATE TABLE [dbo].[Member](
   [relatedDocument] VARCHAR(255) NULL,
   [registrationDate] DATE NULL,
   [isPaid] BIT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] VARCHAR(10) NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -447,6 +447,7 @@ GO
 SET IDENTITY_INSERT [dbo].[User] OFF
 
 /*-- Add data: Course --*/
+SET IDENTITY_INSERT [dbo].[Course] ON
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
@@ -500,6 +501,9 @@ INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate],
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
 		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
 				'2023-10-06', '01', '2024', 1)
+GO
+
+SET IDENTITY_INSERT [dbo].[Course] OFF
 GO
 
 /*-- Add data: CourseDetails --*/
