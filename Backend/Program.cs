@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// add database
+// Add database
 builder.Services.AddDbContext<DrivingLicenseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
@@ -27,7 +27,7 @@ builder.Services.AddDbContext<DrivingLicenseContext>(options =>
             errorNumbersToAdd: null // List of specific error numbers to retry (optional)
         )
     ), ServiceLifetime.Transient);
-//Add Cors
+//  Add Cors
 builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", corsPolicyBuilder => 
     {
@@ -40,14 +40,6 @@ builder.Services.AddCors(options =>
 
 //Add Cors
 var app = builder.Build();
-
-app.UseCors(builder => {
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-}
-);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

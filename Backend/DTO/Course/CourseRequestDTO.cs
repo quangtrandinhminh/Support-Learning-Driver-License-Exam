@@ -1,6 +1,6 @@
 ﻿namespace Backend.DTO.Course
 {
-    public class CourseDTO
+    public class CourseRequestDTO
     {
         public string CourseId { get; set; }
 
