@@ -2,7 +2,7 @@ import MemberTable from '../../molecules/member-management/member-management'
 
 function MemberManagementTemplate() {
   return (
-    <div className='.staff-template'>
+    <div className='template-container'>
       <MemberTable />
     </div>
   )
