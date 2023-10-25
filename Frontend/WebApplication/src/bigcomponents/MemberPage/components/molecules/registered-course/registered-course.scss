@@ -1,0 +1,23 @@
+.registered-course-container {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .registered-course-title {
+        text-transform: uppercase;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .registered-course-content {
+        align-self: flex-start;
+        padding: 10px 50px;
+
+        li {
+            list-style: none;
+            line-height: 250%;
+            font-size: 24px;
+        }
+    }
+}

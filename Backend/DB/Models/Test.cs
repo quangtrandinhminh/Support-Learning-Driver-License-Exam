@@ -7,13 +7,13 @@ public partial class Test
 {
     public int TestId { get; set; }
 
-    public string TestName { get; set; } = null!;
+    public string? TestName { get; set; }
 
     public int? Score { get; set; }
 
     public bool? Pass { get; set; }
 
-    public DateTime TestTime { get; set; }
+    public DateTime? TestTime { get; set; }
 
     public string StudentId { get; set; } = null!;
 

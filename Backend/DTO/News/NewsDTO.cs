@@ -10,7 +10,7 @@
 
         public int StaffId { get; set; }
 
-        public DateTime CreatedTime { get; }
+        public DateTime CreatedTime { get; set; }
 
         public bool Status { get; set; }
     }

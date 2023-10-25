@@ -1,0 +1,15 @@
+.course-table-container {
+
+    .course-table-title {
+        h1 {
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .course-table-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 70px;
+    }
+}
