@@ -10,7 +10,9 @@ using Backend.Services.User;
 using Backend.Repository.MemberRepository;
 using Backend.Services.Member;
 using Backend.Repository.CourseDetailsRepository;
+using Backend.Repository.MentorRepository;
 using Backend.Services.CourseDetails;
+using Backend.Services.Mentor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IMentorRepository, MentorRepository>();
+builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
