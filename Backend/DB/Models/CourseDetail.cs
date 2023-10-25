@@ -5,7 +5,7 @@ namespace Backend.DB.Models;
 
 public partial class CourseDetail
 {
-    public string CourseDetailsId { get; set; } = null!;
+    public int CourseDetailsId { get; set; }
 
     public string CourseContent { get; set; } = null!;
 

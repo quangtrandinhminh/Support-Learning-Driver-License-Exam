@@ -1,10 +1,16 @@
 using Backend.DB;
 using Backend.DB.Models;
+using Backend.Repository.UserRepository;
 using Backend.Repository.CourseRepository;
 using Backend.Repository.NewsRepository;
 using Backend.Services.Course;
 using Backend.Services.News;
 using Microsoft.EntityFrameworkCore;
+using Backend.Services.User;
+using Backend.Repository.MemberRepository;
+using Backend.Services.Member;
+using Backend.Repository.CourseDetailsRepository;
+using Backend.Services.CourseDetails;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +18,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseDetailsRepository, CourseDetailsRepository>();
+builder.Services.AddScoped<ICourseDetailsService, CourseDetailsService>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

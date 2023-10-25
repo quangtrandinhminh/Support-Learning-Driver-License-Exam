@@ -96,7 +96,7 @@ CREATE TABLE [dbo].[Member](
   [relatedDocument] VARCHAR(255) NULL,
   [registrationDate] DATE NOT NULL,
   [isPaid] BIT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] VARCHAR(10) NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -446,6 +446,65 @@ INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [pho
 GO
 SET IDENTITY_INSERT [dbo].[User] OFF
 
+/*-- Add data: Course --*/
+SET IDENTITY_INSERT [dbo].[Course] ON
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1001B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1002B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1003B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1004B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1005B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1006B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1007B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1008B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+GO
+SET IDENTITY_INSERT [dbo].[Course] OFF
+GO
+
 /*-- Add data: Member --*/
 GO
 SET IDENTITY_INSERT [dbo].[Member] ON 
@@ -694,65 +753,6 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAd
 							'B2', 2, 2, '', '2023-10-22', 1, '1009B2', '36')
 GO
 SET IDENTITY_INSERT [dbo].[Member] OFF
-
-/*-- Add data: Course --*/
-SET IDENTITY_INSERT [dbo].[Course] ON
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1001B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1002B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1003B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1004B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1005B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1006B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1007B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1008B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-GO
-SET IDENTITY_INSERT [dbo].[Course] OFF
-GO
 
 /*-- Add data: CourseDetails --*/
 SET IDENTITY_INSERT [dbo].[CourseDetails] ON

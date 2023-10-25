@@ -29,9 +29,7 @@
 
 	<ItemGroup>
 		<Folder Include="Helpers\" />
-		<Folder Include="Services\Member\" />
 		<Folder Include="Services\Mentor\" />
-		<Folder Include="Services\User\" />
 		<Folder Include="Services\Classes\" />
 		<Folder Include="Services\Exam\" />
 		<Folder Include="Services\Mark\" />

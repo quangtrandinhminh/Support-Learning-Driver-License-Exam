@@ -30,6 +30,21 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        [HttpGet("Course/courseMonth")]
+        public IActionResult GetCourseByMonth(int month)
+        {
+            var result =  _courseService.GetCourseByMonth(month);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpGet("inactive-courses")]
         public IActionResult GetInactiveCourses()
         {
