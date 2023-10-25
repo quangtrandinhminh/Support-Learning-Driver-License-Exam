@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: row;
 
-    header {
-        padding: 8px;
+    .mentor-header {
+        min-width: 280px;
         min-height: 1000px;
         background-color: #4292EB;
     }
 
-    body {
+    .mentor-body {
         width: 100%;
         min-height: 1000px;
     }
