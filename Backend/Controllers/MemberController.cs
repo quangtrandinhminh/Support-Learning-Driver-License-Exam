@@ -12,7 +12,7 @@ namespace Backend.Controllers
             _memberService = memberService;
         }
 
-        [HttpGet("Members")]
+        [HttpGet("/api/Members")]
         public IActionResult GetAll()
         {
             var members = _memberService.GetAllMember();
@@ -23,8 +23,8 @@ namespace Backend.Controllers
             return Ok(members);
         }
 
-        [HttpPost("/Member")]
-        public async Task<IActionResult> GetMemberById(int userID)
+        [HttpPost("/api/Member")]
+        public async Task<IActionResult> GetMember(int userID)
         {
             var result = await _memberService.GetMemberById(userID);
             if (result.IsError)
