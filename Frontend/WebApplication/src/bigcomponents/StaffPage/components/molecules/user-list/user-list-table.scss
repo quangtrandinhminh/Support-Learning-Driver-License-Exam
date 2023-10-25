@@ -1,0 +1,17 @@
+.user-table-container {
+    width: 85%;
+    justify-self: center;
+
+    .user-table-title {
+        h1 {
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .user-table-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 70px;
+    }
+}

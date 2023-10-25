@@ -1,0 +1,79 @@
+.theory-schedule-container {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+
+    .title-container {
+        text-align: center;
+        margin-top: 50px;
+
+        .theory-container-title {
+            text-transform: uppercase;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .theory-container-subtitle {
+            margin-top: 10px;
+            line-height: 30px;
+        }
+    }
+
+    table {
+        width: 70%;
+        margin-top: 30px;
+        font-size: 20px;
+        height: 800px;
+        border-collapse: collapse;
+
+
+        thead {
+            th {
+                padding: 8px;
+                background-color: #8B0000;
+                color: white;
+                border: 1px solid black;
+            }
+
+            .class-no {
+                width: 100px;
+            }
+
+            .class-time {
+                width: 200px;
+            }
+
+            .class-mentor {
+                width: 200px;
+            }
+
+            .class-content {
+                width: 350px;
+            }
+
+            .class-destination {
+                width: 200px;
+            }
+
+        }
+
+        tbody {
+            td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;
+            }
+        }
+    }
+
+    .theory-schedule-note {
+        justify-content: center;
+        display: flex;
+        margin: auto;
+        margin-top: 30px;
+        width: 95%;
+        color: red;
+        font-style: italic;
+    }
+
+}

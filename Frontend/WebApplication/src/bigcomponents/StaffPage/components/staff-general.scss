@@ -1,0 +1,15 @@
+.page-container {
+    display: flex;
+    flex-direction: row;
+
+    .staff-header {
+        min-width: 280px;
+        min-height: 1000px;
+        background-color: #4292EB;
+    }
+
+    .staff-body {
+        width: 100%;
+        min-height: 1000px;
+    }
+}
