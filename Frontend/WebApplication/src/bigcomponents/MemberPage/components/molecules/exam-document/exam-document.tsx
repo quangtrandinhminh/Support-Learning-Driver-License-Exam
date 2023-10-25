@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './exam-document.scss'
 import { useNavigate } from 'react-router-dom'
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function ExamDocument() {

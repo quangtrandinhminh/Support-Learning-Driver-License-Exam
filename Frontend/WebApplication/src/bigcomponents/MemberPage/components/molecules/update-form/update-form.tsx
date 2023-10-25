@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './update-information.scss'
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react'
-import api from '../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
+import api from '../../../../../config/axios';
 
 function UpdateInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;

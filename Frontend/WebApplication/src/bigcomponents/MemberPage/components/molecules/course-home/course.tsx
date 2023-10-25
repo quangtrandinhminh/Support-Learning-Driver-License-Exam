@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import './course.scss';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function Course() {
-    const [numArray, setNumArray] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
 
     const getCourseMonth = async () => {
         try {
-            const response = await api.get('/Course');
+            const response = await api.get('Course/list');
             const courses = response.data;
             const uniqueMonths: string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
-            setNumArray(uniqueMonths);
 
             // Select one course from each unique month
             const selectedCourses = uniqueMonths.map(month => {
@@ -52,7 +50,7 @@ function Course() {
                             <form action="" key={i}>
                                 <div className={`course-section${i + 1}`}>
                                     <div className='upperbox'>
-                                            <h2>Khoá học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
+                                        <h2>Khoá học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
                                     </div>
                                     <div className='course-content'>
                                         <div className='course-content-list'>

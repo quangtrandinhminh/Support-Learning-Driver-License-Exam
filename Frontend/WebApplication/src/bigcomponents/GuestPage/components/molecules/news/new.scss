@@ -1,7 +1,6 @@
 .news-container {
     position: relative;
     margin-top: 100px;
-    margin-bottom: 100px;
 
     h1 {
         text-align: center;
@@ -26,13 +25,14 @@
         .news-1-title,
         .news-2-title,
         .news-3-title {
-            padding-left: 15px;
-            padding-top: 6px;
+            padding: 8px;
         }
 
         .news-1-content,
         .news-2-content,
         .news-3-content {
+            padding: 8px;
+            height: 100px;
             padding-left: 15px;
             padding-top: 20px;
             line-height: 30px;
@@ -41,13 +41,12 @@
         .news-1-date,
         .news-2-date,
         .news-3-date {
+            padding: 8px;
             padding-left: 15px;
-            margin-top: 40px;
         }
 
         button {
             position: relative;
-            margin-top: 50px;
             background-color: #4292EB;
             width: 150px;
             height: 50px;

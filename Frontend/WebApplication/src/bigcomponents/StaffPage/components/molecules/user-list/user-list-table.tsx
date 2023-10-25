@@ -1,6 +1,6 @@
 import './user-list-table.scss'
 import { useEffect, useState } from 'react';
-import api from '../../../../MemberPage/config/axios';
+import api from '../../../../../config/axios';
 import 'bootstrap/scss/bootstrap.scss'
 
 function UserListTable() {
