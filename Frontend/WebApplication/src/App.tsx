@@ -68,7 +68,7 @@ function App() {
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
                   <Route path='dang-ky' element={<RegistrationPage />} />
-                  <Route path='khoahoc' element={<GuestCoursePage />} />
+                  <Route path='khoahoc/:month' element={<GuestCoursePage />} />
                 </>
               ) : (
                 <>
