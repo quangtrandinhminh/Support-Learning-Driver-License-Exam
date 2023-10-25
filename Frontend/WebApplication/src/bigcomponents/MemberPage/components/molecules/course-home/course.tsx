@@ -80,7 +80,8 @@ function Course() {
                     >
                         <CircularProgress color="inherit" />
                     </Backdrop>
-                )}
+                )
+                }
             </div>
         </div>
     )
