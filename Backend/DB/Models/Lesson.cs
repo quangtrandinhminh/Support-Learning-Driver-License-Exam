@@ -9,11 +9,11 @@ public partial class Lesson
 
     public int ClassId { get; set; }
 
-    public DateTime StartTime { get; set; }
+    public DateTime? StartTime { get; set; }
 
-    public DateTime EndTime { get; set; }
+    public DateTime? EndTime { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
     public double? Hours { get; set; }
 
