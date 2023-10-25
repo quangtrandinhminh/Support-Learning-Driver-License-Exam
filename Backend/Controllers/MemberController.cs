@@ -12,43 +12,31 @@ namespace Backend.Controllers
             _memberService = memberService;
         }
 
-        [HttpGet("Member")]
+        [HttpGet("Members")]
         public IActionResult GetAll()
         {
-            try
+            var members = _memberService.GetAllMember();
+            if (members == null)
             {
-                var members = _memberService.GetAllMember();
-                if (members == null)
-                {
-                    return NotFound();
-                }
-                return Ok(members);
+                return NotFound();
             }
-            catch (Exception a)
-            {
-                Console.WriteLine(a);
-                throw;
-            }
+            return Ok(members);
         }
 
         [HttpPost("/Member")]
-        public async Task<IActionResult> GetMember(int userID)
+        public async Task<IActionResult> GetMemberById(int userID)
         {
-            try
+            var result = await _memberService.GetMemberById(userID);
+            if (result.IsError)
             {
-                var member = await _memberService.MemberInformation(userID);
-                if (member is null)
-                {
-                    return NotFound();
-                }
+                return NotFound(
+                    new
+                    {
+                        error = result.ErrorMessage
+                    });
+            }
 
-                return Ok(member);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            return Ok(result.Payload);
         }
     }
 }

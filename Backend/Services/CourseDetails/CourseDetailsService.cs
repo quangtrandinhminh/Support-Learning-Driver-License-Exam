@@ -15,7 +15,7 @@ namespace Backend.Services.CourseDetails
             _mapper = mapper;
         }
 
-        public ICollection<CourseDetailsDTO>? AllCourseDetails()
+        public ICollection<CourseDetailsDTO>? GetAllCourseDetails()
         {
             try
             {

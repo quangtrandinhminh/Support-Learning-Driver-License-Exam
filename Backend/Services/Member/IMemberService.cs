@@ -5,6 +5,6 @@ namespace Backend.Services.Member
     public interface IMemberService
     {
         public ICollection<MemberDTO>? GetAllMember();
-        Task<ServiceResult<MemberDTO>> MemberInformation(int userID);
+        Task<ServiceResult<MemberDTO>> GetMemberById(int userID);
     }
 }

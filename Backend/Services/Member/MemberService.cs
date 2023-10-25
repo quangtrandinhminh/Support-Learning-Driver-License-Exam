@@ -29,14 +29,13 @@ namespace Backend.Services.Member
             }
         }
 
-        public async Task<ServiceResult<MemberDTO>> MemberInformation(int userID)
+        public async Task<ServiceResult<MemberDTO>> GetMemberById(int userID)
         {
             var result = new ServiceResult<MemberDTO>();
             try
             {
                 var member = _memberRepository.GetAll()
-                    .Where(p => p.UserId == userID)
-                    .FirstOrDefault();
+                    .FirstOrDefault(p => p.UserId == userID);
 
                 if (member is null)
                 {
@@ -44,10 +43,8 @@ namespace Backend.Services.Member
                     result.ErrorMessage = "User is not exist";
                     return result;
                 }
-                else
-                {
-                    result.Payload = _mapper.Map<MemberDTO>(member);
-                }
+
+                result.Payload = _mapper.Map<MemberDTO>(member);
             }
             catch (Exception e)
             {

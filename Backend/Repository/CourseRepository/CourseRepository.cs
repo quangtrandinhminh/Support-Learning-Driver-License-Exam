@@ -19,8 +19,7 @@ namespace Backend.Repository.CourseRepository
         {
             try
             {
-                var courses = _dbSet.AsQueryable().Where(u => u.Status == true);
-                return courses;
+                return _dbSet.AsQueryable();
             }
             catch (Exception e)
             {
