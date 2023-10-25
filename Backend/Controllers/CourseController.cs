@@ -30,7 +30,7 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
-        [HttpGet("Course/courseMonth")]
+        [HttpGet("/api/Course/courseMonth")]
         public IActionResult GetCourseByMonth(int month)
         {
             var result =  _courseService.GetCourseByMonth(month);

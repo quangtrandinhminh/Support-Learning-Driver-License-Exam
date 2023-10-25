@@ -39,16 +39,6 @@ builder.Services.AddDbContext<DrivingLicenseContext>(options =>
             errorNumbersToAdd: null // List of specific error numbers to retry (optional)
         )
     ), ServiceLifetime.Transient);
-//  Add Cors
-builder.Services.AddCors(options =>
-    options.AddPolicy("AllowAll", corsPolicyBuilder => 
-    {
-        corsPolicyBuilder.WithOrigins("*")
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    })
-);
 
 //Add Cors
 var app = builder.Build();
@@ -58,6 +48,16 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+/* DONT CHANGE THIS LINE*/
+//  Add Cors
+app.UseCors(builder => {
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}
+);
 
 app.UseHttpsRedirection();
 

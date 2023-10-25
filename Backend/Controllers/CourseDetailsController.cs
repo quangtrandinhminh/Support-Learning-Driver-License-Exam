@@ -16,7 +16,7 @@ namespace Backend.Controllers
             _courseService = courseService;
         }
 
-        [HttpGet("CourseDetails")]
+        [HttpGet("/api/CourseDetails")]
         public IActionResult GetAllCourse()
         {
             try
@@ -35,7 +35,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("CourseDetail")]
+        [HttpGet("/api/CourseDetail")]
         public IActionResult GetCourseDetails(int courseMonth) 
         {
             try
