@@ -8,9 +8,9 @@ function MemberCoursePage() {
       <header>
         <MemberHeader />
       </header>
-      <body>
+      <div className='body-container'>
         <CourseTemplate />
-      </body>
+      </div>
       <footer>
         <MemberFooter />
       </footer>

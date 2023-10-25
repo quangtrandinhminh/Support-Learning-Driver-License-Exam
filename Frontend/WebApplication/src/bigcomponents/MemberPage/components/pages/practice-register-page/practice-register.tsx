@@ -8,9 +8,9 @@ function PracticeRegisterPage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <PracticeRegisterTemplate />
-            </body>
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

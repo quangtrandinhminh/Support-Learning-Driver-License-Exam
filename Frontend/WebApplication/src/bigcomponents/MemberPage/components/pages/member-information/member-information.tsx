@@ -8,11 +8,9 @@ function MemberInformationPage() {
             <header>
                 <MemberHeader />
             </header>
-
-            <body>
+            <div className='body-container'>
                 <MemberInformationTemplate />
-            </body>
-
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

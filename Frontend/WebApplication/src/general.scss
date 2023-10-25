@@ -2,33 +2,39 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1;
     background-color: #4292EB;
     height: 100px;
+    z-index: 1;
 }
 
-body {
+.body-container {
     width: 100%;
-    margin-top: 100px;
     margin-right: auto;
     margin-left: auto;
-    height: auto;
+    min-height: 500px;
+    margin-top: 100px;
 }
 
 footer {
     width: 100%;
-    margin-top: 100px;
+    margin-top: 80px;
     height: 300px;
     background-color: #4292EB;
+}
+
+.toast-notify {
+    margin-top: 100px;
 }
 
 .home-footer {
     margin-top: 200px;
 }
 
-.course-verification-body {
-    width: 100%;
-    margin-top: 100px;
-    margin-right: auto;
-    margin-left: auto;
+.course-verification-footer {
+    margin-top: 140px;
+}
+
+.exam-document-footer,
+.exam-document-update-footer {
+    margin-top: 130px;
 }
