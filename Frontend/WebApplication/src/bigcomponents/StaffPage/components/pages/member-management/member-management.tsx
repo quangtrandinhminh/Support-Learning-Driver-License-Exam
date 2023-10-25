@@ -4,12 +4,12 @@ import MemberManagementTemplate from '../../templates/menber-management/member-m
 function MemberManagementPage() {
     return (
         <div className='page-container'>
-            <header>
+            <div className='staff-header'>
                 <StaffSidebar />
-            </header>
-            <body>
+            </div>
+            <div className='staff-body'>
                 <MemberManagementTemplate />
-            </body>
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import StaffHeader from "../../organisms/header/header"
-import UserListTemplate from "../../templates/user-list/user-list"
+import UserListTemplate from "../../templates/user-management/user-management"
 
 function UserListPage() {
     return (

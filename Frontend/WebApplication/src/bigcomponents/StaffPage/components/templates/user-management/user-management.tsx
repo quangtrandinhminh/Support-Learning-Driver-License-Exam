@@ -1,12 +1,12 @@
 import UserListTable from '../../molecules/user-list/user-list-table'
 import '../template.scss'
 
-function UserListTemplate() {
+function UserManagementTemplate() {
   return (
-    <div className='staff-template'>
+    <div className='template-container'>
       <UserListTable />
     </div>
   )
 }
 
-export default UserListTemplate
+export default UserManagementTemplate

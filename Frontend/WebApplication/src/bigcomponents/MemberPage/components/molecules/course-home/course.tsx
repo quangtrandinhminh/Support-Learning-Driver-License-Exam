@@ -12,7 +12,7 @@ function Course() {
         try {
             const response = await api.get('/Course');
             const courses = response.data;
-            const uniqueMonths : string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
+            const uniqueMonths: string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
             setNumArray(uniqueMonths);
 
             // Select one course from each unique month
@@ -52,7 +52,7 @@ function Course() {
                             <form action="" key={i}>
                                 <div className={`course-section${i + 1}`}>
                                     <div className='upperbox'>
-                                        <h2>Khoá học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
+                                            <h2>Khoá học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
                                     </div>
                                     <div className='course-content'>
                                         <div className='course-content-list'>

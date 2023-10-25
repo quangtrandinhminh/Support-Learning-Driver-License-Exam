@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
 import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-course/guest-course'
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
-import { Bounce, Slide, ToastContainer } from 'react-toastify'
+import { Bounce, ToastContainer } from 'react-toastify'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
@@ -12,7 +12,6 @@ import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/u
 import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import './bigcomponents/StaffPage/components/staff-general.scss'
 import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/user-list'
-import 'bootstrap/dist/css/bootstrap.css'
 import './bigcomponents/general-template.scss'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
@@ -22,19 +21,26 @@ import MentorInformationPage from './bigcomponents/MemberPage/components/pages/m
 import TheorySchedulePage from './bigcomponents/MemberPage/components/pages/theory-schedule/theory-schedule'
 import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/practice-schedule/practice-schedule'
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
-import PracticeList from './bigcomponents/MemberPage/components/molecules/practice-list-table/practice-list-table'
-import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
+import 'bootstrap/dist/css/bootstrap.css'
+import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
+import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
+import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
+import { useEffect } from 'react'
 
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
   //reset to top when page refreshed
-  window.onbeforeunload = function () {
+  const scrollToTop = () => {
     window.scrollTo(0, 0);
   }
+
+  useEffect(() => {
+    scrollToTop();
+  }, [])
 
   return (
     <>
@@ -73,7 +79,10 @@ function App() {
                   {user.roleId === 2 && (
                     <>
                       <Route index element={<StaffPage />} />
-                      <Route path='danh-sach-nguoi-dung' element={<UserListPage />} />
+                      <Route path='quan-ly-nguoi-dung' element={<UserListPage />} />
+                      <Route path='quan-ly-khoa-hoc' element={<CourseManagementPage />} />
+                      <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
+                      <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
                     </>
                   )}
                   {user.roleId === 3 && (

@@ -35,7 +35,6 @@ const LoginForm: React.FC = () => {
               sessionStorage.setItem('loginedUser', JSON.stringify(user.payload));
               toast.success("Đăng nhập thành công"); // Show the success toast
               setTimeout(function () {
-                navigate('/');
                 location.reload();
               }, 2000); // Reload the page after 2 seconds (adjust as needed)
             } else {

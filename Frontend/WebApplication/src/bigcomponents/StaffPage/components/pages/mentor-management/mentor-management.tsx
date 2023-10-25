@@ -4,12 +4,12 @@ import MentorManagementTemplate from '../../templates/mentor-management/mentor-m
 function MentorMamagementPage() {
     return (
         <div className='page-container'>
-            <header>
+            <div className='staff-header'>
                 <StaffSidebar />
-            </header>
-            <body>
+            </div>
+            <div className='staff-body'>
                 <MentorManagementTemplate />
-            </body>
+            </div>
         </div>
     )
 }

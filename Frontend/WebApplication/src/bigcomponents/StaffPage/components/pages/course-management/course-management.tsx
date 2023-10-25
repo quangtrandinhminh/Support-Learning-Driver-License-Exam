@@ -4,12 +4,12 @@ import CourseManagementTemplate from '../../templates/course-management/course-m
 function CourseManagementPage() {
     return (
         <div className='page-container'>
-            <header>
+            <div className='staff-header'>
                 <StaffSidebar />
-            </header>
-            <body>
+            </div>
+            <div className='staff-body'>
                 <CourseManagementTemplate />
-            </body>
+            </div>
         </div>
     )
 }
