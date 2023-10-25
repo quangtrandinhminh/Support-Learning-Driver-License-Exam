@@ -1,4 +1,6 @@
 ﻿using AutoMapper.Configuration;
+using Backend.DB.Models;
+using Backend.DTO.Mentor;
 using System.Diagnostics;
 
 namespace Backend
@@ -33,7 +35,14 @@ namespace Backend
             CreateMap<DTO.News.NewsRequestDTO, DB.Models.News>();
 
             // Mentor
-            CreateMap<DB.Models.Mentor, DTO.Mentor.MentorDTO>();
+            CreateMap<Mentor, MentorDTO>()
+                .ForMember(dto => dto.UserId, opt => opt.MapFrom(entity => entity.User.UserId))
+                .ForMember(dto => dto.fullName, opt => opt.MapFrom(entity => entity.User.FullName))
+                .ForMember(dto => dto.Email, opt => opt.MapFrom(entity => entity.User.Email))
+                .ForMember(dto => dto.UserName, opt => opt.MapFrom(entity => entity.User.Username))
+                .ForMember(dto => dto.Phone, opt => opt.MapFrom(entity => entity.User.Phone))
+                .ForMember(dto => dto.RoleId, opt => opt.MapFrom(entity => entity.User.RoleId))
+                .ForMember(dto => dto.CreatedTime, opt => opt.MapFrom(entity => entity.User.CreateTime));
             CreateMap<DTO.Mentor.MentorDTO, DB.Models.Mentor>();
         }
     }
