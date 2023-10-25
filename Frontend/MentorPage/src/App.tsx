@@ -1,10 +1,10 @@
 import './App.scss'
-import Sidebar from './components/atoms/mentor-home-sidebar/sidebar'
-
+import MentorSidebar from './components/atoms/mentor-home-sidebar/sidebar'
+  
 function App() {
   return (
     <>
-      <Sidebar />
+    <MentorSidebar />
     </>
   )
 }
