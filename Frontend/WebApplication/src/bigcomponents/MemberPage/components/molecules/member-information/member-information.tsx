@@ -1,7 +1,7 @@
 import './member-information.scss'
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import { useNavigate } from 'react-router-dom'
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import React, { useEffect, useState } from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';

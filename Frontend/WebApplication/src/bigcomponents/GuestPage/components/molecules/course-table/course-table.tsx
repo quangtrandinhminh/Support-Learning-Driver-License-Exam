@@ -1,6 +1,6 @@
 import './course-table.scss'
 import { Link, useParams } from 'react-router-dom'
-import api from '../../../../MemberPage/config/axios';
+import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 

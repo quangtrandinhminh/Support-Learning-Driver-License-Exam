@@ -6,7 +6,7 @@ import logo from "../../../assets/images/Logo.svg";
 import Lock from "../../../assets/images/lock.svg";
 import user from "../../../assets/images/userblur.svg";
 import "./index.scss"
-import api from "../../../../MemberPage/config/axios";
+import api from "../../../../../config/axios";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");

@@ -1,6 +1,6 @@
 import './course.scss'
 import { useEffect, useState } from 'react';
-import api from '../../../../MemberPage/config/axios';
+import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 
@@ -11,7 +11,7 @@ function Course() {
 
     const getCourseMonth = async () => {
         try {
-            const response = await api.get('/Course');
+            const response = await api.get('Course/list');
             const courses = response.data;
             const uniqueMonths: string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
             setNumArray(uniqueMonths);
@@ -49,7 +49,6 @@ function Course() {
                 {!isLoading ? (
                     course.length > 0 ? (
                         course.slice(0, maxCoursesToDisplay).map((course, i) => (
-                            console.log(course[i]),
                             <form action="" key={i}>
                                 <div className={`course-section${i + 1}`}>
                                     <div className='upperbox'>
@@ -80,7 +79,6 @@ function Course() {
                         open={true}>
                         <CircularProgress color="inherit" />
                     </Backdrop>
-
                 )
                 }
             </div>
