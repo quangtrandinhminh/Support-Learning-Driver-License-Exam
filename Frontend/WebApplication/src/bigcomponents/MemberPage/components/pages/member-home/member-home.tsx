@@ -9,9 +9,9 @@ function MemberHomePage() {
             <header id='header-nav'>
                 <MemberHeaderHome />
             </header>
-            <body>
+            <div className='body-container'>
                 <HomeTemplate />
-            </body>
+            </div>
             <footer className='home-footer'>
                 <MemberFooter />
             </footer>

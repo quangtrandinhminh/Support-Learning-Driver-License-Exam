@@ -1,33 +1,43 @@
 import './App.scss'
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { Bounce, ToastContainer } from 'react-toastify'
+import 'react-toastify/ReactToastify.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import './general.scss'
+
+// Staff import
+import './bigcomponents/StaffPage/components/templates/template.scss'
+import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
+import UserManagementPage from './bigcomponents/StaffPage/components/pages/user-management/user-management'
+import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
+import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
+import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
+import './bigcomponents/StaffPage/components/staff-general.scss'
+
+// Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
 import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-course/guest-course'
-import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
-import { Bounce, ToastContainer } from 'react-toastify'
+
+// Member import 
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
 import MemberInformationPage from './bigcomponents/MemberPage/components/pages/member-information/member-information'
 import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/update-information/update-information'
-import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
-import './bigcomponents/StaffPage/components/staff-general.scss'
-import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/user-list'
-import './bigcomponents/general-template.scss'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
-import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
-import '../../StaffPage/src/components/templates/template.scss'
-import 'react-toastify/ReactToastify.css'
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
 import TheorySchedulePage from './bigcomponents/MemberPage/components/pages/theory-schedule/theory-schedule'
 import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/practice-schedule/practice-schedule'
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
-import 'bootstrap/dist/css/bootstrap.css'
-import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
-import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
-import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
-import { useEffect } from 'react'
+
+// Authorization page
+import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
+import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
+
+
 
 function App() {
 
@@ -79,7 +89,7 @@ function App() {
                   {user.roleId === 2 && (
                     <>
                       <Route index element={<StaffPage />} />
-                      <Route path='quan-ly-nguoi-dung' element={<UserListPage />} />
+                      <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
                       <Route path='quan-ly-khoa-hoc' element={<CourseManagementPage />} />
                       <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
                       <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />

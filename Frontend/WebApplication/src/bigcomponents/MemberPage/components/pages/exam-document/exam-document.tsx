@@ -9,9 +9,9 @@ function ExamDocumentPage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <ExamDocumentTemplate />
-            </body>
+            </div>
             <footer className='exam-document-footer'>
                 <MemberFooter />
             </footer>

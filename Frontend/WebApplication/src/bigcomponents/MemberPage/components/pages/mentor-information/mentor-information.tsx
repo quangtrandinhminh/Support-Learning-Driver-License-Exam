@@ -8,9 +8,9 @@ function MentorInformationPage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <MentorInformationTemplate />
-            </body>
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

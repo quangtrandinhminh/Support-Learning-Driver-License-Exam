@@ -25,13 +25,13 @@
         .news-1-title,
         .news-2-title,
         .news-3-title {
-            padding: 8px;
+            padding: 15px;
         }
 
         .news-1-content,
         .news-2-content,
         .news-3-content {
-            padding: 8px;
+            padding: 15px 15px 15px 0;
             height: 100px;
             padding-left: 15px;
             padding-top: 20px;
@@ -41,7 +41,7 @@
         .news-1-date,
         .news-2-date,
         .news-3-date {
-            padding: 8px;
+            padding: 15px;
             padding-left: 15px;
         }
 
@@ -67,19 +67,19 @@
 
         .news-section-1 {
             border-radius: 15px;
-            height: 700px;
+            height: 100%;
             border: 2px solid black;
         }
 
         .news-section-2 {
             border-radius: 15px;
-            height: 700px;
+            height: 90%;
             border: 2px solid black;
         }
 
         .news-section-3 {
             border-radius: 15px;
-            height: 700px;
+            height: 90%;
             border: 2px solid black;
         }
     }

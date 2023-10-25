@@ -4,7 +4,7 @@ import LoginForm from "../molecules/LoginForm/LoginForm";
 const LoginPage: React.FC = () => {
   return (
     <>
-          <LoginForm/>
+      <LoginForm />
     </>
   );
 };
