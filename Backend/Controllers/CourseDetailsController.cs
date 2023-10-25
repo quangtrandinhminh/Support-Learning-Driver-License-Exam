@@ -2,6 +2,7 @@
 using Backend.Services.Course;
 using Backend.Services.CourseDetails;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Backend.Controllers
 {
@@ -16,12 +17,12 @@ namespace Backend.Controllers
             _courseService = courseService;
         }
 
-        [HttpGet("/api/CourseDetails")]
-        public IActionResult GetAllCourse()
+        [HttpGet("CourseDetails")]
+        public IActionResult GetAllCourseDetails()
         {
             try
             {
-                var courseDetails = _courseDetailsService.AllCourseDetails();
+                var courseDetails = _courseDetailsService.GetAllCourseDetails();
                 if (courseDetails == null)
                 {
                     return NotFound();
@@ -35,18 +36,19 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/api/CourseDetail")]
-        public IActionResult GetCourseDetails(int courseMonth) 
+        [HttpGet("CourseDetail")]
+        public IActionResult GetCourseDetailsByCourseMonth(int courseMonth) 
         {
             try
             {
                 List<CourseDetailsDTO> courseDetail = new List<CourseDetailsDTO>();
                 List<List<CourseDetailsDTO>> courseDetails = new List<List<CourseDetailsDTO>>();
                 var courses = _courseService.GetAll().
-                    Where(p => p.CourseMonth == courseMonth).ToList();
+                    Where(c => c.CourseMonth == courseMonth)
+                    .ToList();
                 foreach (var course in courses) 
                 {
-                    courseDetail = _courseDetailsService.AllCourseDetails().
+                    courseDetail = _courseDetailsService.GetAllCourseDetails().
                     Where(q => q.CourseId.Equals(course.CourseId)).ToList();
 
                     courseDetails.Add(courseDetail);

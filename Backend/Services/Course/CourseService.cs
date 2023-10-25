@@ -36,7 +36,9 @@ namespace Backend.Services.Course
             var result = new ServiceResult<ICollection<CourseDTO>>();
             try
             {
-                var courses = _courseRepository.GetAll();
+                var courses = _courseRepository.GetAll()
+                    .Where(c => c.Status == true);
+
                 if (!courses.Any())
                 {
                     result.IsError = true;
@@ -83,7 +85,9 @@ namespace Backend.Services.Course
 
             try
             {
-                var courses = _courseRepository.GetAll().Where(p => p.CourseMonth == month);
+                var courses = _courseRepository.GetAll()
+                    .Where(c => c.Status == true && c.CourseMonth == month);
+
                 if (!courses.Any())
                 {
                     result.IsError = true;
