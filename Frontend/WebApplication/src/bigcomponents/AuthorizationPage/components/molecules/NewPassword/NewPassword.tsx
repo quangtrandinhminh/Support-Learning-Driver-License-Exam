@@ -1,40 +1,44 @@
 // NewPassword.tsx
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import lock from "../../../../AuthorizationPage/assets/images/lock.svg";
-import logo from "../../assets/images/Logo.svg";
+import logo from "../../../../AuthorizationPage/assets/images/Logo.png";
+import "./index.scss"
 
-const NewPassword: React.FC= () => {
+const NewPassword: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleResetPassword = () => {
     if (!password || !confirmPassword) {
-      setError("Please fill in both password fields.");
+      toast.error("Please fill in both password fields.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      toast.error("Passwords do not match.");
       return;
     }
 
     // Tiến hành đặt lại mật khẩu tại đây (có thể gửi yêu cầu đặt lại mật khẩu đến máy chủ)
 
-    setError("Password reset successful");
+    toast.success("Password reset successful");
+    navigate('/dang-nhap')
   };
 
   return (
     <div className="new-password">
-       <img src={logo} alt="logo" />
-      <div className="rectangle-border">
-        {error && <div className="error-message">{error}</div>}
-        <div className="inputField">
+      <form onSubmit={handleResetPassword}>
+        <img src={logo} alt="logo" />
+        <div className="rectangle-border">
+          <div className="inputField">
             <img src={lock} alt="lock" />
             <input
               type="password"
-              placeholder="Nhập mật khẩu của bạn"
+              placeholder="MẬT KHẨU"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -43,16 +47,18 @@ const NewPassword: React.FC= () => {
             <img src={lock} alt="lock" />
             <input
               type="password"
-              placeholder="Nhập mật khẩu của bạn"
-              value={password}
+              placeholder="NHẬP LẠI MẬT KHẨU"
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-        <button type="button" onClick={handleResetPassword}>
-          Reset Password
-        </button>
-        <Link to="/login">Back to Login</Link>
-      </div>
+          <div className="newpassword-buttons">
+            <button type="submit">
+              <p>TIẾP THEO</p>
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

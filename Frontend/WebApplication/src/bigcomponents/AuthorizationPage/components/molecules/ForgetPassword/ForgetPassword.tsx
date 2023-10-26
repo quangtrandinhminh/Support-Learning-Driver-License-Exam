@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import logo from "../../assets/images/Logo.svg";
-import gmail from "../../assets/images/gmail logo.svg";
+import logo from "../../../../AuthorizationPage/assets/images/Logo.png";
+import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
 import "./index.scss";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [confirmationCode, setConfirmationCode] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleResetPassword = async () => {
     if (!email) {
@@ -38,6 +40,7 @@ const ForgetPassword: React.FC = () => {
         // Ví dụ: sendEmail(email, confirmationCode);
 
         toast.success("Confirmation code sent to your email.");
+        navigate('/mat-khau-moi');
       } else {
         toast.error("Email not found. Please try again or register.");
       }
@@ -51,31 +54,37 @@ const ForgetPassword: React.FC = () => {
       <form onSubmit={handleResetPassword}>
         <img src={logo} alt="logo" />
         <div className="rectangle-border">
-          <h2>Đặt lại mật khẩu</h2>
-          <h5>Nhập gmail của bạn để nhận xác minh đặt lại mật khẩu</h5>
-          <div>
+          <div className="content-page">
+            <h3>Đặt lại mật khẩu</h3>
+            <p>Nhập gmail của bạn để nhận xác minh đặt lại mật khẩu</p>
+          </div>
+          <div className="inputField">
             <img src={gmail} alt="gmail" />
             <input
               type="text"
-              placeholder="Nhập tên đăng nhập"
+              placeholder="NHẬP GMAIL"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div>
+          <div className="link_sms">
             <a href="https://www.google.com/intl/vi/gmail/about/">
-              Nhận mã xác nhận
+              LẤY MÃ XÁC NHẬN
             </a>
           </div>
-          <div>
+          <div className="inputField2">
             <input
               type="text"
-              placeholder="Nhập Mã xác nhận"
+              placeholder="NHẬP MÃ XÁC NHẬN"
               value={confirmationCode}
               onChange={(e) => setConfirmationCode(e.target.value)}
             />
           </div>
-          <button type="submit">Tiếp Theo</button>
+          <div className="forget-buttons">
+            <button type="submit">
+              <p>TIẾP THEO</p>
+            </button>
+          </div>
         </div>
       </form>
     </div>

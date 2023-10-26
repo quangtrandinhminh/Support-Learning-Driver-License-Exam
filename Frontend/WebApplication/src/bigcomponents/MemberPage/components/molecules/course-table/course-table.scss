@@ -76,12 +76,14 @@
             ol {
                 padding: 0;
                 margin-bottom: 0;
-                list-style-position: inside;
+                list-style-position: unset;
+                list-style: none;
 
                 li {
                     padding-left: 10px;
                     text-align: left;
                     line-height: 50px;
+                    list-style: decimal;
                 }
             }
         }
@@ -97,7 +99,7 @@
                 li {
                     text-align: center;
                     line-height: 50px;
-                    list-style: none;
+                    list-style: decimal;
                 }
             }
         }

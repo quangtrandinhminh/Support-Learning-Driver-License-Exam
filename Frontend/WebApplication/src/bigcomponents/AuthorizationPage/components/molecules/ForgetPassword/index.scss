@@ -1,0 +1,152 @@
+.forget-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    .rectangle-border {
+      padding: 20px;
+      width: 300px; // Adjust the width as needed
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+        
+      .content-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      
+            h3 {
+            width: 100%; // Để nội dung cân giữa theo chiều ngang
+            height: 39px;
+            color: #444;
+            font-family: Inter;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 39px; // Để nội dung cân giữa theo chiều dọc
+            }
+        
+            p {
+            width: 414px; 
+            height: 22px;
+            color: #000;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            }
+      }        
+
+        .inputField {
+            display: flex;
+            align-items: center;
+            margin: 5px 0; // Adjust the margin as needed
+            border: 1.5px solid #000; // Dark border around inputField
+            border-radius: 4px;
+            padding: 5px;
+            width: 304px;
+            height: 45px;
+            
+            img {
+            margin-right: 10px; // Adjust the margin as needed
+            }
+            
+            input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            }
+        }
+
+        .link_sms {
+            width: 300.714px;
+            height: 36px;
+    
+            // Adjust the styling for the 'a' element
+            a {
+                width: 153.364px;
+                height: 20px;
+                color: #F00;
+                text-align: center;
+                font-family: Montserrat;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px; /* 142.857% */
+                text-decoration-line: underline;
+                text-transform: uppercase;
+                margin-left: 140px;
+            }
+        }
+
+        .inputField2{
+            display: flex;
+            align-items: center;
+            margin: 5px 0; // Adjust the margin as needed
+            border: 1.5px solid #000; // Dark border around inputField
+            border-radius: 4px;
+            padding: 5px;
+            width: 304px;
+            height: 45px;
+
+            input {
+                margin-left: 10px;
+                border: none;
+                outline: none;
+                background: transparent;
+                width: 100%;
+            }
+        }
+    }
+    
+    .forget-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      button {
+        display: block; // Buttons on separate lines
+        margin: 10px 0; // Adds spacing between buttons
+        justify-content: center;
+        align-items: center;
+        
+        width: 200px;
+        height: 45px;
+        border-radius: 5px;
+        border: 1px solid #000;
+        background: #1E62B6;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+            p{
+                margin-top: 10px;
+                color: rgba(255, 255, 255, 0.92);
+                text-align: center;
+                font-family: Montserrat;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 800;
+                line-height: 20px; /* 125% */
+                text-transform: uppercase;
+        }
+      }
+    }
+      .forgot_password{
+          p{
+            color: #1E62B6;
+            text-align: center;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-decoration-line: underline;
+          }
+      }
+  }
+  
