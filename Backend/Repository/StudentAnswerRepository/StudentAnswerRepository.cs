@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository.StudentAnswerRepository
 {
-    public class StudentAnswerRepository
+    public class StudentAnswerRepository : IStudentAnswerRepository
     {
         private readonly DrivingLicenseContext _context;
         private readonly DbSet<StudentAnswer> _dbSet;

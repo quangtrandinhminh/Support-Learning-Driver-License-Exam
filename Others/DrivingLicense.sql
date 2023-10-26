@@ -166,6 +166,7 @@ CREATE TABLE [dbo].[TeachingSchedule](
   [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
+  [teachingDate] DATE NULL
   CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
   (
     [teachingScheduleID] ASC

@@ -11,6 +11,8 @@ public partial class TeachingSchedule
 
     public string CourseId { get; set; } = null!;
 
+    public DateTime? TeachingDate { get; set; }
+
     public virtual Course Course { get; set; } = null!;
 
     public virtual Mentor Mentor { get; set; } = null!;
