@@ -347,7 +347,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.Members)
                 .HasForeignKey(d => d.CourseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Member_Course");
 
             entity.HasOne(d => d.User).WithOne(p => p.Member)
@@ -366,7 +365,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
                 .HasColumnName("residenceAddress");
-            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserId).HasColumnName("userID");
 
             entity.HasOne(d => d.User).WithOne(p => p.Mentor)
@@ -506,6 +504,9 @@ public partial class DrivingLicenseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.TeachingDate)
+                .HasColumnType("date")
+                .HasColumnName("teachingDate");
 
             entity.HasOne(d => d.Course).WithMany(p => p.TeachingSchedules)
                 .HasForeignKey(d => d.CourseId)

@@ -53,7 +53,7 @@ builder.Services.AddScoped<IExamRepository, ExamRepository>();
 /*builder.Services.AddScoped<IExamService, ExamService>();*/
 builder.Services.AddScoped<ITestRepository, TestRepository>();
 /*builder.Services.AddScoped<ITestService, TestService>();*/
-builder.Services.AddScoped<IStudentAnswerRepository, IStudentAnswerRepository>();
+builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 /*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 /*builder.Services.AddScoped<IQuestionService, QuestionService>();*/
