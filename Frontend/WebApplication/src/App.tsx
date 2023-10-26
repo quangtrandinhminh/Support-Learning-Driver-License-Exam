@@ -37,6 +37,9 @@ import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
 
+//Mentor page
+import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
+
 
 
 function App() {
