@@ -1,23 +1,20 @@
 ﻿using Backend.DB.Models;
-using Backend.DTO.Mentor;
-using Backend.Services;
-using Backend.Services.Mentor;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Repository.MentorRepository
+namespace Backend.Repository.StaffRepository
 {
-    public class MentorRepository : IMentorRepository
+    public class StaffRepository : IStaffRepository
     {
         private readonly DrivingLicenseContext _context;
-        private readonly DbSet<Mentor> _dbSet;
+        private readonly DbSet<Staff> _dbSet;
 
-        public MentorRepository(DrivingLicenseContext context)
+        public StaffRepository(DrivingLicenseContext context)
         {
             _context = context;
-            _dbSet = _context.Set<Mentor>();
+            _dbSet = _context.Set<Staff>();
         }
 
-        public IQueryable<Mentor>? GetAll()
+        public IQueryable<Staff>? GetAll()
         {
             try
             {
@@ -30,7 +27,7 @@ namespace Backend.Repository.MentorRepository
             }
         }
 
-        public async Task<Mentor?> GetByIdAsync(int id)
+        public async Task<Staff?> GetByIdAsync(int id)
         {
             try
             {
@@ -43,11 +40,11 @@ namespace Backend.Repository.MentorRepository
             }
         }
 
-        public async Task<Mentor?> CreateAsync(Mentor mentor)
+        public async Task<Staff?> CreateAsync(Staff Staff)
         {
             try
             {
-                var result = await _dbSet.AddAsync(mentor);
+                var result = await _dbSet.AddAsync(Staff);
                 await _context.SaveChangesAsync();
                 return result.Entity;
             }
@@ -58,11 +55,11 @@ namespace Backend.Repository.MentorRepository
             }
         }
 
-        public async Task<Mentor?> UpdateAsync(Mentor mentor)
+        public async Task<Staff?> UpdateAsync(Staff Staff)
         {
             try
             {
-                var result = _dbSet.Update(mentor);
+                var result = _dbSet.Update(Staff);
                 await _context.SaveChangesAsync();
                 return result.Entity;
             }
