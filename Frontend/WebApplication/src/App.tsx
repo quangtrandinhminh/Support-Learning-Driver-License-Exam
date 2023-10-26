@@ -34,9 +34,9 @@ import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-d
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 
 // Authorization page
-import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
-import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
 import CreateCoursePage from './bigcomponents/StaffPage/components/pages/create-course/create-course'
+import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
+import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage/RegistrationPage'
 
 //Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
