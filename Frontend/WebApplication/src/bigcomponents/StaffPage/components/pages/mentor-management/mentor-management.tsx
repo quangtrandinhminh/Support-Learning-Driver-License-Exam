@@ -1,4 +1,3 @@
-import React from 'react'
 import StaffSidebar from '../../organisms/header/header'
 
 function MentorMamagementPage() {

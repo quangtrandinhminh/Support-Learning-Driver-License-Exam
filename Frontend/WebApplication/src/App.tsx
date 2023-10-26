@@ -37,6 +37,10 @@ import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
 
+//Mentor page
+import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
+import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
+
 
 
 function App() {
@@ -96,8 +100,10 @@ function App() {
                     </>
                   )}
                   {user.roleId === 3 && (
-                    <Route index element={<MemberHomePage />} />
-                    //temp page
+                    <>
+                    <Route index element={<MentorHomePage />} />
+                    <Route path='/lich-day' element={<MentorSchedulePage />}/>
+                    </>
                   )}
                   {user.roleId === 4 && (
                     <>

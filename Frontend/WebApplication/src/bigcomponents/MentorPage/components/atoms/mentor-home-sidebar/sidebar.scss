@@ -16,6 +16,14 @@
         flex-direction: column;
         gap: 20px;
 
+        .mini-title {
+            padding: 20px;
+            display: inline-block;
+            text-transform: uppercase;
+            color: white;
+            font-size: 18px;
+        }
+
         li {
             list-style: none;
             margin-left: 20px;

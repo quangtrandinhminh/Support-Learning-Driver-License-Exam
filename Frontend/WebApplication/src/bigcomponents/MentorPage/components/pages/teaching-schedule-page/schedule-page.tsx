@@ -1,7 +1,7 @@
 import MentorSidebar from '../../atoms/mentor-home-sidebar/sidebar'
 import '../../general.scss'
 
-function SchedulePage() {
+function MentorSchedulePage() {
   return (
     <div className="page-container">
         <div className="mentor-sidebar">
@@ -11,4 +11,4 @@ function SchedulePage() {
   )
 }
 
-export default SchedulePage
+export default MentorSchedulePage
