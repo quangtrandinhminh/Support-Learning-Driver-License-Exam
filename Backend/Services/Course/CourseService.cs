@@ -2,6 +2,7 @@
 using Backend.DTO.Course;
 using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace Backend.Services.Course
 {
@@ -16,12 +17,28 @@ namespace Backend.Services.Course
             _mapper = mapper;
         }
 
+        public ICollection<CourseDTO>? GetAll()
+        {
+            try
+            {
+                var courses = _courseRepository.GetAll();
+                return courses is null ? null : _mapper.Map<ICollection<CourseDTO>>(courses);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public ServiceResult<ICollection<CourseDTO>> GetAllCourses()
         {
             var result = new ServiceResult<ICollection<CourseDTO>>();
             try
             {
-                var courses = _courseRepository.GetAll().Where(x => x.Status == true);
+                var courses = _courseRepository.GetAll()
+                    .Where(c => c.Status == true);
+
                 if (!courses.Any())
                 {
                     result.IsError = true;
@@ -62,13 +79,39 @@ namespace Backend.Services.Course
             return result;
         }
 
+        public ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month)
+        {
+            var result = new ServiceResult<ICollection<CourseDTO>>();
+
+            try
+            {
+                var courses = _courseRepository.GetAll()
+                    .Where(c => c.Status == true && c.CourseMonth == month);
+
+                if (!courses.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "No course found!";
+                }
+
+                result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
         public async Task<ServiceResult<CourseDTO>> GetCourseById(string id)
         {
             var result = new ServiceResult<CourseDTO>();
             try
             {
                 var course = await _courseRepository.GetByIdAsync(id);
-                if (course is null)
+                if (course == null)
                 {
                     result.IsError = true;
                     result.ErrorMessage = "Course is not exist";
@@ -85,49 +128,76 @@ namespace Backend.Services.Course
             return result;
         }
 
-        public async Task<ServiceResult> CreateCourse(CourseDTO courseDTO)
+        public async Task<ServiceResult<int>> CreateCourse(CourseRequestDTO courseRequestDto)
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<int>();
             try
             {
-                if (courseDTO.EndDate < courseDTO.StartDate)
+                if (courseRequestDto.EndDate < courseRequestDto.StartDate)
                 {
                     result.IsError = true;
                     result.ErrorMessage = "End date must be greater than start date";
+                    result.Payload = -2;
                     return result;
                 }
 
-                var course = _mapper.Map<DB.Models.Course>(courseDTO);
+                var courseExist = await _courseRepository.GetByIdAsync(courseRequestDto.CourseId);
+                if (courseExist != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Course is already exist";
+                    result.Payload = -1;
+                    return result;
+                } ;
+                ;
+                var course = _mapper.Map<DB.Models.Course>(courseRequestDto);
                 course.CreateTime = DateTime.Now;
+                course.CourseMonth = course.StartDate?.Month;
+                course.CourseYear = course.StartDate?.Year;
 
                 await _courseRepository.AddAsync(course);
             }
             catch (Exception e)
             {
                 result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;
         }
 
-        public async Task<ServiceResult> UpdateCourse(CourseDTO courseDTO)
+        public async Task<ServiceResult<int>> UpdateCourse(CourseRequestDTO courseRequestDto)
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<int>();
             try
             {
-                if (courseDTO.EndDate < courseDTO.StartDate)
+                if (courseRequestDto.EndDate < courseRequestDto.StartDate)
                 {
                     result.IsError = true;
                     result.ErrorMessage = "End date must be greater than start date";
+                    result.Payload = -2;
                     return result;
                 }
 
-                var course = _mapper.Map<DB.Models.Course>(courseDTO);
+                var originalCourse = await _courseRepository.GetByIdAsync(courseRequestDto.CourseId);
+                if (originalCourse == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Course is not exist";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var course = _mapper.Map(courseRequestDto, originalCourse);
+                course.CourseMonth = course.StartDate?.Month;
+                course.CourseYear = course.StartDate?.Year;
+
                 await _courseRepository.UpdateAsync(course);
             }
             catch (Exception e)
             {
                 result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

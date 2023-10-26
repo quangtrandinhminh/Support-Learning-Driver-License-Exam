@@ -1,7 +1,7 @@
 import './member-information.scss'
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
-import { useNavigate, useParams } from 'react-router-dom'
-import api from '../../../config/axios';
+import { useNavigate } from 'react-router-dom'
+import api from '../../../../../config/axios';
 import React, { useEffect, useState } from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,7 +14,7 @@ function MemberInformationForm() {
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    function handleScroll() {
+    const handleScroll = () => {
         window.scrollTo(0, 0);
     }
 
@@ -22,6 +22,7 @@ function MemberInformationForm() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        window.scrollTo(0, 0);
         navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 
@@ -37,10 +38,9 @@ function MemberInformationForm() {
 
     const getMemberById = async () => {
         try {
-            const respone = await api.post('Member?userID=' + userInf.userID);
-            const res = respone.data;
-            setMember(res.payload);
-            getMemberById();
+            const response = await api.post('Member?userID=' + userInf.userID);
+            const res = response.data;
+            setMember(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
@@ -68,7 +68,7 @@ function MemberInformationForm() {
             <h1 className='member-information-title'>Thông tin cá nhân</h1>
             <div className='member-information-content'>
                 {
-                    !isLoading ? (
+                    isLoading == false ? (
                         <>
                             <div className='member-avatar'>
                                 <img src={MemberImg} alt="hinh-anh-giang-vien" />
@@ -116,11 +116,11 @@ function MemberInformationForm() {
                                 </li>
                                 <li>
                                     <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                                    <span></span>
+                                    <span>{`${member.courseId}.${member.memberID}`}</span>
                                 </li>
                                 <li>
                                     <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                                    <span></span>
+                                    <span>{member.courseId}</span>
                                 </li>
                                 <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button>
                             </form>

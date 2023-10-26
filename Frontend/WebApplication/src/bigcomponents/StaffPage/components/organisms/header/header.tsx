@@ -52,8 +52,8 @@ function StaffSidebar() {
         </li>
         <li className='sidebar-component'>
           <div className="member-list">
-            <NavLink style={styleSidebarCom} to='/danh-sach-nguoi-dung'>
-              Xem toàn bộ người dùng
+            <NavLink style={styleSidebarCom} to='/quan-ly-nguoi-dung'>
+              Quản lý người dùng
             </NavLink>
           </div>
         </li>

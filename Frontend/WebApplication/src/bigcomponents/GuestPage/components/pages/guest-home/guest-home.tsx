@@ -1,7 +1,6 @@
 import GuestFooter from '../../organisms/guest-footer/guest-footer'
 import GuestHeaderHome from '../../organisms/guest-header-home/guest-header-home'
 import HomeTemplate from '../../templates/guest-home-template/home-template'
-import '../general.scss'
 
 function GuestHomePage() {
     return (
@@ -10,9 +9,9 @@ function GuestHomePage() {
                 <header>
                     <GuestHeaderHome />
                 </header>
-                <body>
+                <div className='body-container'>
                     <HomeTemplate />
-                </body>
+                </div>
                 <footer>
                     <GuestFooter />
                 </footer>

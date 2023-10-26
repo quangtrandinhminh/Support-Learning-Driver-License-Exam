@@ -8,9 +8,9 @@ function TheorySchedulePage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <TheoryScheduleTemplate />
-            </body>
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

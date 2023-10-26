@@ -50,11 +50,11 @@ function ExamDocumentUpdate() {
             </div>
             <div className="gender-container">
               <label htmlFor="gender">Giới tính: </label>
-              <div className='result-yes'>
+              <div className='gender-male'>
                 <label htmlFor="gender-">Nam: </label>
                 <input type="radio" name='gender' />
               </div>
-              <div className='result-no'>
+              <div className='gender-female'>
                 <label htmlFor="gender-">Nữ: </label>
                 <input type="radio" name='gender' />
               </div>
@@ -62,56 +62,56 @@ function ExamDocumentUpdate() {
           </li>
           <li>
             <label htmlFor="residenceAddress">Nơi đăng ký hộ khẩu thường trú: </label>
-            <span>Vũng Tàu, Cà Mau</span>
+            <input type="text" />
           </li>
           <li>
             <label htmlFor="tempAddress">Nơi cư trú: </label>
-            <span>Cần Thơ, Sapa</span>
+            <input type="text" name="" id="" />
           </li>
           <li>
             <label htmlFor="cccdNo">Số giấy CMND, hoặc thẻ căn cước công dân (hoặc hộ chiếu): </label>
-            <span>0112233445566</span>
+            <input type="text" name="" id="" />
           </li>
           <li className='line-3'>
             <div className='cccdDate-container'>
               <label htmlFor="cccdDate">Cấp ngày: </label>
-              <span>11/11/2022</span>
+              <input type="date" name="" id="" />
             </div>
             <div className='cccdLocation-container'>
               <label htmlFor="cccdLocation">Nơi cấp: </label>
-              <span>Hà Tĩnh, Hà Nội</span>
+              <input type="text" name="" id="" />
             </div>
           </li>
           <li className='line-4'>
             <div className='hasDrivingLicenseNo-container'>
               <label htmlFor="hasDrivingLicenseNo">Đã có giấy phép lái xe số: </label>
-              <span>59T2 34370</span>
+              <input type="text" name="" id="" />
             </div>
             <div className="hasDrivingLicenseTier-container">
               <label htmlFor="hasDrivingLicenseTier">hạng: </label>
-              <span>A1</span>
+              <input type="text" name="" id="" />
             </div>
             <div className='hasDrivingLicenseBy-container'>
               <label htmlFor="hasDrivingLicenseBy">do: </label>
-              <span>địa điểm cấp</span>
+              <input type="text" name="" id="" />
             </div>
             <div className="hasDrivingLicenseDate-container">
               <label htmlFor="hasDrivingLicenseDate">cấp ngày: </label>
-              <span>ngày cấp</span>
+              <input type="date" name="" id="" />
             </div>
           </li>
           <li>
             <label htmlFor="drivingLicenseDemand">Đề nghị cho tôi được học, dự sát hạch để cấp giấy phép lái xe hạng: </label>
-            <span>B2</span>
+            <input type="text" name="" id="" />
           </li>
           <li>
             <label htmlFor="integratedDrivingLicense">Đăng ký tích hợp giấy phép lái xe: </label>
             <input type="checkbox" />
           </li>
-          <li>
-            <label htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường bộ với hình thức tước quyền sử dụng giấy
+          <li className='inline-block'>
+            <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường bộ với hình thức tước quyền sử
               <br />
-              phép lái xe: </label>
+              dụng giấy phép lái xe: </label>
             <div className='check-result'>
               <div className='result-yes'>
                 <label htmlFor="check">Có: </label>
@@ -123,7 +123,7 @@ function ExamDocumentUpdate() {
               </div>
             </div>
           </li>
-          <li>
+          <li className='enclosed-document-update'>
             <label htmlFor="enclosedDocument">Xin gửi kèm theo: </label>
             <div className="enclosed-subLi">
               <li>01 giấy chứng nhận đủ sức khỏe.</li>
@@ -131,7 +131,10 @@ function ExamDocumentUpdate() {
               <li>Bản sao giấy chứng minh nhân dân hoặc thẻ căn cước công dân hoặc hộ chiếu còn thời hạn
                 có ghi số giấy chứng minh nhân dân hoặc thẻ căn cước công dân (đối với người Việt Nam)
                 hoặc hộ chiếu (đối với người nước ngoài);</li>
-              <li>Các tài liệu khác có liên quan gồm: </li>
+              <li>
+                <label>Các tài liệu khác có liên quan gồm: </label>
+                <input type="text" name="" id="" />
+              </li>
             </div>
           </li>
           <p className='exam-document-update-commitment'>Tôi xin cam đoan những điều ghi trên là đúng sự thật,

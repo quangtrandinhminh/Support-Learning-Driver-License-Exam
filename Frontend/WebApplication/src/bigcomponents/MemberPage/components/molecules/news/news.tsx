@@ -1,33 +1,70 @@
 import './news.scss'
-import Image from '../../../../../../assets/imgs/news/news-img.jpeg'
+import NewsImg from '../../../../../../assets/imgs/news/news-img.jpeg'
+import { useEffect, useState } from 'react';
+import api from '../../../../../config/axios';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 function News() {
+
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getAllNews = async () => {
+        const response = await api.get('News/list');
+        setData(response.data);
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
+        getAllNews();
+    }, [])
+
+    const formatDate = (dbDate) => {
+        const date = new Date(dbDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    const maxNewsDisplayed = 3; // Set the maximum number of divs to display
 
     return (
         <div className='news-container' id='news-section'>
             <h1>Tin tức</h1>
             <div className="news-list">
-                <div className="news-section-1">
-                    <img src={Image} alt="" />
-                    <h2 className="news-1-title">Mẫu tin 1</h2>
-                    <p className="news-1-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae lorem mauris. Donec laoreet enim sit amet </p>
-                    <p className="news-1-date">21/11/2023</p>
-                    <button>Đọc thêm</button>
-                </div>
-                <div className="news-section-2">
-                    <img src={Image} alt="" />
-                    <h2 className="news-1-title">Mẫu tin 2</h2>
-                    <p className="news-2-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae lorem mauris. Donec laoreet enim sit amet </p>
-                    <p className="news-2-date">21/11/2023</p>
-                    <button>Đọc thêm</button>
-                </div>
-                <div className="news-section-3">
-                    <img src={Image} alt="" />
-                    <h2 className="news-1-title">Mẫu tin 3</h2>
-                    <p className="news-3-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae lorem mauris. Donec laoreet enim sit amet </p>
-                    <p className="news-3-date">21/11/2023</p>
-                    <button>Đọc thêm</button>
-                </div>
+                {!isLoading ? (
+                    maxNewsDisplayed > 0 ? (
+                        Array.from({ length: maxNewsDisplayed }).map((_, i) => {
+                            const newsItem = data && data[i];
+                            return (
+                                <div className={`news-section-${i + 1}`} key={i}>
+                                    <img src={NewsImg} alt="news-img" />
+                                    {newsItem ? (
+                                        <>
+                                            <h2 className={`news-${i + 1}-title`}>{newsItem.title}</h2>
+                                            <p className={`news-${i + 1}-content`}>{newsItem.content}</p>
+                                            <p className={`news-${i + 1}-date`}>Ngày {formatDate(newsItem.createdTime)}</p>
+                                            <button className='mt-1'>Đọc thêm</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h2 className={`news-${i + 1}-title`}>No news available</h2>
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <h1 className='text-center'>Không có thông tin để hiển thị</h1>
+                    )
+                ) : (
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={true}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+                )}
             </div>
             <div className="news-page-nav">
                 <a href=''>1</a>

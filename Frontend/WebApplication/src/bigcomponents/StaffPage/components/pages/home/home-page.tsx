@@ -1,4 +1,5 @@
 import StaffSidebar from '../../organisms/header/header'
+import '../../staff-general.scss'
 
 function StaffPage() {
   return (

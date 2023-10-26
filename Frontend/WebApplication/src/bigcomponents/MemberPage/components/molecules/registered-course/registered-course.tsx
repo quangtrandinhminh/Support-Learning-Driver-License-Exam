@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './registered-course.scss'
 import { useEffect, useState } from 'react'
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function RegisteredCourse() {
@@ -11,6 +11,8 @@ function RegisteredCourse() {
     const [userInf, setUserInf] = useState(null);
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [course, setCourse] = useState(null);
+    const [isPaid, setIsPaid] = useState(null);
 
     function handleScroll() {
         window.scrollTo(0, 0);
@@ -32,8 +34,18 @@ function RegisteredCourse() {
         try {
             const respone = await api.post('Member?userID=' + userInf.userID);
             const res = respone.data;
-            setMember(res.payload);
-            console.log(member);
+            setMember(res);
+            setIsPaid(res.isPaid);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getCourseById = async () => {
+        try {
+            const response = await api.get('Course/' + member.courseId);
+            const res = response.data;
+            setCourse(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
@@ -46,9 +58,11 @@ function RegisteredCourse() {
 
     useEffect(() => {
         getMemberById();
-        console.log(member);
     }, [userInf])
 
+    useEffect(() => {
+        getCourseById();
+    }, [member])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -63,13 +77,14 @@ function RegisteredCourse() {
             <h1 className='registered-course-title'>khoá học của bạn</h1>
             {
                 !isLoading ? (
+                    console.log(course),
                     <div className='registered-course-content'>
                         <ul>
                             <li>
-                                <label htmlFor="course-name">Khoá học: {member.courseId}</label>
+                                <label htmlFor="course-name">Khoá học: {course.courseId}</label>
                             </li>
                             <li>
-                                <label htmlFor="course-start">Ngày khai giảng: </label>
+                                <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
                             </li>
                             <li>
                                 <label htmlFor="course-mentor">

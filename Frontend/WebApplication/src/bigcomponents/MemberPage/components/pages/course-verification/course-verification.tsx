@@ -8,7 +8,7 @@ function CourseVerificationPage() {
             <header>
                 <MemberHeader />
             </header>
-            <div className='body'>
+            <div className='body-container'>
                 <CourseVerificationTemplate />
             </div>
             <footer className='course-verification-footer'>

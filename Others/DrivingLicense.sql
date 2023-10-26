@@ -14,8 +14,8 @@ GO
 
 GO 
 CREATE TABLE [dbo].[Role](
-  [roleID] INT IDENTITY(1,1),
-  [roleName] NVARCHAR(50) NOT NULL,
+  [roleID] INT IDENTITY(1,1) NOT NULL,
+  [roleName] NVARCHAR(50) NULL,
   CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
   (
     [roleID] ASC
@@ -24,14 +24,14 @@ CREATE TABLE [dbo].[Role](
 GO
 
 CREATE TABLE [dbo].[User](
-  [userID] INT IDENTITY(1,1),
-  [username] VARCHAR(50) NOT NULL,
-  [fullName] NVARCHAR(50) NOT NULL,
-  [password] VARCHAR(50) NOT NULL,
-  [phone] CHAR(10) NOT NULL,
+  [userID] INT IDENTITY(1,1) NOT NULL,
+  [username] VARCHAR(50) NULL,
+  [fullName] NVARCHAR(50) NULL,
+  [password] VARCHAR(50) NULL,
+  [phone] CHAR(10) NULL,
   [email] VARCHAR(50) NULL,
-  [createTime] DATETIME NOT NULL,
-  [status] BIT NOT NULL,
+  [createTime] DATETIME NULL,
+  [status] BIT NULL,
   [roleID] INT NOT NULL,
   CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
   (
@@ -45,15 +45,15 @@ GO
 
 CREATE TABLE [dbo].[Course](
   [courseID] VARCHAR(10) NOT NULL,
-  [name] NVARCHAR(500) NOT NULL,
+  [name] NVARCHAR(500) NULL,
   [startDate] DATE NULL,
   [endDate] DATE NULL,
   [numberOfStudents] INT NULL,
-  [limitStudent] INT NOT NULL,
-  [createTime] DATETIME NOT NULL,
-  [courseMonth] INT NOT NULL,
-  [courseYear] INT NOT NULL,
-  [status] BIT NOT NULL,
+  [limitStudent] INT NULL,
+  [createTime] DATETIME NULL,
+  [courseMonth] INT NULL,
+  [courseYear] INT NULL,
+  [status] BIT NULL,
   CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED 
   (
     [courseID] ASC
@@ -62,12 +62,12 @@ CREATE TABLE [dbo].[Course](
 GO
 
 CREATE TABLE [dbo].[CourseDetails](
-	[courseDetailsID] VARCHAR(10) NOT NULL,
-	[courseContent] NVARCHAR(MAX) NOT NULL, 
-	[courseTimeStart] DATETIME NOT NULL,
-	[courseTimeEnd] DATETIME NOT NULL,
+	[courseDetailsID] INT IDENTITY(1,1) NOT NULL,
+	[courseContent] NVARCHAR(MAX) NULL, 
+	[courseTimeStart] DATETIME NULL,
+	[courseTimeEnd] DATETIME NULL,
 	[courseID] VARCHAR(10) NOT NULL,
-	[status] BIT NOT NULL,
+	[status] BIT NULL,
 	CONSTRAINT [PK_CourseDetails] PRIMARY KEY CLUSTERED 
   (
     [courseDetailsID] ASC
@@ -77,15 +77,15 @@ CREATE TABLE [dbo].[CourseDetails](
 GO
 
 CREATE TABLE [dbo].[Member](
-  [memberID] INT IDENTITY(1,1),
-  [dob] DATE NOT NULL,
-  [gender] CHAR(6) NOT NULL,
-  [nationality] VARCHAR(50) NOT NULL,
-  [residenceAddress] VARCHAR(255) NOT NULL,
+  [memberID] INT IDENTITY(1,1) NOT NULL,
+  [dob] DATE NULL,
+  [gender] CHAR(6) NULL,
+  [nationality] VARCHAR(50) NULL,
+  [residenceAddress] VARCHAR(255) NULL,
   [identityCardNumber] VARCHAR(20) NULL,
   [passport] VARCHAR(20) NULL,
-  [cardProvidedDate] DATE NOT NULL,
-  [cardProvidedLocation] VARCHAR(255) NOT NULL,
+  [cardProvidedDate] DATE NULL,
+  [cardProvidedLocation] VARCHAR(255) NULL,
   [drivingLicenseNumber] VARCHAR(20) NULL,
   [drivingLicenseTier] VARCHAR(50) NULL,
   [drivingLicenseProvider] VARCHAR(255) NULL,
@@ -94,9 +94,9 @@ CREATE TABLE [dbo].[Member](
   [integratedDrivingLicense] BIT NULL,
   [revokedDrivingLicense] BIT NULL,
   [relatedDocument] VARCHAR(255) NULL,
-  [registrationDate] DATE NOT NULL,
+  [registrationDate] DATE NULL,
   [isPaid] BIT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] VARCHAR(10) NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -110,9 +110,9 @@ CREATE TABLE [dbo].[Member](
 GO
 
 CREATE TABLE [dbo].[Mentor](
-  [mentorID] INT IDENTITY(1,1),
-  [residenceAddress] NVARCHAR(255) NOT NULL,
-  [status] BIT NOT NULL,
+  [mentorID] INT IDENTITY(1,1) NOT NULL,
+  [residenceAddress] NVARCHAR(255) NULL,
+  [status] BIT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Mentor] PRIMARY KEY CLUSTERED 
   (
@@ -124,7 +124,7 @@ CREATE TABLE [dbo].[Mentor](
 GO
 
 CREATE TABLE [dbo].[Staff](
-  [staffID] INT IDENTITY(1,1),
+  [staffID] INT IDENTITY(1,1) NOT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Staff] PRIMARY KEY CLUSTERED 
   (
@@ -136,11 +136,11 @@ CREATE TABLE [dbo].[Staff](
 GO
 
 CREATE TABLE [dbo].[News](
-  [newsID] INT IDENTITY(1,1),
-  [title] NVARCHAR(500) NOT NULL,
-  [content] NVARCHAR(MAX) NOT NULL,
-  [createdTime] DATETIME NOT NULL,
-  [status] BIT NOT NULL,
+  [newsID] INT IDENTITY(1,1) NOT NULL,
+  [title] NVARCHAR(500) NULL,
+  [content] NVARCHAR(MAX) NULL,
+  [createdTime] DATETIME NULL,
+  [status] BIT NULL,
   [staffID] INT NOT NULL,
   CONSTRAINT [PK_News] PRIMARY KEY CLUSTERED 
   (
@@ -164,11 +164,11 @@ CREATE TABLE [dbo].[Student](
 GO
 
 CREATE TABLE [dbo].[Class](
-  [classID] INT IDENTITY(1,1),
-  [classType] BIT NOT NULL,
+  [classID] INT IDENTITY(1,1) NOT NULL,
+  [classType] BIT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
-  [passed] BIT NOT NULL
+  [passed] BIT NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
     [classID] ASC
@@ -179,26 +179,26 @@ CREATE TABLE [dbo].[Class](
 GO
 
 CREATE TABLE [dbo].[Feedback](
-  [feedbackID] INT IDENTITY(1,1),
-  [createdStudentID] VARCHAR(10) NOT NULL,
+  [feedbackID] INT IDENTITY(1,1) NOT NULL,
+  [studentID] VARCHAR(10) NOT NULL,
   [classID] INT NOT NULL,
   [comment] NVARCHAR(MAX) NULL,
-  [rating] INT NOT NULL,
-  [createdTime] DATETIME NOT NULL,
-  [status] BIT NOT NULL,
+  [rating] INT NULL,
+  [createdTime] DATETIME NULL,
+  [status] BIT NULL,
   CONSTRAINT [PK_Feedback] PRIMARY KEY CLUSTERED 
   (
     [feedbackID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Feedback_Student] FOREIGN KEY ([createdStudentID]) REFERENCES [dbo].[Student] ([studentID]),
+  CONSTRAINT [FK_Feedback_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID]),
   CONSTRAINT [FK_Feedback_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID])
 )ON [PRIMARY]
 GO
 
 CREATE TABLE [dbo].[Image](
-  [imageID] INT IDENTITY(1,1),
-  [name] NVARCHAR(255) NOT NULL,
-  [description] NVARCHAR(MAX) NOT NULL,
+  [imageID] INT IDENTITY(1,1) NOT NULL,
+  [name] NVARCHAR(255) NULL,
+  [description] NVARCHAR(MAX) NULL,
   [studentID] VARCHAR(10) NOT NULL,
   CONSTRAINT [PK_Image] PRIMARY KEY CLUSTERED 
   (
@@ -209,13 +209,13 @@ CREATE TABLE [dbo].[Image](
 GO
 
 CREATE TABLE [dbo].[Question](
-  [questionID] INT IDENTITY(1,1),
-  [content] NVARCHAR(MAX) NOT NULL,
-  [image] VARCHAR(MAX) NOT NULL,
-  [keyQuestion] BIT NOT NULL,
-  [correctAnswer] BIT NOT NULL,
+  [questionID] INT IDENTITY(1,1) NOT NULL,
+  [content] NVARCHAR(MAX) NULL,
+  [image] VARCHAR(MAX) NULL,
+  [keyQuestion] BIT NULL,
+  [correctAnswer] BIT NULL,
   [staffID] INT NOT NULL,
-  [status] BIT NOT NULL,
+  [status] BIT NULL,
   CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED 
   (
     [questionID] ASC
@@ -225,15 +225,15 @@ CREATE TABLE [dbo].[Question](
 GO
 
 CREATE TABLE [dbo].[Exam](
-  [examID] INT IDENTITY(1,1),
-  [examName] NVARCHAR(MAX) NOT NULL,
+  [examID] INT IDENTITY(1,1) NOT NULL,
+  [examName] NVARCHAR(MAX) NULL,
   [description] NVARCHAR(MAX) NULL,
-  [duration] INT NOT NULL,
+  [duration] INT NULL,
   [courseID] VARCHAR(10) NOT NULL,
-  [limitQuestion] INT NOT NULL,
-  [limitKeyQuestion] INT NOT NULL,
-  [password] VARCHAR(50) NOT NULL,
-  [createdTime] DATETIME NOT NULL,
+  [limitQuestion] INT NULL,
+  [limitKeyQuestion] INT NULL,
+  [password] VARCHAR(50) NULL,
+  [createdTime] DATETIME NULL,
   [staffID] INT NOT NULL,
   CONSTRAINT [PK_Exam] PRIMARY KEY CLUSTERED 
   (
@@ -245,7 +245,7 @@ CREATE TABLE [dbo].[Exam](
 GO
 
 CREATE TABLE [dbo].[ClassStudent](
-  [classID] INT IDENTITY(1,1),
+  [classID] INT IDENTITY(1,1) NOT NULL,
   [studentID] VARCHAR(10) NOT NULL,
   CONSTRAINT [PK_ClassStudent] PRIMARY KEY CLUSTERED 
   (
@@ -258,11 +258,11 @@ CREATE TABLE [dbo].[ClassStudent](
 GO
 
 CREATE TABLE [dbo].[Lesson](
-  [lessonID] INT IDENTITY(1,1),
+  [lessonID] INT IDENTITY(1,1) NOT NULL,
   [classID] INT NOT NULL,
-  [startTime] DATETIME NOT NULL,
-  [endTime] DATETIME NOT NULL,
-  [title] NVARCHAR(MAX) NOT NULL,
+  [startTime] DATETIME NULL,
+  [endTime] DATETIME NULL,
+  [title] NVARCHAR(MAX) NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
   [studentID] VARCHAR(10) NOT NULL,
@@ -277,11 +277,11 @@ CREATE TABLE [dbo].[Lesson](
 GO
 
 CREATE TABLE [dbo].[Test](
-  [testID] INT IDENTITY(1,1),
-  [testName] NVARCHAR(MAX) NOT NULL,
+  [testID] INT IDENTITY(1,1) NOT NULL,
+  [testName] NVARCHAR(MAX) NULL,
   [score] INT NULL,
   [pass] BIT NULL,
-  [testTime] DATETIME NOT NULL,
+  [testTime] DATETIME NULL,
   [studentID] VARCHAR(10) NOT NULL,
   [examID] INT NOT NULL,
   CONSTRAINT [PK_Test] PRIMARY KEY CLUSTERED 
@@ -294,7 +294,7 @@ CREATE TABLE [dbo].[Test](
 GO
 
 CREATE TABLE [dbo].[StudentAnswer](
-  [studentAnswerID] INT IDENTITY(1,1),
+  [studentAnswerID] INT IDENTITY(1,1) NOT NULL,
   [optionID] INT NULL,
   [isCorrect] BIT NULL,
   [testID] INT NOT NULL,
@@ -445,6 +445,161 @@ INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [pho
 	VALUES (36 , N'NguyenVanJJ', N'NguyenVanJJ', N'12345', N'nguyenvanjj@gmail.com', '090212381', '2023-10-16', 2, 1)
 GO
 SET IDENTITY_INSERT [dbo].[User] OFF
+
+/*-- Add data: Course --*/
+SET IDENTITY_INSERT [dbo].[Course] ON
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1001B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1002B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1003B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
+				'2023-10-06', '11', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1004B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1005B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1006B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
+				'2023-10-06', '12', '2023', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1007B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1008B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+				
+GO
+INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
+			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
+		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
+				'2023-10-06', '01', '2024', 1)
+GO
+
+SET IDENTITY_INSERT [dbo].[Course] OFF
+GO
+
+/*-- Add data: CourseDetails --*/
+SET IDENTITY_INSERT [dbo].[CourseDetails] ON
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('1', 'Dao Tao Ly Thuyet', '2023-11-06', '2023-11-20', '1001B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('2', 'Thuc Hanh Sa Hinh', '2023-11-21', '2023-12-25', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('3', 'Thuc Hanh Tren Cabin', '2023-12-25', '2024-01-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('4', 'Thuc Hanh Tren Duong', '2024-01-02', '2024-02-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('5', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-02', '2024-02-01', '1001B2' , 1)		
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('6', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-01', '2024-02-06', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('7', 'Dao Tao Ly Thuyet', '2023-11-16', '2023-11-30', '1002B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('8', 'Thuc Hanh Sa Hinh', '2023-12-01', '2024-01-01', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('9', 'Thuc Hanh Tren Cabin', '2024-01-02', '2024-01-12', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('10', 'Thuc Hanh Tren Duong', '2024-01-13', '2024-02-11', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('11', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-13', '2024-02-11', '1002B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('12', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-12', '2024-02-16', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2024-01-05', '1003B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('14', 'Thuc Hanh Sa Hinh', '2024-01-06', '2024-01-11', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('15', 'Thuc Hanh Tren Cabin', '2024-01-12', '2024-01-22', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('16', 'Thuc Hanh Tren Duong', '2024-01-23', '2024-02-21', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('17', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-23', '2024-02-21', '1003B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('18', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-22', '2024-02-26', '1003B2' , 1)
+
+GO 
+SET IDENTITY_INSERT [dbo].[CourseDetails] OFF
 
 /*-- Add data: Member --*/
 GO
@@ -695,167 +850,13 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAd
 GO
 SET IDENTITY_INSERT [dbo].[Member] OFF
 
-/*-- Add data: Course --*/
-SET IDENTITY_INSERT [dbo].[Course] ON
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1001B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1002B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1003B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
-				'2023-10-06', '11', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1004B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1005B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1006B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
-				'2023-10-06', '12', '2023', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1007B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1008B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-				
-GO
-INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
-			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
-				'2023-10-06', '01', '2024', 1)
-GO
-SET IDENTITY_INSERT [dbo].[Course] OFF
-GO
-
-/*-- Add data: CourseDetails --*/
-SET IDENTITY_INSERT [dbo].[CourseDetails] ON
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('1', 'Dao Tao Ly Thuyet', '2023-11-06', '2023-11-20', '1001B2', 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('2', 'Thuc Hanh Sa Hinh', '2023-11-21', '2023-12-25', '1001B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('3', 'Thuc Hanh Tren Cabin', '2023-12-25', '2024-01-01', '1001B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('4', 'Thuc Hanh Tren Duong', '2024-01-02', '2024-02-01', '1001B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('5', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-02', '2024-02-01', '1001B2' , 1)		
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('6', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-01', '2024-02-06', '1001B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('7', 'Dao Tao Ly Thuyet', '2023-11-16', '2023-11-30', '1002B2', 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('8', 'Thuc Hanh Sa Hinh', '2023-11-31', '2024-01-01', '1002B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('9', 'Thuc Hanh Tren Cabin', '2024-01-02', '2024-01-12', '1002B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('10', 'Thuc Hanh Tren Duong', '2024-01-13', '2024-02-11', '1002B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('11', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-13', '2024-02-11', '1002B2' , 1)	
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('12', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-12', '2024-02-16', '1002B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2023-12-36', '1003B2', 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('14', 'Thuc Hanh Sa Hinh', '2023-12-37', '2024-01-11', '1003B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('15', 'Thuc Hanh Tren Cabin', '2024-01-12', '2024-01-22', '1003B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('16', 'Thuc Hanh Tren Duong', '2024-01-23', '2024-02-21', '1003B2' , 1)
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('17', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-23', '2024-02-21', '1003B2' , 1)	
-
-GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
-		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('18', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-22', '2024-02-26', '1003B2' , 1)
-
-GO 
-SET IDENTITY_INSERT [dbo].[CourseDetails] OFF
-
 GO
 /* Add data: Staff */
 SET IDENTITY_INSERT [dbo].[Staff] ON
 GO
 INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(1, 32)
 GO
-INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(1, 33)
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(2, 33)
 GO
 SET IDENTITY_INSERT [dbo].[Staff] OFF
 GO

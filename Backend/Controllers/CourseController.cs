@@ -22,9 +22,24 @@ namespace Backend.Controllers
             if (result.IsError)
             {
                 return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpGet("/api/Course/courseMonth")]
+        public IActionResult GetCourseByMonth(int month)
+        {
+            var result =  _courseService.GetCourseByMonth(month);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
             }
 
             return Ok(result.Payload);
@@ -37,9 +52,9 @@ namespace Backend.Controllers
             if (result.IsError)
             {
                 return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
+                {
+                    error = result.ErrorMessage
+                });
             }
 
             return Ok(result.Payload);
@@ -52,9 +67,9 @@ namespace Backend.Controllers
             if (result.IsError)
             {
                 return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
+                {
+                    error = result.ErrorMessage
+                });
             }
 
             return Ok(result.Payload);
@@ -62,30 +77,50 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCourse(CourseDTO courseDTO)
+        public async Task<IActionResult> AddCourse(CourseRequestDTO courseRequestDto)
         {
-            var result = await _courseService.CreateCourse(courseDTO);
+            var result = await _courseService.CreateCourse(courseRequestDto);
 
             if (result.IsError)
-                return BadRequest(new
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
                     {
                         error = result.ErrorMessage
                     });
-            
+                }
 
-            return Ok("Add course successfully!");
-        }
-
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateCourse(CourseDTO courseDTO)
-        {
-            var result = await _courseService.UpdateCourse(courseDTO);
-
-            if (result.IsError)
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
                 });
+            }
+            
+            return Ok("Add course successfully!");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCourse(CourseRequestDTO courseRequestDto)
+        {
+            var result = await _courseService.UpdateCourse(courseRequestDto);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
 
             return Ok("Update course successfully!");
         }

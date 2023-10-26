@@ -3,7 +3,7 @@ import { Link } from 'react-scroll';
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import { useEffect } from 'react'
 
 function MemberNavHome() {

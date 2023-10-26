@@ -1,13 +1,11 @@
-import CourseTable from '../../molecules/course-management/course-management'
-import '../template.scss'
+import React from 'react'
+import CourseTable from '../../molecules/course-management/courses-table'
 
 function CourseManagementTemplate() {
     return (
-        <>
-            <div className="template-container">
-                <CourseTable />
-            </div>
-        </>
+        <div className='template-container'>
+            <CourseTable />
+        </div>
     )
 }
 

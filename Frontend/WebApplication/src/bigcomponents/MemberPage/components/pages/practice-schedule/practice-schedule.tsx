@@ -8,9 +8,9 @@ function PracticeSchedulePage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <PracticeScheduleTemplate />
-            </body>
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

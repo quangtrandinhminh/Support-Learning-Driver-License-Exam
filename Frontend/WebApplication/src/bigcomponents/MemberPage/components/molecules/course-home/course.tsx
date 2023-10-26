@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
-import api from '../../../config/axios';
+import api from '../../../../../config/axios';
 import './course.scss';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function Course() {
-    const [numArray, setNumArray] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
 
     const getCourseMonth = async () => {
         try {
-            const response = await api.get('/Course');
+            const response = await api.get('Course/list');
             const courses = response.data;
-            const uniqueMonths : string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
-            setNumArray(uniqueMonths);
+            const uniqueMonths: string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
 
             // Select one course from each unique month
             const selectedCourses = uniqueMonths.map(month => {
@@ -80,7 +78,8 @@ function Course() {
                     >
                         <CircularProgress color="inherit" />
                     </Backdrop>
-                )}
+                )
+                }
             </div>
         </div>
     )

@@ -105,12 +105,14 @@
                 }
             }
 
-            .enclosed-subLi {
-                li {
-                    line-height: 38px;
-                    margin-left: 20px;
-                    font-size: 18px;
-                    list-style: disc;
+            .enclosed-document {
+                .enclosed-subLi {
+                    li {
+                        line-height: 38px;
+                        margin-left: 20px;
+                        font-size: 18px;
+                        list-style: disc;
+                    }
                 }
             }
 
@@ -164,15 +166,25 @@
 
         .check-result {
             display: inline-block;
+            transform: translateX(-490px);
 
             .result-yes,
             .result-no {
-                margin-left: 10px;
                 display: inline-block;
+                left: 0;
             }
 
             .result-yes {
-                margin-right: -5px;
+                label {
+                    margin-right: 6px;
+                }
+            }
+
+            .result-no {
+                padding-left: 15px;
+                label {
+                    margin-right: 6px;
+                }
             }
         }
 
@@ -193,6 +205,12 @@
             &:hover {
                 cursor: pointer;
                 box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
+            }
+        }
+
+        .integratedDrivingLicense {
+            input {
+                margin-left: 10px;
             }
         }
     }

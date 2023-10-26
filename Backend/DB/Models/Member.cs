@@ -7,21 +7,21 @@ public partial class Member
 {
     public int MemberId { get; set; }
 
-    public DateTime Dob { get; set; }
+    public DateTime? Dob { get; set; }
 
-    public string Gender { get; set; } = null!;
+    public string? Gender { get; set; }
 
-    public string Nationality { get; set; } = null!;
+    public string? Nationality { get; set; }
 
-    public string ResidenceAddress { get; set; } = null!;
+    public string? ResidenceAddress { get; set; }
 
     public string? IdentityCardNumber { get; set; }
 
     public string? Passport { get; set; }
 
-    public DateTime CardProvidedDate { get; set; }
+    public DateTime? CardProvidedDate { get; set; }
 
-    public string CardProvidedLocation { get; set; } = null!;
+    public string? CardProvidedLocation { get; set; }
 
     public string? DrivingLicenseNumber { get; set; }
 
@@ -39,11 +39,15 @@ public partial class Member
 
     public string? RelatedDocument { get; set; }
 
-    public DateTime RegistrationDate { get; set; }
+    public DateTime? RegistrationDate { get; set; }
 
     public bool? IsPaid { get; set; }
 
+    public string CourseId { get; set; } = null!;
+
     public int UserId { get; set; }
+
+    public virtual Course Course { get; set; } = null!;
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 

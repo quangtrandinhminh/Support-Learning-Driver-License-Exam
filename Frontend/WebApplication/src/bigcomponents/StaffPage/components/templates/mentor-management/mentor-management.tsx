@@ -1,7 +1,7 @@
-import MemberTable from '../../molecules/member-management/member-management'
-import MentorTable from '../../molecules/mentor-management/mentor-management'
+import React from 'react'
+import MentorTable from '../../molecules/mentor-management/mentor-table'
 
-function MentorManagementTemplate() {
+function MentorMamagementTemplate() {
   return (
     <div className='template-container'>
       <MentorTable />
@@ -9,4 +9,4 @@ function MentorManagementTemplate() {
   )
 }
 
-export default MentorManagementTemplate
+export default MentorMamagementTemplate

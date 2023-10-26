@@ -6,7 +6,7 @@ import logo from "../../../../AuthorizationPage/assets/images/logo.png";
 import Lock from "../../../assets/images/lock.svg";
 import user from "../../../assets/images/userblur.svg";
 import "./index.scss"
-import api from "../../../../MemberPage/config/axios";
+import api from "../../../../../config/axios";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -35,7 +35,6 @@ const LoginForm: React.FC = () => {
               sessionStorage.setItem('loginedUser', JSON.stringify(user.payload));
               toast.success("Đăng nhập thành công"); // Show the success toast
               setTimeout(function () {
-                navigate('/');
                 location.reload();
               }, 2000); // Reload the page after 2 seconds (adjust as needed)
             } else {
