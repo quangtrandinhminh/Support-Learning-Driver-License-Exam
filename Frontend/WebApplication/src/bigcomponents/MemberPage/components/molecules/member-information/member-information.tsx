@@ -13,7 +13,6 @@ function MemberInformationForm() {
     const [userInf, setUserInf] = useState(null);
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isPaid, setIsPaid] = useState(null);
 
     const handleScroll = () => {
         window.scrollTo(0, 0);
@@ -41,8 +40,7 @@ function MemberInformationForm() {
         try {
             const response = await api.post('Member?userID=' + userInf.userID);
             const res = response.data;
-            setMember(res.payload);
-            setIsPaid(res.payload.isPaid);
+            setMember(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
@@ -70,7 +68,7 @@ function MemberInformationForm() {
             <h1 className='member-information-title'>Thông tin cá nhân</h1>
             <div className='member-information-content'>
                 {
-                    !isLoading ? (
+                    isLoading == false ? (
                         <>
                             <div className='member-avatar'>
                                 <img src={MemberImg} alt="hinh-anh-giang-vien" />

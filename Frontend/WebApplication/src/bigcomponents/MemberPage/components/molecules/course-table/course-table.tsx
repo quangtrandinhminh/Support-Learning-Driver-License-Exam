@@ -23,7 +23,7 @@ function CourseTable() {
 
     const getCourseByMonth = async (month) => {
         try {
-            const response = await api.get(`/CourseDetail?courseMonth=${month}`);
+            const response = await api.get(`CourseDetail?courseMonth=${month}`);
             setData(response.data);
             console.log(data[0]);
             setIsLoading(false);
@@ -74,12 +74,12 @@ function CourseTable() {
                                                 </td>
                                                 <td className="course-training-content">
                                                     <ol>
-                                                        <li className='border-receive'>1. Đào tạo lí thuyết</li>
-                                                        <li className='border-receive'>2. Thực hành trong hình</li>
-                                                        <li className='border-receive'>3. Thực hành trên cabin</li>
-                                                        <li className='border-receive'>4. Thực hành trên đường</li>
-                                                        <li className='border-receive'>5. Thực hành trên xe tự động</li>
-                                                        <li>6. Thực hành tổng hợp trong hình</li>
+                                                        <li className='border-receive'>Đào tạo lí thuyết</li>
+                                                        <li className='border-receive'>Thực hành trong hình</li>
+                                                        <li className='border-receive'>Thực hành trên cabin</li>
+                                                        <li className='border-receive'>Thực hành trên đường</li>
+                                                        <li className='border-receive'>Thực hành trên xe tự động</li>
+                                                        <li>Thực hành tổng hợp trong hình</li>
                                                     </ol>
                                                 </td>
                                                 <td className="course-training-time">

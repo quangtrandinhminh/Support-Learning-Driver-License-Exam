@@ -8,9 +8,9 @@ function ExamDocumentUpdatePage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <ExamDocumentUpdateTemplate />
-            </body>
+            </div>
             <footer className='exam-document-update-footer'>
                 <MemberFooter />
             </footer>

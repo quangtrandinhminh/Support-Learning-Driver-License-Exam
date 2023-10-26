@@ -30,7 +30,7 @@ function UpdateInformationForm() {
         try {
             const response = await api.post('Member?userID=' + userInf.userID);
             const res = response.data;
-            setMember(res.payload);
+            setMember(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);

@@ -1,21 +1,23 @@
-﻿using Backend.DB;
-using Backend.DB.Models;
+﻿using Backend.DB.Models;
+using Backend.DTO.Mentor;
+using Backend.Services;
+using Backend.Services.Mentor;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Repository.CourseRepository
+namespace Backend.Repository.MentorRepository
 {
-    public class CourseRepository : ICourseRepository
+    public class MentorRepository : IMentorRepository
     {
         private readonly DrivingLicenseContext _context;
-        private readonly DbSet<Course> _dbSet;
+        private readonly DbSet<Mentor> _dbSet;
 
-        public CourseRepository(DrivingLicenseContext context)
+        public MentorRepository(DrivingLicenseContext _context)
         {
-            _context = context;
-            _dbSet = _context.Set<Course>();
+            this._context = _context;
+            _dbSet = _context.Set<Mentor>();
         }
 
-        public IQueryable<Course>? GetAll()
+        public IQueryable<Mentor>? GetAll()
         {
             try
             {
@@ -28,7 +30,7 @@ namespace Backend.Repository.CourseRepository
             }
         }
 
-        public async Task<Course?> GetByIdAsync(string id)
+        public async Task<Mentor?> GetByIdAsync(int id)
         {
             try
             {
@@ -41,13 +43,13 @@ namespace Backend.Repository.CourseRepository
             }
         }
 
-        public async Task<bool> AddAsync(Course? course)
+        public async Task<Mentor?> CreateAsync(Mentor mentor)
         {
             try
             {
-                await _dbSet.AddAsync(course);
-                var result = await _context.SaveChangesAsync() > 0 ? true : false;
-                return result;
+                var result = await _dbSet.AddAsync(mentor);
+                await _context.SaveChangesAsync();
+                return result.Entity;
             }
             catch (Exception e)
             {
@@ -56,13 +58,13 @@ namespace Backend.Repository.CourseRepository
             }
         }
 
-        public async Task<bool> UpdateAsync(Course? course)
+        public async Task<Mentor?> UpdateAsync(Mentor mentor)
         {
             try
             {
-                _dbSet.Update(course);
-                var result = await _context.SaveChangesAsync() > 0 ? true : false;
-                return result;
+                var result = _dbSet.Update(mentor);
+                await _context.SaveChangesAsync();
+                return result.Entity;
             }
             catch (Exception e)
             {

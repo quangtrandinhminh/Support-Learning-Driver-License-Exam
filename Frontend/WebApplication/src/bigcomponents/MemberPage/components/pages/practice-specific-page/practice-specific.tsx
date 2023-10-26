@@ -8,9 +8,9 @@ function PracticeSpecificPage() {
             <header>
                 <MemberHeader />
             </header>
-            <body>
+            <div className='body-container'>
                 <PracticeSpecificTemplate />
-            </body>
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

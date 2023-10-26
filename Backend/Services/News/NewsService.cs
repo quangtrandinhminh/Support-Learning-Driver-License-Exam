@@ -29,7 +29,15 @@ namespace Backend.Services.News
                 }
 
                 var newsList = _mapper.Map<ICollection<NewsDTO>>(news);
+                foreach (var newsDto in newsList)
+                {
+                    if (!string.IsNullOrEmpty(newsDto.Content))
+                    {
+                        newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
+                    }
+                }
                 newsList = newsList.OrderByDescending(x => x.CreatedTime).ToList();
+
                 result.Payload = newsList;
             }
             catch (Exception e)
@@ -56,7 +64,15 @@ namespace Backend.Services.News
                 }
 
                 var newsList = _mapper.Map<ICollection<NewsDTO>>(news);
+                foreach (var newsDto in newsList)
+                {
+                    if (!string.IsNullOrEmpty(newsDto.Content))
+                    {
+                        newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
+                    }
+                }
                 newsList = newsList.OrderByDescending(x => x.CreatedTime).ToList();
+
                 result.Payload = newsList;
             }
             catch (Exception e)
@@ -82,7 +98,13 @@ namespace Backend.Services.News
                     return result;
                 }
 
-                result.Payload = _mapper.Map<NewsDTO>(news);
+                var newsDto = _mapper.Map<NewsDTO>(news);
+                if (!string.IsNullOrEmpty(newsDto.Content))
+                {
+                    newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
+                }
+
+                result.Payload = newsDto;
             }
             catch (Exception e)
             {
