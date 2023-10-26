@@ -23,7 +23,7 @@ function CourseTable() {
 
     const getCourseByMonth = async (month) => {
         try {
-            const response = await api.get(`/CourseDetail?courseMonth=${month}`);
+            const response = await api.get(`CourseDetail?courseMonth=${month}`);
             setData(response.data);
             console.log(data[0]);
             setIsLoading(false);

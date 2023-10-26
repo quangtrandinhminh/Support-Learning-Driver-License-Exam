@@ -189,11 +189,12 @@
 
         .check-result {
             display: inline-block;
-            transform: translate(100px, -27px);
+            transform: translateX(-490px);
 
             .result-yes,
             .result-no {
                 display: inline-block;
+                left: 0;
             }
 
             .result-yes {
@@ -203,7 +204,7 @@
             }
 
             .result-no {
-                padding-left: 20px;
+                padding-left: 15px;
 
                 label {
                     margin-right: 6px;
