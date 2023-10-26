@@ -2,7 +2,7 @@ import './App.scss'
 import { Route, Routes } from 'react-router-dom'
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
 import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-course/guest-course'
-import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
+import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
 import { Bounce, Slide, ToastContainer } from 'react-toastify'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
@@ -15,7 +15,7 @@ import UserListPage from './bigcomponents/StaffPage/components/pages/user-list/u
 import 'bootstrap/dist/css/bootstrap.css'
 import './bigcomponents/general-template.scss'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
-import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
+import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage/RegistrationPage'
 import '../../StaffPage/src/components/templates/template.scss'
 import 'react-toastify/ReactToastify.css'
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
@@ -24,6 +24,9 @@ import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/pr
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import PracticeList from './bigcomponents/MemberPage/components/molecules/practice-list-table/practice-list-table'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
+import ForgetPassword from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
+import NewPassword from './bigcomponents/AuthorizationPage/components/pages/NewpasswordPage/NewpasswordPage'
+
 
 function App() {
 
@@ -60,6 +63,8 @@ function App() {
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
                   <Route path='dang-ky' element={<RegistrationPage />} />
+                  <Route path='quen-mat-khau' element={<ForgetPassword/>} />
+                  <Route path='mat-khau-moi' element={<NewPassword/>} />
                   <Route path='khoahoc' element={<GuestCoursePage />} />
                 </>
               ) : (
