@@ -37,10 +37,10 @@ function ExamDocument() {
   try {
     const response = await api.post('Member?userID=' + userInf.userID);
     const res = response.data;
-    setMember(res.payload);
-    setIntegratedDrivingLicense(res.payload.integratedDrivingLicense);
-    setRevokedDrivingLicense(res.payload.revokedDrivingLicense);
-    setIsPaid(res.payload.isPaid);
+    setMember(res);
+    setIntegratedDrivingLicense(res.integratedDrivingLicense);
+    setRevokedDrivingLicense(res.revokedDrivingLicense);
+    setIsPaid(res.isPaid);
     setIsLoading(false);
   } catch (err) {
     console.log(err);
@@ -153,10 +153,11 @@ function ExamDocument() {
                 <label htmlFor="integratedDrivingLicense">Đăng ký tích hợp giấy phép lái xe: </label>
                 <input type="checkbox" checked={integratedDrivingLicense} disabled />
               </li>
-              <li className='inline-flex'>
-                <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường bộ với hình thức tước quyền sử dụng giấy
-                  <br />
-                  phép lái xe: </label>
+              <li className='inline-block'>
+                <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường 
+                bộ với hình thức tước quyền sử 
+                <br />
+                dụng giấy phép lái xe: </label>
                 <div className='check-result'>
                   <div className='result-yes'>
                     <label htmlFor="check">Có: </label>

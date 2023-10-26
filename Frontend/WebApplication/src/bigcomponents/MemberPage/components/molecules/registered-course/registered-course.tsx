@@ -12,6 +12,7 @@ function RegisteredCourse() {
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [isPaid, setIsPaid] = useState(null);
 
     function handleScroll() {
         window.scrollTo(0, 0);
@@ -33,7 +34,8 @@ function RegisteredCourse() {
         try {
             const respone = await api.post('Member?userID=' + userInf.userID);
             const res = respone.data;
-            setMember(res.payload);
+            setMember(res);
+            setIsPaid(res.isPaid);
         } catch (err) {
             console.log(err);
         }
