@@ -1,5 +1,6 @@
 import { Link } from 'react-scroll';
 import './guest-nav-home.scss'
+import { Link as Forward } from 'react-router-dom'
 
 function GuestNavHome() {
     return (
@@ -25,21 +26,25 @@ function GuestNavHome() {
                                 </li></Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="consultation" spy={true} smooth={true} offset={-120} duration={500}>
+                            <Link to="center-consultation" spy={true} smooth={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Tư vấn</a>
                                 </li>
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng nhập</a>
-                            </li>
+                            <Forward to='/login' >
+                                <li className='inline-block'>
+                                    <a href="">Đăng nhập</a>
+                                </li>
+                            </Forward>
                         </div>
                         <div className='nav-home-items'>
-                            <li className='inline-block'>
-                                <a href="">Đăng kí</a>
-                            </li>
+                            <Forward to='/login' >
+                                <li className='inline-block'>
+                                    <a href="">Đăng ký</a>
+                                </li>
+                            </Forward>
                         </div>
                     </ul>
                 </nav>

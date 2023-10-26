@@ -1,30 +1,57 @@
 .center-consultation-container {
-    background-image: url(/res/imgs/consultation/trung-tam-dao-tao-lai-xe-ngoc-ha.jpg);
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url(/res/imgs/consultation/z4801824129961_aec503f9c248529f58f681c0a55768a1.jpg);
+    background-size: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
     justify-content: center;
-    gap: 100px;
     position: relative;
-    margin-top: 50px;
+    margin-top: 150px;
+
+    h1 {
+        position: relative;
+        color: white;
+        text-transform: uppercase;
+        padding-top: 16px;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        text-align: center;
+        text-transform: uppercase;
+    }
 
     .text-box-list {
+        display: flex;
+        flex-direction: column;
         list-style: none;
     }
 
     .text-box {
         position: relative;
-        width: 200px;
-        height: 20px;
+        width: 100%;
+        height: 30px;
         font-size: 17px;
         transform: translateX(-50%);
         left: 50%;
         right: 50%;
         margin-top: 50px;
+        border-radius: 5px;
+    }
+
+    .text-box-1 {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        font-size: 17px;
+        transform: translateX(-50%);
+        left: 50%;
+        right: 50%;
+        margin-top: 50px;
+        border-radius: 5px;
     }
 
     button {
         position: relative;
         margin-top: 50px;
+        margin-bottom: 30px;
         background-color: #4292EB;
         width: 150px;
         height: 50px;
@@ -41,9 +68,5 @@
             box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
             cursor: pointer;
         }
-    }
-
-    img {
-        width: 50%;
     }
 }

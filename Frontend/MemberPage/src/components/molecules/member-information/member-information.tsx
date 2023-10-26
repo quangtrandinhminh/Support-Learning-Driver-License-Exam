@@ -1,10 +1,17 @@
 import './member-information.scss'
 import MemberImg from '../../../../../assets/imgs/member/member_img.png'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function MemberInformationForm() {
     function handleScroll() {
         window.scrollTo(0, 0);
+    }
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 
     return (
@@ -12,9 +19,9 @@ function MemberInformationForm() {
             <h1 className='member-information-title'>Thông tin cá nhân</h1>
             <div className='member-information-content'>
                 <div className='member-avatar'>
-                    <img src={MemberImg} alt="" />
+                    <img src={MemberImg} alt="hinh-anh-giang-vien" />
                 </div>
-                <table>
+                <form onSubmit={handleSubmit}>
                     <li>
                         <label htmlFor="name">Họ và tên: </label>
                         <span>Nguyễn Thanh Phong</span>
@@ -63,10 +70,8 @@ function MemberInformationForm() {
                         <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
                         <span></span>
                     </li>
-                    <div className='updateInf-btn'>
-                        <Link to='/thong-tin-ca-nhan/cap-nhat' onClick={handleScroll}>Cập nhật</Link>
-                    </div>
-                </table>
+                    <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button>
+                </form>
             </div>
         </div>
     )

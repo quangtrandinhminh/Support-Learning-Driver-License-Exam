@@ -1,0 +1,125 @@
+.practice-register-container {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+
+    .title-container {
+        text-align: center;
+        margin-top: 50px;
+
+        .practice-container-title {
+            text-transform: uppercase;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .practice-container-subtitle {
+            margin-top: 30px;
+            line-height: 30px;
+        }
+
+    }
+
+    .practice-register-body {
+        .practice-information {
+            margin: auto;
+            width: 90%;
+            align-self: flex-start;
+            margin-top: 50px;
+            font-size: 20px;
+
+            .practice-date-expected {
+                display: flex;
+
+                .practice-session {
+                    margin-left: 10px;
+
+                    .evening-register {
+                        margin-top: 5px;
+                    }
+                }
+            }
+
+            .practice-street-verify {
+                margin-top: 20px;
+            }
+
+        }
+
+        form {
+            width: 90%;
+            align-self: center;
+            margin: auto;
+            font-size: 20px;
+            margin-top: 30px;
+            text-align: center;
+            border-collapse: collapse;
+
+            th,
+            td {
+                border: 1px solid black;
+            }
+
+            thead {
+                th {
+                    padding: 8px;
+                }
+
+                .practice-time {
+                    width: 150px;
+                }
+
+                .practice-yard {
+                    width: 200px;
+                }
+
+                .practice-cabin {
+                    width: 300px;
+                }
+
+                .practice-tLight-sub {
+                    width: 220px;
+                }
+
+                .practice-note {
+                    width: 150px;
+                }
+            }
+
+            tbody {
+                td {
+                    padding: 8px;
+                }
+
+                .register-btn {
+                    margin: auto;
+                    width: 100px;
+                    display: block;
+                    padding: 10px;
+                    text-decoration: none;
+                    border: none;
+                    font-size: 16px;
+                    border: 1px solid black;
+                    background-color: white;
+
+                    &:hover {
+                        color: red;
+                        cursor: pointer;
+                        box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
+                        border: 2px solid rgba(0, 0, 0, 0.7);
+                    }
+                }
+            }
+
+            .practice-register-note {
+                font-size: 18px;
+                color: red;
+                font-style: italic;
+                margin-top: 20px;
+                align-self: flex-start;
+                text-align: left;
+            }
+
+        }
+    }
+}

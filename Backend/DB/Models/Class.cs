@@ -7,11 +7,13 @@ public partial class Class
 {
     public int ClassId { get; set; }
 
-    public bool ClassType { get; set; }
+    public bool? ClassType { get; set; }
 
     public int MentorId { get; set; }
 
     public string CourseId { get; set; } = null!;
+
+    public bool? Passed { get; set; }
 
     public virtual Course Course { get; set; } = null!;
 

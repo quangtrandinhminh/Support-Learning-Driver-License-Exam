@@ -19,8 +19,50 @@ namespace Backend.Repository.NewsRepository
         {
             try
             {
-                var news = _dbSet.AsQueryable().Where(n=> n.Status == true);
-                return news;
+                return _dbSet.AsQueryable(); ;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<News?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<News?> CreateAsync(News news)
+        {
+            try
+            {
+                var result = await _dbSet.AddAsync(news);
+                await _context.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<News?> UpdateAsync(News news)
+        {
+            try
+            {
+                var result = _dbSet.Update(news);
+                await _context.SaveChangesAsync();
+                return result.Entity;
             }
             catch (Exception e)
             {

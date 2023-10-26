@@ -4,8 +4,20 @@ namespace Backend.Services.Course
 {
     public interface ICourseService
     {
-        ICollection<CourseDTO>? GetCourses();
+        ServiceResult<ICollection<CourseDTO>> GetAllCourses();
 
-        Task<CourseDTO?>? GetCourseById(string id);
+        ICollection<CourseDTO>? GetAll();
+
+        ServiceResult<ICollection<CourseDTO>> GetInactiveCourses();
+
+        ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month);
+
+        Task<ServiceResult<CourseDTO>> GetCourseById(string id);
+
+        Task<ServiceResult<int>> CreateCourse(CourseRequestDTO courseRequestDto);
+
+        Task<ServiceResult<int>> UpdateCourse(CourseRequestDTO courseRequestDto);
+
+        Task<ServiceResult> DeactivateCourse(string id);
     }
 }

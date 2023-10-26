@@ -19,8 +19,50 @@ namespace Backend.Repository.CourseRepository
         {
             try
             {
-                var courses = _dbSet.AsQueryable();
-                return courses;
+                return _dbSet.AsQueryable();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<Course?> GetByIdAsync(string id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> AddAsync(Course? course)
+        {
+            try
+            {
+                await _dbSet.AddAsync(course);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(Course? course)
+        {
+            try
+            {
+                _dbSet.Update(course);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
             }
             catch (Exception e)
             {
