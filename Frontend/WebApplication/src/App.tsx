@@ -39,6 +39,7 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 
 //Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
+import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 
 
 
@@ -99,8 +100,10 @@ function App() {
                     </>
                   )}
                   {user.roleId === 3 && (
+                    <>
                     <Route index element={<MentorHomePage />} />
-                    //temp page
+                    <Route path='/lich-day' element={<MentorSchedulePage />}/>
+                    </>
                   )}
                   {user.roleId === 4 && (
                     <>
