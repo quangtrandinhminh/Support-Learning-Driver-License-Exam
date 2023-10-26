@@ -1,5 +1,5 @@
 import MentorSidebar from '../../atoms/mentor-home-sidebar/sidebar'
-import '../../general.scss'
+import '../../mentor-general.scss'
 
 function MentorSchedulePage() {
   return (
