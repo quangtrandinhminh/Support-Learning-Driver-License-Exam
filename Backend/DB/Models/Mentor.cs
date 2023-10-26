@@ -15,5 +15,7 @@ public partial class Mentor
 
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
+    public virtual ICollection<TeachingSchedule> TeachingSchedules { get; set; } = new List<TeachingSchedule>();
+
     public virtual User User { get; set; } = null!;
 }

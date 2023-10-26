@@ -45,6 +45,8 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<StudentAnswer> StudentAnswers { get; set; }
 
+    public virtual DbSet<TeachingSchedule> TeachingSchedules { get; set; }
+
     public virtual DbSet<Test> Tests { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -492,6 +494,28 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.TestId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudentAnswer_Test");
+        });
+
+        modelBuilder.Entity<TeachingSchedule>(entity =>
+        {
+            entity.ToTable("TeachingSchedule");
+
+            entity.Property(e => e.TeachingScheduleId).HasColumnName("teachingScheduleID");
+            entity.Property(e => e.CourseId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("courseID");
+            entity.Property(e => e.MentorId).HasColumnName("mentorID");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.TeachingSchedules)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TeachingSchedule_Course");
+
+            entity.HasOne(d => d.Mentor).WithMany(p => p.TeachingSchedules)
+                .HasForeignKey(d => d.MentorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TeachingSchedule_Mentor");
         });
 
         modelBuilder.Entity<Test>(entity =>

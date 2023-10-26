@@ -34,4 +34,6 @@ public partial class Course
     public virtual ICollection<Member> Members { get; set; } = new List<Member>();
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+
+    public virtual ICollection<TeachingSchedule> TeachingSchedules { get; set; } = new List<TeachingSchedule>();
 }
