@@ -11,6 +11,7 @@ function News() {
 
     const getAllNews = async () => {
         const response = await api.get('News/list');
+        console.log(response);
         setData(response.data);
         setIsLoading(false);
     }

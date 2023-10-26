@@ -43,6 +43,7 @@ function MentorSidebar() {
         <h1>Mentor Sidebar</h1>
       </div>
       <div className='mentor-sidebar'>
+        <h3 className='mini-title'>Công cụ & trang</h3>
         <li className='sidebar-component'>
           <div className="mentor-list">
             <NavLink style={styleSidebarCom} to='/'>
@@ -64,6 +65,7 @@ function MentorSidebar() {
             </NavLink>
           </div>
         </li>
+        <h3 className='mini-title'>Tài khoản: </h3>
         <li className='sidebar-component'>
           <div className="mentor-list">
             <NavLink className='logout-btn' to='/' onClick={handleLogout}>
