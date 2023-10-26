@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import logo from "../../../assets/images/Logo.svg";
+import logo from "../../../../AuthorizationPage/assets/images/logo.png";
 import Lock from "../../../assets/images/lock.svg";
 import user from "../../../assets/images/userblur.svg";
 import "./index.scss"
@@ -95,7 +95,7 @@ const LoginForm: React.FC = () => {
             <p>Đăng Ký</p>
           </button>
         </div>
-        <Link to="/forgotPassword" className="forgot_password"><p>Quên mật khẩu?</p></Link>
+        <Link to="/quen-mat-khau" className="forgot_password"><p>Quên mật khẩu?</p></Link>
       </form>
     </div>
   );
