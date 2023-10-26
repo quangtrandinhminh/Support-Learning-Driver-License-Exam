@@ -41,18 +41,8 @@ namespace Backend.Controllers
         {
             try
             {
-                List<CourseDetailsDTO> courseDetail = new List<CourseDetailsDTO>();
-                List<List<CourseDetailsDTO>> courseDetails = new List<List<CourseDetailsDTO>>();
-                var courses = _courseService.GetAll().
-                    Where(c => c.CourseMonth == courseMonth)
-                    .ToList();
-                foreach (var course in courses) 
-                {
-                    courseDetail = _courseDetailsService.GetAllCourseDetails().
-                    Where(q => q.CourseId.Equals(course.CourseId)).ToList();
-
-                    courseDetails.Add(courseDetail);
-                }
+                var courseDetails = _courseDetailsService.GetAllCourseDetails().
+                    Where(p => p.CourseMonth == courseMonth);
                 if (courseDetails == null)
                 {
                     return NotFound();
