@@ -1,14 +1,10 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import LoginForm from "../../molecules/LoginForm/LoginForm";
-import "./index.scss";
-
+import LoginForm from "../molecules/LoginForm/LoginForm";
 const LoginPage: React.FC = () => {
   return (
     <>
-      <div className="login-page">
-          <LoginForm />
-      </div>
+          <LoginForm/>
     </>
   );
 };

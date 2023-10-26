@@ -79,7 +79,7 @@ function CourseTable() {
                                                         <li className='border-receive'>3. Thực hành trên cabin</li>
                                                         <li className='border-receive'>4. Thực hành trên đường</li>
                                                         <li className='border-receive'>5. Thực hành trên xe tự động</li>
-                                                        <li>Thực hành tổng hợp trong hình</li>
+                                                        <li>6. Thực hành tổng hợp trong hình</li>
                                                     </ol>
                                                 </td>
                                                 <td className="course-training-time">

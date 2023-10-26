@@ -1,14 +1,11 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import ForgetPassword from "../../molecules/ForgetPassword/ForgetPassword";
-import "./index.scss"
+import ForgetPassword from "../molecules/ForgetPassword";
 
 const ForgetPasswordPage: React.FC = () => {
   return (
     <>
-        <div className="forgetpassword-page">
-          <ForgetPassword />
-        </div> 
+        <ForgetPassword />
     </>
   );
 };
