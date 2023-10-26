@@ -28,6 +28,7 @@ import CourseManagementPage from './bigcomponents/StaffPage/components/pages/cou
 import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
 import { useEffect } from 'react'
+import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 
 function App() {
 
@@ -86,7 +87,7 @@ function App() {
                     </>
                   )}
                   {user.roleId === 3 && (
-                    <Route index element={<MemberHomePage />} />
+                    <Route index element={<MentorHomePage />} />
                     //temp page
                   )}
                   {user.roleId === 4 && (
