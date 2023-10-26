@@ -1,31 +1,51 @@
 .sidebar-container {
     .sidebar-title {
         text-align: center;
-    }
 
-    .mentor-sidebar {
-        
         h1 {
             padding: 20px;
             display: inline-block;
             text-transform: uppercase;
-            color: black;
-            font-size: 30px;
+            color: white;
+            font-size: 34px;
         }
+    }
 
+    .mentor-sidebar {
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        .mini-title {
+            padding: 20px;
+            display: inline-block;
+            text-transform: uppercase;
+            color: white;
+            font-size: 18px;
+        }
 
         li {
             list-style: none;
             margin-left: 20px;
 
             a {
-                display: inline-block;
-                padding: 8px;
-                color: black;
+                display: block;
+                padding: 8px 0;
+                color: white;
                 text-decoration: none;
+            }
+        }
+    }
+
+    .sidebar-component {
+        .memntor-list {
+            .logout-btn {
+                text-transform: uppercase;
+                text-decoration: underline;
+
+                &:hover {
+                    color: red;
+                }
             }
         }
     }

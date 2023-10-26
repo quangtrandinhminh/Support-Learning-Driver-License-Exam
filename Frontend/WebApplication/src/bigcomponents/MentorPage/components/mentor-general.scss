@@ -1,0 +1,15 @@
+.page-container {
+    display: flex;
+    flex-direction: row;
+
+    .mentor-header {
+        min-width: 280px;
+        min-height: 1000px;
+        background-color: #4292EB;
+    }
+
+    .mentor-body {
+        width: 100%;
+        min-height: 1000px;
+    }
+}

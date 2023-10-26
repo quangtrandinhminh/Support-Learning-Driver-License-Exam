@@ -8,11 +8,9 @@ function UpdateInformationPage() {
             <header>
                 <MemberHeader />
             </header>
-
-            <body>
+            <div className='body-container'>
                 <UpdateInformationTemplate />
-            </body>
-
+            </div>
             <footer>
                 <MemberFooter />
             </footer>

@@ -108,10 +108,10 @@ function ExamDocumentUpdate() {
             <label htmlFor="integratedDrivingLicense">Đăng ký tích hợp giấy phép lái xe: </label>
             <input type="checkbox" />
           </li>
-          <li className='inline-flex'>
-            <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường bộ với hình thức tước quyền sử dụng giấy
+          <li className='inline-block'>
+            <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường bộ với hình thức tước quyền sử
               <br />
-              phép lái xe: </label>
+              dụng giấy phép lái xe: </label>
             <div className='check-result'>
               <div className='result-yes'>
                 <label htmlFor="check">Có: </label>
