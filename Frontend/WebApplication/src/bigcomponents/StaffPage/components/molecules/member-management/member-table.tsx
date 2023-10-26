@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import './users-table.scss'
+import React, { useState, useEffect } from 'react'
+import './member-table.scss'
 import api from '../../../../../config/axios';
 
-function UserTable() {
-  const [data, setData] = useState<any[]>([])
+function MemberTable() {
+  const [member, setMember] = useState<any[]>([])
+  const [user, setUser] = useState<any[]>([])
+
+  const getAllMembers = async () => {
+    const response = await api.get('/Members');
+    const res = response.data;
+    setMember(res);
+  }
 
   const getAllUser = async () => {
     const response = await api.get('/Users');
     const res = response.data;
-    setData(res);
+    setUser(res);
   }
 
   //paganition part
@@ -16,13 +23,18 @@ function UserTable() {
   const recordPage = 6;
   const lastIndex = currentPage * recordPage;
   const firsIndex = lastIndex - recordPage;
-  const records = data.slice(firsIndex, lastIndex);
-  const npage = Math.ceil(data.length / recordPage);
+  const records = member.slice(firsIndex, lastIndex);
+  const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
+  const overallIndex = (currentPage - 1) * recordPage;
+
+  useEffect(() => {
+    getAllMembers();
+  }, [])
 
   useEffect(() => {
     getAllUser();
-  }, [])
+  }, [member]);
 
   const prePage = () => {
     if (currentPage !== 1) {
@@ -44,7 +56,7 @@ function UserTable() {
   return (
     <div className='user-table-container'>
       <div className="user-table-title text-center text-uppercase">
-        <h1>Danh sách người dùng</h1>
+        <h1>Danh sách học viên</h1>
       </div>
       <div className='user-table-content'>
         <form action="">
@@ -64,12 +76,12 @@ function UserTable() {
               {records.length > 0 ? (
                 records.map((user, i: number = 1) => (
                   <tr key={i}>
-                    <td>{user.userID}</td>
-                    <td>{user.fullName}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.email}</td>
-                    <td className='text-center'>{user.status.toString().toUpperCase()}</td>
-                    <td className='text-center'>{user.roleId}</td>
+                    <td>{user.userId}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className='text-center'></td>
+                    <td className='text-center'></td>
                     <td className='button text-center'>
                       <button className="btn btn-primary" type="submit">Update</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
@@ -114,4 +126,4 @@ function UserTable() {
   )
 }
 
-export default UserTable
+export default MemberTable

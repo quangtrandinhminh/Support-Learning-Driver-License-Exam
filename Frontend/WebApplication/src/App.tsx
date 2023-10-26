@@ -36,6 +36,7 @@ import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/
 // Authorization page
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage'
+import CreateCoursePage from './bigcomponents/StaffPage/components/pages/create-course/create-course'
 
 //Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
@@ -94,7 +95,10 @@ function App() {
                     <>
                       <Route index element={<StaffPage />} />
                       <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
-                      <Route path='quan-ly-khoa-hoc' element={<CourseManagementPage />} />
+                      <Route path='/quan-ly-khoa-hoc'>
+                          <Route index element={<CourseManagementPage />} />
+                          <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
+                      </Route>
                       <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
                       <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
                     </>
