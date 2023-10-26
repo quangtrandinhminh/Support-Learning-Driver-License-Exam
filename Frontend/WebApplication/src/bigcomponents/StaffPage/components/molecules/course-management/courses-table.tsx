@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../../../config/axios';
 import './courses-table.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function CourseTable() {
     const [data, setData] = useState<any[]>([])
+    const [error, setError] = useState(null);
 
     const getAllCourse = async () => {
-        const response = await api.get('/Course/list');
+        const response = await api.get('Course/list');
         const res = response.data;
         setData(res);
     }
@@ -42,12 +43,30 @@ function CourseTable() {
         }
     }
 
+    const navigate = useNavigate();
+
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
+    }
+
+    const handleDelete = async (courseId) => {
+        try {
+            // Perform the deletion
+            await api.delete('Course/deactivate/' + courseId);
+
+            // Reload the page after successful deletion
+            location.reload();
+
+            // Once deletion is successful, fetch the updated data
+            await getAllCourse();
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -88,7 +107,7 @@ function CourseTable() {
                                         <td className='text-center'>{course.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit">Update</button>
-                                            <button className="btn btn-danger" type="submit">Delete</button>
+                                            <button className="btn btn-danger" type="submit" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))

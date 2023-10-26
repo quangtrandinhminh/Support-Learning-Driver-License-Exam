@@ -1,5 +1,5 @@
 import './App.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
@@ -41,8 +41,6 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
-
-
 
 function App() {
 
@@ -136,10 +134,8 @@ function App() {
               )
             }
           </Route>
-        </Routes >
-
+        </Routes>
       }
-
     </>
   )
 }
