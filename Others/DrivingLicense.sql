@@ -112,7 +112,6 @@ GO
 CREATE TABLE [dbo].[Mentor](
   [mentorID] INT IDENTITY(1,1) NOT NULL,
   [residenceAddress] NVARCHAR(255) NULL,
-  [status] BIT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Mentor] PRIMARY KEY CLUSTERED 
   (
