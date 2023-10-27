@@ -1,7 +1,5 @@
 ﻿using AutoMapper.Configuration;
 using Backend.DB.Models;
-using Backend.DTO.CourseDetails;
-using Backend.DTO.Members;
 using Backend.DTO.Mentor;
 using System.Diagnostics;
 
@@ -14,13 +12,9 @@ namespace Backend
             // Course
             CreateMap<DB.Models.Course, DTO.Course.CourseDTO>();
             CreateMap<DTO.Course.CourseDTO, DB.Models.Course>();
-            CreateMap<DTO.Course.CourseRequestDTO, DB.Models.Course>();
 
             //CourseDetails
-            CreateMap<CourseDetail, CourseDetailsDTO>()
-                .ForMember(dto => dto.CourseId, otp => otp.MapFrom(entity => entity.Course.CourseId))
-                .ForMember(dto => dto.CourseMonth, otp => otp.MapFrom(entity => entity.Course.CourseMonth))
-                .ForMember(dto => dto.LimitStudent, otp => otp.MapFrom(entity => entity.Course.LimitStudent));
+            CreateMap<DB.Models.CourseDetail, DTO.CourseDetails.CourseDetailsDTO>();
             CreateMap<DTO.CourseDetails.CourseDetailsDTO, DB.Models.CourseDetail>();
 
             // News
@@ -32,11 +26,9 @@ namespace Backend
             CreateMap<DTO.Users.UserDTO, DB.Models.User>();
 
             //Member
-            CreateMap<Member, MemberDTO>()
-                .ForMember(dto => dto.memberID, otp => otp.MapFrom(entity => entity.User.UserId))
-                .ForMember(dto => dto.Phone, otp => otp.MapFrom(entity => entity.User.Phone))
-                .ForMember(dto => dto.Email, otp => otp.MapFrom(entity => entity.User.Email));  
+            CreateMap<DB.Models.Member, DTO.Members.MemberDTO>();
             CreateMap<DTO.Members.MemberDTO, DB.Models.Member>();
+            CreateMap<DTO.Course.CourseRequestDTO, DB.Models.Course>();
             
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
