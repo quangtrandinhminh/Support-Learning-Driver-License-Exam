@@ -115,13 +115,13 @@ namespace Backend.Services.News
             return result;
         }
 
-        public async Task<ServiceResult<int>> PostNews(NewsRequestDTO newsRequestDto)
+        public async Task<ServiceResult<int>> PostNews(NewsCreateDTO newsCreateDto)
         {
             var result = new ServiceResult<int>();
 
             try
             {
-                var news = _mapper.Map<DB.Models.News>(newsRequestDto);
+                var news = _mapper.Map<DB.Models.News>(newsCreateDto);
                 news.CreatedTime = DateTime.Now;
 
                 await _newsRepository.CreateAsync(news);
@@ -136,13 +136,13 @@ namespace Backend.Services.News
             return result;
         }
 
-        public async Task<ServiceResult<int>> UpdateNews(NewsRequestDTO newsRequestDto)
+        public async Task<ServiceResult<int>> UpdateNews(NewsUpdateDTO newsUpdateDto)
         {
             var result = new ServiceResult<int>();
 
             try
             {
-                var originalNews = await _newsRepository.GetByIdAsync(newsRequestDto.NewsId);
+                var originalNews = await _newsRepository.GetByIdAsync(newsUpdateDto.NewsId);
                 if (originalNews == null)
                 {
                     result.IsError = true;
@@ -151,7 +151,7 @@ namespace Backend.Services.News
                     return result;
                 }
 
-                var news = _mapper.Map(newsRequestDto, originalNews);
+                var news = _mapper.Map(newsUpdateDto, originalNews);
                 await _newsRepository.UpdateAsync(news);
             }
             catch (Exception e)
