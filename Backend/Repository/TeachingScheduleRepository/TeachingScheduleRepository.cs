@@ -1,23 +1,19 @@
 ﻿using Backend.DB.Models;
-using Backend.DTO.Mentor;
-using Backend.Services;
-using Backend.Services.Mentor;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Repository.MentorRepository
+namespace Backend.Repository.TeachingScheduleRepository
 {
-    public class MentorRepository : IMentorRepository
+    public class TeachingScheduleRepository : ITeachingScheduleRepository
     {
         private readonly DrivingLicenseContext _context;
-        private readonly DbSet<Mentor> _dbSet;
+        private readonly DbSet<TeachingSchedule> _dbSet;
 
-        public MentorRepository(DrivingLicenseContext context)
+        public TeachingScheduleRepository(DrivingLicenseContext context)
         {
             _context = context;
-            _dbSet = _context.Set<Mentor>();
+            _dbSet = _context.Set<TeachingSchedule>();
         }
-
-        public IQueryable<Mentor>? GetAll()
+        public IQueryable<TeachingSchedule>? GetAll()
         {
             try
             {
@@ -30,24 +26,11 @@ namespace Backend.Repository.MentorRepository
             }
         }
 
-        public async Task<Mentor?> GetByIdAsync(int id)
+        public async Task<TeachingSchedule?> CreateAsync(TeachingSchedule TeachingSchedule)
         {
             try
             {
-                return await _dbSet.FindAsync(id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public async Task<Mentor?> CreateAsync(Mentor mentor)
-        {
-            try
-            {
-                var result = await _dbSet.AddAsync(mentor);
+                var result = await _dbSet.AddAsync(TeachingSchedule);
                 await _context.SaveChangesAsync();
                 return result.Entity;
             }
@@ -58,11 +41,11 @@ namespace Backend.Repository.MentorRepository
             }
         }
 
-        public async Task<Mentor?> UpdateAsync(Mentor mentor)
+        public async Task<TeachingSchedule?> UpdateAsync(TeachingSchedule TeachingSchedule)
         {
             try
             {
-                var result = _dbSet.Update(mentor);
+                var result = _dbSet.Update(TeachingSchedule);
                 await _context.SaveChangesAsync();
                 return result.Entity;
             }
