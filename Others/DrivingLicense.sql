@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[Role](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[User](
   [userID] INT IDENTITY(1,1) NOT NULL,
   [username] VARCHAR(50) NULL,
@@ -43,6 +44,7 @@ CREATE TABLE [dbo].[User](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[Course](
   [courseID] VARCHAR(10) NOT NULL,
   [name] NVARCHAR(500) NULL,
@@ -61,6 +63,7 @@ CREATE TABLE [dbo].[Course](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[CourseDetails](
 	[courseDetailsID] INT IDENTITY(1,1) NOT NULL,
 	[courseContent] NVARCHAR(MAX) NULL, 
@@ -76,6 +79,7 @@ CREATE TABLE [dbo].[CourseDetails](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[Member](
   [memberID] INT IDENTITY(1,1) NOT NULL,
   [dob] DATE NULL,
@@ -111,8 +115,10 @@ GO
 
 CREATE TABLE [dbo].[Mentor](
   [mentorID] INT IDENTITY(1,1) NOT NULL,
+  [userID] INT NOT NULL,
   [residenceAddress] NVARCHAR(255) NULL,
-  [userID] INT NOT NULL
+  [isTeachingTheory] BIT NULL,
+  [isTeachingPractice] BIT NULL
   CONSTRAINT [PK_Mentor] PRIMARY KEY CLUSTERED 
   (
     [mentorID] ASC
@@ -137,6 +143,7 @@ GO
 CREATE TABLE [dbo].[News](
   [newsID] INT IDENTITY(1,1) NOT NULL,
   [title] NVARCHAR(500) NULL,
+  [description] NVARCHAR(500) NULL,
   [content] NVARCHAR(MAX) NULL,
   [createdTime] DATETIME NULL,
   [status] BIT NULL,
@@ -166,7 +173,7 @@ CREATE TABLE [dbo].[TeachingSchedule](
   [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
-  [teachingDate] DATE NULL
+  [teachingDate] DATETIME NULL
   CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
   (
     [teachingScheduleID] ASC
@@ -178,10 +185,10 @@ GO
 
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
-  [classType] BIT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
-  [passed] BIT NULL
+  [classType] BIT NULL,
+  [location] NVARCHAR(500) NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
     [classID] ASC
@@ -245,6 +252,7 @@ CREATE TABLE [dbo].[Exam](
   [courseID] VARCHAR(10) NOT NULL,
   [limitQuestion] INT NULL,
   [limitKeyQuestion] INT NULL,
+  [minimumCorrectAnswer] SMALLINT NULL,
   [password] VARCHAR(50) NULL,
   [createdTime] DATETIME NULL,
   [staffID] INT NOT NULL,
@@ -273,12 +281,13 @@ GO
 CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
   [classID] INT NOT NULL,
+  [studentID] VARCHAR(10) NOT NULL,
+  [title] NVARCHAR(500) NULL,
   [startTime] DATETIME NULL,
   [endTime] DATETIME NULL,
-  [title] NVARCHAR(MAX) NULL,
+  [location] NVARCHAR(500) NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
-  [studentID] VARCHAR(10) NOT NULL,
   [attendance] BIT NULL,
   CONSTRAINT [PK_Lesson] PRIMARY KEY CLUSTERED 
   (
@@ -291,12 +300,11 @@ GO
 
 CREATE TABLE [dbo].[Test](
   [testID] INT IDENTITY(1,1) NOT NULL,
-  [testName] NVARCHAR(MAX) NULL,
-  [score] INT NULL,
-  [pass] BIT NULL,
-  [testTime] DATETIME NULL,
   [studentID] VARCHAR(10) NOT NULL,
   [examID] INT NOT NULL,
+  [score] SMALLINT NULL,
+  [pass] BIT NULL,
+  [createTime] DATETIME NULL,
   CONSTRAINT [PK_Test] PRIMARY KEY CLUSTERED 
   (
     [testID] ASC
@@ -308,7 +316,7 @@ GO
 
 CREATE TABLE [dbo].[StudentAnswer](
   [studentAnswerID] INT IDENTITY(1,1) NOT NULL,
-  [optionID] INT NULL,
+  [optionID] TINYINT NULL,
   [isCorrect] BIT NULL,
   [testID] INT NOT NULL,
   CONSTRAINT [PK_StudentAnswer] PRIMARY KEY CLUSTERED 
