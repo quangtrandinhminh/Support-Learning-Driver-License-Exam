@@ -6,6 +6,8 @@ using System;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CourseDetailsController : Controller
     {
         private readonly ICourseDetailsService _courseDetailsService;
