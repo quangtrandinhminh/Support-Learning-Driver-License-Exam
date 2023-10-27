@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
@@ -25,11 +23,7 @@ namespace Backend.Controllers
             return Ok(members);
         }
 
-<<<<<<< Updated upstream
         [HttpPost("/api/Member")]
-=======
-        [HttpGet("/Member/{userID}")]
->>>>>>> Stashed changes
         public async Task<IActionResult> GetMember(int userID)
         {
             var result = await _memberService.GetMemberById(userID);
