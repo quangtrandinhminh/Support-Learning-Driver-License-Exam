@@ -3,8 +3,6 @@ using Backend.Services.User;
 
 namespace Backend.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
