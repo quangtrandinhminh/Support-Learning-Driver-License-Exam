@@ -6,8 +6,6 @@
 
         public string ResidenceAddress { get; set; } = null!;
 
-        public bool Status { get; set; }
-
         public int UserId { get; set; }
 
         public string? fullName { get; set; }
@@ -21,5 +19,7 @@
         public int RoleId { get; set; }
 
         public DateTime CreatedTime { get; set; }
+
+        public bool Status { get; set; }
     }
 }
