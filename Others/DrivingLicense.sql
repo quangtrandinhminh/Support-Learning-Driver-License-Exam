@@ -112,7 +112,6 @@ GO
 CREATE TABLE [dbo].[Mentor](
   [mentorID] INT IDENTITY(1,1) NOT NULL,
   [residenceAddress] NVARCHAR(255) NULL,
-  [status] BIT NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Mentor] PRIMARY KEY CLUSTERED 
   (
@@ -160,6 +159,20 @@ CREATE TABLE [dbo].[Student](
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Student_Member] FOREIGN KEY ([memberID]) REFERENCES [dbo].[Member] ([memberID]),
   CONSTRAINT [FK_Student_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
+)ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TeachingSchedule](
+  [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
+  [mentorID] INT NOT NULL,
+  [courseID] VARCHAR(10) NOT NULL,
+  [teachingDate] DATE NULL
+  CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
+  (
+    [teachingScheduleID] ASC
+  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+  CONSTRAINT [FK_TeachingSchedule_Mentor] FOREIGN KEY ([mentorID]) REFERENCES [dbo].[Mentor] ([mentorID]),
+  CONSTRAINT [FK_TeachingSchedule_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
 )ON [PRIMARY]
 GO
 

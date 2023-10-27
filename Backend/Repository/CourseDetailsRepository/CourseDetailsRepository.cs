@@ -27,5 +27,35 @@ namespace Backend.Repository.CourseDetailsRepository
                 throw;
             }
         }
+
+        public async Task<CourseDetail?> CreateAsync(CourseDetail courseDetail)
+        {
+            try
+            {
+                var result = await _dbSet.AddAsync(courseDetail);
+                await _context.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<CourseDetail?> UpdateAsync(CourseDetail courseDetail)
+        {
+            try
+            {
+                var result = _dbSet.Update(courseDetail);
+                await _context.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
