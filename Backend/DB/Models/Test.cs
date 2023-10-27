@@ -7,17 +7,15 @@ public partial class Test
 {
     public int TestId { get; set; }
 
-    public string? TestName { get; set; }
-
-    public int? Score { get; set; }
-
-    public bool? Pass { get; set; }
-
-    public DateTime? TestTime { get; set; }
-
     public string StudentId { get; set; } = null!;
 
     public int ExamId { get; set; }
+
+    public short? Score { get; set; }
+
+    public bool? Pass { get; set; }
+
+    public DateTime? CreateTime { get; set; }
 
     public virtual Exam Exam { get; set; } = null!;
 
