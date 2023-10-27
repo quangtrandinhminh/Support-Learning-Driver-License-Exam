@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Backend.DTO.Course;
 using Backend.DTO.Members;
 using Backend.Repository.MemberRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Member
 {
@@ -19,7 +21,7 @@ namespace Backend.Services.Member
         {
             try
             {
-                var members = _memberRepository.GetAll();
+                var members = _memberRepository.GetAll().Include(m => m.User).ToList();
                 return members is null ? null : _mapper.Map<ICollection<MemberDTO>>(members);
             }
             catch (Exception e)
@@ -40,7 +42,7 @@ namespace Backend.Services.Member
                 if (member is null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "User is not exist";
+                    result.ErrorMessage = "Member is not exist";
                     return result;
                 }
 
@@ -49,6 +51,56 @@ namespace Backend.Services.Member
             catch (Exception e)
             {
                 result.IsError = false;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public bool checkValidation(MemberDTO memberDTO)
+        {
+            var members = _memberRepository.GetAll().ToList();
+            foreach (var member in members) 
+            { 
+                if (member )
+            }
+            
+            
+            return true;
+        }
+
+        public async Task<ServiceResult<int>> AddMember(MemberDTO memberDTO)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                if ()
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "End date must be greater than start date";
+                    result.Payload = -2;
+                    return result;
+                }
+
+                var courseExist = await _memberRepository.Get(courseRequestDto.CourseId);
+                if (courseExist != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Course is already exist";
+                    result.Payload = -1;
+                    return result;
+                };
+                ;
+                var course = _mapper.Map<DB.Models.Course>(courseRequestDto);
+                course.CreateTime = DateTime.Now;
+                course.CourseMonth = course.StartDate?.Month;
+                course.CourseYear = course.StartDate?.Year;
+
+                await _courseRepository.AddAsync(course);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;
