@@ -43,11 +43,11 @@ public partial class Member
 
     public bool? IsPaid { get; set; }
 
-    public string CourseId { get; set; } = null!;
+    public string? CourseId { get; set; }
 
     public int UserId { get; set; }
 
-    public virtual Course Course { get; set; } = null!;
+    public virtual Course? Course { get; set; }
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 

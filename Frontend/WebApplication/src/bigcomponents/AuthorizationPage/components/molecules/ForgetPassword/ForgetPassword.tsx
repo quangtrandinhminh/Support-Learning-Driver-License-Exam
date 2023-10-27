@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import logo from "../../assets/images/Logo.svg";
-import gmail from "../../assets/images/gmail logo.svg";
+import logo from "../../../../AuthorizationPage/assets/images/logo.png";
+import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
 import "./index.scss";
 
 const ForgetPassword: React.FC = () => {
@@ -51,9 +51,11 @@ const ForgetPassword: React.FC = () => {
       <form onSubmit={handleResetPassword}>
         <img src={logo} alt="logo" />
         <div className="rectangle-border">
-          <h2>Đặt lại mật khẩu</h2>
-          <h5>Nhập gmail của bạn để nhận xác minh đặt lại mật khẩu</h5>
-          <div>
+          <div className="content-page">
+            <h3>Đặt lại mật khẩu</h3>
+            <p>Nhập gmail của bạn để nhận xác minh đặt lại mật khẩu</p>
+          </div>
+          <div className="inputField">
             <img src={gmail} alt="gmail" />
             <input
               type="text"
@@ -62,12 +64,12 @@ const ForgetPassword: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div>
+          <div className="link_sms">
             <a href="https://www.google.com/intl/vi/gmail/about/">
               Nhận mã xác nhận
             </a>
           </div>
-          <div>
+          <div className="inputField2">
             <input
               type="text"
               placeholder="Nhập Mã xác nhận"
@@ -75,7 +77,11 @@ const ForgetPassword: React.FC = () => {
               onChange={(e) => setConfirmationCode(e.target.value)}
             />
           </div>
-          <button type="submit">Tiếp Theo</button>
+          <div className="forget-buttons">
+            <button type="submit">
+              <p>Tiếp Theo</p>
+            </button>
+          </div>
         </div>
       </form>
     </div>

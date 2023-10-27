@@ -4,10 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../../AuthorizationPage/data/User";
 import axios from "axios";
-import logo from "../../../assets/images/Logo.svg";
-import user from "../../../assets/images/userblur.svg";
-import gmail from "../../../assets/images/gmail logo.svg";
-import lock from "../../../assets/images/lock.svg";
+import logo from "../../../../AuthorizationPage/assets/images/logo.png";
+import user from "../../../../AuthorizationPage/assets/images/userblur.svg";
+import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
+import lock from "../../../../AuthorizationPage/assets/images/lock.svg";
+import "./index.scss";
 
 const RegistrationForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -85,7 +86,7 @@ const RegistrationForm: React.FC = () => {
       <form onSubmit={handleRegister}>
         <img src={logo} alt="logo" />
         <div className="rectangle-border">
-          <div>
+          <div className="inputField">
             <img src={user} alt="user" />
             <input
               type="text"
@@ -94,7 +95,7 @@ const RegistrationForm: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div>
+          <div className="inputField">
             <img src={gmail} alt="gmail" />
             <input
               type="text"
@@ -103,7 +104,7 @@ const RegistrationForm: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div>
+          <div className="inputField">
             <img src={lock} alt="password" />
             <input
               type="password"
@@ -112,7 +113,7 @@ const RegistrationForm: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div>
+          <div className="inputField">
             <img src={lock} alt="repeatPassword" />
             <input
               type="password"
@@ -123,7 +124,7 @@ const RegistrationForm: React.FC = () => {
           </div>
         </div>
         <div className="registration-buttons">
-          <button type="submit">Register</button>
+          <button type="submit"><p>ĐĂNG KÝ</p></button>
         </div>
       </form>
     </div>

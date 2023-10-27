@@ -68,7 +68,7 @@ function UserTable() {
                     <td>{user.fullName}</td>
                     <td>{user.phone}</td>
                     <td>{user.email}</td>
-                    <td className='text-center'>{user.status.toString()}</td>
+                    <td className='text-center'>{user.status.toString().toUpperCase()}</td>
                     <td className='text-center'>{user.roleId}</td>
                     <td className='button text-center'>
                       <button className="btn btn-primary" type="submit">Update</button>

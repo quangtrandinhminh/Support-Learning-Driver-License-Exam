@@ -11,9 +11,9 @@ namespace Backend.Repository.MentorRepository
         private readonly DrivingLicenseContext _context;
         private readonly DbSet<Mentor> _dbSet;
 
-        public MentorRepository(DrivingLicenseContext _context)
+        public MentorRepository(DrivingLicenseContext context)
         {
-            this._context = _context;
+            _context = context;
             _dbSet = _context.Set<Mentor>();
         }
 
