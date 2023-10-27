@@ -41,22 +41,17 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
+import ScrollToTop from './config/scrollToTop'
+import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
+import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
 
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
-  //reset to top when page refreshed
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  }
-
-  useEffect(() => {
-    scrollToTop();
-  }, [])
-
   return (
     <>
+      <ScrollToTop />
       <ToastContainer
         position="top-right"
         autoClose={1300}
@@ -93,12 +88,16 @@ function App() {
                     <>
                       <Route index element={<StaffPage />} />
                       <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
-                      <Route path='/quan-ly-khoa-hoc'>
+                      <Route path='quan-ly-khoa-hoc'>
                         <Route index element={<CourseManagementPage />} />
                         <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                       </Route>
                       <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
                       <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
+                      <Route path='quan-ly-tin-tuc'>
+                        <Route index element={<NewsManagementPage />} />
+                        <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                      </Route>
                     </>
                   )}
                   {user.roleId === 3 && (
