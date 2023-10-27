@@ -86,7 +86,7 @@ function MemberNavHome() {
                                     </Forward>
                                 </li>
                                 <li className='receive-border'>
-                                    <Forward to='/ho-so-thi'>
+                                    <Forward to='/ho-so-thi' onClick={handleScroll}>
                                         Hồ sơ thi
                                     </Forward>
                                 </li>

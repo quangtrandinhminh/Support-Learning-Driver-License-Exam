@@ -97,6 +97,9 @@ function RegisteredCourse() {
                                 </label>
                             </li>
                             <li>
+                                <label htmlFor="course-practice-location">Trạng thái học lý thuyết: Đã xong</label>
+                            </li>
+                            <li>
                                 <label htmlFor="course-practice">
                                     <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
                                 </label>
@@ -107,10 +110,10 @@ function RegisteredCourse() {
                                 </label>
                             </li>
                             <li>
-                                <label htmlFor="course-theory-location">Địa điểm học lý thuyết: </label>
+                                <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
                             </li>
                             <li>
-                                <label htmlFor="course-practice-location">Địa điểm học thực hành: </label>
+                                <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: Đã đóng tiền</label>
                             </li>
                             <li>
                                 <form>

@@ -60,8 +60,8 @@ namespace Backend.Services.Member
         {
             var members = _memberRepository.GetAll().ToList();
             foreach (var member in members) 
-            { 
-                if (member )
+            {
+                if (member) 
             }
             
             
