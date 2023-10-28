@@ -51,6 +51,17 @@ namespace Backend
             CreateMap<DB.Models.TeachingSchedule, DTO.TeachingSchedule.TeachingScheduleDTO>()
                 .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.Course.CourseId));
             CreateMap<DTO.TeachingSchedule.TeachingScheduleDTO, DB.Models.TeachingSchedule>();
+
+            // Staff
+            CreateMap<DB.Models.Staff, DTO.Staff.StaffDTO>()
+                .ForMember(dto => dto.UserId, opt => opt.MapFrom(entity => entity.User.UserId))
+                .ForMember(dto => dto.fullName, opt => opt.MapFrom(entity => entity.User.FullName))
+                .ForMember(dto => dto.Email, opt => opt.MapFrom(entity => entity.User.Email))
+                .ForMember(dto => dto.UserName, opt => opt.MapFrom(entity => entity.User.Username))
+                .ForMember(dto => dto.Phone, opt => opt.MapFrom(entity => entity.User.Phone))
+                .ForMember(dto => dto.RoleId, opt => opt.MapFrom(entity => entity.User.RoleId))
+                .ForMember(dto => dto.CreatedTime, opt => opt.MapFrom(entity => entity.User.CreateTime))
+                .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
         }
     }
 }
