@@ -58,11 +58,11 @@ function NewsTable() {
     const handleDelete = async (newsId:number) => {
         try {
             // Perform the deletion
-            await api.delete('News/deactivate/' + newsId.toString());
+            await api.delete('News/deactivate/' + newsId);
 
-            setTimeout(() => {
-                location.reload();
-            }, 0.1);
+            // setTimeout(() => {
+            //     location.reload();
+            // }, 0.1);
 
             await getAllNews();
 
