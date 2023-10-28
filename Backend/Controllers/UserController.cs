@@ -5,6 +5,8 @@ using Backend.DTO.Users;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

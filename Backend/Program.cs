@@ -45,11 +45,11 @@ builder.Services.AddScoped<IMentorRepository, MentorRepository>();
 builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 /*builder.Services.AddScoped<IStaffService, StaffService>();*/
-<<<<<<< Updated upstream
+
 builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
-=======
+
 //builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
->>>>>>> Stashed changes
+
 //builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 /*builder.Services.AddScoped<IClassService, ClassService>();*/

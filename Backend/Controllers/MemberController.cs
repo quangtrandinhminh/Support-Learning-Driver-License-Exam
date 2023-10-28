@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
