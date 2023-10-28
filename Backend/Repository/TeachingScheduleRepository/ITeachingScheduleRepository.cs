@@ -6,6 +6,8 @@ namespace Backend.Repository.TeachingScheduleRepository
     {
         IQueryable<TeachingSchedule>? GetAll();
 
+        Task<TeachingSchedule?> GetByIdAsync(int id);
+
         Task<TeachingSchedule?> CreateAsync(TeachingSchedule TeachingSchedule);
 
         Task<TeachingSchedule?> UpdateAsync(TeachingSchedule TeachingSchedule);

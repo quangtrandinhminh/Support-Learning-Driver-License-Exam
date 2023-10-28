@@ -26,6 +26,19 @@ namespace Backend.Repository.TeachingScheduleRepository
             }
         }
 
+        public async Task<TeachingSchedule?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public async Task<TeachingSchedule?> CreateAsync(TeachingSchedule TeachingSchedule)
         {
             try

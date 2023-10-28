@@ -8,6 +8,10 @@
 
         public int UserId { get; set; }
 
+        public bool isTeachingTheory { get; set; }
+
+        public bool isTeachingPractice { get; set; }
+
         public string? fullName { get; set; }
 
         public string? UserName { get; set; }
