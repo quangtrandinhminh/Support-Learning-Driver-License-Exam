@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.DTO.Members;
 using Backend.DTO.Users;
 using Backend.Repository.UserRepository;
 using Backend.Services;
@@ -54,6 +55,41 @@ namespace Backend.Services.User
             catch (Exception e)
             {
                 result.IsError = false;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public int checkValidation(UserDTO userDTO)
+        {
+            var users = _userRepository.GetAll().ToList();
+            foreach (var user in users) 
+            { 
+                if (user.Username == userDTO.Username) { return 1; }
+            }
+            return 0;
+        }
+
+        public async Task<ServiceResult<int>> AddUser(UserDTO userDTO)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                int e = checkValidation(userDTO);
+                if (e == 1)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Tài Khoản đã tồn tại";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                await _userRepository.AddAsync(_mapper.Map<DB.Models.User>(userDTO));
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

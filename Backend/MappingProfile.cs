@@ -48,9 +48,9 @@ namespace Backend
             CreateMap<DTO.Mentor.MentorDTO, DB.Models.Mentor>();
 
             // TeachingSchedule
-            CreateMap<DB.Models.TeachingSchedule, DTO.TeachingSchedule.TeachingScheduleDTO>()
-                .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.Course.CourseId));
-            CreateMap<DTO.TeachingSchedule.TeachingScheduleDTO, DB.Models.TeachingSchedule>();
+            //CreateMap<DB.Models.TeachingSchedule, DTO.TeachingSchedule.TeachingScheduleDTO>()
+                //.ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.Course.CourseId));
+            //CreateMap<DTO.TeachingSchedule.TeachingScheduleDTO, DB.Models.TeachingSchedule>();
         }
     }
 }
