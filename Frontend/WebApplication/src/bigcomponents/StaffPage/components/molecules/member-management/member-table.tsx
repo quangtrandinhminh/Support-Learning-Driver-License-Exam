@@ -54,11 +54,11 @@ function MemberTable() {
   }
 
   return (
-    <div className='user-table-container'>
-      <div className="user-table-title text-center text-uppercase">
+    <div className='member-table-container'>
+      <div className="member-table-title text-center text-uppercase">
         <h1>Danh sách học viên</h1>
       </div>
-      <div className='user-table-content'>
+      <div className='member-table-content'>
         <form action="">
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
