@@ -12,7 +12,9 @@ GO
 USE [DrivingLicense]
 GO
 
-GO 
+GO
+
+/* Added data */
 CREATE TABLE [dbo].[Role](
   [roleID] INT IDENTITY(1,1) NOT NULL,
   [roleName] NVARCHAR(50) NULL,
@@ -113,6 +115,7 @@ CREATE TABLE [dbo].[Member](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[Mentor](
   [mentorID] INT IDENTITY(1,1) NOT NULL,
   [userID] INT NOT NULL,
@@ -128,6 +131,7 @@ CREATE TABLE [dbo].[Mentor](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[Staff](
   [staffID] INT IDENTITY(1,1) NOT NULL,
   [userID] INT NOT NULL
@@ -140,6 +144,7 @@ CREATE TABLE [dbo].[Staff](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[News](
   [newsID] INT IDENTITY(1,1) NOT NULL,
   [title] NVARCHAR(500) NULL,
@@ -169,10 +174,12 @@ CREATE TABLE [dbo].[Student](
 )ON [PRIMARY]
 GO
 
+/* Added data */
 CREATE TABLE [dbo].[TeachingSchedule](
   [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
+  [isPractice] BIT NULL,
   [teachingDate] DATETIME NULL
   CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
   (
@@ -183,11 +190,14 @@ CREATE TABLE [dbo].[TeachingSchedule](
 )ON [PRIMARY]
 GO
 
+/* Theory type 0, Practice type 1*/
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] VARCHAR(10) NOT NULL,
-  [classType] BIT NULL,
+  [isPractice] BIT NULL,
+  [currentStudent] INT NULL,
+  [limitStudent] INT NULL,
   [location] NVARCHAR(500) NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
@@ -889,3 +899,43 @@ INSERT [dbo].[News] ([newsID], [title], [content], [createdTime], [status], [sta
 	VALUES(1, N'Hướng dẫn đăng kí khóa học trên hệ thống', N'Bước 1:, Bước 2: Bước 3:, Bước 4:', '2023-10-22', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[News] OFF
+GO
+
+/* Add data: Mentor */
+SET IDENTITY_INSERT [dbo].[Mentor] ON
+GO
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
+	VALUES (1, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 27, 1, 1)
+GO
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
+	VALUES (2, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 28, 1, 0)
+GO
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
+	VALUES (3, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 29, 1, 0)
+GO
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
+	VALUES (4, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 30, 0, 1)
+GO
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
+	VALUES (5, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 31, 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Mentor] OFF
+GO
+
+/* Add data: Teaching Schedule */
+SET IDENTITY_INSERT [dbo].[TeachingSchedule] ON
+GO
+INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
+	VALUES (1, 1, '1001B2', 0, '2023-11-10')
+GO
+INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
+	VALUES (2, 1, '1001B2', 1, '2023-11-23')
+GO
+INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
+	VALUES (3, 1, '1001B2', 1, '2023-11-30')
+GO
+INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
+	VALUES (4, 4, '1001B2', 0, '2023-11-11')
+GO
+SET IDENTITY_INSERT [dbo].[TeachingSchedule] OFF
+GO
