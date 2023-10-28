@@ -28,7 +28,7 @@ namespace Backend.Services.Mentor
                 if (!mentors.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No mentors found";
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
                     return result;
                 }
 
@@ -54,7 +54,7 @@ namespace Backend.Services.Mentor
                 if (mentor == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No mentor found";
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
                     return result;
                 }
 

@@ -29,7 +29,7 @@ namespace Backend.Services.TeachingSchedule
                 if (!teachingSchedules.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No teaching schedules found";
+                    result.ErrorMessage = "Không tìm thấy lịch dạy!";
                     return result;
                 }
 
@@ -65,7 +65,7 @@ namespace Backend.Services.TeachingSchedule
                 if (!teachingSchedules.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No teaching schedules found";
+                    result.ErrorMessage = "Không tìm thấy lịch dạy!";
                     return result;
                 }
 
@@ -99,7 +99,7 @@ namespace Backend.Services.TeachingSchedule
                 if (!teachingSchedules.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No teaching schedules found";
+                    result.ErrorMessage = "Không tìm thấy lịch dạy!";
                     return result;
                 }
 
