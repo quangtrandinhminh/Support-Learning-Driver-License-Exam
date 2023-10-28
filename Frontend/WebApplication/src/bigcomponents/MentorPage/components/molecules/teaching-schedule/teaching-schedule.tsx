@@ -1,26 +1,32 @@
-import './teaching-schedule.scss'
+import { useEffect, useState } from 'react';
+import './teaching-schedule.scss';
 
-function TeachingSchedule() {
-    return (
-        <div className="teaching-schedule-container">
-            <div className="search-box">
-                <input type="text" placeholder='Tìm kiếm' className='search-box-section' />
-            </div>
-            <div className="teaching-schedule-content">
-                <h1>Lịch dạy</h1>
-            </div>
-            <div className="teaching-schedule">
-                <table>
+interface TeachingScheduleProps {
+    // Define any props you may want to pass to this component.
+}
+
+function TeachingSchedule(props: TeachingScheduleProps) {
+        return (
+            <div className="teaching-schedule-container">
+                <div className="search-box">
+                    <input type="text" placeholder="Tìm kiếm" className="search-box-section" />
+                </div>
+                <div className="teaching-schedule-content">
+                    <h1>Lịch dạy</h1>
+                </div>
+                <div className="teaching-schedule">
                     <form action="">
-                        <table className='schedule-table'>
-                            <thead className='schedule-header'>
+                        <table className="schedule-table">
+                            <thead className="schedule-header">
                                 <tr>
                                     <th rowSpan={2}>
                                         <span className="mini-title">
                                             <strong>Năm</strong>
                                         </span>
                                         <select>
-                                            <option selected={true} value="2023">2023</option>
+                                            <option selected={true} value="2023">
+                                                2023
+                                            </option>
                                             <option value="2024">2024</option>
                                             <option value="2025">2025</option>
                                         </select>
@@ -28,7 +34,7 @@ function TeachingSchedule() {
                                         <span className="mini-title">
                                             <strong>Tuần</strong>
                                         </span>
-                                        <select>
+                                        <select >
                                             <option value="1">02/01 To 07/01</option>
                                             <option value="2">09/01 To 14/01</option>
                                             <option value="3">16/01 To 21/01</option>
@@ -83,24 +89,20 @@ function TeachingSchedule() {
                                             <option value="52">25/12 To 31/12</option>
                                         </select>
                                     </th>
-                                    <div>
-                                        <th align="center">Thứ hai</th>
-                                        <th align="center">Thứ ba</th>
-                                        <th align="center">Thứ tư</th>
-                                        <th align="center">Thứ năm</th>
-                                        <th align="center">Thứ sáu</th>
-                                        <th align="center">Thứ bảy</th>
-                                    </div>
+                                    <th align="center">Thứ hai</th>
+                                    <th align="center">Thứ ba</th>
+                                    <th align="center">Thứ tư</th>
+                                    <th align="center">Thứ năm</th>
+                                    <th align="center">Thứ sáu</th>
+                                    <th align="center">Thứ bảy</th>
                                 </tr>
                                 <tr>
-                                    <div>
-                                        <th align="center">23/10</th>
-                                        <th align="center">24/10</th>
-                                        <th align="center">25/10</th>
-                                        <th align="center">26/10</th>
-                                        <th align="center">27/10</th>
-                                        <th align="center">28/10</th>
-                                    </div>
+                                    <th align="center">23/10</th>
+                                    <th align="center">24/10</th>
+                                    <th align="center">25/10</th>
+                                    <th align="center">26/10</th>
+                                    <th align="center">27/10</th>
+                                    <th align="center">28/10</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,15 +120,41 @@ function TeachingSchedule() {
                                                 Trạng thái: Đã dạy
                                             </p>
                                         </td>
+                                        <td>-</td>
+                                        <td>
+                                            <p>
+                                                <a href="">Thực hành</a>
+                                                <br />
+                                                Buổi thứ 2
+                                                <br />
+                                                Lớp: XXB2
+                                                <br />
+                                                Trạng thái: Đã dạy
+                                            </p>
+                                        </td>
+                                        <td>-</td>
+                                        <td>
+                                            <p>
+                                                <a href="">Thực hành</a>
+                                                <br />
+                                                Buổi thứ 3
+                                                <br />
+                                                Lớp: XXB2
+                                                <br />
+                                                Trạng thái: Đã dạy</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ca chiều</td>
                                     </tr>
                                 </div>
                             </tbody>
                         </table>
                     </form>
-                </table>
+                </div>
             </div>
-        </div>
-    )
-}
+        );
+    }
 
-export default TeachingSchedule
+
+    export default TeachingSchedule;
