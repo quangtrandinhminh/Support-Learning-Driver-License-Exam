@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
@@ -27,6 +25,7 @@ namespace Backend.Controllers
             return Ok(members);
         }
 
+        [HttpPost("/api/Member")]
         public async Task<IActionResult> GetMember(int userID)
         {
             var result = await _memberService.GetMemberById(userID);

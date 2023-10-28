@@ -2,7 +2,6 @@
 using AutoMapper.Execution;
 using Backend.DTO.Members;
 using Backend.Repository.MemberRepository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Member
 {
@@ -22,7 +21,7 @@ namespace Backend.Services.Member
         {
             try
             {
-                var members = _memberRepository.GetAll().Include(m => m.User).ToList();
+                var members = _memberRepository.GetAll();
                 return members is null ? null : _mapper.Map<ICollection<MemberDTO>>(members);
             }
             catch (Exception e)
@@ -43,7 +42,7 @@ namespace Backend.Services.Member
                 if (member is null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Member is not exist";
+                    result.ErrorMessage = "User is not exist";
                     return result;
                 }
 
@@ -76,6 +75,7 @@ namespace Backend.Services.Member
                 {
                     return e = 3;
                 }
+                return e = 0;
             }
             return 0;
         }

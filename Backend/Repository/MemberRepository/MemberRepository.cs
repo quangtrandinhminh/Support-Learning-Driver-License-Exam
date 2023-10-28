@@ -27,21 +27,5 @@ namespace Backend.Repository.MemberRepository
                 throw;
             }
         }
-
-
-        public async Task<bool> AddAsync(Member? member)
-        {
-            try
-            {
-                await _dbSet.AddAsync(member);
-                var result = await _context.SaveChangesAsync() > 0 ? true : false;
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
     }
 }
