@@ -1,15 +1,12 @@
 import './App.scss'
-import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
-import 'bootstrap/dist/css/bootstrap.css'
 import './general.scss'
 
 // Staff import
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
 import './bigcomponents/StaffPage/components/templates/template.scss'
-import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import UserManagementPage from './bigcomponents/StaffPage/components/pages/user-management/user-management'
 import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
 import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
@@ -44,6 +41,8 @@ import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teac
 import ScrollToTop from './config/scrollToTop'
 import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
 import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
+import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
+import StaffLayout from './bigcomponents/StaffPage/components/layout'
 
 function App() {
 
@@ -86,17 +85,19 @@ function App() {
                   )}
                   {user.roleId === 2 && (
                     <>
-                      <Route index element={<StaffPage />} />
-                      <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
-                      <Route path='quan-ly-khoa-hoc'>
-                        <Route index element={<CourseManagementPage />} />
-                        <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
-                      </Route>
-                      <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
-                      <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
-                      <Route path='quan-ly-tin-tuc'>
-                        <Route index element={<NewsManagementPage />} />
-                        <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                      <Route element={<StaffLayout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
+                        <Route path='quan-ly-khoa-hoc'>
+                          <Route index element={<CourseManagementPage />} />
+                          <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
+                        </Route>
+                        <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
+                        <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
+                        <Route path='quan-ly-tin-tuc'>
+                          <Route index element={<NewsManagementPage />} />
+                          <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                        </Route>
                       </Route>
                     </>
                   )}
