@@ -1,0 +1,26 @@
+.member-table-container {
+
+    .member-table-title {
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .member-table-content {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+
+        form {
+            width: 90%;
+
+            table {
+                .button {
+                    width: auto;
+
+                    button {
+                        margin: 2px;
+                    }
+                }
+            }
+        }
+    }
+}

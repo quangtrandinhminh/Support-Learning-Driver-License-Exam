@@ -60,9 +60,9 @@ function NewsTable() {
             // Perform the deletion
             await api.delete('News/deactivate/' + newsId);
 
-            // setTimeout(() => {
-            //     location.reload();
-            // }, 0.1);
+            setTimeout(() => {
+                location.reload();
+            }, 0.1);
 
             await getAllNews();
 
