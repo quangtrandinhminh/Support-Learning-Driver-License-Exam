@@ -23,7 +23,7 @@ using Backend.Repository.TeachingScheduleRepository;
 using Backend.Repository.TestRepository;
 using Backend.Services.CourseDetails;
 using Backend.Services.Mentor;
-//using Backend.Services.TeachingSchedule;
+using Backend.Services.TeachingSchedule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,12 +45,8 @@ builder.Services.AddScoped<IMentorRepository, MentorRepository>();
 builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 /*builder.Services.AddScoped<IStaffService, StaffService>();*/
-
 builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
-
-//builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
-
-//builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
+builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 /*builder.Services.AddScoped<IClassService, ClassService>();*/
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
