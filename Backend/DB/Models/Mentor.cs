@@ -7,9 +7,13 @@ public partial class Mentor
 {
     public int MentorId { get; set; }
 
+    public int UserId { get; set; }
+
     public string? ResidenceAddress { get; set; }
 
-    public int UserId { get; set; }
+    public bool? IsTeachingTheory { get; set; }
+
+    public bool? IsTeachingPractice { get; set; }
 
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 

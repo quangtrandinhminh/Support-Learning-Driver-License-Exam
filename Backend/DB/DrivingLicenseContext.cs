@@ -67,8 +67,10 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("courseID");
+            entity.Property(e => e.Location)
+                .HasMaxLength(500)
+                .HasColumnName("location");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
-            entity.Property(e => e.Passed).HasColumnName("passed");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.CourseId)
@@ -173,6 +175,7 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ExamName).HasColumnName("examName");
             entity.Property(e => e.LimitKeyQuestion).HasColumnName("limitKeyQuestion");
             entity.Property(e => e.LimitQuestion).HasColumnName("limitQuestion");
+            entity.Property(e => e.MinimumCorrectAnswer).HasColumnName("minimumCorrectAnswer");
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -250,6 +253,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("endTime");
             entity.Property(e => e.Hours).HasColumnName("hours");
             entity.Property(e => e.Kilometers).HasColumnName("kilometers");
+            entity.Property(e => e.Location).HasColumnName("location");
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");
@@ -362,6 +366,8 @@ public partial class DrivingLicenseContext : DbContext
             entity.HasIndex(e => e.UserId, "UC_Mentor_User").IsUnique();
 
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.IsTeachingPractice).HasColumnName("isTeachingPractice");
+            entity.Property(e => e.IsTeachingTheory).HasColumnName("isTeachingTheory");
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
                 .HasColumnName("residenceAddress");
@@ -380,6 +386,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.CreatedTime)
                 .HasColumnType("datetime")
                 .HasColumnName("createdTime");
+            entity.Property(e => e.Description)
+                .HasMaxLength(500)
+                .HasColumnName("description");
             entity.Property(e => e.StaffId).HasColumnName("staffID");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
@@ -505,7 +514,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("courseID");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
             entity.Property(e => e.TeachingDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("teachingDate");
 
             entity.HasOne(d => d.Course).WithMany(p => p.TeachingSchedules)
@@ -524,6 +533,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.ToTable("Test");
 
             entity.Property(e => e.TestId).HasColumnName("testID");
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createTime");
             entity.Property(e => e.ExamId).HasColumnName("examID");
             entity.Property(e => e.Pass).HasColumnName("pass");
             entity.Property(e => e.Score).HasColumnName("score");
@@ -531,10 +543,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("studentID");
-            entity.Property(e => e.TestName).HasColumnName("testName");
-            entity.Property(e => e.TestTime)
-                .HasColumnType("datetime")
-                .HasColumnName("testTime");
 
             entity.HasOne(d => d.Exam).WithMany(p => p.Tests)
                 .HasForeignKey(d => d.ExamId)

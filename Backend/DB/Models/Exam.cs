@@ -19,6 +19,8 @@ public partial class Exam
 
     public int? LimitKeyQuestion { get; set; }
 
+    public short? MinimumCorrectAnswer { get; set; }
+
     public string? Password { get; set; }
 
     public DateTime? CreatedTime { get; set; }

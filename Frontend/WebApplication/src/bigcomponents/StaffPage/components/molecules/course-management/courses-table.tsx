@@ -43,8 +43,6 @@ function CourseTable() {
         }
     }
 
-    const navigate = useNavigate();
-
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
         const day = date.getDate().toString().padStart(2, '0');
@@ -58,8 +56,10 @@ function CourseTable() {
             // Perform the deletion
             await api.delete('Course/deactivate/' + courseId);
 
-            // Reload the page after successful deletion
-            location.reload();
+            // Reload the page after successful 
+            setTimeout(() => {
+                location.reload();
+            }, 0.1);
 
             // Once deletion is successful, fetch the updated data
             await getAllCourse();
@@ -107,20 +107,19 @@ function CourseTable() {
                                         <td className='text-center'>{course.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit">Update</button>
-                                            <button className="btn btn-danger" type="submit" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
+                                            <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={6}>
+                                    <td colSpan={9}>
                                         <h1 className='text-center text-red-600 p-5'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>
                                     </td>
                                 </tr>
-                            )
-                            }
+                            )}
                         </tbody>
                     </table>
                     <nav>

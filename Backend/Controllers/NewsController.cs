@@ -64,10 +64,10 @@ namespace Backend.Controllers
         }
 
         // POST: api/News/post-news
-        [HttpPost("post-news")]
-        public async Task<IActionResult> PostNews(NewsRequestDTO newsRequestDto)
+        [HttpPost("add")]
+        public async Task<IActionResult> PostNews(NewsCreateDTO newsCreateDto)
         {
-            var result = await _newsService.PostNews(newsRequestDto);
+            var result = await _newsService.PostNews(newsCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -89,10 +89,10 @@ namespace Backend.Controllers
 
         // Not available 
         // PUT: api/News/5
-        [HttpPut("edit-news")]
-        public async Task<IActionResult> EditNews(NewsRequestDTO newsRequestDto)
+        [HttpPut("update")]
+        public async Task<IActionResult> EditNews(NewsUpdateDTO newsUpdateDto)
         {
-            var result = await _newsService.UpdateNews(newsRequestDto);
+            var result = await _newsService.UpdateNews(newsUpdateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)

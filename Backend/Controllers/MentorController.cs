@@ -16,7 +16,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        [Route("GetMentorList")]
+        [Route("list")]
         public IActionResult GetMentorList()
         {
             var result = _mentorService.GetMentorList();
@@ -32,10 +32,10 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        [Route("GetMentorById/{id}")]
-        public async Task<IActionResult> GetMentorById(int id)
+        [Route("{mentorId}")]
+        public async Task<IActionResult> GetMentorById(int mentorId)
         {
-            var result = await _mentorService.GetMentorById(id);
+            var result = await _mentorService.GetMentorById(mentorId);
             if (result.IsError)
             {
                 return NotFound(new
@@ -46,5 +46,21 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }
+
+        /*[HttpGet]
+        [Route("course/{courseId}")]
+        public Task<IActionResult> GetMentorByCourseId(string courseId)
+        {
+            var result = _mentorService.GetAllMentorsByCourseId(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }*/
     }
 }

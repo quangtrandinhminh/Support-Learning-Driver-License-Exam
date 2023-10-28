@@ -32,7 +32,8 @@ namespace Backend
             
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
-            CreateMap<DTO.News.NewsRequestDTO, DB.Models.News>();
+            CreateMap<DTO.News.NewsCreateDTO, DB.Models.News>();
+            CreateMap<DTO.News.NewsUpdateDTO, DB.Models.News>();
 
             // Mentor
             CreateMap<Mentor, MentorDTO>()
@@ -42,8 +43,14 @@ namespace Backend
                 .ForMember(dto => dto.UserName, opt => opt.MapFrom(entity => entity.User.Username))
                 .ForMember(dto => dto.Phone, opt => opt.MapFrom(entity => entity.User.Phone))
                 .ForMember(dto => dto.RoleId, opt => opt.MapFrom(entity => entity.User.RoleId))
-                .ForMember(dto => dto.CreatedTime, opt => opt.MapFrom(entity => entity.User.CreateTime));
+                .ForMember(dto => dto.CreatedTime, opt => opt.MapFrom(entity => entity.User.CreateTime))
+                .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
             CreateMap<DTO.Mentor.MentorDTO, DB.Models.Mentor>();
+
+            // TeachingSchedule
+            CreateMap<DB.Models.TeachingSchedule, DTO.TeachingSchedule.TeachingScheduleDTO>()
+                .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.Course.CourseId));
+            CreateMap<DTO.TeachingSchedule.TeachingScheduleDTO, DB.Models.TeachingSchedule>();
         }
     }
 }

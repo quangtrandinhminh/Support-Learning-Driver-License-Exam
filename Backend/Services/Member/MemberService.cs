@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Execution;
 using Backend.DTO.Members;
 using Backend.Repository.MemberRepository;
 
@@ -6,6 +7,7 @@ namespace Backend.Services.Member
 {
     public class MemberService : IMemberService
     {
+        int e;
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
 
@@ -49,6 +51,70 @@ namespace Backend.Services.Member
             catch (Exception e)
             {
                 result.IsError = false;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public int checkValidation(MemberDTO memberDTO)
+        {
+            var members = _memberRepository.GetAll().ToList();
+            foreach (var member in members) 
+            { 
+                if (member.UserId.Equals(memberDTO.UserId))
+                {
+                    return e = 1;
+                }
+
+                if (member.IdentityCardNumber.Equals(memberDTO.IdentityCardNumber))
+                {
+                    return e = 2;
+                }
+
+                if (member.Passport.Equals(memberDTO.passport))
+                {
+                    return e = 3;
+                }
+                return e = 0;
+            }
+            return 0;
+        }
+
+        public async Task<ServiceResult<int>> AddMember(MemberDTO memberDTO)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                int e = checkValidation(memberDTO);
+                if (e == 1)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Bạn đã tạo hồ sơ đăng ký thi";
+                    result.Payload = -1;
+                    return result;
+                }
+                else if (e == 2) 
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Số cmnd đã tồn tại";
+                    result.Payload = -2;
+                    return result;
+                }
+                else if (e == 3)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Passport đã tồn tại";
+                    result.Payload = -3;
+                    return result;
+                }
+
+
+                await _memberRepository.AddAsync(_mapper.Map<DB.Models.Member>(memberDTO));
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

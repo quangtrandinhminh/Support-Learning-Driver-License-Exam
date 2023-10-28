@@ -9,5 +9,7 @@ namespace Backend.Services.Mentor
         ServiceResult<ICollection<MentorDTO>> GetMentorList();
 
         Task<ServiceResult<MentorDTO>> GetMentorById(int id);
+
+        /*ServiceResult<ICollection<MentorDTO>> GetAllMentorsByCourseId(string id);*/
     }
 }

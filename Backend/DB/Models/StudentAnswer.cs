@@ -7,7 +7,7 @@ public partial class StudentAnswer
 {
     public int StudentAnswerId { get; set; }
 
-    public int? OptionId { get; set; }
+    public byte? OptionId { get; set; }
 
     public bool? IsCorrect { get; set; }
 
