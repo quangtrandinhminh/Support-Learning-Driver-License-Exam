@@ -19,7 +19,8 @@
     }
 
     .schedule-table {
-
+        display: flex;
+        flex-direction: column;
         table {
             font-size: 17px;
             background-color: #fff;
