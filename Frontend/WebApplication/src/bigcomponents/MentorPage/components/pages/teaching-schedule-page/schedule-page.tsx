@@ -4,9 +4,9 @@ import '../../mentor-general.scss'
 function MentorSchedulePage() {
   return (
     <div className="page-container">
-        <div className="mentor-sidebar">
-            <MentorSidebar />
-        </div>
+      <div className="mentor-sidebar">
+        <MentorSidebar />
+      </div>
     </div>
   )
 }

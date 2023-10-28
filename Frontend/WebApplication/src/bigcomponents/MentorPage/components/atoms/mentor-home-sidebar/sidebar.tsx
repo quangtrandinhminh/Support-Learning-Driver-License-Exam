@@ -1,23 +1,20 @@
 import './sidebar.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-
 function MentorSidebar() {
 
   const styleSidebarCom = ({ isActive }: { isActive: boolean }): {
     paddingLeft: string;
-    fontWeight: string;
     backgroundColor: string;
     borderLeft: string;
     transition: string;
   } => {
     return {
       paddingLeft: isActive ? '5px' : '0',
-      fontWeight: isActive ? '600' : '',
       backgroundColor: isActive ? '#3572B8' : '#4292EB',
       borderLeft: isActive ? '5px solid gray' : 'none',
       transition: isActive
-        ? 'padding-left ease-out 0.5s, background-color ease-out 0.5s, border-left ease-out 0.5s, font-weight ease-out 0.5s'
+        ? 'padding-left ease-out 0.25s, background-color ease-out 0.25s, border-left ease-out 0.25s'
         : 'none'
     };
   };
