@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Backend.DTO.Course;
+using AutoMapper.Execution;
 using Backend.DTO.Members;
 using Backend.Repository.MemberRepository;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +8,7 @@ namespace Backend.Services.Member
 {
     public class MemberService : IMemberService
     {
+        int e;
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
 
@@ -56,16 +57,27 @@ namespace Backend.Services.Member
             return result;
         }
 
-        public bool checkValidation(MemberDTO memberDTO)
+        public int checkValidation(MemberDTO memberDTO)
         {
             var members = _memberRepository.GetAll().ToList();
             foreach (var member in members) 
             { 
-                if (member )
+                if (member.UserId.Equals(memberDTO.UserId))
+                {
+                    return e = 1;
+                }
+
+                if (member.IdentityCardNumber.Equals(memberDTO.IdentityCardNumber))
+                {
+                    return e = 2;
+                }
+
+                if (member.Passport.Equals(memberDTO.passport))
+                {
+                    return e = 3;
+                }
             }
-            
-            
-            return true;
+            return 0;
         }
 
         public async Task<ServiceResult<int>> AddMember(MemberDTO memberDTO)
@@ -73,29 +85,31 @@ namespace Backend.Services.Member
             var result = new ServiceResult<int>();
             try
             {
-                if ()
+                int e = checkValidation(memberDTO);
+                if (e == 1)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "End date must be greater than start date";
+                    result.ErrorMessage = "Bạn đã tạo hồ sơ đăng ký thi";
+                    result.Payload = -1;
+                    return result;
+                }
+                else if (e == 2) 
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Số cmnd đã tồn tại";
                     result.Payload = -2;
                     return result;
                 }
-
-                var courseExist = await _memberRepository.Get(courseRequestDto.CourseId);
-                if (courseExist != null)
+                else if (e == 3)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is already exist";
-                    result.Payload = -1;
+                    result.ErrorMessage = "Passport đã tồn tại";
+                    result.Payload = -3;
                     return result;
-                };
-                ;
-                var course = _mapper.Map<DB.Models.Course>(courseRequestDto);
-                course.CreateTime = DateTime.Now;
-                course.CourseMonth = course.StartDate?.Month;
-                course.CourseYear = course.StartDate?.Year;
+                }
 
-                await _courseRepository.AddAsync(course);
+
+                await _memberRepository.AddAsync(_mapper.Map<DB.Models.Member>(memberDTO));
             }
             catch (Exception e)
             {
