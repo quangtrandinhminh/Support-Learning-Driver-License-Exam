@@ -180,7 +180,7 @@ namespace Backend.Services.News
                 }
 
                 news.Status = false;
-                var updatedNews = _newsRepository.UpdateAsync(news);
+                await _newsRepository.UpdateAsync(news);
             }
             catch (Exception e)
             {

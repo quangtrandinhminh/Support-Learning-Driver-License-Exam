@@ -216,8 +216,9 @@ namespace Backend.Services.Course
                     return result;
                 }
 
-                course.Status = false;
+                course.Status = false;  
                 await _courseRepository.UpdateAsync(course);
+                
             }
             catch (Exception e)
             {
