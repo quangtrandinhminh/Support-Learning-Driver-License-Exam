@@ -23,7 +23,7 @@ using Backend.Repository.TeachingScheduleRepository;
 using Backend.Repository.TestRepository;
 using Backend.Services.CourseDetails;
 using Backend.Services.Mentor;
-using Backend.Services.TeachingSchedule;
+//using Backend.Services.TeachingSchedule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +46,7 @@ builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 /*builder.Services.AddScoped<IStaffService, StaffService>();*/
 builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
-builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
+//builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 /*builder.Services.AddScoped<IClassService, ClassService>();*/
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
@@ -76,18 +76,18 @@ builder.Services.AddDbContext<DrivingLicenseContext>(options =>
         )
     ), ServiceLifetime.Transient);
 
-// Add Cors
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", corsPolicyBuilder =>
-    {
-        corsPolicyBuilder.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
-
 var app = builder.Build();
+
+/* DONT CHANGE THIS LINE*/
+// doi nua thi toi cho ban ra khoi nhom day
+//  Add Cors
+app.UseCors(builder => {
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}
+);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
