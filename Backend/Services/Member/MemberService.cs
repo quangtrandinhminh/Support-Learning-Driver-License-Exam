@@ -2,6 +2,7 @@
 using AutoMapper.Execution;
 using Backend.DTO.Members;
 using Backend.Repository.MemberRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Member
 {
@@ -21,7 +22,8 @@ namespace Backend.Services.Member
         {
             try
             {
-                var members = _memberRepository.GetAll();
+                var members = _memberRepository.GetAll().
+                    Include(c => c.User).ToList();
                 return members is null ? null : _mapper.Map<ICollection<MemberDTO>>(members);
             }
             catch (Exception e)
@@ -36,7 +38,8 @@ namespace Backend.Services.Member
             var result = new ServiceResult<MemberDTO>();
             try
             {
-                var member = _memberRepository.GetAll()
+                var member = _memberRepository.GetAll().
+                    Include(c => c.User).ToList()
                     .FirstOrDefault(p => p.UserId == userID);
 
                 if (member is null)
