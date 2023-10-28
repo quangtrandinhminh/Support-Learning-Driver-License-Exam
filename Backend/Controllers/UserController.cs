@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Services.User;
+using Backend.DTO.Members;
+using Backend.DTO.Users;
 
 namespace Backend.Controllers
 {
@@ -69,6 +71,30 @@ namespace Backend.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Register(UserDTO userDTO)
+        {
+            var result = await _userService.AddUser(userDTO);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Add course successfully!");
         }
     }
 }
