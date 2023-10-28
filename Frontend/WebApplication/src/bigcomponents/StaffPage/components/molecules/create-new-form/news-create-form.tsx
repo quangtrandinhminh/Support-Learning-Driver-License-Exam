@@ -13,7 +13,7 @@ function CreateNewsForm() {
     const [inputData, setInputData] = useState({
         // newsId: 0,
         title: '',
-        // description: '',
+        description: '',
         content: '',
         // staffId: userID,
         // createdTime: '',
@@ -24,7 +24,7 @@ function CreateNewsForm() {
 
     const createNewCourse = async () => {
         try {
-            await api.post('News/post-news', inputData);
+            await api.post('News/add', inputData);
             toast.success('Tạo tin tức thành công');
             setError(null);
             navigate('/quan-ly-tin-tuc');
@@ -110,7 +110,7 @@ function CreateNewsForm() {
                             />
                         </div>
                     </div>
-                    {/* <div className='form-group row'>
+                    <div className='form-group row'>
                         <label htmlFor="description" className="col-sm-3 col-form-label">Mô tả: </label>
                         <div className="col-sm-9">
                             <input
@@ -123,7 +123,7 @@ function CreateNewsForm() {
                                 onChange={e => setInputData({ ...inputData, description: e.target.value })}
                             />
                         </div>
-                    </div> */}
+                    </div>
                     <div className='form-group row'>
                         <label htmlFor="content" className="col-sm-3 col-form-label">Nội dung: </label>
                         <div className="col-sm-9">
