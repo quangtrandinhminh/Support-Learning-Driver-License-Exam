@@ -1,4 +1,7 @@
 .teaching-schedule-container {
+
+    display: flex;
+    flex-direction: column;
     align-items: center;
 
     .search-box-section {
@@ -6,7 +9,7 @@
         justify-content: center;
         height: 50px;
         width: 100%;
-        
+
     }
 
     h1 {
@@ -21,13 +24,19 @@
     .schedule-table {
         display: flex;
         flex-direction: column;
+
+        .schedule-header {
+            th {
+                width: fit-content;
+            }
+        }
+
         table {
             font-size: 17px;
             background-color: #fff;
             border-collapse: collapse;
             width: 100%;
             border-collapse: collapse;
-  
         }
 
         .mini-title {
