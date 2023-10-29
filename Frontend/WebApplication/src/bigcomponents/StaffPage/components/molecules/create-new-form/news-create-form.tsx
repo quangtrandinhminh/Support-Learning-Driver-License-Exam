@@ -9,6 +9,7 @@ function CreateNewsForm() {
     const userID = Number(user.userID);
 
     const [error, setError] = useState(null);
+    const [staff, setStaff] = useState(null);
     const [numberOfNews, setNumberOfNews] = useState([]);
     const [inputData, setInputData] = useState({
         // newsId: 0,
@@ -19,6 +20,12 @@ function CreateNewsForm() {
         // createdTime: '',
         status: true,
     });
+
+    // const getStaffByUserID = async () => {
+    //     const response = await api.get('Staff/' + userID);
+    //     console.log(response.data);
+    //     setStaff(response.data);
+    // }
 
     const navigate = useNavigate();
 
@@ -52,7 +59,7 @@ function CreateNewsForm() {
                 ...prevInputData,
                 newsId: Number(res.length + 1),
             }));
-            
+
         } catch (err) {
             console.log(err);
         }
@@ -71,8 +78,11 @@ function CreateNewsForm() {
 
     useEffect(() => {
         getAllNews()
-        console.log(userID);
     }, [])
+
+    // useEffect(() => {
+    //     getStaffByUserID();
+    // }, [numberOfNews]);
 
     return (
         <div className='create-news-container'>
