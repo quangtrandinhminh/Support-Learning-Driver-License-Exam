@@ -8,5 +8,7 @@ namespace Backend.Services.Staff
         ServiceResult<ICollection<StaffDTO>> GetStaffList();
 
         Task<ServiceResult<StaffDTO>> GetStaffById(int id);
+
+        public Task<ServiceResult<StaffDTO>> GetStaffByUserId(int userId);
     }
 }
