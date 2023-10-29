@@ -46,5 +46,21 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetStaffByUserId(int userId)
+        {
+            var result = await _staffService.GetStaffByUserId(userId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
     }
 }
