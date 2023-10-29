@@ -2,11 +2,11 @@
     align-items: center;
 
     .search-box-section {
-        display: inline-block;
+        display: flex;
         justify-content: center;
-        background-image: url('../../../../../../assets/imgs/search-icon/Vector.jpg');
         height: 50px;
-        width: 80%;
+        width: 100%;
+        
     }
 
     h1 {
@@ -26,6 +26,8 @@
             background-color: #fff;
             border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+  
         }
 
         .mini-title {
