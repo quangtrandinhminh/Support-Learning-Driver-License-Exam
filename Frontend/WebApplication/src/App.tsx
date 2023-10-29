@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import './general.scss'
+import 'font-awesome/css/font-awesome.css';
 
 // Staff import
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
