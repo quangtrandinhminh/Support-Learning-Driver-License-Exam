@@ -48,7 +48,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        [Route("{userId}")]
+        [Route("user/{userId}")]
         public async Task<IActionResult> GetStaffByUserId(int userId)
         {
             var result = await _staffService.GetStaffByUserId(userId);
