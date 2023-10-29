@@ -3,19 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 function MentorSidebar() {
 
-  const styleSidebarCom = ({ isActive }: { isActive: boolean }): {
-    paddingLeft: string;
-    backgroundColor: string;
-    borderLeft: string;
-    transition: string;
-  } => {
+  const styleSidebarCom = ({ isActive }: { isActive: boolean }): React.CSSProperties => {
     return {
-      paddingLeft: isActive ? '5px' : '0',
+      paddingLeft: isActive ? '12px' : '0',
+      fontWeight: isActive ? '600' : '',
       backgroundColor: isActive ? '#3572B8' : '#4292EB',
-      borderLeft: isActive ? '5px solid gray' : 'none',
-      transition: isActive
-        ? 'padding-left ease-out 0.25s, background-color ease-out 0.25s, border-left ease-out 0.25s'
-        : 'none'
+      borderLeft: isActive ? '4px solid gray' : 'none',
+      transition: 'background-color 0.3s ease-out, padding-left 0.3s ease-out', // Add a transition to background color
     };
   };
 

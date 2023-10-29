@@ -43,6 +43,7 @@ import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-
 import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
 import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
+import MentorLayout from './bigcomponents/MentorPage/layout'
 
 function App() {
 
@@ -103,8 +104,11 @@ function App() {
                   )}
                   {user.roleId === 3 && (
                     <>
-                      <Route index element={<MentorHomePage />} />
-                      <Route path='/lich-day' element={<MentorSchedulePage />} />
+                      <Route element={<MentorLayout />}>
+                        <Route index element={<MentorHomePage />} />
+                          <Route path='lich-day' element={<MentorSchedulePage />} />
+                          <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                      </Route>
                     </>
                   )}
                   {user.roleId === 4 && (

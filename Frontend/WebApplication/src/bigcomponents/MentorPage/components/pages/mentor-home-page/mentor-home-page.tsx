@@ -4,14 +4,7 @@ import TeachingSchedule from '../../molecules/teaching-schedule/teaching-schedul
 
 function MentorHomePage() {
   return (
-    <div className='page-container'>
-      <div className='mentor-header'>
-        <MentorSidebar />
-      </div>
-      <div className="mentor-body">
-        <TeachingSchedule />
-      </div>
-    </div>
+    <TeachingSchedule />
   )
 }
 
