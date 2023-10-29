@@ -76,8 +76,15 @@ function CourseTable() {
             </div>
             <div className='courses-table-content'>
                 <form action="">
-                    <div className='d-flex justify-content-end'>
-                        <Link to='tao-khoa-hoc' className='btn btn-success mb-2'>+ Add</Link>
+                    <div className='d-grid mb-2'>
+                        <div className="row">
+                            <div className='search-input col align-self-center'>
+                                <input type="text" name='courseName' placeholder='tên khoá học'/>
+                            </div>
+                            <div className='d-flex btnCreate col justify-content-end'>
+                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                            </div>
+                        </div>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>

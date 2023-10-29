@@ -44,6 +44,7 @@ import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-ne
 import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import MentorLayout from './bigcomponents/MentorPage/layout'
+import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 
 function App() {
 
@@ -99,6 +100,7 @@ function App() {
                           <Route index element={<NewsManagementPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
                         </Route>
+                        <Route path='bao-cao' element={<ReportPage />} />
                       </Route>
                     </>
                   )}
@@ -106,8 +108,8 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
-                          <Route path='lich-day' element={<MentorSchedulePage />} />
-                          <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                        <Route path='lich-day' element={<MentorSchedulePage />} />
+                        <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
                       </Route>
                     </>
                   )}
