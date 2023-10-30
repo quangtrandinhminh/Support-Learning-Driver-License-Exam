@@ -1,134 +1,155 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "./index.scss";
+import api from "../../../../../config/axios";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../../AuthorizationPage/data/User";
-import axios from "axios";
+import { toast } from "react-toastify";
 import logo from "../../../../AuthorizationPage/assets/images/logo.png";
+import Lock from "../../../../AuthorizationPage/assets/images/lock.svg";
 import user from "../../../../AuthorizationPage/assets/images/userblur.svg";
 import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
-import lock from "../../../../AuthorizationPage/assets/images/lock.svg";
-import "./index.scss";
 
-const RegistrationForm: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+function RegisterForm() {
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    status: true,
+    roleId: 0,
+  });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    // check if user not input all fields
-    e.preventDefault();
-    if (!username || !email || !password || !confirmPassword) {
-      toast.error("Please fill in all the fields.");
-      return;
-    }
-    // check password is matched or not
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
-      return;
-    }
-
-    //get user
+  const handleRegister = async () => {
     try {
-      // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("data.json");
-      if (response.status === 200) {
-        const data = response.data;
-        const userExists = data.users.some((user: User) => user.username === username);
-        const emailExists = data.users.some((user: User) => user.gmail === email);
+      // Check if the password and confirmPassword match
+      if (formData.password !== confirmPassword) {
+        setError("Mật khẩu không khớp.");
+        return;
+      }
 
-        if (userExists) {
-          toast.error("Username already exists.");
-        } else if (emailExists) {
-          toast.error("Email already exists.");
-        } else {
-          // Tạo một ID mới cho người dùng
-          const maxId = data.users.reduce((max: number, user: User) => (user.id > max ? user.id : max), 0);
-          const newUserId = maxId + 1;
-
-          // Thêm người dùng mới vào dữ liệu
-          data.users.push({
-            id: newUserId,
-            username,
-            gmail: email,
-            password,
-            phone: "null",
-            role: "user",
-          });
-
-          // // Cập nhật tệp JSON với dữ liệu mới
-          await axios.post("data.json", data);
-          toast.success("Hello new user");
-
-          // Xóa các trường đầu vào
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-
-          setTimeout(() => {
-            navigate("/dang-nhap");
-          }, 2000);
+      // Send a request to the server for registration
+      try {
+        const response = await api.post(
+          "https://localhost:7066/api/User/Register",
+          {
+            username: formData.username,
+            password: formData.password,
+            fullName: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            status: formData.status,
+            roleId: formData.roleId,
+          }
+        );
+        if (response.status === 200) {
+          toast.success("Đăng ký thành công. Chào mừng bạn!");
+          setError(null);
+          navigate("/dang-nhap");
+        } else if (response.status === 400) {
+          // Đã có lỗi từ backend
+          const errorData = response.data;
+          if (errorData && errorData.message) {
+            setError(errorData.message);
+          } else {
+            setError("Đăng ký người dùng thất bại. Vui lòng thử lại sau.");
+          }
         }
-      } else {
-        toast.error("Failed to load user data.");
+      } catch (err) {
+        if (err.response?.data?.error) {
+          setError(err.response.data.error);
+        }
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Error loading data");
+      console.error(error);
     }
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleRegister();
   };
 
   return (
     <div className="registration-form">
-      <form onSubmit={handleRegister}>
-        <img src={logo} alt="logo" />
-        <div className="rectangle-border">
+      <img src={logo} alt="logo" />
+      <div className="rectangle-border">
+        {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
+        <form onSubmit={handleSubmit}>
           <div className="inputField">
             <img src={user} alt="user" />
             <input
               type="text"
-              placeholder="Nhập tên đăng nhập"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="username"
+              placeholder="Tên đăng nhập"
+              name="username"
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+            />
+          </div>
+          <div className="inputField">
+            <img src={user} alt="user" />
+            <input
+              type="text"
+              id="fullName"
+              placeholder="Họ và tên"
+              name="fullName"
+              value={formData.fullName}
+              onChange={(e) =>
+                setFormData({ ...formData, fullName: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
             <img src={gmail} alt="gmail" />
             <input
-              type="text"
-              placeholder="Nhập tên đăng nhập"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
-            <img src={lock} alt="password" />
+            <img src={Lock} alt="password" />
             <input
               type="password"
-              placeholder="Nhập tên đăng nhập"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="password"
+              placeholder="Mật khẩu"
+              name="password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
-            <img src={lock} alt="repeatPassword" />
+            <img src={Lock} alt="confirm-password" />
             <input
               type="password"
-              placeholder="Nhập tên đăng nhập"
-              value={password}
+              id="confirmPassword"
+              placeholder="Nhập lại mật khẩu"
+              name="confirmPassword"
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-        </div>
-        <div className="registration-buttons">
-          <button type="submit"><p>ĐĂNG KÝ</p></button>
-        </div>
-      </form>
+          <div className="registration-buttons">
+            <button type="submit">
+              <p>Đăng ký</p>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
-export default RegistrationForm;
+export default RegisterForm;
