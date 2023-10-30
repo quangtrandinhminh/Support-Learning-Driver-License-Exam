@@ -24,7 +24,7 @@ namespace Backend.Services.News
                 if (!news.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No news found!";
+                    result.ErrorMessage = "Không tìm thấy tin tức!";
                     return result;
                 }
 
@@ -59,7 +59,7 @@ namespace Backend.Services.News
                 if (!news.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No news found!";
+                    result.ErrorMessage = "Không tìm thấy tin tức!";
                     return result;
                 }
 
@@ -94,7 +94,7 @@ namespace Backend.Services.News
                 if (news == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No news found!";
+                    result.ErrorMessage = "Không tìm thấy tin tức!";
                     return result;
                 }
 
@@ -147,7 +147,7 @@ namespace Backend.Services.News
                 {
                     result.IsError = true;
                     result.Payload = -1;
-                    result.ErrorMessage = "The news id is not exist!";
+                    result.ErrorMessage = "NewsID không tồn tại!";
                     return result;
                 }
 
@@ -174,7 +174,7 @@ namespace Backend.Services.News
                 if (news == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "The news id is not exist!";
+                    result.ErrorMessage = "NewsID không tồn tại!";
                     result.Payload = -1;
                     return result;
                 }

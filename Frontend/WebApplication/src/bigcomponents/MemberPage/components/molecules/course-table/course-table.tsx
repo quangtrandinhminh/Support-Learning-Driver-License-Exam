@@ -26,6 +26,7 @@ function CourseTable() {
         try {
             const response = await api.get(`CourseDetail?courseMonth=${month}`);
             setData(response.data);
+            console.log(data);
             setIsLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);

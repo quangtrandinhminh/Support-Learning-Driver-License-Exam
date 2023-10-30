@@ -4,14 +4,7 @@ import NewsManagemeneTemplate from '../../templates/news-management/news-managem
 
 function NewsManagementPage() {
     return (
-        <div className="page-container">
-            <div className="staff-header">
-                <StaffPage />
-            </div>
-            <div className='staff-body'>
-                <NewsManagemeneTemplate />
-            </div>
-        </div>
+        <NewsManagemeneTemplate />
     )
 }
 

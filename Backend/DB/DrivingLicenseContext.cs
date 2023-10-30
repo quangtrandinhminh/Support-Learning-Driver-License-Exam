@@ -6,10 +6,23 @@ namespace Backend.DB.Models;
 
 public partial class DrivingLicenseContext : DbContext
 {
-    public DrivingLicenseContext()
+    public DrivingLicenseContext(string connectionString)
     {
+        this.Database.SetConnectionString(connectionString);
     }
 
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:DefaultConnection"];
+
+        return strConn;
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(GetConnectionString());
     public DrivingLicenseContext(DbContextOptions<DrivingLicenseContext> options)
         : base(options)
     {
@@ -51,10 +64,6 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=DrivingLicense;TrustServerCertificate=True");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Class>(entity =>
@@ -62,11 +71,13 @@ public partial class DrivingLicenseContext : DbContext
             entity.ToTable("Class");
 
             entity.Property(e => e.ClassId).HasColumnName("classID");
-            entity.Property(e => e.ClassType).HasColumnName("classType");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("courseID");
+            entity.Property(e => e.CurrentStudent).HasColumnName("currentStudent");
+            entity.Property(e => e.IsPractice).HasColumnName("isPractice");
+            entity.Property(e => e.LimitStudent).HasColumnName("limitStudent");
             entity.Property(e => e.Location)
                 .HasMaxLength(500)
                 .HasColumnName("location");
@@ -253,7 +264,9 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("endTime");
             entity.Property(e => e.Hours).HasColumnName("hours");
             entity.Property(e => e.Kilometers).HasColumnName("kilometers");
-            entity.Property(e => e.Location).HasColumnName("location");
+            entity.Property(e => e.Location)
+                .HasMaxLength(500)
+                .HasColumnName("location");
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");
@@ -261,7 +274,9 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("studentID");
-            entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.Title)
+                .HasMaxLength(500)
+                .HasColumnName("title");
 
             entity.HasOne(d => d.Class).WithMany(p => p.Lessons)
                 .HasForeignKey(d => d.ClassId)
@@ -512,6 +527,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("courseID");
+            entity.Property(e => e.IsPractice).HasColumnName("isPractice");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
             entity.Property(e => e.TeachingDate)
                 .HasColumnType("datetime")

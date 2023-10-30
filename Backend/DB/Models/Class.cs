@@ -11,7 +11,11 @@ public partial class Class
 
     public string CourseId { get; set; } = null!;
 
-    public bool? ClassType { get; set; }
+    public bool? IsPractice { get; set; }
+
+    public int? CurrentStudent { get; set; }
+
+    public int? LimitStudent { get; set; }
 
     public string? Location { get; set; }
 

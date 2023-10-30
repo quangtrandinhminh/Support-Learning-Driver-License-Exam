@@ -1,16 +1,10 @@
-﻿namespace Backend.DTO.Mentor
+﻿namespace Backend.DTO.Staff
 {
-    public class MentorDTO
+    public class StaffDTO
     {
-        public int MentorId { get; set; }
-
-        public string ResidenceAddress { get; set; } = null!;
+        public int StaffId { get; set; }
 
         public int UserId { get; set; }
-
-        public bool isTeachingTheory { get; set; }
-
-        public bool isTeachingPractice { get; set; }
 
         public string? fullName { get; set; }
 

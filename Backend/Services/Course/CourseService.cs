@@ -42,7 +42,7 @@ namespace Backend.Services.Course
                 if (!courses.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No course found!";
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
                 }
 
                 result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
@@ -65,7 +65,7 @@ namespace Backend.Services.Course
                 if (!courses.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No course found!";
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
                 }
 
                 result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
@@ -91,7 +91,7 @@ namespace Backend.Services.Course
                 if (!courses.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "No course found!";
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
                 }
 
                 result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
@@ -114,7 +114,7 @@ namespace Backend.Services.Course
                 if (course == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is not exist";
+                    result.ErrorMessage = "CourseID này không tồn tại!";
                     return result;
                 }
 
@@ -136,7 +136,7 @@ namespace Backend.Services.Course
                 if (courseRequestDto.EndDate < courseRequestDto.StartDate)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "End date must be greater than start date";
+                    result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
                     result.Payload = -2;
                     return result;
                 }
@@ -174,7 +174,7 @@ namespace Backend.Services.Course
                 if (courseRequestDto.EndDate < courseRequestDto.StartDate)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "End date must be greater than start date";
+                    result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
                     result.Payload = -2;
                     return result;
                 }
@@ -183,7 +183,7 @@ namespace Backend.Services.Course
                 if (originalCourse == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is not exist";
+                    result.ErrorMessage = "CourseID này không tồn tại!";
                     result.Payload = -1;
                     return result;
                 }
@@ -212,7 +212,7 @@ namespace Backend.Services.Course
                 if (course == null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is not exist";
+                    result.ErrorMessage = "CourseID này không tồn tại!";
                     return result;
                 }
 

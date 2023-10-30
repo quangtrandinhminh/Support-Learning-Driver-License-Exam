@@ -63,25 +63,23 @@ function MemberTable() {
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
               <tr>
-                <th scope='col'>ID</th>
-                <th scope='col'>Name</th>
-                <th scope='col'>Phone</th>
-                <th scope='col'>Email</th>
-                <th scope='col' className='text-center'>Status</th>
-                <th scope='col' className='text-center'>roleID</th>
+                <th scope='col'>Mã học viên</th>
+                <th scope='col'>Họ và Tên</th>
+                <th scope='col'>Điện thoại</th>
+                <th scope='col' style={{ width: '200px' }}>Email</th>
+                <th scope='col' className='text-center'>Trạng thái thanh toán</th>
                 <th scope='col' className='text-center'>Action</th>
               </tr>
             </thead>
             <tbody className='table-group-divider align-middle'>
               {records.length > 0 ? (
-                records.map((user, i: number = 1) => (
+                records.map((member, i: number = 1) => (
                   <tr key={i}>
-                    <td>{user.userId}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className='text-center'></td>
-                    <td className='text-center'></td>
+                    <td>{member.userId}</td>
+                    <td>{member.fullName}</td>
+                    <td>{member.phone}</td>
+                    <td>{member.email}</td>
+                    <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>  
                     <td className='button text-center'>
                       <button className="btn btn-primary" type="submit">Update</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
