@@ -8,7 +8,7 @@ function CourseTable() {
     const { month } = useParams();
     const [data, setData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [course, setCourse] = useState(null);
+    const [course, setCourse] = useState<any[]>([]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,12 +24,12 @@ function CourseTable() {
 
     const getCourseDetailByMonth = async (month) => {
         try {
-            const response = await api.get(`CourseDetail?courseMonth=${month}`);
+            const response = await api.get(`/CourseDetail?courseMonth=${month}`);
             setData(response.data);
-            console.log(data);
             setIsLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
+            setIsLoading(false);
         }
     }
 
@@ -69,17 +69,17 @@ function CourseTable() {
                                 <th></th>
                             </tr>
                             {
-                                data.length > 0 ? (
-                                    !isLoading ? (
-                                        data.map((data, i) => (
-                                            <tr key={i}>
+                                !isLoading ? (
+                                    course.length > 0 ? (
+                                        course.map((course, i) => (
+                                            <tr key={i} >
                                                 <td className='course-no'>
                                                     <p>{i + 1}</p>
                                                 </td>
                                                 <td className='course-date'>
-                                                    <p>Khoá {course[i].name}</p>
-                                                    <p>KG: {formatDate(data[0].courseTimeStart)}</p>
-                                                    <p>BG: {formatDate(data[5].courseTimeStart)}</p>
+                                                    <p>Khoá {course.name}</p>
+                                                    <p>KG: {formatDate(course.startDate)}</p>
+                                                    <p>BG: {formatDate(course.endDate)}</p>
                                                 </td>
                                                 <td className='course-mem'>
                                                     <p>20</p>
@@ -96,12 +96,12 @@ function CourseTable() {
                                                 </td>
                                                 <td className="course-training-time">
                                                     <ol>
-                                                        <li className='border-receive'>{formatDate(data[i].courseTimeStart)} - {formatDate(data[i].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i + 1].courseTimeStart)} - {formatDate(data[i + 1].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i + 2].courseTimeStart)} - {formatDate(data[i + 2].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i + 3].courseTimeStart)} - {formatDate(data[i + 3].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i + 3].courseTimeStart)} - {formatDate(data[i + 3].courseTimeEnd)}</li>
-                                                        <li>{formatDate(data[5].courseTimeStart)} - {formatDate(data[5].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
+                                                        <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
                                                     </ol>
                                                 </td>
                                                 <td className='course-register'>
@@ -112,8 +112,10 @@ function CourseTable() {
                                             </tr>
                                         ))
                                     ) : (
-                                        <h1>no</h1>
-                                    )) : (
+                                        <h1>không dữ liệu</h1>
+                                    )
+                                ) : (
+
                                     <>
                                         <Backdrop
                                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.DTO.Members;
+using Backend.DTO.News;
 using Backend.DTO.Users;
 using Backend.Repository.UserRepository;
 using Backend.Services;
@@ -83,8 +84,9 @@ namespace Backend.Services.User
                     result.Payload = -1;
                     return result;
                 }
-
-                await _userRepository.AddAsync(_mapper.Map<DB.Models.User>(userCreateDTO));
+                var user = _mapper.Map<DB.Models.User>(userCreateDTO);
+                user.RoleId = 4;
+                await _userRepository.AddAsync(user);
             }
             catch (Exception e)
             {
