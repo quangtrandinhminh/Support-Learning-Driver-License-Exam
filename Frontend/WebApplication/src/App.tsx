@@ -46,6 +46,7 @@ import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import MentorLayout from './bigcomponents/MentorPage/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
+import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
 
 function App() {
 
@@ -56,8 +57,8 @@ function App() {
       <ScrollToTop />
       <ToastContainer
         position="top-right"
-        autoClose={1300}
-        hideProgressBar={false}
+        autoClose={2000}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -139,6 +140,7 @@ function App() {
                         <Route index element={<ExamDocumentPage />} />
                         <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
                       </Route>
+                      <Route path='thi-thu' element={<TheoryTestPage />} />
                     </>
                   )}
                 </>

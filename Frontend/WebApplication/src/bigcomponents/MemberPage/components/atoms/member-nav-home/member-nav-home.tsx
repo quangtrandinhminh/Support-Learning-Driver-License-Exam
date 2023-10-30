@@ -66,7 +66,7 @@ function MemberNavHome() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Forward to='/thithu'>
+                            <Forward to='/thi-thu'>
                                 <li className='inline-block'>
                                     <a href="">Thi thử</a>
                                 </li>

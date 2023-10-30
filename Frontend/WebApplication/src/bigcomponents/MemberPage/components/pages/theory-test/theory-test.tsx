@@ -1,19 +1,16 @@
+import React from 'react'
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
-import TheoryScheduleTemplate from '../../templates/theory-schedule-template/theory-schedule'
-import ScrollToTop from '../../../../../config/scrollToTop'
-import { useEffect } from 'react'
+import TheoryTestTemplate from '../../templates/theory-test/theory-test'
 
-function TheorySchedulePage() {
-
+function TheoryTestPage() {
     return (
         <>
-            <ScrollToTop />
             <header>
                 <MemberHeader />
             </header>
             <div className='body-container'>
-                <TheoryScheduleTemplate />
+                <TheoryTestTemplate />
             </div>
             <footer>
                 <MemberFooter />
@@ -22,4 +19,4 @@ function TheorySchedulePage() {
     )
 }
 
-export default TheorySchedulePage
+export default TheoryTestPage
