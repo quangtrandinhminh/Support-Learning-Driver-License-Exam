@@ -59,22 +59,22 @@ namespace Backend.Services.Member
             return result;
         }
 
-        public int checkValidation(MemberDTO memberDTO)
+        public int checkValidation(MemberCreateDTO memberCreateDTO)
         {
             var members = _memberRepository.GetAll().ToList();
             foreach (var member in members) 
             { 
-                if (member.UserId.Equals(memberDTO.UserId))
+                if (member.UserId.Equals(memberCreateDTO.UserId))
                 {
                     return e = 1;
                 }
 
-                if (member.IdentityCardNumber.Equals(memberDTO.IdentityCardNumber))
+                if (member.IdentityCardNumber.Equals(memberCreateDTO.IdentityCardNumber))
                 {
                     return e = 2;
                 }
 
-                if (member.Passport.Equals(memberDTO.passport))
+                if (member.Passport.Equals(memberCreateDTO.passport))
                 {
                     return e = 3;
                 }
@@ -83,12 +83,12 @@ namespace Backend.Services.Member
             return 0;
         }
 
-        public async Task<ServiceResult<int>> AddMember(MemberDTO memberDTO)
+        public async Task<ServiceResult<int>> AddMember(MemberCreateDTO memberCreateDTO)
         {
             var result = new ServiceResult<int>();
             try
             {
-                int e = checkValidation(memberDTO);
+                int e = checkValidation(memberCreateDTO);
                 if (e == 1)
                 {
                     result.IsError = true;
@@ -112,7 +112,7 @@ namespace Backend.Services.Member
                 }
 
 
-                await _memberRepository.AddAsync(_mapper.Map<DB.Models.Member>(memberDTO));
+                await _memberRepository.AddAsync(_mapper.Map<DB.Models.Member>(memberCreateDTO));
             }
             catch (Exception e)
             {

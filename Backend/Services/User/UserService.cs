@@ -60,22 +60,22 @@ namespace Backend.Services.User
             return result;
         }
 
-        public int checkValidation(UserDTO userDTO)
+        public int checkValidation(UserCreateDTO userCreateDTO)
         {
             var users = _userRepository.GetAll().ToList();
             foreach (var user in users) 
             { 
-                if (user.Username == userDTO.Username) { return 1; }
+                if (user.Username == userCreateDTO.Username) { return 1; }
             }
             return 0;
         }
 
-        public async Task<ServiceResult<int>> AddUser(UserDTO userDTO)
+        public async Task<ServiceResult<int>> AddUser(UserCreateDTO userCreateDTO)
         {
             var result = new ServiceResult<int>();
             try
             {
-                int e = checkValidation(userDTO);
+                int e = checkValidation(userCreateDTO);
                 if (e == 1)
                 {
                     result.IsError = true;
@@ -84,7 +84,7 @@ namespace Backend.Services.User
                     return result;
                 }
 
-                await _userRepository.AddAsync(_mapper.Map<DB.Models.User>(userDTO));
+                await _userRepository.AddAsync(_mapper.Map<DB.Models.User>(userCreateDTO));
             }
             catch (Exception e)
             {

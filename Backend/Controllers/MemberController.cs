@@ -48,9 +48,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddMember(MemberDTO memberDTO)
+        public async Task<IActionResult> AddMember(MemberCreateDTO memberCreateDTO)
         {
-            var result = await _memberService.AddMember(memberDTO);
+            var result = await _memberService.AddMember(memberCreateDTO);
 
             if (result.IsError)
             {
