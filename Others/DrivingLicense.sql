@@ -243,7 +243,7 @@ CREATE TABLE [dbo].[Question](
   [content] NVARCHAR(MAX) NULL,
   [image] VARCHAR(MAX) NULL,
   [keyQuestion] BIT NULL,
-  [correctAnswer] BIT NULL,
+  [correctAnswer] INT NULL,
   [staffID] INT NOT NULL,
   [status] BIT NULL,
   CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED 
@@ -535,6 +535,7 @@ GO
 
 /*-- Add data: CourseDetails --*/
 SET IDENTITY_INSERT [dbo].[CourseDetails] ON
+                                /*T: 11*/
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
@@ -598,12 +599,12 @@ INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent],
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2024-01-05', '1003B2', 1)
+		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2023-12-05', '1003B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('14', 'Thuc Hanh Sa Hinh', '2024-01-06', '2024-01-11', '1003B2' , 1)
+		VALUES('14', 'Thuc Hanh Sa Hinh', '2023-12-06', '2024-01-11', '1003B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
@@ -625,6 +626,186 @@ INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent],
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
 		VALUES('18', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-22', '2024-02-26', '1003B2' , 1)
 
+                                 /*T: 12*/
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('19', 'Dao Tao Ly Thuyet', '2023-12-06', '2023-12-20', '1001B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('20', 'Thuc Hanh Sa Hinh', '2023-12-21', '2024-01-25', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('21', 'Thuc Hanh Tren Cabin', '2024-01-25', '2024-02-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('22', 'Thuc Hanh Tren Duong', '2024-02-02', '2024-03-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('23', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-02', '2024-03-01', '1001B2' , 1)		
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('24', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-01', '2024-03-06', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('25', 'Dao Tao Ly Thuyet', '2023-12-16', '2023-12-30', '1002B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('26', 'Thuc Hanh Sa Hinh', '2024-01-01', '2024-02-01', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('27', 'Thuc Hanh Tren Cabin', '2024-02-02', '2024-02-12', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('28', 'Thuc Hanh Tren Duong', '2024-02-13', '2024-03-11', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('29', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-13', '2024-03-11', '1002B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('30', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-12', '2024-03-16', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('31', 'Dao Tao Ly Thuyet', '2023-12-26', '2024-02-05', '1003B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('32', 'Thuc Hanh Sa Hinh', '2024-02-06', '2024-02-11', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('33', 'Thuc Hanh Tren Cabin', '2024-02-12', '2024-02-22', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('34', 'Thuc Hanh Tren Duong', '2024-02-23', '2024-03-21', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('35', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-23', '2024-03-21', '1003B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('36', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-22', '2024-03-26', '1003B2' , 1)
+                                 /*T: 1*/
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('37', 'Dao Tao Ly Thuyet', '2024-01-06', '2024-01-20', '1001B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('38', 'Thuc Hanh Sa Hinh', '2023-01-21', '2024-02-25', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('39', 'Thuc Hanh Tren Cabin', '2024-02-25', '2024-03-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('40', 'Thuc Hanh Tren Duong', '2024-03-02', '2024-04-01', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('41', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-02', '2024-04-01', '1001B2' , 1)		
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('42', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-01', '2024-04-06', '1001B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('43', 'Dao Tao Ly Thuyet', '2024-01-16', '2024-01-30', '1002B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('44', 'Thuc Hanh Sa Hinh', '2024-02-01', '2024-03-01', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('45', 'Thuc Hanh Tren Cabin', '2024-03-02', '2024-03-12', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('46', 'Thuc Hanh Tren Duong', '2024-03-13', '2024-04-11', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('47', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-13', '2024-04-11', '1002B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('48', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-12', '2024-04-16', '1002B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('49', 'Dao Tao Ly Thuyet', '2024-01-26', '2024-03-05', '1003B2', 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('50', 'Thuc Hanh Sa Hinh', '2024-03-06', '2024-04-11', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('51', 'Thuc Hanh Tren Cabin', '2024-04-12', '2024-04-22', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('52', 'Thuc Hanh Tren Duong', '2024-04-23', '2024-05-21', '1003B2' , 1)
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('53', 'Thuc Hanh Tren Xe Tu Dong', '2024-04-23', '2024-05-21', '1003B2' , 1)	
+
+GO
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
+		[courseTimeStart], [courseTimeEnd], [courseID], [status])
+		VALUES('54', 'Thuc Hanh Tong Hop Sa Hinh', '2024-05-22', '2024-05-26', '1003B2' , 1)
 GO 
 SET IDENTITY_INSERT [dbo].[CourseDetails] OFF
 
@@ -885,6 +1066,12 @@ INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(1, 32)
 GO
 INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(2, 33)
 GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(3, 34)
+GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(4, 35)
+GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(5, 36)
+GO
 SET IDENTITY_INSERT [dbo].[Staff] OFF
 GO
 
@@ -895,7 +1082,65 @@ INSERT [dbo].[News] ([newsID], [title], [content], [createdTime], [status], [sta
 	VALUES(1, N'Hướng dẫn đăng kí khóa học trên hệ thống', N'Bước 1:, Bước 2: Bước 3:, Bước 4:', '2023-10-22', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[News] OFF
+
+/* Add data: Question */
+SET IDENTITY_INSERT [dbo].[Question] ON
 GO
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(1, N'Lý Thuyết', 'https://i.ibb.co/d7z3zmN/600-cau-hoi1.jpg', 0, '2', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(2, N'Lý Thuyết', 'https://i.ibb.co/HqQtfdP/600-cau-hoi2.jpg', 0, '2', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(3, N'Lý Thuyết', 'https://i.ibb.co/GkHgLSK/600-cau-hoi3.jpg', 0, '1', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(5, N'Lý Thuyết', 'https://i.ibb.co/TKJ3kht/600-cau-hoi5.jpg', 0, '1', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(6, N'Lý Thuyết', 'https://i.ibb.co/qM1ZvpV/600-cau-hoi6.jpg', 0, '1', '1', 1)
+/*INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)*/
+
+GO
+SET IDENTITY_INSERT [dbo].[Question] OFF
 
 /* Add data: Mentor */
 SET IDENTITY_INSERT [dbo].[Mentor] ON
@@ -935,3 +1180,4 @@ INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [
 GO
 SET IDENTITY_INSERT [dbo].[TeachingSchedule] OFF
 GO
+
