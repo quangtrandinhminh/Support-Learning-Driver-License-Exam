@@ -18,7 +18,6 @@
         public bool integratedDrivingLicense { get; set; }
         public bool? revokedDrivingLicense { get; set; }
         public string relatedDocument { get; set; }
-        public DateTime registrationDate { get; set; }
         public bool? isPaid { get; set; }
         public string CourseId { get; set; }
         public int UserId { get; set; }
