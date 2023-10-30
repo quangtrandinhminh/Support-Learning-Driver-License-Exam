@@ -7,15 +7,15 @@ interface TeachingScheduleProps {
 function TeachingSchedule(props: TeachingScheduleProps) {
     return (
         <div className="teaching-schedule-container">
-            <div className="teaching-schedule-content">
+            <div>
                 <h1>Lịch dạy</h1>
             </div>
             <div className="teaching-schedule">
                 <form action="">
                     <table className="schedule-table">
-                        <thead className="schedule-header">
+                        <thead className="schedule-header-container">
                             <tr>
-                                <th rowSpan={2}>
+                                <th rowSpan={2} className='mini-title'>
                                     <span className="mini-title">
                                         <strong>Năm</strong>
                                     </span>
@@ -30,7 +30,8 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                     <span className="mini-title">
                                         <strong>Tuần</strong>
                                     </span>
-                                    <select >
+                                    <br />
+                                    <select>
                                         <option value="1">02/01 To 07/01</option>
                                         <option value="2">09/01 To 14/01</option>
                                         <option value="3">16/01 To 21/01</option>
