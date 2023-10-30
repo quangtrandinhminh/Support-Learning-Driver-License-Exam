@@ -86,7 +86,7 @@ function StaffSidebar() {
         </li>
         <li className='sidebar-component'>
           <div className="member-list">
-            <NavLink className='logout-btn' to='/' onClick={handleLogout}>
+            <NavLink className='logout-btn' onClick={handleLogout} to='/'>
               Đăng xuất
             </NavLink>
           </div>
