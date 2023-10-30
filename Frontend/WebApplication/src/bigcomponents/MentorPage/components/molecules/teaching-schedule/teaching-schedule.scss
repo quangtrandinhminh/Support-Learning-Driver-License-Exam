@@ -17,34 +17,43 @@
         background-color: #fff;
         border-collapse: collapse;
         align-items: center;
+        border-spacing: 0;
 
-        .schedule-header-container {
+        .schedule-table {
+            .schedule-header-container {
+                tr {
+                    border-bottom: 1px solid #f0f0f0;
+                    th {
+                        .mini-title {
+                            padding-right: 10px;
+                        }
 
-            th {
-                .mini-title {
-                    padding-right: 10px;
-                    text-align: left;
+                        text-align: left;
+                        padding: 5px;
+                        text-transform: uppercase;
+                        height: 20px;
+                        background-color: #6b90da;
+                        font-weight: normal;
+                        border-right: 1px solid #fff;
+                    }
                 }
-
-                text-align: center;
-                padding: 2px;
-                text-transform: uppercase;
-                height: 23px;
-                background-color: #6b90da;
-                font-weight: normal;
             }
 
-        }
+            .schedule-body-container {
+                .study-slot {
+                    background-color: #fff;
+                    border-bottom: 1px solid #f0f0f0;
+                    width: 100%;
 
-        tr {
-            background-color: #fff;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        td {
-            padding: 5px;
-            border-left-width: 0px;
-            border-right-width: 0px;
+                    tr {
+                        td {
+                            padding: 5px;
+                            border-left-width: 0px;
+                            border-right-width: 0px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
