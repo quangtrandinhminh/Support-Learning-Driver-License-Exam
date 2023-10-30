@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
 using Backend.DTO.Members;
+using Backend.DTO.News;
 using Backend.Repository.MemberRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -112,7 +113,10 @@ namespace Backend.Services.Member
                 }
 
 
-                await _memberRepository.AddAsync(_mapper.Map<DB.Models.Member>(memberCreateDTO));
+                var members = _mapper.Map<DB.Models.Member>(memberCreateDTO);
+                members.RegistrationDate = DateTime.Now;
+
+                await _memberRepository.AddAsync(members);
             }
             catch (Exception e)
             {

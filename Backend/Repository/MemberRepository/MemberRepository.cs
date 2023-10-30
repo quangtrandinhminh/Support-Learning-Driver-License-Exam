@@ -28,13 +28,13 @@ namespace Backend.Repository.MemberRepository
             }
         }
 
-        public async Task<bool> AddAsync(Member? member)
+        public async Task<Member> AddAsync(Member? member)
         {
             try
             {
-                await _dbSet.AddAsync(member);
-                var result = await _context.SaveChangesAsync() > 0 ? true : false;
-                return result;
+                var result = await _dbSet.AddAsync(member);
+                await _context.SaveChangesAsync();
+                return result.Entity;
             }
             catch (Exception e)
             {
