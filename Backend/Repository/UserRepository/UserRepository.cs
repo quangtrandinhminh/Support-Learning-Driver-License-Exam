@@ -42,5 +42,20 @@ namespace Backend.Repository.UserRepository
                 throw;
             }
         }
+
+        public async Task<User?> UpdateAsync(User user)
+        {
+            try
+            {
+                var result = _dbSet.Update(user);
+                await _context.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

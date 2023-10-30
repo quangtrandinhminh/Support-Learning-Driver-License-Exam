@@ -68,7 +68,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Add course successfully!");
+            return Ok("Add member successfully!");
         }
     }
 }

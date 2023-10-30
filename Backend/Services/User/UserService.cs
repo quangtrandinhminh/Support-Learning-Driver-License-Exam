@@ -33,7 +33,7 @@ namespace Backend.Services.User
             }
         }
 
-        public async Task<ServiceResult<UserDTO>> Login(string username)
+        public async Task<ServiceResult<UserDTO>> Login(string username, string password)
         {
             var result = new ServiceResult<UserDTO>();
             try
@@ -50,7 +50,17 @@ namespace Backend.Services.User
                 }
                 else
                 {
-                    result.Payload = _mapper.Map<UserDTO>(user);
+                    if (user.Password.Equals(password))
+                    {
+                        result.Payload = _mapper.Map<UserDTO>(user);
+                    }
+                    else
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = "Password is not correct";
+                        return result;
+                    }
+                    
                 }
             }
             catch (Exception e)
@@ -94,6 +104,34 @@ namespace Backend.Services.User
                 result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> UpdateUser(UserDTO userDTO)
+        {
+            var result = new ServiceResult<int>();
+
+            try
+            {
+                var user =  _userRepository.GetAll().Where(p => p.UserId == userDTO.UserID).FirstOrDefault();
+                if (user == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "UserID không tồn tại!";
+                    return result;
+                }
+
+                var users = _mapper.Map(userDTO, user);
+                await _userRepository.UpdateAsync(users);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+
             return result;
         }
     }
