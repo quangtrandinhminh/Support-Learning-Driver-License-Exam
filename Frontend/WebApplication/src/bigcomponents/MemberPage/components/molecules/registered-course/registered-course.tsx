@@ -25,6 +25,7 @@ function RegisteredCourse() {
             const response = await api.get('User?username=' + username);
             const res = response.data;
             setUserInf(res.payload);
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -46,7 +47,6 @@ function RegisteredCourse() {
             const response = await api.get('Course/' + member.courseId);
             const res = response.data;
             setCourse(res);
-            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -77,53 +77,57 @@ function RegisteredCourse() {
             <h1 className='registered-course-title'>khoá học của bạn</h1>
             {
                 !isLoading ? (
-                    console.log(course),
-                    <div className='registered-course-content'>
-                        <ul>
-                            <li>
-                                <label htmlFor="course-name">Khoá học: {course.courseId}</label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-mentor">
-                                    Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>Tên giáo viên</Link>
-                                </label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-theory">
-                                    <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
-                                </label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-practice-location">Trạng thái học lý thuyết: Đã xong</label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-practice">
-                                    <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
-                                </label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-theory-location">
-                                    <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
-                                </label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
-                            </li>
-                            <li>
-                                <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: Đã đóng tiền</label>
-                            </li>
-                            <li>
-                                <form>
-                                    <label htmlFor="exam-application">
-                                        <Link to='/ho-so-thi'>Hồ sơ thi</Link>
+                    member != null ? (
+                        <div className='registered-course-content'>
+                            <ul>
+                                <li>
+                                    <label htmlFor="course-name">Khoá học: {course.courseId}</label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-mentor">
+                                        Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>Tên giáo viên</Link>
                                     </label>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-theory">
+                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-practice-location">Trạng thái học lý thuyết: Đã xong</label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-practice">
+                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-theory-location">
+                                        <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
+                                </li>
+                                <li>
+                                    <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: Đã đóng tiền</label>
+                                </li>
+                                <li>
+                                    <form>
+                                        <label htmlFor="exam-application">
+                                            <Link to='/ho-so-thi'>Hồ sơ thi</Link>
+                                        </label>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    ) : (
+                        <h1 className='mt-5 text-danger'>Bạn chưa đăng ký khoá học nào</h1>
+                    )
+                    
                 ) : (
                     <>
                         <Backdrop

@@ -7,10 +7,8 @@ function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
 
-    function handleScroll() {
-        {
-            window.scrollTo(0, 0);
-        }
+    const handleScroll = () => {
+        window.scrollTo(0, 0);
     }
 
     const navigate = useNavigate()
@@ -54,7 +52,7 @@ function MemberNav() {
                             </Forward>
                         </div>
                         <div className='nav-items'>
-                            <Forward to='/thithu'>
+                            <Forward to='/thi-thu' onClick={handleScroll}>
                                 <li>
                                     <a href="">Thi thử</a>
                                 </li>

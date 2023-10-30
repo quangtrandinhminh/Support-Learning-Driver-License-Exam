@@ -3,6 +3,7 @@ import './verification-form.scss'
 // import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
+import api from '../../../../../config/axios';
 
 function VerificationForm() {
   const [inputData, setInputData] = useState({
@@ -22,16 +23,20 @@ function VerificationForm() {
 
   const navigation = useNavigate();
 
+  const createMember = async () => {
+    try {
+      await api.post('/Member/add', inputData);
+      console.log(inputData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // axios.post('http://localhost:3000/users', inputData)
-    //   .then(res => {
-    //     console.log(res);
-    //     alert('Success, view db.json file to see information');
-    //     window.scrollTo(0, 0);
-    toast.success("Bạn đã đăng ký khoá học {tên khoá học} thành công");
-    navigation('/khoa-hoc-cua-ban');
-    //   })
+    createMember();
+    // toast.success("Bạn đã đăng ký khoá học {tên khoá học} thành công");
+    // navigation('/khoa-hoc-cua-ban');
   }
 
   useEffect(() => {
