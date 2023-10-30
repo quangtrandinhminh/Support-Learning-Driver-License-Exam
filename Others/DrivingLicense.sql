@@ -243,7 +243,7 @@ CREATE TABLE [dbo].[Question](
   [content] NVARCHAR(MAX) NULL,
   [image] VARCHAR(MAX) NULL,
   [keyQuestion] BIT NULL,
-  [correctAnswer] BIT NULL,
+  [correctAnswer] INT NULL,
   [staffID] INT NOT NULL,
   [status] BIT NULL,
   CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED 
@@ -885,6 +885,12 @@ INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(1, 32)
 GO
 INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(2, 33)
 GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(3, 34)
+GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(4, 35)
+GO
+INSERT [dbo].[Staff] ([staffID], [userID]) VALUES(5, 36)
+GO
 SET IDENTITY_INSERT [dbo].[Staff] OFF
 GO
 
@@ -895,6 +901,63 @@ INSERT [dbo].[News] ([newsID], [title], [content], [createdTime], [status], [sta
 	VALUES(1, N'Hướng dẫn đăng kí khóa học trên hệ thống', N'Bước 1:, Bước 2: Bước 3:, Bước 4:', '2023-10-22', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[News] OFF
+
+/* Add data: Question */
+SET IDENTITY_INSERT [dbo].[Question] ON
+GO
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(1, N'Lý Thuyết', 'https://i.ibb.co/d7z3zmN/600-cau-hoi1.jpg', 0, '2', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(2, N'Lý Thuyết', 'https://i.ibb.co/HqQtfdP/600-cau-hoi2.jpg', 0, '2', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(3, N'Lý Thuyết', 'https://i.ibb.co/GkHgLSK/600-cau-hoi3.jpg', 0, '1', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(5, N'Lý Thuyết', 'https://i.ibb.co/TKJ3kht/600-cau-hoi5.jpg', 0, '1', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(6, N'Lý Thuyết', 'https://i.ibb.co/qM1ZvpV/600-cau-hoi6.jpg', 0, '1', '1', 1)
+/*INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)*/
+
 GO
 
 /* Add data: Mentor */
@@ -935,3 +998,4 @@ INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [
 GO
 SET IDENTITY_INSERT [dbo].[TeachingSchedule] OFF
 GO
+

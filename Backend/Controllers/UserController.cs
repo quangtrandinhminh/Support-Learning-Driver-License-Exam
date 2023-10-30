@@ -75,10 +75,10 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> Register(UserDTO userDTO)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(UserCreateDTO userCreateDTO)
         {
-            var result = await _userService.AddUser(userDTO);
+            var result = await _userService.AddUser(userCreateDTO);
 
             if (result.IsError)
             {
