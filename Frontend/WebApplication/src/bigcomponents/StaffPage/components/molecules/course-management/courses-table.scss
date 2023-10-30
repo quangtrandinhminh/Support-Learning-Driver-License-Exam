@@ -9,6 +9,14 @@
         justify-content: center;
         margin-top: 40px;
 
+        input {
+            padding: 4px;
+
+            &::placeholder {
+                font-style: italic;
+            }
+        }
+
         form {
             width: 90%;
 

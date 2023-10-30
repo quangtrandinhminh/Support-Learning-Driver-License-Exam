@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Services.User;
+using Backend.DTO.Members;
+using Backend.DTO.Users;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -69,6 +73,30 @@ namespace Backend.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(UserCreateDTO userCreateDTO)
+        {
+            var result = await _userService.AddUser(userCreateDTO);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Add course successfully!");
         }
     }
 }

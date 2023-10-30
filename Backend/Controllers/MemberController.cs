@@ -1,23 +1,29 @@
 ﻿using Backend.DTO.Course;
 using Backend.DTO.Members;
+using Backend.Repository.UserRepository;
 using Backend.Services.Member;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
+        private readonly IUserRepository _userRepository;
 
-        public MemberController(IMemberService memberService)
+        public MemberController(IMemberService memberService,
+            IUserRepository userRepository)
         {
             _memberService = memberService;
+            _userRepository = userRepository;
         }
 
         [HttpGet("/api/Members")]
         public IActionResult GetAll()
         {
-            var members = _memberService.GetAllMember();
+            var members = _memberService.GetAllMember().ToList();
             if (members == null)
             {
                 return NotFound();
@@ -42,9 +48,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddMember(MemberDTO memberDTO)
+        public async Task<IActionResult> AddMember(MemberCreateDTO memberCreateDTO)
         {
-            var result = await _memberService.AddMember(memberDTO);
+            var result = await _memberService.AddMember(memberCreateDTO);
 
             if (result.IsError)
             {

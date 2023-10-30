@@ -27,5 +27,20 @@ namespace Backend.Repository.UserRepository
                 throw;
             }
         }
+
+        public async Task<bool> AddAsync(User? user)
+        {
+            try
+            {
+                await _dbSet.AddAsync(user);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

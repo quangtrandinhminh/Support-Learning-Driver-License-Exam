@@ -33,7 +33,7 @@ function News() {
         <div className='news-container' id='news-section'>
             <h1>Tin tức</h1>
             <div className="news-list">
-                {!isLoading ? (
+                {
                     maxNewsDisplayed > 0 ? (
                         Array.from({ length: maxNewsDisplayed }).map((_, i) => {
                             const newsItem = data && data[i];
@@ -57,14 +57,7 @@ function News() {
                         })
                     ) : (
                         <h1 className='text-center'>Không có thông tin để hiển thị</h1>
-                    )
-                ) : (
-                    <Backdrop
-                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                        open={true}>
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                )}
+                    )}
             </div>
             <div className="news-page-nav">
                 <a href=''>1</a>

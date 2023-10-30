@@ -3,14 +3,7 @@ import UserManagementTemplate from '../../templates/user-management/user-managem
 
 function UserManagementPage() {
     return (
-        <div className="page-container">
-            <div className='staff-header'>
-                <StaffSidebar />
-            </div>
-            <div className='staff-body'>
-                <UserManagementTemplate />
-            </div>
-        </div>
+        <UserManagementTemplate />
     )
 }
 

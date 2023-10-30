@@ -60,9 +60,9 @@ function NewsTable() {
             // Perform the deletion
             await api.delete('News/deactivate/' + newsId);
 
-            // setTimeout(() => {
-            //     location.reload();
-            // }, 0.1);
+            setTimeout(() => {
+                location.reload();
+            }, 0.1);
 
             await getAllNews();
 
@@ -121,18 +121,18 @@ function NewsTable() {
                     <nav>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <a href="#" className='page-link' onClick={prePage}>Prev</a>
+                                <button type='button' className='page-link' onClick={prePage}>Prev</button>
                             </li>
                             {
                                 numbers.map((n, i) => (
                                     <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <a href="" className='page-link' onClick={() => changeCPage(n)}>{n}</a>
+                                        <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
                                     </li>
                                 ))
                             }
 
                             <li className='page-item'>
-                                <a href="" className='page-link' onClick={nextPage}>Next</a>
+                                <button type='button' className='page-link' onClick={nextPage}>Next</button>
                             </li>
                         </ul>
                     </nav>

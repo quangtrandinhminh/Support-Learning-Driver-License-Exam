@@ -7,5 +7,9 @@
         public DateTime CourseTimeStart { get; set; }        
         public DateTime CourseTimeEnd { get; set; }
         public string CourseId { get; set; }
+
+        //Course
+        public int CourseMonth { get; set; }
+        public int LimitStudent { get; set; }
     }
 }

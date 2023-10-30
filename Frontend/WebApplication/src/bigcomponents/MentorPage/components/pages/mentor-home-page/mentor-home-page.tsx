@@ -1,17 +1,11 @@
-import MentorSidebar from '../../atoms/mentor-home-sidebar/sidebar'
 import '../../mentor-general.scss'
-import TeachingSchedule from '../../molecules/teaching-schedule/teaching-schedule'
+import HomePage from '../../molecules/mentor-home/home'
 
 function MentorHomePage() {
   return (
-    <div className='page-container'>
-      <div className='mentor-header'>
-        <MentorSidebar />
-      </div>
-      <div className="mentor-body">
-        <TeachingSchedule />
-      </div>
-    </div>
+    <>
+     <HomePage />
+    </>
   )
 }
 
