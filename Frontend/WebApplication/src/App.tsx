@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import './general.scss'
-import 'font-awesome/css/font-awesome.css';
+// import 'font-awesome/css/font-awesome.css';
 
 // Staff import
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
@@ -109,7 +109,11 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
-                        <Route path='lich-day' element={<MentorSchedulePage />} />
+                        <Route path='lich-day'>
+                          <Route index element={<MentorSchedulePage />} />
+                          <Route path='chi-tiet-lich-day' element={<MentorSchedulePage />} />
+                          <Route path='danh-sach-hoc-vien' element={<MentorSchedulePage />} />
+                        </Route>
                         <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
                       </Route>
                     </>

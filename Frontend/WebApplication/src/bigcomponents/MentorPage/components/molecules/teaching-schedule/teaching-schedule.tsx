@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import './teaching-schedule.scss';
 
 interface TeachingScheduleProps {
@@ -8,9 +7,6 @@ interface TeachingScheduleProps {
 function TeachingSchedule(props: TeachingScheduleProps) {
     return (
         <div className="teaching-schedule-container">
-            
-                <input type="text" placeholder="Tìm kiếm" className="search-box-section" />
-            
             <div className="teaching-schedule-content">
                 <h1>Lịch dạy</h1>
             </div>
@@ -106,111 +102,113 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                             </tr>
                         </thead>
                         <tbody>
-                            <div className="study-slot">
-                                <tr>
-                                    <td>Ca sáng </td>
-                                    <td>
-                                        <p>
-                                            <a href="">Lý thuyết</a>
-                                            <br />
-                                            Buổi thứ 1
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Thực hành</a>
-                                            <br />
-                                            Buổi thứ 2
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Thực hành</a>
-                                            <br />
-                                            Buổi thứ 3
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Ca chiều</td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Thực hành</a>
-                                            <br />
-                                            Buổi thứ 1
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Lý thuyết</a>
-                                            <br />
-                                            Buổi thứ 2
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Ca tối</td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Thực hành</a>
-                                            <br />
-                                            Buổi thứ 1
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                    <td><p>
+                        <div className="study-slot">
+                            <tr>
+                                <td>Ca sáng</td>
+                                <td>
+                                    <p>
+                                        <a href="">Lý thuyết</a>
+                                        <br />
+                                        Buổi thứ 1
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <p>
                                         <a href="">Thực hành</a>
                                         <br />
                                         Buổi thứ 2
                                         <br />
-                                        Lớp: XXB2
+                                        <a href="">Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
-                                    </p></td>
-                                    <td></td>
-                                    <td>
-                                        <p>
-                                            <a href="">Thực hành</a>
-                                            <br />
-                                            Buổi thứ 3
-                                            <br />
-                                            Lớp: XXB2
-                                            <br />
-                                            Trạng thái: Đã dạy
-                                        </p>
-                                    </td>
-                                </tr>
-                            </div>
-                        </tbody>
+                                    </p>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        <a href="">Thực hành</a>
+                                        <br />
+                                        Buổi thứ 3
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ca chiều</td>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        <a href="">Thực hành</a>
+                                        <br />
+                                        Buổi thứ 1
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        <a href="">Lý thuyết</a>
+                                        <br />
+                                        Buổi thứ 2
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ca tối</td>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        <a href="">Thực hành</a>
+                                        <br />
+                                        Buổi thứ 1
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <a href="">Thực hành</a>
+                                        <br />
+                                        Buổi thứ 2
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        <a href="">Thực hành</a>
+                                        <br />
+                                        Buổi thứ 3
+                                        <br />
+                                        <a href="">Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
                     </table>
                 </form>
             </div>
