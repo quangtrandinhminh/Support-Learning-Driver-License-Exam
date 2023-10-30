@@ -29,6 +29,7 @@ namespace Backend
             //User
             CreateMap<DB.Models.User, DTO.Users.UserDTO>();
             CreateMap<DTO.Users.UserDTO, DB.Models.User>();
+            CreateMap<DTO.Users.UserCreateDTO, DB.Models.User>();
 
             //Member
             CreateMap<Member, MemberDTO>()
@@ -38,6 +39,7 @@ namespace Backend
                 .ForMember(dto => dto.Phone, opt => opt.MapFrom(entity => entity.User.Phone));
 
             CreateMap<DTO.Members.MemberDTO, DB.Models.Member>();
+            CreateMap<DTO.Members.MemberCreateDTO, DB.Models.Member>();
             CreateMap<DTO.Course.CourseRequestDTO, DB.Models.Course>();
             
             // News
