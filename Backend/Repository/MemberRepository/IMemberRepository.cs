@@ -6,6 +6,6 @@ namespace Backend.Repository.MemberRepository
     {
         public IQueryable<Member>? GetAll();
 
-        public Task<Member> AddAsync(Member? member);
+        public Task<bool> AddAsync(Member? member);
     }
 }
