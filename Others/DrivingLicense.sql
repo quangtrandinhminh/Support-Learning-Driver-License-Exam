@@ -102,7 +102,7 @@ CREATE TABLE [dbo].[Member](
   [relatedDocument] NVARCHAR(255) NULL,
   [registrationDate] DATE NULL,
   [isPaid] BIT NULL,
-  [courseID] VARCHAR(10) NULL,
+  [courseID] NVARCHAR(10) NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -164,7 +164,7 @@ GO
 CREATE TABLE [dbo].[Student](
   [studentID] VARCHAR(10) NOT NULL,
   [memberID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
     [studentID] ASC
@@ -178,7 +178,7 @@ GO
 CREATE TABLE [dbo].[TeachingSchedule](
   [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [isPractice] BIT NULL,
   [teachingDate] DATETIME NULL
   CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
@@ -194,7 +194,7 @@ GO
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [isPractice] BIT NULL,
   [currentStudent] INT NULL,
   [limitStudent] INT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE [dbo].[Exam](
   [examName] NVARCHAR(MAX) NULL,
   [description] NVARCHAR(MAX) NULL,
   [duration] INT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [limitQuestion] INT NULL,
   [limitKeyQuestion] INT NULL,
   [minimumCorrectAnswer] SMALLINT NULL,
