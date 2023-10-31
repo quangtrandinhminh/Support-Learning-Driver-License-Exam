@@ -6,37 +6,16 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 function RegisteredCourse() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const username = user.username;
 
-    const [userInf, setUserInf] = useState(null);
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
-    const [isPaid, setIsPaid] = useState(null);
-
-    function handleScroll() {
-        window.scrollTo(0, 0);
-    }
-
-    const navigate = useNavigate();
-
-    const getUserbyUsername = async () => {
-        try {
-            const response = await api.get('User?username=' + username);
-            const res = response.data;
-            setUserInf(res.payload);
-            setIsLoading(false);
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     const getMemberById = async () => {
         try {
-            const respone = await api.post('Member?userID=' + userInf.userID);
+            const respone = await api.post('Member?userID=' + user.userID);
             const res = respone.data;
             setMember(res);
-            setIsPaid(res.isPaid);
         } catch (err) {
             console.log(err);
         }
@@ -46,19 +25,17 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Course/' + member.courseId);
             const res = response.data;
+            console.log(res);
             setCourse(res);
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
     }
 
     useEffect(() => {
-        getUserbyUsername();
-    }, [])
-
-    useEffect(() => {
         getMemberById();
-    }, [userInf])
+    }, [])
 
     useEffect(() => {
         getCourseById();
@@ -76,19 +53,19 @@ function RegisteredCourse() {
         <div className="registered-course-container">
             <h1 className='registered-course-title'>khoá học của bạn</h1>
             {
-                !isLoading ? (
-                    member != null ? (
+                member != null ? (
+                    !isLoading ? (
                         <div className='registered-course-content'>
                             <ul>
                                 <li>
-                                    <label htmlFor="course-name">Khoá học: {course.courseId}</label>
+                                    <label htmlFor="course-name">Khoá học: {course.name}</label>
                                 </li>
                                 <li>
                                     <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
                                 </li>
                                 <li>
                                     <label htmlFor="course-mentor">
-                                        Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>Tên giáo viên</Link>
+                                        Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>(Tên giáo viên)</Link>
                                     </label>
                                 </li>
                                 <li>
@@ -97,7 +74,7 @@ function RegisteredCourse() {
                                     </label>
                                 </li>
                                 <li>
-                                    <label htmlFor="course-practice-location">Trạng thái học lý thuyết: Đã xong</label>
+                                    <label htmlFor="course-practice-location">Trạng thái học lý thuyết: (Status)</label>
                                 </li>
                                 <li>
                                     <label htmlFor="course-practice">
@@ -113,7 +90,7 @@ function RegisteredCourse() {
                                     <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
                                 </li>
                                 <li>
-                                    <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: Đã đóng tiền</label>
+                                    <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
                                 </li>
                                 <li>
                                     <form>
@@ -125,18 +102,17 @@ function RegisteredCourse() {
                             </ul>
                         </div>
                     ) : (
-                        <h1 className='mt-5 text-danger'>Bạn chưa đăng ký khoá học nào</h1>
+                        <>
+                            <Backdrop
+                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                open={true}
+                            >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>
+                        </>
                     )
-                    
                 ) : (
-                    <>
-                        <Backdrop
-                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                            open={true}
-                        >
-                            <CircularProgress color="inherit" />
-                        </Backdrop>
-                    </>
+                    <h1 className='mt-5 text-danger'>Bạn chưa đăng ký khoá học nào</h1>
                 )
             }
 

@@ -97,6 +97,7 @@ namespace Backend.Services.User
                 var user = _mapper.Map<DB.Models.User>(userCreateDTO);
                 user.RoleId = 4;
                 await _userRepository.AddAsync(user);
+                
             }
             catch (Exception e)
             {

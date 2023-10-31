@@ -8,27 +8,15 @@ import api from '../../../../../config/axios';
 
 function UpdateInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const username = user.username;
 
-    const [userInf, setUserInf] = useState(null);
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const navigate = useNavigate();
 
-    const getUserbyUsername = async () => {
-        try {
-            const response = await api.get('User?username=' + username);
-            const res = response.data;
-            setUserInf(res.payload);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     const getMemberById = async () => {
         try {
-            const response = await api.post('Member?userID=' + userInf.userID);
+            const response = await api.post('Member?userID=' + user.userID);
             const res = response.data;
             setMember(res);
             setIsLoading(false);
@@ -38,18 +26,14 @@ function UpdateInformationForm() {
     }
 
     useEffect(() => {
-        getUserbyUsername();
-    }, [])
-
-    useEffect(() => {
         getMemberById();
-    }, [userInf])
+    }, [])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         window.scrollTo(0, 0);
         toast.success("Cập nhật thông tin thành công.");
-        navigate(`/thong-tin-ca-nhan/${username}`);
+        navigate(`/thong-tin-ca-nhan/${user.username}`);
     }
 
     return (
@@ -57,8 +41,8 @@ function UpdateInformationForm() {
             <h1 className='update-information-title'>Cập nhật thông tin</h1>
             <div className='update-information-content'>
                 {
-                    !isLoading ? (
-                        member != null ? (
+                    member != null ? (
+                        !isLoading ? (
                             <>
                                 <div className='member-avatar'>
                                     <img src={MemberImg} alt="" />
@@ -76,11 +60,11 @@ function UpdateInformationForm() {
                                         <div className="gender-container">
                                             <div className='male'>
                                                 <label htmlFor="gender-male">Nam: </label>
-                                                <input type="radio" name="gender-male" id="" />
+                                                <input type="radio" name="gender" id="" />
                                             </div>
                                             <div className='female'>
                                                 <label htmlFor="gender-female">Nữ: </label>
-                                                <input type="radio" name="gender-female" id="" />
+                                                <input type="radio" name="gender" id="" />
                                             </div>
                                         </div>
                                     </li>
@@ -123,19 +107,17 @@ function UpdateInformationForm() {
                             </>
 
                         ) : (
-                            <h1>no data</h1>
+                            <>
+                                <Backdrop
+                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                    open={true}>
+
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
+                            </>
                         )
-                        
                     ) : (
-
-                        <>
-                            <Backdrop
-                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                                open={true}>
-
-                                <CircularProgress color="inherit" />
-                            </Backdrop>
-                        </>
+                        <h1>no data</h1>
                     )
                 }
             </div>

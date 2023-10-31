@@ -6,6 +6,7 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 function CourseTable() {
     const { month } = useParams();
+    const { year } = useParams();
     const [data, setData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState<any[]>([]);
@@ -35,7 +36,7 @@ function CourseTable() {
 
     const getCourseByMonth = async (month) => {
         try {
-            const response = await api.get('Course/courseMonth?month=' + month);
+            const response = await api.get('Course/courseMonth?month=' + month + '&year=' + year);
             setCourse(response.data);
         } catch (err) {
             console.log(err);
@@ -105,7 +106,7 @@ function CourseTable() {
                                                     </ol>
                                                 </td>
                                                 <td className='course-register'>
-                                                    <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                                    <Link to='/dang-nhap'>
                                                         <button className='btnRegister'>Đăng ký</button>
                                                     </Link>
                                                 </td>

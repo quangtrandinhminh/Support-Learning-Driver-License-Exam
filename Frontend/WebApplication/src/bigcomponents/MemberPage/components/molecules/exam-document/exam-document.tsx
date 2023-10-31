@@ -6,14 +6,11 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 function ExamDocument() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-  const username = user.username;
 
-  const [userInf, setUserInf] = useState(null);
   const [member, setMember] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [integratedDrivingLicense, setIntegratedDrivingLicense] = useState(null);
   const [revokedDrivingLicense, setRevokedDrivingLicense] = useState(null);
-  const [isPaid, setIsPaid] = useState(null);
 
   const navigate = useNavigate();
 
@@ -23,37 +20,22 @@ function ExamDocument() {
     navigate('/ho-so-thi/cap-nhat')
   }
 
-  const getUserbyUsername = async () => {
+  const getMemberById = async () => {
     try {
-      const response = await api.get('User?username=' + username);
+      const response = await api.post('Member?userID=' + user.userID);
       const res = response.data;
-      setUserInf(res.payload);
+      setMember(res);
+      setIntegratedDrivingLicense(res.integratedDrivingLicense);
+      setRevokedDrivingLicense(res.revokedDrivingLicense);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
   }
 
-  const getMemberById = async () => {
-    try {
-      const response = await api.post('Member?userID=' + userInf.userID);
-      const res = response.data;
-      setMember(res);
-      setIntegratedDrivingLicense(res.integratedDrivingLicense);
-      setRevokedDrivingLicense(res.revokedDrivingLicense);
-      setIsPaid(res.isPaid);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getUserbyUsername();
-  }, [])
-
   useEffect(() => {
     getMemberById();
-  }, [userInf])
+  }, [])
 
   const formatDate = (dbDate) => {
     const date = new Date(dbDate);
@@ -69,8 +51,8 @@ function ExamDocument() {
         <h1>Hồ sơ thi</h1>
       </div>
       {
-        !isLoading ? (
-          member != null ? (
+        member != null ? (
+          !isLoading ? (
             <div className='exam-document-form'>
               <form onSubmit={handleSubmit}>
                 <div className="first-part">
@@ -90,7 +72,7 @@ function ExamDocument() {
                 <li className='line-1'>
                   <div className='name-container'>
                     <label htmlFor="name">Tôi là:</label>
-                    <span> {userInf.fullName}</span>
+                    <span> {member.fullName}</span>
                   </div>
                   <div className="nationality-container">
                     <label htmlFor="nationality">Quốc tịch:</label>
@@ -192,18 +174,17 @@ function ExamDocument() {
               </form>
             </div>
           ) : (
-            <h1 className='mt-5 text-danger'>Vui lòng đăng ký khoá học</h1>
+            <>
+              <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={true}
+              >
+                <CircularProgress color="inherit" />
+              </Backdrop>
+            </>
           )) : (
-          <>
-            <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={true}
-            >
-              <CircularProgress color="inherit" />
-            </Backdrop>
-          </>
+          <h1 className='mt-5 text-danger'>Vui lòng đăng ký khoá học</h1>
         )
-
       }
     </div>
   )
