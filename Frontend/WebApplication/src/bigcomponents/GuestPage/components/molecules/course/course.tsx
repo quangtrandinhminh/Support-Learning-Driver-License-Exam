@@ -52,7 +52,7 @@ function Course() {
                             <form action="" key={i}>
                                 <div className={`course-section${i + 1}`}>
                                     <div className='upperbox'>
-                                        <h2>Khóa học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
+                                        <h2>Khóa học tháng {course.courseMonth !== 1 ? `${course.courseMonth}/2023` : `${course.courseMonth}/2024`}</h2>
                                     </div>
                                     <div className='course-content'>
                                         <div className='course-content-list'>

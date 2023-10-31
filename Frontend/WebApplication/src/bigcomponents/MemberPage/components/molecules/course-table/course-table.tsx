@@ -105,7 +105,7 @@ function CourseTable() {
                                                     </ol>
                                                 </td>
                                                 <td className='course-register'>
-                                                    <Link to='/khoahoc/xac-nhan-khoa-hoc'>
+                                                    <Link to={`/khoahoc/xac-nhan-khoa-hoc/${course.name}`}>
                                                         <button className='btnRegister'>Đăng ký</button>
                                                     </Link>
                                                 </td>
