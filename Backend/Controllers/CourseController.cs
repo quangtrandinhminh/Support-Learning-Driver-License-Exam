@@ -31,9 +31,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("/api/Course/courseMonth")]
-        public IActionResult GetCourseByMonth(int month)
+        public IActionResult GetCourseByMonth(int month, int year)
         {
-            var result =  _courseService.GetCourseByMonth(month);
+            var result =  _courseService.GetCourseByMonth(month, year);
             if (result.IsError)
             {
                 return NotFound(new

@@ -79,14 +79,14 @@ namespace Backend.Services.Course
             return result;
         }
 
-        public ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month)
+        public ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month, int year)
         {
             var result = new ServiceResult<ICollection<CourseDTO>>();
 
             try
             {
                 var courses = _courseRepository.GetAll()
-                    .Where(c => c.Status == true && c.CourseMonth == month);
+                    .Where(c => c.Status == true && c.CourseMonth == month).Where(b => b.CourseYear == year);
 
                 if (!courses.Any())
                 {

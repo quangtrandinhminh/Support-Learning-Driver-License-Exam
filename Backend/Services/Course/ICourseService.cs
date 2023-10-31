@@ -10,7 +10,7 @@ namespace Backend.Services.Course
 
         ServiceResult<ICollection<CourseDTO>> GetInactiveCourses();
 
-        ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month);
+        ServiceResult<ICollection<CourseDTO>> GetCourseByMonth(int month, int year);
 
         Task<ServiceResult<CourseDTO>> GetCourseById(string id);
 
