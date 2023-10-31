@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import './general.scss'
-// import 'font-awesome/css/font-awesome.css';
+import ScrollToTop from './config/scrollToTop'
 
 // Staff import
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
@@ -13,6 +13,11 @@ import CourseManagementPage from './bigcomponents/StaffPage/components/pages/cou
 import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
 import './bigcomponents/StaffPage/components/staff-general.scss'
 import CreateCoursePage from './bigcomponents/StaffPage/components/pages/create-course/create-course'
+import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
+import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
+import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
+import StaffLayout from './bigcomponents/StaffPage/components/layout'
+import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -31,6 +36,7 @@ import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/pr
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
+import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
 
 // Authorization page
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
@@ -39,14 +45,7 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
-import ScrollToTop from './config/scrollToTop'
-import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
-import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
-import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
-import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import MentorLayout from './bigcomponents/MentorPage/layout'
-import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
-import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
 
 function App() {
 
