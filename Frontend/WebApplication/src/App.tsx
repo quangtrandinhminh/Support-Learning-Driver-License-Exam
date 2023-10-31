@@ -51,9 +51,13 @@ import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-t
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+  
+  console.log(user);
+  console.log(member);
 
   return (
-    <>
+  <>
       <ScrollToTop />
       <ToastContainer
         position="top-right"
@@ -74,7 +78,6 @@ function App() {
           <Route path='/'>
             {
               user === null ? (
-                console.log(user),
                 <>
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
@@ -123,7 +126,7 @@ function App() {
                     <>
                       <Route index element={<MemberHomePage />} />
                       <Route path='khoahoc/:month' element={<MemberCoursePage />} />
-                      <Route path='khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
+                      <Route path='khoahoc/xac-nhan-khoa-hoc/:courseName' element={<CourseVerificationPage />} />
                       <Route path='thong-tin-ca-nhan/:username' element={<MemberInformationPage />} />
                       <Route path='thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />
                       <Route path='/khoa-hoc-cua-ban'>

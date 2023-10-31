@@ -10,9 +10,8 @@ import { ToastContainer } from 'react-toastify';
 
 function MemberInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const username = user.username;
+    const userId = user.userID;
 
-    const [userInf, setUserInf] = useState(null);
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -28,40 +27,20 @@ function MemberInformationForm() {
         navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 
-    const handleSubmitNoMember = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        window.scrollTo(0, 0);
-        toast.warning("Bạn cần đăng ký khoá học để cập nhật thông tin cá nhân");
-    }
-
-    const getUserbyUsername = async () => {
+    const getMemberById = async () => {
         try {
-            const response = await api.get('User?username=' + username);
+            const response = await api.post('Member?userID=' + userId);
             const res = response.data;
-            setUserInf(res.payload);
+            setMember(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
     }
 
-    const getMemberById = async () => {
-        try {
-            const response = await api.post('Member?userID=' + userInf.userID);
-            const res = response.data;
-            setMember(res);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    useEffect(() => {
-        getUserbyUsername();
-    }, [])
-
     useEffect(() => {
         getMemberById();
-    }, [userInf])
+    }, [])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -77,8 +56,8 @@ function MemberInformationForm() {
                 <h1 className='member-information-title'>Thông tin thành viên</h1>
                 <div className='member-information-content'>
                     {
-                        isLoading == false ? (
-                            member != null ? (
+                        member != null ? (
+                            isLoading == false ? (
                                 <>
                                     <div className='member-avatar'>
                                         <img src={MemberImg} alt="hinh-anh-giang-vien" />
@@ -86,7 +65,7 @@ function MemberInformationForm() {
                                     <form onSubmit={handleSubmit}>
                                         <li>
                                             <label htmlFor="name">Họ và tên: </label>
-                                            <span>{userInf.fullName}</span>
+                                            <span>{member.fullName}</span>
                                         </li>
                                         <li className='line-1'>
                                             <div className='dob-container'>
@@ -110,11 +89,11 @@ function MemberInformationForm() {
                                         </li>
                                         <li>
                                             <label htmlFor="phoneNo">Điện thoại di động: </label>
-                                            <span>{userInf.phone}</span>
+                                            <span>{member.phone}</span>
                                         </li>
                                         <li>
                                             <label htmlFor="email">Email: </label>
-                                            <span>{userInf.email}</span>
+                                            <span>{member.email}</span>
                                         </li>
                                         <li>
                                             <label htmlFor="residenceAddress"><strong><i>Địa chỉ thường trú: </i></strong></label>
@@ -137,75 +116,17 @@ function MemberInformationForm() {
                                 </>
                             ) : (
                                 <>
-                                    <div className='member-avatar'>
-                                        <img src={MemberImg} alt="hinh-anh-giang-vien" />
-                                    </div>
-                                    <form onSubmit={handleSubmit}>
-                                        <li>
-                                            <label htmlFor="name">Họ và tên: </label>
-                                            <span>{userInf.fullName}</span>
-                                        </li>
-                                        <li className='line-1'>
-                                            <div className='dob-container'>
-                                                <label htmlFor="dob">Ngày sinh: </label>
-                                                {/* <span>{formatDate(member.dob)}</span> */}
-                                            </div>
-                                            <div className="gender-container">
-                                                <label htmlFor="gender">Giới tính: </label>
-                                                {/* <span>{member.gender}</span> */}
-                                            </div>
-                                        </li>
-                                        <li className='line-2'>
-                                            <div className='nationality-container'>
-                                                <label htmlFor="nationality">Quốc tịch: </label>
-                                                {/* <span>{member.nationality}</span> */}
-                                            </div>
-                                            <div className="nation-container">
-                                                <label htmlFor="nation">Dân tộc: </label>
-                                                <span>Kinh</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="phoneNo">Điện thoại di động: </label>
-                                            <span>{userInf.phone}</span>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="email">Email: </label>
-                                            <span>{userInf.email}</span>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="residenceAddress"><strong><i>Địa chỉ thường trú: </i></strong></label>
-                                            {/* <span >{member.residenceAddress}</span> */}
-                                        </li>
-                                        <li>
-                                            <label htmlFor="cccdNo"><strong><i>Số CCCD/CMND: </i></strong></label>
-                                            {/* <span>{member.identityCardNumber}</span> */}
-                                        </li>
-                                        <li>
-                                            <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                                            {/* <span>{`${member.courseId}.${member.memberID}`}</span> */}
-                                        </li>
-                                        <li>
-                                            <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                                            {/* <span>{member.courseId}</span> */}
-                                        </li>
-                                        {
-                                            member == null ? (
-                                                <button className='update-btn' type='submit' onClick={handleSubmitNoMember}>Cập nhật</button>
-                                            ) : (
-                                                <button className='update-btn' type='submit' onClick={e => handleSubmit}>Cập nhật</button>
-                                            )
-                                        }
-                                    </form>
+                                    <Backdrop
+                                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                        open={true}
+                                    >
+                                        <CircularProgress color="inherit" />
+                                    </Backdrop>
                                 </>
+
                             )) : (
                             <>
-                                <Backdrop
-                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                                    open={true}
-                                >
-                                    <CircularProgress color="inherit" />
-                                </Backdrop>
+                                <h1>Người dùng chưa có dữ liệu</h1>
                             </>
                         )
                     }
