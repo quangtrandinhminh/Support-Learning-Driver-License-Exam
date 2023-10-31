@@ -14,6 +14,7 @@ function MemberInformationForm() {
 
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [course, setCourse] = useState(null);
 
     const handleScroll = () => {
         window.scrollTo(0, 0);
@@ -32,6 +33,17 @@ function MemberInformationForm() {
             const response = await api.post('Member?userID=' + userId);
             const res = response.data;
             setMember(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getCourseById = async () => {
+        try {
+            const response = await api.get('Course/' + member.courseId);
+            const res = response.data;
+            console.log(res);
+            setCourse(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
@@ -41,6 +53,10 @@ function MemberInformationForm() {
     useEffect(() => {
         getMemberById();
     }, [])
+
+    useEffect(() => {
+        getCourseById();
+    }, [member])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -109,7 +125,7 @@ function MemberInformationForm() {
                                         </li>
                                         <li>
                                             <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                                            <span>{member.courseId}</span>
+                                            <span>{course.name}</span>
                                         </li>
                                         <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button>
                                     </form>

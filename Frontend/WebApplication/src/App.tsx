@@ -46,17 +46,19 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 import MentorLayout from './bigcomponents/MentorPage/layout'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
 
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
-  
+
   console.log(user);
   console.log(member);
 
   return (
-  <>
+    <>
       <ScrollToTop />
       <ToastContainer
         position="top-right"
@@ -81,7 +83,7 @@ function App() {
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
                   <Route path='dang-ky' element={<RegistrationPage />} />
-                  <Route path='khoahoc/:month' element={<GuestCoursePage />} />
+                  <Route path='khoahoc/:month/:year' element={<GuestCoursePage />} />
                 </>
               ) : (
                 <>
@@ -97,12 +99,14 @@ function App() {
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
+                          <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
                         </Route>
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
                         <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                          <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportPage />} />
                       </Route>
@@ -124,7 +128,7 @@ function App() {
                   {user.roleId === 4 && (
                     <>
                       <Route index element={<MemberHomePage />} />
-                      <Route path='khoahoc/:month' element={<MemberCoursePage />} />
+                      <Route path='khoahoc/:month/:year' element={<MemberCoursePage />} />
                       <Route path='khoahoc/xac-nhan-khoa-hoc/:courseName' element={<CourseVerificationPage />} />
                       <Route path='thong-tin-ca-nhan/:username' element={<MemberInformationPage />} />
                       <Route path='thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />

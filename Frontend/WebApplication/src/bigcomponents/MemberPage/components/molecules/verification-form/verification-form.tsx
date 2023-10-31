@@ -9,6 +9,7 @@ function VerificationForm() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const userId = user.userID;
   const { courseName } = useParams();
+  const courseID = localStorage.getItem('courseID') ? JSON.parse(localStorage.getItem('courseID')) : null;
   const [error, setError] = useState('');
   const [inputData, setInputData] = useState({
     dob: '',
@@ -16,26 +17,17 @@ function VerificationForm() {
     nationality: '',
     residenceAddress: '',
     identityCardNumber: '',
-    passport: '',
     cardProvidedDate: '',
     cardProvidedLocation: '',
-    drivingLicenseNumber: '',
-    drivingLicenseTier: '',
-    drivingLicenseProvider: '',
-    drivingLicenseProvidedDate: '2023-11-10',
-    drivingTestTier: '',
-    integratedDrivingLicense: true,
-    revokedDrivingLicense: false,
-    relatedDocument: '',
     isPaid: false,
-    courseId: '1101B2',
+    courseId: courseID,
     userId: userId,
     fullName: '',
     phone: '',
     email: ''
   });
-  const navigation = useNavigate();
-  // const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'nation', 'residenceAddress', 'tempoAddress', 'cccdNo', 'providedCardDate', 'providedCardLocation'];
+  const navigate = useNavigate();
+  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation'];
   const namePattern = /^[\p{L} ]{5,32}$/u,
     nationalityPattern = /^[\p{L} ]{2,32}$/u,
     nation = /^[\p{L} ]{2,32}$/u;
@@ -48,12 +40,12 @@ function VerificationForm() {
       const dobDate = new Date(inputData.dob);
       const currentDate = new Date();
       const age = currentDate.getFullYear() - dobDate.getFullYear();
-      // const missingFields = requiredFields.filter(field => !inputData[field]);
+      const missingFields = requiredFields.filter(field => !inputData[field]);
 
-      // if (missingFields.length > 0) {
-      //   setError(`Vui lòng điền đầy đủ thông tin!`);
-      //   return;
-      // }
+      if (missingFields.length > 0) {
+        setError(`Vui lòng điền đầy đủ thông tin!`);
+        return;
+      }
 
       if (!namePattern.test(inputData.fullName)) {
         setError("Họ và tên không hợp lệ!");
@@ -83,6 +75,8 @@ function VerificationForm() {
 
       await api.post('/Member/add', inputData);
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
+      localStorage.removeItem('courseID');
+      navigate('/khoa-hoc-cua-ban');
 
     } catch (error) {
       console.log(error.response.data.title);
@@ -95,9 +89,6 @@ function VerificationForm() {
     e.preventDefault();
     window.scrollTo(0, 0);
     createMember();
-    if (error === null) {
-      navigation('/khoa-hoc-cua-ban');
-    }
   }
 
   //useEffect
@@ -118,7 +109,8 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="name">Họ và tên:</label>
                     <input type="text" name='name' id=''
-                      onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input' />
+                      onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input'
+                      />
                   </li>
                   <li className='line-1'>
                     <div className='dob-container'>
@@ -202,7 +194,7 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="name">Họ và tên:</label>
                     <input type="text" name='name' id=''
-                        onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input' />
+                      onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input' />
                   </li>
                   <li className='line-1'>
                     <div className='dob-container'>
@@ -258,18 +250,18 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="cccdCardNo">Số CMND/CCCD:</label>
                     <input type="text" name="cccdNo" className='cccd-input'
-                        onChange={e => setInputData({ ...inputData, identityCardNumber: e.target.value })} />
+                      onChange={e => setInputData({ ...inputData, identityCardNumber: e.target.value })} />
                   </li>
                   <li className='line-3'>
                     <div className='providedCardDate'>
                       <label htmlFor="providedCardDate">Cấp ngày:</label>
                       <input type="date" name="providedCardDate" className='date-input'
-                          onChange={e => setInputData({ ...inputData, cardProvidedDate: e.target.value })} />
+                        onChange={e => setInputData({ ...inputData, cardProvidedDate: e.target.value })} />
                     </div>
                     <div className="providedCardLocation">
                       <label htmlFor="providedCardLocation">Tại:</label>
                       <input type="text" name="providedCardLocation"
-                          onChange={e => setInputData({ ...inputData, cardProvidedLocation: e.target.value })} />
+                        onChange={e => setInputData({ ...inputData, cardProvidedLocation: e.target.value })} />
                     </div>
                   </li>
                   <button type='submit' className='cont-button'>Tiếp tục</button>
