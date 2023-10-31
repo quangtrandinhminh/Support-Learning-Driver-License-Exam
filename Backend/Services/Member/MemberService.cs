@@ -3,6 +3,7 @@ using AutoMapper.Execution;
 using Backend.DTO.Members;
 using Backend.DTO.News;
 using Backend.Repository.MemberRepository;
+using Backend.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Member
@@ -10,11 +11,13 @@ namespace Backend.Services.Member
     public class MemberService : IMemberService
     {
         int e;
+        private readonly IUserRepository _userRepository;
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
 
-        public MemberService(IMemberRepository memberRepository, IMapper mapper)
+        public MemberService(IMemberRepository memberRepository, IMapper mapper, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _memberRepository = memberRepository;
             _mapper = mapper;
         }
@@ -74,11 +77,6 @@ namespace Backend.Services.Member
                 {
                     return e = 2;
                 }
-
-                if (member.Passport.Equals(memberCreateDTO.passport))
-                {
-                    return e = 3;
-                }
                 return e = 0;
             }
             return 0;
@@ -104,18 +102,13 @@ namespace Backend.Services.Member
                     result.Payload = -2;
                     return result;
                 }
-                else if (e == 3)
-                {
-                    result.IsError = true;
-                    result.ErrorMessage = "Passport đã tồn tại";
-                    result.Payload = -3;
-                    return result;
-                }
-
 
                 var members = _mapper.Map<DB.Models.Member>(memberCreateDTO);
                 members.RegistrationDate = DateTime.Now;
-
+                var user = _userRepository.GetAll().Where(p => p.UserId == members.UserId).FirstOrDefault();
+                user.FullName = memberCreateDTO.FullName;   
+                user.Phone = memberCreateDTO.Phone;
+                await _userRepository.UpdateAsync(user);
                 await _memberRepository.AddAsync(members);
             }
             catch (Exception e)

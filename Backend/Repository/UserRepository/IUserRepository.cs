@@ -6,5 +6,6 @@ namespace Backend.Repository.UserRepository
     {
         public IQueryable<User>? GetAll();
         public Task<User> AddAsync(User? user);
+        public Task<User?> UpdateAsync(User user);
     }
 }

@@ -21,5 +21,9 @@
         public bool? isPaid { get; set; }
         public string CourseId { get; set; }
         public int UserId { get; set; }
+
+        //User
+        public string? FullName { get; set; }
+        public string? Phone { get; set; }
     }
 }
