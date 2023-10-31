@@ -108,6 +108,7 @@ namespace Backend.Services.Member
                 var user = _userRepository.GetAll().Where(p => p.UserId == members.UserId).FirstOrDefault();
                 user.FullName = memberCreateDTO.FullName;   
                 user.Phone = memberCreateDTO.Phone;
+                user.Email = memberCreateDTO.Email;
                 await _userRepository.UpdateAsync(user);
                 await _memberRepository.AddAsync(members);
             }
