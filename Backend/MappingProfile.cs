@@ -41,6 +41,7 @@ namespace Backend
             CreateMap<Member, MemberCreateDTO>()
                 .ForMember(dto => dto.UserId, opt => opt.MapFrom(entity => entity.User.UserId))
                 .ForMember(dto => dto.FullName, opt => opt.MapFrom(entity => entity.User.FullName))
+                .ForMember(dto => dto.Email, opt => opt.MapFrom(entity => entity.User.Email))
                 .ForMember(dto => dto.Phone, opt => opt.MapFrom(entity => entity.User.Phone));
 
             CreateMap<DTO.Members.MemberDTO, DB.Models.Member>();
