@@ -94,16 +94,15 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                 <th align="center">Thứ bảy</th>
                             </tr>
                             <tr>
-                                <th align="center">23/10</th>
-                                <th align="center">24/10</th>
-                                <th align="center">25/10</th>
-                                <th align="center">26/10</th>
-                                <th align="center">27/10</th>
-                                <th align="center">28/10</th>
+                                    <th align="center">23/10</th>
+                                    <th align="center">24/10</th>
+                                    <th align="center">25/10</th>
+                                    <th align="center">26/10</th>
+                                    <th align="center">27/10</th>
+                                    <th align="center">28/10</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <div className="study-slot">
+                        <tbody className='schedule-body-container'>
                             <tr>
                                 <td>Ca sáng</td>
                                 <td>
@@ -117,7 +116,7 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                         Trạng thái: Đã dạy
                                     </p>
                                 </td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Thực hành</a>
@@ -129,7 +128,7 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                         Trạng thái: Đã dạy
                                     </p>
                                 </td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Thực hành</a>
@@ -144,7 +143,7 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                             </tr>
                             <tr>
                                 <td>Ca chiều</td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Thực hành</a>
@@ -156,7 +155,7 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                         Trạng thái: Đã dạy
                                     </p>
                                 </td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Lý thuyết</a>
@@ -168,11 +167,11 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                         Trạng thái: Đã dạy
                                     </p>
                                 </td>
-                                <td></td>
+                                <td>-</td>
                             </tr>
                             <tr>
                                 <td>Ca tối</td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Thực hành</a>
@@ -195,7 +194,7 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                         Trạng thái: Đã dạy
                                     </p>
                                 </td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <p>
                                         <a href="">Thực hành</a>
@@ -208,12 +207,11 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                     </p>
                                 </td>
                             </tr>
-                        </div>
-                    </tbody>
+                        </tbody>
                     </table>
                 </form>
             </div>
-        </div>
+        </div >
     );
 }
 
