@@ -18,6 +18,11 @@ import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-ne
 import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -38,20 +43,23 @@ import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/pr
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
+import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
+import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 
 // Authorization page
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage/RegistrationPage'
+import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
 
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 import MentorLayout from './bigcomponents/MentorPage/layout'
-import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
-import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
-import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
-import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
-import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
+import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/mentor-register-schedule-page/mentor-register-schedule-page'
+import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
+import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
+import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
+import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 
 function App() {
 
@@ -122,12 +130,14 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
+                        <Route path='danh-sach-lop-hoc' element={<MentorClassListPage />} />
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
-                          <Route path='chi-tiet-lich-day' element={<MentorSchedulePage />} />
-                          <Route path='danh-sach-hoc-vien' element={<MentorSchedulePage />} />
+                          <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
+                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
-                        <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                        <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                        <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>
                     </>
                   )}
