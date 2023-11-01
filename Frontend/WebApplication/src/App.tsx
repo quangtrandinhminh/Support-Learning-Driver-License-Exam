@@ -1,20 +1,23 @@
 import './App.scss'
-import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
-import 'bootstrap/dist/css/bootstrap.css'
 import './general.scss'
+import ScrollToTop from './config/scrollToTop'
 
 // Staff import
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
 import './bigcomponents/StaffPage/components/templates/template.scss'
-import StaffPage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import UserManagementPage from './bigcomponents/StaffPage/components/pages/user-management/user-management'
 import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
 import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
 import './bigcomponents/StaffPage/components/staff-general.scss'
 import CreateCoursePage from './bigcomponents/StaffPage/components/pages/create-course/create-course'
+import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
+import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
+import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
+import StaffLayout from './bigcomponents/StaffPage/components/layout'
+import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -33,6 +36,7 @@ import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/pr
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
+import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
 
 // Authorization page
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
@@ -41,21 +45,26 @@ import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
-import ScrollToTop from './config/scrollToTop'
-import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
-import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
+import MentorLayout from './bigcomponents/MentorPage/layout'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
 
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+
+  console.log(user);
+  console.log(member);
 
   return (
     <>
       <ScrollToTop />
       <ToastContainer
         position="top-right"
-        autoClose={1300}
-        hideProgressBar={false}
+        autoClose={2000}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -71,12 +80,12 @@ function App() {
           <Route path='/'>
             {
               user === null ? (
-                console.log(user),
                 <>
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
                   <Route path='dang-ky' element={<RegistrationPage />} />
-                  <Route path='khoahoc/:month' element={<GuestCoursePage />} />
+                  <Route path='quen-mat-khau' element={<ForgetPasswordPage />} />
+                  <Route path='khoahoc/:month/:year' element={<GuestCoursePage />} />
                 </>
               ) : (
                 <>
@@ -86,31 +95,43 @@ function App() {
                   )}
                   {user.roleId === 2 && (
                     <>
-                      <Route index element={<StaffPage />} />
-                      <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
-                      <Route path='quan-ly-khoa-hoc'>
-                        <Route index element={<CourseManagementPage />} />
-                        <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
-                      </Route>
-                      <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
-                      <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
-                      <Route path='quan-ly-tin-tuc'>
-                        <Route index element={<NewsManagementPage />} />
-                        <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                      <Route element={<StaffLayout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
+                        <Route path='quan-ly-khoa-hoc'>
+                          <Route index element={<CourseManagementPage />} />
+                          <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
+                          <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
+                        </Route>
+                        <Route path='quan-ly-hoc-vien' element={<MemberManagementPage />} />
+                        <Route path='quan-ly-giao-vien' element={<MentorMamagementPage />} />
+                        <Route path='quan-ly-tin-tuc'>
+                          <Route index element={<NewsManagementPage />} />
+                          <Route path='tao-tin-tuc' element={<CreateNewsPage />} />
+                          <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsPage />} />
+                        </Route>
+                        <Route path='bao-cao' element={<ReportPage />} />
                       </Route>
                     </>
                   )}
                   {user.roleId === 3 && (
                     <>
-                      <Route index element={<MentorHomePage />} />
-                      <Route path='/lich-day' element={<MentorSchedulePage />} />
+                      <Route element={<MentorLayout />}>
+                        <Route index element={<MentorHomePage />} />
+                        <Route path='lich-day'>
+                          <Route index element={<MentorSchedulePage />} />
+                          <Route path='chi-tiet-lich-day' element={<MentorSchedulePage />} />
+                          <Route path='danh-sach-hoc-vien' element={<MentorSchedulePage />} />
+                        </Route>
+                        <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                      </Route>
                     </>
                   )}
                   {user.roleId === 4 && (
                     <>
                       <Route index element={<MemberHomePage />} />
-                      <Route path='khoahoc/:month' element={<MemberCoursePage />} />
-                      <Route path='khoahoc/xac-nhan-khoa-hoc' element={<CourseVerificationPage />} />
+                      <Route path='khoahoc/:month/:year' element={<MemberCoursePage />} />
+                      <Route path='khoahoc/xac-nhan-khoa-hoc/:courseName' element={<CourseVerificationPage />} />
                       <Route path='thong-tin-ca-nhan/:username' element={<MemberInformationPage />} />
                       <Route path='thong-tin-ca-nhan/cap-nhat' element={<UpdateInformationPage />} />
                       <Route path='/khoa-hoc-cua-ban'>
@@ -127,6 +148,7 @@ function App() {
                         <Route index element={<ExamDocumentPage />} />
                         <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
                       </Route>
+                      <Route path='thi-thu' element={<TheoryTestPage />} />
                     </>
                   )}
                 </>

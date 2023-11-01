@@ -4,21 +4,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 function StaffSidebar() {
 
-  const styleSidebarCom = ({ isActive }: { isActive: boolean }): {
-    paddingLeft: string;
-    fontWeight: string;
-    backgroundColor: string;
-    borderLeft: string;
-    transition: string;
-  } => {
+  const styleSidebarCom = ({ isActive }: { isActive: boolean }): React.CSSProperties => {
     return {
-      paddingLeft: isActive ? '5px' : '0',
+      paddingLeft: isActive ? '12px' : '0',
       fontWeight: isActive ? '600' : '',
       backgroundColor: isActive ? '#3572B8' : '#4292EB',
-      borderLeft: isActive ? '5px solid gray' : 'none',
-      transition: isActive
-        ? 'padding-left ease-out 0.5s, background-color ease-out 0.5s, border-left ease-out 0.5s, font-weight ease-out 0.5s'
-        : 'none'
+      borderLeft: isActive ? '4px solid gray' : 'none',
+      transition: 'background-color 0.3s ease-out, padding-left 0.3s ease-out', // Add a transition to background color
     };
   };
 
@@ -94,7 +86,7 @@ function StaffSidebar() {
         </li>
         <li className='sidebar-component'>
           <div className="member-list">
-            <NavLink className='logout-btn' to='/' onClick={handleLogout}>
+            <NavLink className='logout-btn' onClick={handleLogout} to='/'>
               Đăng xuất
             </NavLink>
           </div>

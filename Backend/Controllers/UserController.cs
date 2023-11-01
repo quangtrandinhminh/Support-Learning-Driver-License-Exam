@@ -35,32 +35,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/api/User")]
-        public async Task<IActionResult> GetUser(string username)
-        {
-            try
-            {
-                var user = await _userService.Login(username);
-                if (user is null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
         [HttpPost("/api/login")]
-        public async Task<IActionResult> Login(string username)
+        public async Task<IActionResult> Login(string username, string password)
         {
             try
             {
-                var user = await _userService.Login(username);
+                var user = await _userService.Login(username, password);
                 if (user is null)
                 {
                     return NotFound();
@@ -75,10 +55,10 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> Register(UserDTO userDTO)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(UserCreateDTO userCreateDTO)
         {
-            var result = await _userService.AddUser(userDTO);
+            var result = await _userService.AddUser(userCreateDTO);
 
             if (result.IsError)
             {
@@ -96,7 +76,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Add course successfully!");
+            return Ok("Create Account Successfully!");
         }
     }
 }

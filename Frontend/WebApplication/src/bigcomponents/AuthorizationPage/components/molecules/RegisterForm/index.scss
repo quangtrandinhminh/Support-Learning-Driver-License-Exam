@@ -23,7 +23,7 @@
         width: 304px;
         height: 45px;
         
-        img {
+        .icon {
           margin-right: 10px; // Adjust the margin as needed
         }
         
@@ -57,11 +57,11 @@
             p{
                 color: rgba(255, 255, 255, 0.92);
                 text-align: center;
-                margin-top: 10px;
+                margin-top: 12px;
                 font-family: Montserrat;
                 font-size: 16px;
                 font-style: normal;
-                font-weight: 800;
+                font-weight: 600;
                 line-height: 20px; /* 125% */
                 text-transform: uppercase;
         }

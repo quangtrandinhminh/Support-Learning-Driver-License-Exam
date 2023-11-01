@@ -6,7 +6,8 @@ namespace Backend.Services.User
     public interface IUserService
     {
         public ICollection<UserDTO>? GetUsers();
-        Task<ServiceResult<UserDTO>> Login(string username);
-        public Task<ServiceResult<int>> AddUser(UserDTO userDTO);
+        Task<ServiceResult<UserDTO>> Login(string username, string password);
+        public Task<ServiceResult<int>> AddUser(UserCreateDTO userCreateDTO);
+        public Task<ServiceResult<int>> UpdateUser(UserDTO userDTO);
     }
 }

@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import api from '../../../../../config/axios';
 import './mentor-table.scss'
+import api from '../../../../../config/axios';
 
-function MentorTable() {
-    const [data, setData] = useState<any[]>([])
+function MemberTable() {
+    const [mentor, setMentor] = useState<any[]>([])
 
-    const getAllUser = async () => {
-        const response = await api.get('/Mentor/GetMentorList');
-        const res = response.data;
-        setData(res);
+    const getAllMentors = async () => {
+        try {
+            const response = await api.get('Mentor/list');
+            const res = response.data;
+            setMentor(res);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //paganition part
@@ -16,12 +20,13 @@ function MentorTable() {
     const recordPage = 6;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
-    const records = data.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(data.length / recordPage);
+    const records = mentor.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(mentor.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1)
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
-        getAllUser();
+        getAllMentors();
     }, [])
 
     const prePage = () => {
@@ -51,27 +56,29 @@ function MentorTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
-                                <th scope='col'>ID</th>
-                                <th scope='col'>Name</th>
-                                <th scope='col'>Phone</th>
-                                <th scope='col'>Email</th>
-                                <th scope='col' className='text-center'>Status</th>
+                                <th scope='col'>Mã giáo viên</th>
+                                <th scope='col'>Họ và Tên</th>
+                                <th scope='col'>Điện thoại</th>
+                                <th scope='col'>Dạy lý thuyết</th>
+                                <th scope='col'>Dạy thực hành</th>
+                                <th scope='col' style={{ width: '200px' }}>Email</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
                                 records.map((mentor, i: number = 1) => (
                                     <tr key={i}>
-                                        <td>{mentor.mentorId}</td>
+                                        <td>{mentor.userId}</td>
                                         <td>{mentor.fullName}</td>
                                         <td>{mentor.phone}</td>
+                                        <td>{mentor.isTheor}</td>
                                         <td>{mentor.email}</td>
-                                        <td className='text-center'>{mentor.status.toString().toUpperCase()}</td>
+                                        <td>{mentor.email}</td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={6}>
+                                    <td colSpan={7}>
                                         <h1 className='text-center text-red-600 p-5'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>
@@ -84,20 +91,20 @@ function MentorTable() {
                     <nav>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <a href="#" className='page-link'
-                                    onClick={prePage}>Prev</a>
+                                <button type='button' className='page-link'
+                                    onClick={prePage}>Prev</button>
                             </li>
                             {
                                 numbers.map((n, i) => (
                                     <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <a href="#" className='page-link'
-                                            onClick={() => changeCPage(n)}>{n}</a>
+                                        <button type='button' className='page-link'
+                                            onClick={() => changeCPage(n)}>{n}</button>
                                     </li>
                                 ))
                             }
                             <li className='page-item'>
-                                <a href="#" className='page-link'
-                                    onClick={nextPage}>Next</a>
+                                <button type='button' className='page-link'
+                                    onClick={nextPage}>Next</button>
                             </li>
                         </ul>
                     </nav>
@@ -107,4 +114,4 @@ function MentorTable() {
     )
 }
 
-export default MentorTable
+export default MemberTable

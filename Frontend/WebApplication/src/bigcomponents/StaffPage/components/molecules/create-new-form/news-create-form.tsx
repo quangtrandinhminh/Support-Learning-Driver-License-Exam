@@ -9,22 +9,49 @@ function CreateNewsForm() {
     const userID = Number(user.userID);
 
     const [error, setError] = useState(null);
+    const [staff, setStaff] = useState(null);
     const [numberOfNews, setNumberOfNews] = useState([]);
     const [inputData, setInputData] = useState({
-        // newsId: 0,
         title: '',
         description: '',
         content: '',
-        // staffId: userID,
-        // createdTime: '',
+        staffId: 0,
         status: true,
     });
+
+    useEffect(() => {
+        getAllNews()
+    }, [])
+
+    useEffect(() => {
+        getStaffByUserID();
+    }, [numberOfNews]);
+
+    useEffect(() => {
+        if (staff) {
+            setInputData((prevInputData) => ({
+                ...prevInputData,
+                staffId: staff.staffId, // Set the staffId from the staff state
+            }));
+        }
+    }, [staff]);
+
+    const getStaffByUserID = async () => {
+        try {
+            const response = await api.get('Staff/user/' + userID);
+            setStaff(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 
     const navigate = useNavigate();
 
     const createNewCourse = async () => {
         try {
             await api.post('News/add', inputData);
+            console.log(inputData);
             toast.success('Tạo tin tức thành công');
             setError(null);
             navigate('/quan-ly-tin-tuc');
@@ -52,7 +79,7 @@ function CreateNewsForm() {
                 ...prevInputData,
                 newsId: Number(res.length + 1),
             }));
-            
+
         } catch (err) {
             console.log(err);
         }
@@ -68,11 +95,6 @@ function CreateNewsForm() {
         }
         return true;
     }
-
-    useEffect(() => {
-        getAllNews()
-        console.log(userID);
-    }, [])
 
     return (
         <div className='create-news-container'>
@@ -127,11 +149,11 @@ function CreateNewsForm() {
                     <div className='form-group row'>
                         <label htmlFor="content" className="col-sm-3 col-form-label">Nội dung: </label>
                         <div className="col-sm-9">
-                            <input
-                                type="text"
+                            <textarea
                                 className="form-control"
                                 id="content"
                                 placeholder="nội dung"
+                                style={{resize: 'none', height: '200px'}}
                                 name='content'
                                 value={inputData.content}
                                 onChange={e => setInputData({ ...inputData, content: e.target.value })}

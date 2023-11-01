@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import api from '../../../../../config/axios';
-import './courses-table.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import './courses-table.scss';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CourseTable() {
-    const [data, setData] = useState<any[]>([])
+    const [data, setData] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
     const [error, setError] = useState(null);
 
-    const getAllCourse = async () => {
-        const response = await api.get('Course/list');
-        const res = response.data;
-        setData(res);
-    }
-
-    //paganition part
+    // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
     const recordPage = 6;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
-    const records = data.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(data.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
-    const overallIndex = (currentPage - 1) * recordPage;
 
-    useEffect(() => {
-        getAllCourse();
-    }, [])
+    const navigate = useNavigate();
 
+    // Fetch all courses
+    const getAllCourse = async () => {
+        try {
+            const response = await api.get('Course/list');
+            const res = response.data;
+            setData(res);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // Handle page navigation
     const prePage = () => {
         if (currentPage !== 1) {
             setCurrentPage(currentPage - 1);
         }
     }
 
-    const changeCPage = (id: number) => {
+    const changeCPage = (id) => {
         setCurrentPage(id);
     }
 
@@ -42,6 +43,31 @@ function CourseTable() {
             setCurrentPage(currentPage + 1);
         }
     }
+
+    useEffect(() => {
+        getAllCourse();
+    }, []);
+
+    const updateBtn = (courseId) => {
+        navigate(`cap-nhat-khoa-hoc/${courseId}`);
+        window.scrollTo(0, 0);
+    }
+
+    // Filtering function
+    const filter = (e) => {
+        const value = e.target.value.toLowerCase();
+        setSearchValue(value);
+        setCurrentPage(1); // Reset to the first page when filtering
+    }
+
+    // Apply filtering to data before pagination
+    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
+
+    // Pagination
+    const records = filteredData.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(filteredData.length / recordPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -56,7 +82,7 @@ function CourseTable() {
             // Perform the deletion
             await api.delete('Course/deactivate/' + courseId);
 
-            // Reload the page after successful 
+            // Reload the page after successful deletion
             setTimeout(() => {
                 location.reload();
             }, 0.1);
@@ -76,8 +102,21 @@ function CourseTable() {
             </div>
             <div className='courses-table-content'>
                 <form action="">
-                    <div className='d-flex justify-content-end'>
-                        <Link to='tao-khoa-hoc' className='btn btn-success mb-2'>+ Add</Link>
+                    <div className='d-grid mb-2'>
+                        <div className="row">
+                            <div className='search-input col align-self-center'>
+                                <input
+                                    type="text"
+                                    name='courseId'
+                                    placeholder='courseId'
+                                    onChange={filter}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className='d-flex btnCreate col justify-content-end'>
+                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                            </div>
+                        </div>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
@@ -106,7 +145,7 @@ function CourseTable() {
                                         <td className='text-center'>{course.limitStudent}</td>
                                         <td className='text-center'>{course.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit">Update</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
                                             <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
                                         </td>
                                     </tr>
@@ -125,27 +164,24 @@ function CourseTable() {
                     <nav>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <a href="#" className='page-link'
-                                    onClick={prePage}>Prev</a>
+                                <button type='button' className='page-link' onClick={prePage}>Prev</button>
                             </li>
                             {
                                 numbers.map((n, i) => (
                                     <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <a href="#" className='page-link'
-                                            onClick={() => changeCPage(n)}>{n}</a>
+                                        <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
                                     </li>
                                 ))
                             }
                             <li className='page-item'>
-                                <a href="#" className='page-link'
-                                    onClick={nextPage}>Next</a>
+                                <button type='button' className='page-link' onClick={nextPage}>Next</button>
                             </li>
                         </ul>
                     </nav>
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
-export default CourseTable
+export default CourseTable;

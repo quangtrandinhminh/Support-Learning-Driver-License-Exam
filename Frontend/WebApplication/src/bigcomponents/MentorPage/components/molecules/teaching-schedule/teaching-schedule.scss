@@ -1,13 +1,4 @@
 .teaching-schedule-container {
-    align-items: center;
-
-    .search-box-section {
-        display: inline-block;
-        justify-content: center;
-        background-image: url('../../../../../../assets/imgs/search-icon/Vector.jpg');
-        height: 50px;
-        width: 80%;
-    }
 
     h1 {
         padding-top: 50px;
@@ -18,46 +9,51 @@
         text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     }
 
-    .schedule-table {
-        display: flex;
-        flex-direction: column;
-        table {
-            font-size: 17px;
-            background-color: #fff;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .mini-title {
-            padding-right: 10px;
-        }
-
-        justify-content: center;
-        font-size: 17px;
-        border-collapse: collapse;
+    .teaching-schedule {
         width: 100%;
         display: flex;
+        flex-direction: column;
+        font-size: 17px;
+        background-color: #fff;
+        border-collapse: collapse;
         align-items: center;
+        border-spacing: 0;
 
-        th {
-            border-right: 1px solid #fff;
-            text-align: center;
-            padding: 2px;
-            text-transform: uppercase;
-            height: 23px;
-            background-color: #6b90da;
-            font-weight: normal;
-        }
+        .schedule-table {
+            .schedule-header-container {
+                tr {
+                    border-bottom: 1px solid #f0f0f0;
+                    th {
+                        .mini-title {
+                            padding-right: 10px;
+                        }
 
-        tr {
-            background-color: #fff;
-            border-bottom: 1px solid #f0f0f0;
-        }
+                        text-align: left;
+                        padding: 5px;
+                        text-transform: uppercase;
+                        height: 20px;
+                        background-color: #6b90da;
+                        font-weight: normal;
+                        border-right: 1px solid #fff;
+                    }
+                }
+            }
 
-        td {
-            padding: 5px;
-            border-left-width: 0px;
-            border-right-width: 0px;
+            .schedule-body-container {
+                .study-slot {
+                    background-color: #fff;
+                    border-bottom: 1px solid #f0f0f0;
+                    width: 100%;
+
+                    tr {
+                        td {
+                            padding: 5px;
+                            border-left-width: 0px;
+                            border-right-width: 0px;
+                        }
+                    }
+                }
+            }
         }
     }
 }

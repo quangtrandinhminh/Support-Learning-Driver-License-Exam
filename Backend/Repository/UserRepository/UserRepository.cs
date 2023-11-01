@@ -28,13 +28,28 @@ namespace Backend.Repository.UserRepository
             }
         }
 
-        public async Task<bool> AddAsync(User? user)
+        public async Task<User> AddAsync(User? user)
         {
             try
             {
-                await _dbSet.AddAsync(user);
-                var result = await _context.SaveChangesAsync() > 0 ? true : false;
-                return result;
+                var result = await _dbSet.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<User?> UpdateAsync(User user)
+        {
+            try
+            {
+                var result = _dbSet.Update(user);
+                await _context.SaveChangesAsync();
+                return result.Entity;
             }
             catch (Exception e)
             {

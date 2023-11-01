@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.DTO.Members;
+using Backend.DTO.News;
 using Backend.DTO.Users;
 using Backend.Repository.UserRepository;
 using Backend.Services;
@@ -32,7 +33,7 @@ namespace Backend.Services.User
             }
         }
 
-        public async Task<ServiceResult<UserDTO>> Login(string username)
+        public async Task<ServiceResult<UserDTO>> Login(string username, string password)
         {
             var result = new ServiceResult<UserDTO>();
             try
@@ -49,7 +50,17 @@ namespace Backend.Services.User
                 }
                 else
                 {
-                    result.Payload = _mapper.Map<UserDTO>(user);
+                    if (user.Password.Equals(password))
+                    {
+                        result.Payload = _mapper.Map<UserDTO>(user);
+                    }
+                    else
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = "Password is not correct";
+                        return result;
+                    }
+                    
                 }
             }
             catch (Exception e)
@@ -60,22 +71,22 @@ namespace Backend.Services.User
             return result;
         }
 
-        public int checkValidation(UserDTO userDTO)
+        public int checkValidation(UserCreateDTO userCreateDTO)
         {
             var users = _userRepository.GetAll().ToList();
             foreach (var user in users) 
             { 
-                if (user.Username == userDTO.Username) { return 1; }
+                if (user.Username == userCreateDTO.Username) { return 1; }
             }
             return 0;
         }
 
-        public async Task<ServiceResult<int>> AddUser(UserDTO userDTO)
+        public async Task<ServiceResult<int>> AddUser(UserCreateDTO userCreateDTO)
         {
             var result = new ServiceResult<int>();
             try
             {
-                int e = checkValidation(userDTO);
+                int e = checkValidation(userCreateDTO);
                 if (e == 1)
                 {
                     result.IsError = true;
@@ -83,8 +94,10 @@ namespace Backend.Services.User
                     result.Payload = -1;
                     return result;
                 }
-
-                await _userRepository.AddAsync(_mapper.Map<DB.Models.User>(userDTO));
+                var user = _mapper.Map<DB.Models.User>(userCreateDTO);
+                user.RoleId = 4;
+                await _userRepository.AddAsync(user);
+                
             }
             catch (Exception e)
             {
@@ -92,6 +105,34 @@ namespace Backend.Services.User
                 result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> UpdateUser(UserDTO userDTO)
+        {
+            var result = new ServiceResult<int>();
+
+            try
+            {
+                var user =  _userRepository.GetAll().Where(p => p.UserId == userDTO.UserID).FirstOrDefault();
+                if (user == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "UserID không tồn tại!";
+                    return result;
+                }
+
+                var users = _mapper.Map(userDTO, user);
+                await _userRepository.UpdateAsync(users);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+
             return result;
         }
     }

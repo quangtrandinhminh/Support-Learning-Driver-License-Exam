@@ -5,14 +5,7 @@ import CreateNewsTemplate from '../../templates/create-news/create-news'
 
 function CreateNewsPage() {
     return (
-        <div className="page-container">
-            <div className='staff-header'>
-                <StaffSidebar />
-            </div>
-            <div className="staff-body">
-                <CreateNewsTemplate />
-            </div>
-        </div>
+        <CreateNewsTemplate />
     )
 }
 

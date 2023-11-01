@@ -1,4 +1,4 @@
-.guest-nav-container {
+.member-nav-container {
     height: 100px;
 
     nav {
@@ -37,7 +37,7 @@
     }
 }
 
-.guest-nav-container {
+.member-nav-container {
     li {
         a {
             padding: 0 10px;
@@ -88,6 +88,21 @@
             font-size: 24px;
             list-style: none;
             height: 60px;
+
+            a {
+                cursor: pointer;
+                color: white;
+                font-size: 18px;
+                border: none;
+                line-height: 60px;
+                padding: 0;
+                display: block;
+                text-transform: none;
+
+                &:hover {
+                    color: white;
+                }
+            }
         }
     }
 }

@@ -1,13 +1,15 @@
+import React, { useEffect, useState } from 'react'
 import './course-table.scss'
 import { Link, useParams } from 'react-router-dom'
 import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react'
 
 function CourseTable() {
     const { month } = useParams();
+    const { year } = useParams();
     const [data, setData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [course, setCourse] = useState<any[]>([]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,21 +23,34 @@ function CourseTable() {
         return `${day}/${month}/${year}`;
     }
 
-    const getCourseByMonth = async (month) => {
+    const getCourseDetailByMonth = async (month) => {
         try {
             const response = await api.get(`/CourseDetail?courseMonth=${month}`);
             setData(response.data);
-            console.log(data[0]);
             setIsLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    }
+
+    const getCourseByMonth = async (month) => {
+        try {
+            const response = await api.get('Course/courseMonth?month=' + month + '&year=' + year);
+            setCourse(response.data);
+        } catch (err) {
+            console.log(err);
         }
     }
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        getCourseByMonth(month);
+        getCourseDetailByMonth(month);
     }, [month])
+
+    useEffect(() => {
+        getCourseByMonth(month);
+    }, [data]);
+
     return (
         <>
             <div className='course-table-container' id='course-nav'>
@@ -55,18 +70,17 @@ function CourseTable() {
                                 <th></th>
                             </tr>
                             {
-                                data.length > 0 ? (
-                                    console.log(data.length),
-                                    !isLoading ? (
-                                        data.map((course, i) => (
-                                            <tr key={i}>
+                                !isLoading ? (
+                                    course.length > 0 ? (
+                                        course.map((course, i) => (
+                                            <tr key={i} >
                                                 <td className='course-no'>
                                                     <p>{i + 1}</p>
                                                 </td>
                                                 <td className='course-date'>
-                                                    <p>Khoá {course[i].name}</p>
-                                                    <p>KG: {formatDate(course[0].courseTimeStart)}</p>
-                                                    <p>BG: {formatDate(course[5].courseTimeEnd)}</p>
+                                                    <p>Khoá {course.name}</p>
+                                                    <p>KG: {formatDate(course.startDate)}</p>
+                                                    <p>BG: {formatDate(course.endDate)}</p>
                                                 </td>
                                                 <td className='course-mem'>
                                                     <p>20</p>
@@ -83,12 +97,12 @@ function CourseTable() {
                                                 </td>
                                                 <td className="course-training-time">
                                                     <ol>
-                                                        <li className='border-receive'>{formatDate(course[i].courseTimeStart)} - {formatDate(course[i].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(course[i + 1].courseTimeStart)} - {formatDate(course[i + 1].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(course[i + 2].courseTimeStart)} - {formatDate(course[i + 2].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(course[i + 3].courseTimeStart)} - {formatDate(course[i + 3].courseTimeEnd)}</li>
-                                                        <li>{formatDate(course[5].courseTimeStart)} - {formatDate(course[5].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
+                                                        <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
+                                                        <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
                                                     </ol>
                                                 </td>
                                                 <td className='course-register'>
@@ -99,8 +113,10 @@ function CourseTable() {
                                             </tr>
                                         ))
                                     ) : (
-                                        <h1>no</h1>
-                                    )) : (
+                                        <h1>không dữ liệu</h1>
+                                    )
+                                ) : (
+
                                     <>
                                         <Backdrop
                                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -116,6 +132,7 @@ function CourseTable() {
                 </div>
             </div>
         </>
+
     )
 }
 
