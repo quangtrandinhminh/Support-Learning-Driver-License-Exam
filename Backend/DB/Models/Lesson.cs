@@ -7,9 +7,7 @@ public partial class Lesson
 {
     public int LessonId { get; set; }
 
-    public int ClassId { get; set; }
-
-    public string StudentId { get; set; } = null!;
+    public int ClassStudentId { get; set; }
 
     public string? Title { get; set; }
 
@@ -25,7 +23,5 @@ public partial class Lesson
 
     public bool? Attendance { get; set; }
 
-    public virtual Class Class { get; set; } = null!;
-
-    public virtual Student Student { get; set; } = null!;
+    public virtual ClassStudent ClassStudent { get; set; } = null!;
 }
