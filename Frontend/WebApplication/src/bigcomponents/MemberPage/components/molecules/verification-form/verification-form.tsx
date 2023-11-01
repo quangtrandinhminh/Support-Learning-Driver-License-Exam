@@ -78,6 +78,7 @@ function VerificationForm() {
       }
 
       const response = await api.post('/Member/add', inputData);
+      setError('');
       setMember(response.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
@@ -87,7 +88,7 @@ function VerificationForm() {
 
     } catch (error) {
       console.log(error.response);
-      setError("Vui lòng kiểm tra lại thông tin, thông tin bạn nhập có thể bị trùng!");
+      setError(error.response.data.error);
     }
   }
 

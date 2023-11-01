@@ -105,7 +105,7 @@ namespace Backend.Services.Member
                 else if (e == 2) 
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Số cmnd đã tồn tại";
+                    result.ErrorMessage = "Số CCCD/CMND đã tồn tại!";
                     result.Payload = -2;
                     return result;
                 }
