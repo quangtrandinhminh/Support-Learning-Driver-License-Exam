@@ -13,7 +13,7 @@ public partial class Question
 
     public bool? KeyQuestion { get; set; }
 
-    public bool? CorrectAnswer { get; set; }
+    public int? CorrectAnswer { get; set; }
 
     public int StaffId { get; set; }
 

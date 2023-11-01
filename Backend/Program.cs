@@ -12,19 +12,16 @@ using Backend.Repository.MemberRepository;
 using Backend.Services.Member;
 using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.ExamRepository;
-using Backend.Repository.FeedbackRepository;
 using Backend.Repository.LessonRepository;
 using Backend.Repository.MentorRepository;
 using Backend.Repository.QuestionRepository;
 using Backend.Repository.StaffRepository;
 using Backend.Repository.StudentAnswerRepository;
 using Backend.Repository.StudentRepository;
-using Backend.Repository.TeachingScheduleRepository;
 using Backend.Repository.TestRepository;
 using Backend.Services.CourseDetails;
 using Backend.Services.Mentor;
 using Backend.Services.Staff;
-using Backend.Services.TeachingSchedule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,13 +43,10 @@ builder.Services.AddScoped<IMentorRepository, MentorRepository>();
 builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
-builder.Services.AddScoped<ITeachingScheduleRepository, TeachingScheduleRepository>();
-builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 /*builder.Services.AddScoped<IClassService, ClassService>();*/
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 /*builder.Services.AddScoped<ILessonService, LessonService>();*/
-builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 /*builder.Services.AddScoped<IFeedbackService, FeedbackService>();*/
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 /*builder.Services.AddScoped<IExamService, ExamService>();*/

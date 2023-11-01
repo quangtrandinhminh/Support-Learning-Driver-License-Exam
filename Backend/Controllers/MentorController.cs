@@ -1,4 +1,5 @@
-﻿using Backend.Services.Mentor;
+﻿using Backend.DTO.Mentor;
+using Backend.Services.Mentor;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,5 +63,45 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }*/
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetMentorByUserId(int userId)
+        {
+            var result = await _mentorService.GetMentorByUserId(userId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddMentor(MentorCreateDTO mentorCreateDto)
+        {
+            var result = await _mentorService.CreateMentor(mentorCreateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -2)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm Mentor thành công!");
+        }
     }
 }

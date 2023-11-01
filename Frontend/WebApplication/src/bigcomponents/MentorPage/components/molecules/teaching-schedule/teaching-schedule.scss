@@ -1,17 +1,5 @@
 .teaching-schedule-container {
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .search-box-section {
-        display: flex;
-        justify-content: center;
-        height: 50px;
-        width: 100%;
-
-    }
-
     h1 {
         padding-top: 50px;
         text-align: center;
@@ -21,54 +9,71 @@
         text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     }
 
-    .schedule-table {
+    .teaching-schedule {
+        width: 100%;
         display: flex;
         flex-direction: column;
+        font-size: 17px;
+        background-color: #fff;
+        border-collapse: collapse;
+        align-items: center;
+        border-spacing: 0;
 
-        .schedule-header {
-            th {
-                width: fit-content;
+        .schedule-table {
+            .schedule-header-container {
+                tr {
+                    border-bottom: 1px solid #f0f0f0;
+                    th {
+                        .mini-title {
+                            padding-right: 10px;
+                        }
+
+                        text-align: left;
+                        padding: 5px;
+                        text-transform: uppercase;
+                        height: 20px;
+                        background-color: #6b90da;
+                        font-weight: normal;
+                        border-right: 1px solid #fff;
+                    }
+                }
+            }
+
+            .schedule-body-container {
+                .study-slot {
+                    background-color: #fff;
+                    border-bottom: 1px solid #f0f0f0;
+                    width: 100%;
+
+                    tr {
+                        td {
+                            padding: 10px;
+                            border-left-width: 0px;
+                            border-right-width: 0px;
+                        }
+                    }
+                }
             }
         }
 
         table {
-            font-size: 17px;
-            background-color: #fff;
-            border-collapse: collapse;
-            width: 100%;
-            border-collapse: collapse;
+            td {
+                padding: 20px;
+            }
         }
+    }
 
-        .mini-title {
-            padding-right: 10px;
-        }
-
-        justify-content: center;
-        font-size: 17px;
-        border-collapse: collapse;
-        width: 100%;
+    .teaching-status {
         display: flex;
-        align-items: center;
-
-        th {
-            border-right: 1px solid #fff;
-            text-align: center;
-            padding: 2px;
-            text-transform: uppercase;
-            height: 23px;
-            background-color: #6b90da;
-            font-weight: normal;
+        flex-direction: column;
+        padding-left: 20px;
+        h2 {
+            font-size: 25px;
+            font-weight: bold;
         }
+        h3 {
+            font-size: 17px;
 
-        tr {
-            background-color: #fff;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        td {
-            padding: 5px;
-            border-left-width: 0px;
-            border-right-width: 0px;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Backend.Services.Staff;
+﻿using Backend.DTO.Staff;
+using Backend.Services.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,6 +62,30 @@ namespace Backend.Controllers
             }
 
             return Ok(result.Payload);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddStaff(StaffCreateDTO staffCreateDto)
+        {
+            var result = await _staffService.CreateStaff(staffCreateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -2)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm Staff thành công!");
         }
     }
 }
