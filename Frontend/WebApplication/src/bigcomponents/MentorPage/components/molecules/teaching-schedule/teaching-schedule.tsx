@@ -167,11 +167,6 @@ function TeachingSchedule() {
                     </table>
                 </form>
             </div>
-            <div className="teaching-status">
-                <h2>Trạng thái</h2>
-                <h3>Đã dạy: NguyenVanAA đã dạy lớp học này</h3>
-                <h3>Chưa dạy: NguyenVanAA chưa dạy lớp học này</h3>
-            </div>
         </div>
     );
 }
