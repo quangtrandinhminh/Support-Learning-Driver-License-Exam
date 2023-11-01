@@ -54,6 +54,8 @@ import MentorLayout from './bigcomponents/MentorPage/layout'
 import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/mentor-register-schedule-page/mentor-register-schedule-page'
 import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
+import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
+import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 
 function App() {
 
@@ -123,13 +125,14 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
+                        <Route path='danh-sach-lop-hoc' element={<MentorClassListPage />} />
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
                         <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
-                        <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                        <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>
                     </>
                   )}
