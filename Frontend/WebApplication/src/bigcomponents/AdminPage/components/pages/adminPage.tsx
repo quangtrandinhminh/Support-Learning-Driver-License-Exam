@@ -12,12 +12,10 @@ function adminPage() {
   }
 
   return (
-    <div className='Admin-contain'>
-      <div className='grid-container'>
-        <Header OpenSidebar={OpenSidebar} />
-        <Slidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
-        <Home />
-      </div>
+    <div className='grid-container'>
+      <Header OpenSidebar={OpenSidebar} />
+      <Slidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
+      <Home />
     </div>
   );
 }

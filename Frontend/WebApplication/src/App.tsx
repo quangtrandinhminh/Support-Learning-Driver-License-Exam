@@ -51,7 +51,6 @@ import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-ne
 import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
 import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
-import Admin from './bigcomponents/AdminPage/components/pages/adminPage'
 
 function App() {
 
@@ -94,7 +93,7 @@ function App() {
                 <>
                   <Route path='dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
-                    <Route index element={<Admin />} />
+                    <Route index element={<MemberHomePage />} />
                   )}
                   {user.roleId === 2 && (
                     <>

@@ -22,7 +22,7 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
       </div>
       <ul className="sidebar-list">
         <li className="list-header">
-          <p>Điều hướng</p>
+          <p>điều hướng</p>
         </li>
         <SidebarItem
           icon={<BsGrid1X2Fill className="icon" />}

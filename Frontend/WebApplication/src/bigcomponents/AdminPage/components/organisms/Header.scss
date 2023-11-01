@@ -1,91 +1,35 @@
-$primary-color: #4292EB; // Màu xanh da trời
+.header-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 
-.Header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff; // Màu nền của header
-  padding: 10px;
-  color: black;
-  font-size: 20px;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
-}
-
-.menu-icon {
-  cursor: pointer;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1000px;
-
-  .button-icon-container {
-    position: relative;
-    display: inline-block;
-
-    .button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: $primary-color; // Sử dụng màu xanh da trời
-      font-size: 30px; // Đặt kích thước biểu tượng
-    }
-
-    .icon {
-      vertical-align: middle;
-    }
-
-    // Dropdown cho biểu tượng chuông
-    .bellIconDropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      display: none;
-      max-height: 150px; // Đặt chiều cao tối đa
-      overflow-y: auto;
-      background-color: white;
-      border: 1px solid #333;
-      border-radius: 4px;
-      z-index: 1000;
-      padding: 10px;
-
-      .bellDropdownItem {
+    .button_icon{
+        border: none;
+        background: none;
+        text-decoration: none;
+        padding: 0;
+        margin: 0;
         cursor: pointer;
-        &:hover {
-          background-color: #f0f0f0; // Màu nền khi hover
+
+            .icon{
+                width: 30px;
+                height: 30px;
+                color: #4292EB;
+        
+                .adminIconclick {
+                    border: 1px solid #000; 
+                    background-color: #fff; 
+                    border-radius: 10px;
+                    box-sizing: border-box; // Thêm box-sizing vào thẻ cha
+            
+                    .adminPopUp {
+                        border: 1px solid #000;
+                        border-radius: 10px;
+                        box-sizing: border-box; // Thêm box-sizing vào thẻ con
+                    }
+                }
+            }
         }
-      }
-    }
-  }
-
-  // Dropdown cho biểu tượng người dùng
-  .userIconDropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    display: none;
-    max-height: 150px; // Đặt chiều cao tối đa
-    overflow-y: auto;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    z-index: 1000;
-    padding: 10px;
-
-    .userDropdownItem {
-      cursor: pointer;
-      &:hover {
-        background-color: #f0f0f0; // Màu nền khi hover
-      }
-    }
-  }
-
-  .button-icon-container:hover .bellIconDropdown {
-    display: block;
-  }
-
-  .button-icon-container:hover .userIconDropdown {
-    display: block;
-  }
 }
+
