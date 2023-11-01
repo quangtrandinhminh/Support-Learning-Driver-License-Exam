@@ -13,6 +13,10 @@ public partial class Member
 
     public string? Nationality { get; set; }
 
+    public string? Nation { get; set; }
+
+    public string? TemporaryAddress { get; set; }
+
     public string? ResidenceAddress { get; set; }
 
     public string? IdentityCardNumber { get; set; }

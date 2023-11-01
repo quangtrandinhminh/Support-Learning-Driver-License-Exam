@@ -5,6 +5,8 @@
         public DateTime dob { get; set; }
         public string gender { get; set; }
         public string nationality { get; set; }
+        public string? Nation { get; set; }
+        public string? TemporaryAddress { get; set; }
         public string residenceAddress { get; set; }
         public string IdentityCardNumber { get; set; }
         public DateTime cardProvidedDate { get; set; }

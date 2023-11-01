@@ -125,7 +125,7 @@ function ExamDocument() {
                   </div>
                   <div className="hasDrivingLicenseDate-container">
                     <label htmlFor="hasDrivingLicenseDate">cấp ngày: </label>
-                    <span> {formatDate(member.drivingLicenseProvidedDate)}</span>
+                    {/* <span> {formatDate(member.drivingLicenseProvidedDate)}</span> */}
                   </div>
                 </li>
                 <li>

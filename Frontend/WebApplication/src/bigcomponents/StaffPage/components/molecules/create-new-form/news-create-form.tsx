@@ -50,6 +50,11 @@ function CreateNewsForm() {
 
     const createNewCourse = async () => {
         try {
+            if (inputData.description.length > 50) {
+                setError('Mô tả không được dài quá 50 ký tự.');
+                return;
+            }
+
             await api.post('News/add', inputData);
             console.log(inputData);
             toast.success('Tạo tin tức thành công');
@@ -153,7 +158,7 @@ function CreateNewsForm() {
                                 className="form-control"
                                 id="content"
                                 placeholder="nội dung"
-                                style={{resize: 'none', height: '200px'}}
+                                style={{ resize: 'none', height: '200px' }}
                                 name='content'
                                 value={inputData.content}
                                 onChange={e => setInputData({ ...inputData, content: e.target.value })}
