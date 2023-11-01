@@ -3,10 +3,11 @@ import './index.scss';
 import api from '../../../../../config/axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import logo from "../../../../AuthorizationPage/assets/images/logo.png";
-import Lock from "../../../../AuthorizationPage/assets/images/lock.svg";
-import user from "../../../../AuthorizationPage/assets/images/userblur.svg";
-import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from '../../../assets/images/logo.png';
+import { faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 function RegisterForm() {
@@ -31,7 +32,7 @@ function RegisterForm() {
       }
 
       // Send a request to the server for registration
-      const response = await api.post("User/Register", formData);
+      await api.post("User/Register", formData);
       toast.success("Đăng ký thành công. Chào mừng bạn!");
       setError(null);
       navigate("/dang-nhap");
@@ -55,7 +56,7 @@ function RegisterForm() {
         {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
         <form onSubmit={handleSubmit}>
           <div className="inputField">
-            <img src={user} alt="user" />
+          <FontAwesomeIcon icon={faUser} className='icon'/>
             <input
               type="text"
               id="username"
@@ -67,7 +68,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-            <img src={user} alt="user" />
+          <FontAwesomeIcon icon={faUser} className='icon'/>
             <input
               type="text"
               id="fullName"
@@ -79,7 +80,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-            <img src={gmail} alt="gmail" />
+          <FontAwesomeIcon icon={faPhone} className='icon'/>
             <input
               type="phone"
               id="phone"
@@ -91,7 +92,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-            <img src={Lock} alt="password" />
+          <FontAwesomeIcon icon={faLock} className='icon'/>
             <input
               type="password"
               id="password"
@@ -103,7 +104,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-            <img src={Lock} alt="confirm-password" />
+          <FontAwesomeIcon icon={faLock} className='icon'/>
             <input
               type="password"
               id="confirmPassword"
