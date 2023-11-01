@@ -1,10 +1,6 @@
 import './teaching-schedule.scss';
 
-interface TeachingScheduleProps {
-    // Define any props you may want to pass to this component.
-}
-
-function TeachingSchedule(props: TeachingScheduleProps) {
+function TeachingSchedule() {
     return (
         <div className="teaching-schedule-container">
             <div>
@@ -91,7 +87,6 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                 <th align="center">Thứ tư</th>
                                 <th align="center">Thứ năm</th>
                                 <th align="center">Thứ sáu</th>
-                                <th align="center">Thứ bảy</th>
                             </tr>
                             <tr>
                                 <th align="center">23/10</th>
@@ -99,7 +94,6 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                 <th align="center">25/10</th>
                                 <th align="center">26/10</th>
                                 <th align="center">27/10</th>
-                                <th align="center">28/10</th>
                             </tr>
                         </thead>
                         <tbody className='schedule-body-container'>
@@ -169,44 +163,6 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                 </td>
                                 <td>-</td>
                             </tr>
-                            <tr>
-                                <td>Ca tối</td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href="">Thực hành</a>
-                                        <br />
-                                        Buổi thứ 1
-                                        <br />
-                                        <a href="">Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <a href="">Thực hành</a>
-                                        <br />
-                                        Buổi thứ 2
-                                        <br />
-                                        <a href="">Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href="">Thực hành</a>
-                                        <br />
-                                        Buổi thứ 3
-                                        <br />
-                                        <a href="">Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </form>
@@ -219,6 +175,5 @@ function TeachingSchedule(props: TeachingScheduleProps) {
         </div>
     );
 }
-
 
 export default TeachingSchedule;

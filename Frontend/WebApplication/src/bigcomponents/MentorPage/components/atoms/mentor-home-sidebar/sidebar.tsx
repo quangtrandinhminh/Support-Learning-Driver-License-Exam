@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../../../../config/axios';
 import './sidebar.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 function MentorSidebar() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const [mentor, setMentor] = useState(null);
 
   const styleSidebarCom = ({ isActive }: { isActive: boolean }): React.CSSProperties => {
     return {
@@ -18,8 +19,8 @@ function MentorSidebar() {
 
   const getMentorbyId = async () => {
     try {
-       const response = await api.get('Mentor/' + user.userID);
-       console.log(response.data);
+      const response = await api.get('Mentor/user/' + user.userID);
+      setMentor(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +28,7 @@ function MentorSidebar() {
 
   useEffect(() => {
     getMentorbyId();
-  })
+  }, [])
 
   const handleScroll = () => {
     {
@@ -49,38 +50,44 @@ function MentorSidebar() {
       <div className="sidebar-title">
         <h1>Mentor Sidebar</h1>
       </div>
-      <div className='mentor-sidebar'>
-        <h3 className='mini-title'>Công cụ & trang</h3>
-        <li className='sidebar-component'>
-          <div className="mentor-list">
-            <NavLink style={styleSidebarCom} to='/'>
-              Trang chủ
-            </NavLink>
+      {
+        mentor != null ? (
+          <div className='mentor-sidebar'>
+            <h3 className='mini-title'>Công cụ & trang</h3>
+            <li className='sidebar-component'>
+              <div className="mentor-list">
+                <NavLink style={styleSidebarCom} to='/'>
+                  Trang chủ
+                </NavLink>
+              </div>
+            </li>
+            <li className='sidebar-component'>
+              <div className="mentor-list">
+                <NavLink style={styleSidebarCom} to='/lich-day'>
+                  Lịch dạy
+                </NavLink>
+              </div>
+            </li>
+            <li className='sidebar-component'>
+              <div className="mentor-list">
+                <NavLink style={styleSidebarCom} to='/tai-lieu-day-hoc'>
+                  Tài liệu dạy học
+                </NavLink>
+              </div>
+            </li>
+            <h3 className='mini-title'>Tài khoản: {mentor.fullName} </h3>
+            <li className='sidebar-component'>
+              <div className="mentor-list">
+                <NavLink className='logout-btn' to='/' onClick={handleLogout}>
+                  Đăng xuất
+                </NavLink>
+              </div>
+            </li>
           </div>
-        </li>
-        <li className='sidebar-component'>
-          <div className="mentor-list">
-            <NavLink style={styleSidebarCom} to='/lich-day'>
-              Lịch dạy
-            </NavLink>
-          </div>
-        </li>
-        <li className='sidebar-component'>
-          <div className="mentor-list">
-            <NavLink style={styleSidebarCom} to='/tai-lieu-day-hoc'>
-              Tài liệu dạy học
-            </NavLink>
-          </div>
-        </li>
-        <h3 className='mini-title'>Tài khoản: </h3>
-        <li className='sidebar-component'>
-          <div className="mentor-list">
-            <NavLink className='logout-btn' to='/' onClick={handleLogout}>
-              Đăng xuất
-            </NavLink>
-          </div>
-        </li>
-      </div>
+        ) : (
+          <h1>Bạn không phải giáo viên</h1>
+        )
+      }
     </div>
   )
 }
