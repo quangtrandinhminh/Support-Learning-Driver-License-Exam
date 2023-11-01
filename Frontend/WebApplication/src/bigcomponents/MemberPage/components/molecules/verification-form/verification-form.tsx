@@ -8,6 +8,7 @@ import api from '../../../../../config/axios';
 function VerificationForm() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const userId = user.userID;
+  const [member, setMember] = useState();
   const { courseName } = useParams();
   const courseID = localStorage.getItem('courseID') ? JSON.parse(localStorage.getItem('courseID')) : null;
   const [error, setError] = useState('');
@@ -73,14 +74,17 @@ function VerificationForm() {
         return;
       }
 
-      await api.post('/Member/add', inputData);
+      const response = await api.post('/Member/add', inputData);
+      setMember(response.data);
+      sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
       navigate('/khoa-hoc-cua-ban');
+      window.scrollTo(0, 0);
 
     } catch (error) {
-      console.log(error.response.data.title);
-      setError("Vui lòng kiểm tra lại thông tin!");
+      console.log(error.response);
+      setError("Vui lòng kiểm tra lại thông tin, thông tin bạn nhập có thể bị trùng!");
     }
   }
 
@@ -110,7 +114,7 @@ function VerificationForm() {
                     <label htmlFor="name">Họ và tên:</label>
                     <input type="text" name='name' id=''
                       onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input'
-                      />
+                    />
                   </li>
                   <li className='line-1'>
                     <div className='dob-container'>
