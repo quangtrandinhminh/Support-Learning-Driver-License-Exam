@@ -146,7 +146,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:{courseId}' element={<PracticeSpecificPage />} />
+                        <Route path='khoa-hoc/:courseName' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />
