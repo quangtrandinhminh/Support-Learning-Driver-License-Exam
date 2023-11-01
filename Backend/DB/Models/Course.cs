@@ -5,9 +5,9 @@ namespace Backend.DB.Models;
 
 public partial class Course
 {
-    public string CourseId { get; set; } = null!;
+    public string CourseId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     public DateTime? StartDate { get; set; }
 

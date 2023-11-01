@@ -20,6 +20,9 @@ import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -27,6 +30,7 @@ import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-co
 
 // Member import 
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
+import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
@@ -107,6 +111,7 @@ function App() {
                         <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
+                          <Route path='chua-mo' element={<InactiveCoursePage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
                         </Route>
@@ -151,7 +156,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:{courseId}' element={<PracticeSpecificPage />} />
+                        <Route path='khoa-hoc/:courseName' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />

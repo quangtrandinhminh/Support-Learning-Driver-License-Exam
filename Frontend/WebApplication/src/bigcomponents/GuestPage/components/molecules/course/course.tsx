@@ -5,32 +5,53 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 function Course() {
     const [isLoading, setIsLoading] = useState(true);
-    const [course, setCourse] = useState(null);
+    const [courses, setCourses] = useState([]);
 
-    const getCourseMonth = async () => {
-        try {
-            const response = await api.get('Course/list');
-            const courses = response.data;
-            const uniqueMonths: number[] = Array.from(new Set(courses.map(item => item.courseMonth)));
-
-            // Select one course from each unique month
-            const selectedCourses = uniqueMonths.map(month => {
-                return courses.find(course => course.courseMonth === month);
-            });
-
-            // Reverse the array to display newest courses to the left
-            setCourse(selectedCourses.reverse());
-            setIsLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // Pagination part
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordPage = 3;
+    const lastIndex = currentPage * recordPage;
+    const firstIndex = lastIndex - recordPage;
+    const records = courses.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(courses.length / recordPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
 
     useEffect(() => {
-        getCourseMonth();
-    }, []);
+        const getCourseData = async () => {
+            try {
+                const response = await api.get('Course/list');
+                const allCourses = response.data;
 
-    const maxCoursesToDisplay = 3; // Set the maximum number of courses to display
+                // Group courses by courseMonth and courseYear to display unique courses
+                const uniqueCourses = [];
+                const seen = new Set();
+
+                allCourses.forEach(course => {
+                    const courseKey = `${course.courseMonth}/${course.courseYear}`;
+                    if (!seen.has(courseKey)) {
+                        seen.add(courseKey);
+                        uniqueCourses.push(course);
+                    }
+                });
+
+                // Sort the unique courses based on courseYear and courseMonth
+                uniqueCourses.sort((a, b) => {
+                    if (a.courseYear === b.courseYear) {
+                        return a.courseMonth - b.courseMonth;
+                    }
+                    return a.courseYear - b.courseYear;
+                });
+
+                setCourses(uniqueCourses);
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error);
+                setIsLoading(false);
+            }
+        }
+
+        getCourseData();
+    }, []);
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -40,16 +61,31 @@ function Course() {
         return `${day}/${month}/${year}`;
     }
 
+    const prePage = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const changeCPage = (id) => {
+        setCurrentPage(id);
+    }
+
+    const nextPage = () => {
+        if (currentPage !== npage) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
     return (
         <div className='course-container' id='course-section'>
             <h1>Các khoá học</h1>
             <div className='course-list'>
                 {!isLoading ? (
-                    course.length > 0 ? (
-                        course.slice(0, maxCoursesToDisplay).map((course, i) => (
-                            console.log(course[i]),
+                    records.length > 0 ? (
+                        records.map((course, i) => (
                             <form action="" key={i}>
-                                <div className={`course-section${i + 1}`}>
+                                <div className={`course-section-1`}>
                                     <div className='upperbox'>
                                         <h2>Khóa học tháng {course.courseMonth}/{course.courseYear}</h2>
                                     </div>
@@ -82,6 +118,23 @@ function Course() {
                 )
                 }
             </div>
+            <nav>
+                <ul className='pagination'>
+                    <li className='page-item'>
+                        <button type='button' className='page-link' onClick={prePage}>Prev</button>
+                    </li>
+                    {
+                        numbers.map((n, i) => (
+                            <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                                <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
+                            </li>
+                        ))
+                    }
+                    <li className='page-item'>
+                        <button type='button' className='page-link' onClick={nextPage}>Next</button>
+                    </li>
+                </ul>
+            </nav>
         </div>
     )
 }

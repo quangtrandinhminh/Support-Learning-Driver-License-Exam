@@ -22,6 +22,8 @@ using Backend.Repository.TestRepository;
 using Backend.Services.CourseDetails;
 using Backend.Services.Mentor;
 using Backend.Services.Staff;
+using Backend.Services.Student;
+using Backend.Services.Class;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,10 @@ builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 /*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 /*builder.Services.AddScoped<IQuestionService, QuestionService>();*/
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IClassService, ClassService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
