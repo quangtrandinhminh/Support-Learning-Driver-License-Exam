@@ -48,6 +48,7 @@ import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teac
 import MentorLayout from './bigcomponents/MentorPage/layout'
 import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
                   <Route index element={<GuestHomePage />} />
                   <Route path='dang-nhap' element={<LoginPage />} />
                   <Route path='dang-ky' element={<RegistrationPage />} />
+                  <Route path='quen-mat-khau' element={<ForgetPasswordPage />} />
                   <Route path='khoahoc/:month/:year' element={<GuestCoursePage />} />
                 </>
               ) : (
