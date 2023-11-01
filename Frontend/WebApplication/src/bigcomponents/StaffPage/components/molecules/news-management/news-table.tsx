@@ -35,7 +35,6 @@ function NewsTable() {
     const records = data.slice(firsIndex, lastIndex);
     const npage = Math.ceil(data.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
-    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllNews();
