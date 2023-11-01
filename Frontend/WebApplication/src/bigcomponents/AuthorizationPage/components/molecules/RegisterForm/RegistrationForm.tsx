@@ -7,9 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../../../assets/images/logo.png';
 import { faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 
-
-
-
 function RegisterForm() {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -56,7 +53,7 @@ function RegisterForm() {
         {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
         <form onSubmit={handleSubmit}>
           <div className="inputField">
-          <FontAwesomeIcon icon={faUser} className='icon'/>
+            <FontAwesomeIcon icon={faUser} className='icon' />
             <input
               type="text"
               id="username"
@@ -68,7 +65,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-          <FontAwesomeIcon icon={faUser} className='icon'/>
+            <FontAwesomeIcon icon={faUser} className='icon' />
             <input
               type="text"
               id="fullName"
@@ -80,7 +77,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-          <FontAwesomeIcon icon={faPhone} className='icon'/>
+            <FontAwesomeIcon icon={faPhone} className='icon' />
             <input
               type="phone"
               id="phone"
@@ -92,7 +89,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-          <FontAwesomeIcon icon={faLock} className='icon'/>
+            <FontAwesomeIcon icon={faLock} className='icon' />
             <input
               type="password"
               id="password"
@@ -104,7 +101,7 @@ function RegisterForm() {
             />
           </div>
           <div className="inputField">
-          <FontAwesomeIcon icon={faLock} className='icon'/>
+            <FontAwesomeIcon icon={faLock} className='icon' />
             <input
               type="password"
               id="confirmPassword"
