@@ -94,12 +94,12 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                                 <th align="center">Thứ bảy</th>
                             </tr>
                             <tr>
-                                    <th align="center">23/10</th>
-                                    <th align="center">24/10</th>
-                                    <th align="center">25/10</th>
-                                    <th align="center">26/10</th>
-                                    <th align="center">27/10</th>
-                                    <th align="center">28/10</th>
+                                <th align="center">23/10</th>
+                                <th align="center">24/10</th>
+                                <th align="center">25/10</th>
+                                <th align="center">26/10</th>
+                                <th align="center">27/10</th>
+                                <th align="center">28/10</th>
                             </tr>
                         </thead>
                         <tbody className='schedule-body-container'>
@@ -211,7 +211,12 @@ function TeachingSchedule(props: TeachingScheduleProps) {
                     </table>
                 </form>
             </div>
-        </div >
+            <div className="teaching-status">
+                <h2>Trạng thái</h2>
+                <h3>Đã dạy: NguyenVanAA đã dạy lớp học này</h3>
+                <h3>Chưa dạy: NguyenVanAA chưa dạy lớp học này</h3>
+            </div>
+        </div>
     );
 }
 

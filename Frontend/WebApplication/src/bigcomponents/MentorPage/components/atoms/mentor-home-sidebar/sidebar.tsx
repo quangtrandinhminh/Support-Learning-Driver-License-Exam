@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
+import api from '../../../../../config/axios';
 import './sidebar.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 function MentorSidebar() {
+  const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
   const styleSidebarCom = ({ isActive }: { isActive: boolean }): React.CSSProperties => {
     return {
@@ -12,6 +15,19 @@ function MentorSidebar() {
       transition: 'background-color 0.3s ease-out, padding-left 0.3s ease-out', // Add a transition to background color
     };
   };
+
+  const getMentorbyId = async () => {
+    try {
+       const response = await api.get('Mentor/' + user.userID);
+       console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getMentorbyId();
+  })
 
   const handleScroll = () => {
     {
