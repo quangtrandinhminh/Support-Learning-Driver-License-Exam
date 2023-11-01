@@ -10,7 +10,6 @@ namespace Backend.Services.Member
 {
     public class MemberService : IMemberService
     {
-        int e;
         private readonly IUserRepository _userRepository;
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
@@ -65,21 +64,21 @@ namespace Backend.Services.Member
 
         public int checkValidation(MemberCreateDTO memberCreateDTO)
         {
+            int e = 0;
             var members = _memberRepository.GetAll().ToList();
             foreach (var member in members) 
             { 
                 if (member.UserId.Equals(memberCreateDTO.UserId))
                 {
-                    return e = 1;
+                    e = 1;
                 }
 
                 if (member.IdentityCardNumber.Equals(memberCreateDTO.IdentityCardNumber))
                 {
-                    return e = 2;
+                    e = 2;
                 }
-                return e = 0;
             }
-            return 0;
+            return e;
         }
 
         public async Task<ServiceResult<int>> AddMember(MemberCreateDTO memberCreateDTO)
