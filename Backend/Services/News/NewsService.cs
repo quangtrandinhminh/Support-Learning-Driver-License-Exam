@@ -31,7 +31,7 @@ namespace Backend.Services.News
                 var newsList = _mapper.Map<ICollection<NewsDTO>>(news);
                 foreach (var newsDto in newsList)
                 {
-                    if (!string.IsNullOrEmpty(newsDto.Content))
+                    if (string.IsNullOrEmpty(newsDto.Description) && !string.IsNullOrEmpty(newsDto.Content))
                     {
                         newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
                     }
@@ -66,7 +66,7 @@ namespace Backend.Services.News
                 var newsList = _mapper.Map<ICollection<NewsDTO>>(news);
                 foreach (var newsDto in newsList)
                 {
-                    if (!string.IsNullOrEmpty(newsDto.Content))
+                    if (string.IsNullOrEmpty(newsDto.Description) && !string.IsNullOrEmpty(newsDto.Content))
                     {
                         newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
                     }
@@ -99,7 +99,7 @@ namespace Backend.Services.News
                 }
 
                 var newsDto = _mapper.Map<NewsDTO>(news);
-                if (!string.IsNullOrEmpty(newsDto.Content))
+                if (string.IsNullOrEmpty(newsDto.Description) && !string.IsNullOrEmpty(newsDto.Content))
                 {
                     newsDto.Description = newsDto.Content[..Math.Min(newsDto.Content.Length, 100)];
                 }
