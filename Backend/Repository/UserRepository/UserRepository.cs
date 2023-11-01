@@ -28,7 +28,7 @@ namespace Backend.Repository.UserRepository
             }
         }
 
-        public async Task<User> AddAsync(User? user)
+        public async Task<User?> AddAsync(User user)
         {
             try
             {
