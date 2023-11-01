@@ -9,6 +9,8 @@ namespace Backend.Services.Staff
 
         Task<ServiceResult<StaffDTO>> GetStaffById(int id);
 
-        public Task<ServiceResult<StaffDTO>> GetStaffByUserId(int userId);
+        Task<ServiceResult<StaffDTO>> GetStaffByUserId(int userId);
+
+        Task<ServiceResult<int>> CreateStaff(StaffCreateDTO staffCreateDto);
     }
 }
