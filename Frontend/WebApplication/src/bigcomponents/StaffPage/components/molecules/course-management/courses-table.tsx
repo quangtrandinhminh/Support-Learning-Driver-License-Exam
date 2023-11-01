@@ -14,6 +14,8 @@ function CourseTable() {
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
+    const navigate = useNavigate();
+
     // Fetch all courses
     const getAllCourse = async () => {
         try {
@@ -45,6 +47,11 @@ function CourseTable() {
     useEffect(() => {
         getAllCourse();
     }, []);
+
+    const updateBtn = (courseId) => {
+        navigate(`cap-nhat-khoa-hoc/${courseId}`);
+        window.scrollTo(0, 0);
+    }
 
     // Filtering function
     const filter = (e) => {
@@ -138,7 +145,7 @@ function CourseTable() {
                                         <td className='text-center'>{course.limitStudent}</td>
                                         <td className='text-center'>{course.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit">Update</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
                                             <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
                                         </td>
                                     </tr>
