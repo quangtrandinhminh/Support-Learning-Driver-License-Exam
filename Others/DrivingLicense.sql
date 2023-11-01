@@ -347,7 +347,6 @@ CREATE TABLE [dbo].[TestQuestion](
   CONSTRAINT [FK_TestQuestion_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID])
 )ON [PRIMARY]
 GO
-
 /*-- Add data: Role -- 16/10/2023/ ---*/
 SET IDENTITY_INSERT [dbo].[Role] ON 
 GO
@@ -361,7 +360,6 @@ INSERT [dbo].[Role] ([roleID], [roleName]) VALUES (4, 'Member');
 GO
 SET IDENTITY_INSERT [dbo].[Role] OFF
 GO
-
 /*-- Add data: User -- 16/10/2023/ ---*/
 SET IDENTITY_INSERT [dbo].[User] ON
 GO

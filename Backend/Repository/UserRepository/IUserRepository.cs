@@ -5,7 +5,9 @@ namespace Backend.Repository.UserRepository
     public interface IUserRepository
     {
         public IQueryable<User>? GetAll();
-        public Task<User> AddAsync(User? user);
+
+        public Task<User?> AddAsync(User user);
+
         public Task<User?> UpdateAsync(User user);
     }
 }
