@@ -15,7 +15,6 @@ function RegisterForm() {
     username: '',
     password: '',
     fullName: '',
-    email: '',
     phone: '',
     status: true
   })
@@ -35,10 +34,10 @@ function RegisterForm() {
       const response = await api.post("User/Register", formData);
       toast.success("Đăng ký thành công. Chào mừng bạn!");
       setError(null);
-      // navigate("/dang-nhap");
+      navigate("/dang-nhap");
     } catch (err) {
       if (err.response?.data?.error) {
-        console.log(err.response.data.error);
+        setError(err.response.data.error);
         return;
       }
     }
@@ -82,12 +81,12 @@ function RegisterForm() {
           <div className="inputField">
             <img src={gmail} alt="gmail" />
             <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              name="email"
+              type="phone"
+              id="phone"
+              placeholder="Số điện thoại"
+              name="phone"
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, phone: e.target.value })
               }
             />
           </div>
