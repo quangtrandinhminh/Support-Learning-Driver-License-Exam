@@ -97,7 +97,7 @@ namespace Backend.Controllers
                 });
             }
             
-            return Ok("Add course successfully!");
+            return Ok("Thêm khóa học thành công!");
         }
 
         [HttpPut("update")]
@@ -122,7 +122,7 @@ namespace Backend.Controllers
             }
 
 
-            return Ok("Update course successfully!");
+            return Ok("Cập nhật khóa học thành công!");
         }
 
         [HttpDelete("deactivate/{id}")]
@@ -136,7 +136,7 @@ namespace Backend.Controllers
                     error = result.ErrorMessage
                 });
 
-            return Ok("Delete course successfully!");
+            return Ok("Đã xóa khóa học!");
         }
     }
 }

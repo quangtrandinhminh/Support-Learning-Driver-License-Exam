@@ -145,7 +145,7 @@ namespace Backend.Services.Course
                 if (courseExist != null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is already exist";
+                    result.ErrorMessage = "Course ID đã tồn tại";
                     result.Payload = -1;
                     return result;
                 } ;

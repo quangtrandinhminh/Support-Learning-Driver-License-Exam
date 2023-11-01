@@ -84,7 +84,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Posted");
+            return Ok("Đã đăng bài");
         }
 
         // Not available 
@@ -109,7 +109,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Saved");
+            return Ok("Đã lưu chỉnh sửa");
         }
 
         // DELETE: api/News/5
@@ -133,7 +133,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Saved");
+            return Ok("Đã gỡ tin tức");
         }
     }
 }
