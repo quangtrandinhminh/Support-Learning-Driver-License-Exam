@@ -77,9 +77,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCourse(CourseRequestDTO courseRequestDto)
+        public async Task<IActionResult> AddCourse(CourseCreateDTO courseCreateDto)
         {
-            var result = await _courseService.CreateCourse(courseRequestDto);
+            var result = await _courseService.CreateCourse(courseCreateDto);
 
             if (result.IsError)
             {
@@ -101,9 +101,9 @@ namespace Backend.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateCourse(CourseRequestDTO courseRequestDto)
+        public async Task<IActionResult> UpdateCourse(CourseUpdateDTO courseUpdateDto)
         {
-            var result = await _courseService.UpdateCourse(courseRequestDto);
+            var result = await _courseService.UpdateCourse(courseUpdateDto);
 
             if (result.IsError)
             {
