@@ -77,6 +77,14 @@ namespace Backend.Services.Member
                 {
                     e = 2;
                 }
+                var users = _userRepository.GetAll().ToList();
+                foreach (var user in users) 
+                { 
+                    if (user.Phone.Equals(memberCreateDTO.Phone))
+                    {
+                        e = 3;
+                    }
+                }
             }
             return e;
         }
@@ -99,6 +107,13 @@ namespace Backend.Services.Member
                     result.IsError = true;
                     result.ErrorMessage = "Số cmnd đã tồn tại";
                     result.Payload = -2;
+                    return result;
+                }
+                else if (e == 3)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Số điện thoại đã tồn tại";
+                    result.Payload = -3;
                     return result;
                 }
 

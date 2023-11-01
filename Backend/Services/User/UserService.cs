@@ -77,6 +77,7 @@ namespace Backend.Services.User
             foreach (var user in users) 
             { 
                 if (user.Username == userCreateDTO.Username) { return 1; }
+                if (user.Phone == userCreateDTO.Phone) {  return 2; }
             }
             return 0;
         }
@@ -92,6 +93,13 @@ namespace Backend.Services.User
                     result.IsError = true;
                     result.ErrorMessage = "Tài Khoản đã tồn tại";
                     result.Payload = -1;
+                    return result;
+                }
+                else if (e == 2)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Số điện thọai đã tồn tại";
+                    result.Payload = -2;
                     return result;
                 }
                 var user = _mapper.Map<DB.Models.User>(userCreateDTO);
