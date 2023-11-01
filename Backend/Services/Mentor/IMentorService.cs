@@ -11,5 +11,9 @@ namespace Backend.Services.Mentor
         Task<ServiceResult<MentorDTO>> GetMentorById(int id);
 
         /*ServiceResult<ICollection<MentorDTO>> GetAllMentorsByCourseId(string id);*/
+
+        Task<ServiceResult<MentorDTO>> GetMentorByUserId(int userId);
+
+        Task<ServiceResult<int>> CreateMentor(MentorCreateDTO mentorCreateDto);
     }
 }

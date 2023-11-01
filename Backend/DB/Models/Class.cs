@@ -11,21 +11,23 @@ public partial class Class
 
     public string CourseId { get; set; } = null!;
 
+    public DateTime? DateStart { get; set; }
+
+    public DateTime? DateEnd { get; set; }
+
     public bool? IsPractice { get; set; }
+
+    public byte? DayOfWeek { get; set; }
 
     public int? CurrentStudent { get; set; }
 
     public int? LimitStudent { get; set; }
 
-    public string? Location { get; set; }
+    public bool? Status { get; set; }
+
+    public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();
 
     public virtual Course Course { get; set; } = null!;
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-
-    public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
-
     public virtual Mentor Mentor { get; set; } = null!;
-
-    public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 }

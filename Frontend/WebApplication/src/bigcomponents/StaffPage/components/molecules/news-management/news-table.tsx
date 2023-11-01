@@ -19,11 +19,13 @@ function NewsTable() {
         try {
             const response = await api.get('News/list');
             const res = response.data;
-            setData(res);
+            setData(res.reverse());
         } catch (err) {
             console.log(err);
         }
     }
+
+    const navigate = useNavigate();
 
     // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +57,7 @@ function NewsTable() {
         }
     }
 
-    const handleDelete = async (newsId:number) => {
+    const handleDelete = async (newsId: number) => {
         try {
             // Perform the deletion
             await api.delete('News/deactivate/' + newsId);
@@ -69,6 +71,11 @@ function NewsTable() {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    const updateBtn = (newsId) => {
+        navigate(`cap-nhat-tin-tuc/${newsId}`);
+        window.scrollTo(0, 0);
     }
 
     return (
@@ -97,19 +104,19 @@ function NewsTable() {
                                 records.map((news, i) => (
                                     <tr key={i}>
                                         <td>{news.newsId}</td>
-                                        <td>{truncateText(news.title,12)}</td>
-                                        <td>{truncateText(news.description,15)}</td>
-                                        <td>{truncateText(news.content,30)}</td> {/* Truncate content here */}
+                                        <td>{truncateText(news.title, 12)}</td>
+                                        <td>{truncateText(news.description, 15)}</td>
+                                        <td>{truncateText(news.content, 30)}</td> {/* Truncate content here */}
                                         <td className='text-center'>{news.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit">Update</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Update</button>
                                             <button className="btn btn-danger" type="button" onClick={e => handleDelete(news.newsId)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={9}>
+                                    <td colSpan={6}>
                                         <h1 className='text-center text-red-600 p-5'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>

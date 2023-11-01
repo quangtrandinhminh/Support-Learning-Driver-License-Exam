@@ -23,6 +23,7 @@ public partial class DrivingLicenseContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(GetConnectionString());
+
     public DrivingLicenseContext(DbContextOptions<DrivingLicenseContext> options)
         : base(options)
     {
@@ -30,13 +31,13 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<Class> Classes { get; set; }
 
+    public virtual DbSet<ClassStudent> ClassStudents { get; set; }
+
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseDetail> CourseDetails { get; set; }
 
     public virtual DbSet<Exam> Exams { get; set; }
-
-    public virtual DbSet<Feedback> Feedbacks { get; set; }
 
     public virtual DbSet<Image> Images { get; set; }
 
@@ -58,8 +59,6 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<StudentAnswer> StudentAnswers { get; set; }
 
-    public virtual DbSet<TeachingSchedule> TeachingSchedules { get; set; }
-
     public virtual DbSet<Test> Tests { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -73,15 +72,19 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ClassId).HasColumnName("classID");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.CurrentStudent).HasColumnName("currentStudent");
+            entity.Property(e => e.DateEnd)
+                .HasColumnType("date")
+                .HasColumnName("dateEnd");
+            entity.Property(e => e.DateStart)
+                .HasColumnType("date")
+                .HasColumnName("dateStart");
+            entity.Property(e => e.DayOfWeek).HasColumnName("dayOfWeek");
             entity.Property(e => e.IsPractice).HasColumnName("isPractice");
             entity.Property(e => e.LimitStudent).HasColumnName("limitStudent");
-            entity.Property(e => e.Location)
-                .HasMaxLength(500)
-                .HasColumnName("location");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.CourseId)
@@ -92,30 +95,34 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.MentorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Class_Mentor");
+        });
 
-            entity.HasMany(d => d.Students).WithMany(p => p.Classes)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ClassStudent",
-                    r => r.HasOne<Student>().WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ClassStudent_Student"),
-                    l => l.HasOne<Class>().WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ClassStudent_Class"),
-                    j =>
-                    {
-                        j.HasKey("ClassId", "StudentId");
-                        j.ToTable("ClassStudent");
-                        j.IndexerProperty<int>("ClassId")
-                            .ValueGeneratedOnAdd()
-                            .HasColumnName("classID");
-                        j.IndexerProperty<string>("StudentId")
-                            .HasMaxLength(10)
-                            .IsUnicode(false)
-                            .HasColumnName("studentID");
-                    });
+        modelBuilder.Entity<ClassStudent>(entity =>
+        {
+            entity.ToTable("ClassStudent");
+
+            entity.Property(e => e.ClassStudentId).HasColumnName("classStudentID");
+            entity.Property(e => e.ClassId).HasColumnName("classID");
+            entity.Property(e => e.Comment).HasColumnName("comment");
+            entity.Property(e => e.FeedbackCreatedTime)
+                .HasColumnType("datetime")
+                .HasColumnName("feedbackCreatedTime");
+            entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.StudentId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("studentID");
+
+            entity.HasOne(d => d.Class).WithMany(p => p.ClassStudents)
+                .HasForeignKey(d => d.ClassId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ClassStudent_Class");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.ClassStudents)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ClassStudent_Student");
         });
 
         modelBuilder.Entity<Course>(entity =>
@@ -124,7 +131,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.CourseMonth).HasColumnName("courseMonth");
             entity.Property(e => e.CourseYear).HasColumnName("courseYear");
@@ -153,7 +159,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.CourseContent).HasColumnName("courseContent");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.CourseTimeEnd)
                 .HasColumnType("datetime")
@@ -176,7 +181,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.ExamId).HasColumnName("examID");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.CreatedTime)
                 .HasColumnType("datetime")
@@ -202,34 +206,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.StaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Exam_Staff");
-        });
-
-        modelBuilder.Entity<Feedback>(entity =>
-        {
-            entity.ToTable("Feedback");
-
-            entity.Property(e => e.FeedbackId).HasColumnName("feedbackID");
-            entity.Property(e => e.ClassId).HasColumnName("classID");
-            entity.Property(e => e.Comment).HasColumnName("comment");
-            entity.Property(e => e.CreatedTime)
-                .HasColumnType("datetime")
-                .HasColumnName("createdTime");
-            entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.StudentId)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("studentID");
-
-            entity.HasOne(d => d.Class).WithMany(p => p.Feedbacks)
-                .HasForeignKey(d => d.ClassId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Feedback_Class");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.Feedbacks)
-                .HasForeignKey(d => d.StudentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Feedback_Student");
         });
 
         modelBuilder.Entity<Image>(entity =>
@@ -258,7 +234,7 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.Property(e => e.LessonId).HasColumnName("lessonID");
             entity.Property(e => e.Attendance).HasColumnName("attendance");
-            entity.Property(e => e.ClassId).HasColumnName("classID");
+            entity.Property(e => e.ClassStudentId).HasColumnName("classStudentID");
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("endTime");
@@ -270,23 +246,14 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");
-            entity.Property(e => e.StudentId)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("studentID");
             entity.Property(e => e.Title)
                 .HasMaxLength(500)
                 .HasColumnName("title");
 
-            entity.HasOne(d => d.Class).WithMany(p => p.Lessons)
-                .HasForeignKey(d => d.ClassId)
+            entity.HasOne(d => d.ClassStudent).WithMany(p => p.Lessons)
+                .HasForeignKey(d => d.ClassStudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lesson_Class");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.Lessons)
-                .HasForeignKey(d => d.StudentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lesson_Student");
+                .HasConstraintName("FK_Lesson_ClassStudent");
         });
 
         modelBuilder.Entity<Member>(entity =>
@@ -303,63 +270,50 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("cardProvidedDate");
             entity.Property(e => e.CardProvidedLocation)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("cardProvidedLocation");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.Dob)
                 .HasColumnType("date")
                 .HasColumnName("dob");
             entity.Property(e => e.DrivingLicenseNumber)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("drivingLicenseNumber");
             entity.Property(e => e.DrivingLicenseProvidedDate)
                 .HasColumnType("date")
                 .HasColumnName("drivingLicenseProvidedDate");
             entity.Property(e => e.DrivingLicenseProvider)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("drivingLicenseProvider");
             entity.Property(e => e.DrivingLicenseTier)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("drivingLicenseTier");
             entity.Property(e => e.DrivingTestTier)
                 .HasMaxLength(5)
-                .IsUnicode(false)
                 .HasColumnName("drivingTestTier");
             entity.Property(e => e.Gender)
                 .HasMaxLength(6)
-                .IsUnicode(false)
-                .IsFixedLength()
                 .HasColumnName("gender");
             entity.Property(e => e.IdentityCardNumber)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("identityCardNumber");
             entity.Property(e => e.IntegratedDrivingLicense).HasColumnName("integratedDrivingLicense");
             entity.Property(e => e.IsPaid).HasColumnName("isPaid");
             entity.Property(e => e.Nationality)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("nationality");
             entity.Property(e => e.Passport)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("passport");
             entity.Property(e => e.RegistrationDate)
                 .HasColumnType("date")
                 .HasColumnName("registrationDate");
             entity.Property(e => e.RelatedDocument)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("relatedDocument");
             entity.Property(e => e.ResidenceAddress)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("residenceAddress");
             entity.Property(e => e.RevokedDrivingLicense).HasColumnName("revokedDrivingLicense");
             entity.Property(e => e.UserId).HasColumnName("userID");
@@ -488,9 +442,11 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("studentID");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
-                .IsUnicode(false)
                 .HasColumnName("courseID");
             entity.Property(e => e.MemberId).HasColumnName("memberID");
+            entity.Property(e => e.Pass).HasColumnName("pass");
+            entity.Property(e => e.TotalHour).HasColumnName("totalHour");
+            entity.Property(e => e.TotalKm).HasColumnName("totalKm");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Students)
                 .HasForeignKey(d => d.CourseId)
@@ -516,32 +472,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.TestId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudentAnswer_Test");
-        });
-
-        modelBuilder.Entity<TeachingSchedule>(entity =>
-        {
-            entity.ToTable("TeachingSchedule");
-
-            entity.Property(e => e.TeachingScheduleId).HasColumnName("teachingScheduleID");
-            entity.Property(e => e.CourseId)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("courseID");
-            entity.Property(e => e.IsPractice).HasColumnName("isPractice");
-            entity.Property(e => e.MentorId).HasColumnName("mentorID");
-            entity.Property(e => e.TeachingDate)
-                .HasColumnType("datetime")
-                .HasColumnName("teachingDate");
-
-            entity.HasOne(d => d.Course).WithMany(p => p.TeachingSchedules)
-                .HasForeignKey(d => d.CourseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TeachingSchedule_Course");
-
-            entity.HasOne(d => d.Mentor).WithMany(p => p.TeachingSchedules)
-                .HasForeignKey(d => d.MentorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TeachingSchedule_Mentor");
         });
 
         modelBuilder.Entity<Test>(entity =>
@@ -575,35 +505,26 @@ public partial class DrivingLicenseContext : DbContext
         {
             entity.ToTable("User");
 
-            entity.HasIndex(e => e.Email, "UC_Email").IsUnique();
-
-            entity.HasIndex(e => e.Phone, "UC_Phone").IsUnique();
-
             entity.Property(e => e.UserId).HasColumnName("userID");
             entity.Property(e => e.CreateTime)
                 .HasColumnType("datetime")
                 .HasColumnName("createTime");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("email");
             entity.Property(e => e.FullName)
                 .HasMaxLength(50)
                 .HasColumnName("fullName");
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Phone)
                 .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
                 .HasColumnName("phone");
             entity.Property(e => e.RoleId).HasColumnName("roleID");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("username");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)

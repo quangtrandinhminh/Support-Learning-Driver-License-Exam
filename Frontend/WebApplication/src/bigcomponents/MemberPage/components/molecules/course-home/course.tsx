@@ -11,14 +11,15 @@ function Course() {
         try {
             const response = await api.get('Course/list');
             const courses = response.data;
-            const uniqueMonths: string[] = Array.from(new Set(courses.map(item => item.courseMonth)));
+            const uniqueMonths: number[] = Array.from(new Set(courses.map(item => item.courseMonth)));
 
             // Select one course from each unique month
             const selectedCourses = uniqueMonths.map(month => {
                 return courses.find(course => course.courseMonth === month);
             });
 
-            setCourse(selectedCourses);
+            // Reverse the array to display newest courses to the left
+            setCourse(selectedCourses.reverse());
             setIsLoading(false);
         } catch (error) {
             console.error(error);
@@ -50,7 +51,7 @@ function Course() {
                             <form action="" key={i}>
                                 <div className={`course-section${i + 1}`}>
                                     <div className='upperbox'>
-                                        <h2>Khoá học tháng {course.courseMonth === "1" ? `${course.courseMonth}/2024` : `${course.courseMonth}/2023`}</h2>
+                                            <h2>Khóa học tháng {course.courseMonth}/{course.courseYear}</h2>
                                     </div>
                                     <div className='course-content'>
                                         <div className='course-content-list'>
@@ -63,7 +64,7 @@ function Course() {
                                         </div>
                                     </div>
                                     <div className='underbox'>
-                                        <a href={`khoahoc/${course.courseMonth}`} type='submit'>Xem khoá học</a>
+                                        <a href={`khoahoc/${course.courseMonth}/${course.courseYear}`} type='submit'>Xem khoá học</a>
                                     </div>
                                 </div>
                             </form>

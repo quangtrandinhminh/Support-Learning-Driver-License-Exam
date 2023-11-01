@@ -28,11 +28,11 @@ GO
 /* Added data */
 CREATE TABLE [dbo].[User](
   [userID] INT IDENTITY(1,1) NOT NULL,
-  [username] VARCHAR(50) NULL,
+  [username] NVARCHAR(50) NULL,
   [fullName] NVARCHAR(50) NULL,
-  [password] VARCHAR(50) NULL,
-  [phone] CHAR(10) NULL,
-  [email] VARCHAR(50) NULL,
+  [password] NVARCHAR(50) NULL,
+  [phone] NVARCHAR(10) NULL,
+  [email] NVARCHAR(50) NULL,
   [createTime] DATETIME NULL,
   [status] BIT NULL,
   [roleID] INT NOT NULL,
@@ -40,15 +40,13 @@ CREATE TABLE [dbo].[User](
   (
     [userID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_User_Role] FOREIGN KEY ([roleID]) REFERENCES [dbo].[Role] ([roleID]),
-  CONSTRAINT [UC_Phone] UNIQUE ([phone]),
-  CONSTRAINT [UC_Email] UNIQUE ([email])
+  CONSTRAINT [FK_User_Role] FOREIGN KEY ([roleID]) REFERENCES [dbo].[Role] ([roleID])
 )ON [PRIMARY]
 GO
 
 /* Added data */
 CREATE TABLE [dbo].[Course](
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [name] NVARCHAR(500) NULL,
   [startDate] DATE NULL,
   [endDate] DATE NULL,
@@ -71,7 +69,7 @@ CREATE TABLE [dbo].[CourseDetails](
 	[courseContent] NVARCHAR(MAX) NULL, 
 	[courseTimeStart] DATETIME NULL,
 	[courseTimeEnd] DATETIME NULL,
-	[courseID] VARCHAR(10) NOT NULL,
+	[courseID] NVARCHAR(10) NOT NULL,
 	[status] BIT NULL,
 	CONSTRAINT [PK_CourseDetails] PRIMARY KEY CLUSTERED 
   (
@@ -85,24 +83,26 @@ GO
 CREATE TABLE [dbo].[Member](
   [memberID] INT IDENTITY(1,1) NOT NULL,
   [dob] DATE NULL,
-  [gender] CHAR(6) NULL,
-  [nationality] VARCHAR(50) NULL,
-  [residenceAddress] VARCHAR(255) NULL,
-  [identityCardNumber] VARCHAR(20) NULL,
-  [passport] VARCHAR(20) NULL,
+  [gender] NVARCHAR(6) NULL,
+  [nationality] NVARCHAR(50) NULL,
+  [nation] NVARCHAR(50) NULL,
+  [temporaryAddress] NVARCHAR(50) NULL,
+  [residenceAddress] NVARCHAR(255) NULL,
+  [identityCardNumber] NVARCHAR(20) NULL,
+  [passport] NVARCHAR(20) NULL,
   [cardProvidedDate] DATE NULL,
-  [cardProvidedLocation] VARCHAR(255) NULL,
-  [drivingLicenseNumber] VARCHAR(20) NULL,
-  [drivingLicenseTier] VARCHAR(50) NULL,
-  [drivingLicenseProvider] VARCHAR(255) NULL,
+  [cardProvidedLocation] NVARCHAR(255) NULL,
+  [drivingLicenseNumber] NVARCHAR(20) NULL,
+  [drivingLicenseTier] NVARCHAR(50) NULL,
+  [drivingLicenseProvider] NVARCHAR(255) NULL,
   [drivingLicenseProvidedDate] DATE NULL,
-  [drivingTestTier] VARCHAR(5) NULL,
+  [drivingTestTier] NVARCHAR(5) NULL,
   [integratedDrivingLicense] BIT NULL,
   [revokedDrivingLicense] BIT NULL,
-  [relatedDocument] VARCHAR(255) NULL,
+  [relatedDocument] NVARCHAR(255) NULL,
   [registrationDate] DATE NULL,
   [isPaid] BIT NULL,
-  [courseID] VARCHAR(10) NULL,
+  [courseID] NVARCHAR(10) NULL,
   [userID] INT NOT NULL
   CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
   (
@@ -164,7 +164,10 @@ GO
 CREATE TABLE [dbo].[Student](
   [studentID] VARCHAR(10) NOT NULL,
   [memberID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
+  [totalKm] FLOAT NULL,
+  [totalHour] FLOAT NULL,
+  [pass] BIT NULL
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
     [studentID] ASC
@@ -174,54 +177,24 @@ CREATE TABLE [dbo].[Student](
 )ON [PRIMARY]
 GO
 
-/* Added data */
-CREATE TABLE [dbo].[TeachingSchedule](
-  [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
-  [mentorID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
-  [isPractice] BIT NULL,
-  [teachingDate] DATETIME NULL
-  CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
-  (
-    [teachingScheduleID] ASC
-  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_TeachingSchedule_Mentor] FOREIGN KEY ([mentorID]) REFERENCES [dbo].[Mentor] ([mentorID]),
-  CONSTRAINT [FK_TeachingSchedule_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
-)ON [PRIMARY]
-GO
-
 /* Theory type 0, Practice type 1*/
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
+  [dateStart] DATE NULL,
+  [dateEnd] DATE NULL,
   [isPractice] BIT NULL,
+  [dayOfWeek] TINYINT NULL,
   [currentStudent] INT NULL,
   [limitStudent] INT NULL,
-  [location] NVARCHAR(500) NULL
+  [status] BIT NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
     [classID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Class_Mentor] FOREIGN KEY ([mentorID]) REFERENCES [dbo].[Mentor] ([mentorID]),
   CONSTRAINT [FK_Class_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
-)ON [PRIMARY]
-GO
-
-CREATE TABLE [dbo].[Feedback](
-  [feedbackID] INT IDENTITY(1,1) NOT NULL,
-  [studentID] VARCHAR(10) NOT NULL,
-  [classID] INT NOT NULL,
-  [comment] NVARCHAR(MAX) NULL,
-  [rating] INT NULL,
-  [createdTime] DATETIME NULL,
-  [status] BIT NULL,
-  CONSTRAINT [PK_Feedback] PRIMARY KEY CLUSTERED 
-  (
-    [feedbackID] ASC
-  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Feedback_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID]),
-  CONSTRAINT [FK_Feedback_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID])
 )ON [PRIMARY]
 GO
 
@@ -259,7 +232,7 @@ CREATE TABLE [dbo].[Exam](
   [examName] NVARCHAR(MAX) NULL,
   [description] NVARCHAR(MAX) NULL,
   [duration] INT NULL,
-  [courseID] VARCHAR(10) NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [limitQuestion] INT NULL,
   [limitKeyQuestion] INT NULL,
   [minimumCorrectAnswer] SMALLINT NULL,
@@ -276,12 +249,16 @@ CREATE TABLE [dbo].[Exam](
 GO
 
 CREATE TABLE [dbo].[ClassStudent](
-  [classID] INT IDENTITY(1,1) NOT NULL,
+  [classStudentID] INT IDENTITY(1,1) NOT NULL,
+  [classID] INT NOT NULL,
   [studentID] VARCHAR(10) NOT NULL,
+  [comment] NVARCHAR(MAX) NULL,
+  [rating] TINYINT NULL,
+  [feedbackCreatedTime] DATETIME NULL,
+  [status] BIT NULL
   CONSTRAINT [PK_ClassStudent] PRIMARY KEY CLUSTERED 
   (
-    [classID] ASC,
-    [studentID] ASC
+    [classStudentID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_ClassStudent_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID]),
   CONSTRAINT [FK_ClassStudent_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID])
@@ -290,8 +267,7 @@ GO
 
 CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
-  [classID] INT NOT NULL,
-  [studentID] VARCHAR(10) NOT NULL,
+  [classStudentID] INT NOT NULL,
   [title] NVARCHAR(500) NULL,
   [startTime] DATETIME NULL,
   [endTime] DATETIME NULL,
@@ -303,8 +279,7 @@ CREATE TABLE [dbo].[Lesson](
   (
     [lessonID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Lesson_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID]),
-  CONSTRAINT [FK_Lesson_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID])
+  CONSTRAINT [FK_Lesson_ClassStudent] FOREIGN KEY ([classStudentID]) REFERENCES [dbo].[ClassStudent] ([classStudentID])
 )ON [PRIMARY]
 GO
 
@@ -349,7 +324,6 @@ CREATE TABLE [dbo].[TestQuestion](
   CONSTRAINT [FK_TestQuestion_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID])
 )ON [PRIMARY]
 GO
-
 /*-- Add data: Role -- 16/10/2023/ ---*/
 SET IDENTITY_INSERT [dbo].[Role] ON 
 GO
@@ -363,7 +337,6 @@ INSERT [dbo].[Role] ([roleID], [roleName]) VALUES (4, 'Member');
 GO
 SET IDENTITY_INSERT [dbo].[Role] OFF
 GO
-
 /*-- Add data: User -- 16/10/2023/ ---*/
 SET IDENTITY_INSERT [dbo].[User] ON
 GO
@@ -481,55 +454,55 @@ SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1001B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
+		VALUES('1101B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1002B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
+		VALUES('1102B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1003B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
+		VALUES('1103B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1004B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
+		VALUES('1201B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
 				'2023-10-06', '12', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1005B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
+		VALUES('1202B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
 				'2023-10-06', '12', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1006B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
+		VALUES('1203B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
 				'2023-10-06', '12', '2023', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1007B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
+		VALUES('0101B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
 				'2023-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1008B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
+		VALUES('0102B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
 				'2023-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1009B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
+		VALUES('0103B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
 				'2023-10-06', '01', '2024', 1)
 GO
 
@@ -539,273 +512,273 @@ SET IDENTITY_INSERT [dbo].[CourseDetails] ON
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('1', 'Dao Tao Ly Thuyet', '2023-11-06', '2023-11-20', '1001B2', 1)
+		VALUES('1', 'Dao Tao Ly Thuyet', '2023-11-06', '2023-11-20', '1101B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('2', 'Thuc Hanh Sa Hinh', '2023-11-21', '2023-12-25', '1001B2' , 1)
+		VALUES('2', 'Thuc Hanh Sa Hinh', '2023-11-21', '2023-12-25', '1101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('3', 'Thuc Hanh Tren Cabin', '2023-12-25', '2024-01-01', '1001B2' , 1)
+		VALUES('3', 'Thuc Hanh Tren Cabin', '2023-12-25', '2024-01-01', '1101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('4', 'Thuc Hanh Tren Duong', '2024-01-02', '2024-02-01', '1001B2' , 1)
+		VALUES('4', 'Thuc Hanh Tren Duong', '2024-01-02', '2024-02-01', '1101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('5', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-02', '2024-02-01', '1001B2' , 1)		
+		VALUES('5', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-02', '2024-02-01', '1101B2' , 1)		
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('6', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-01', '2024-02-06', '1001B2' , 1)
+		VALUES('6', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-01', '2024-02-06', '1101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('7', 'Dao Tao Ly Thuyet', '2023-11-16', '2023-11-30', '1002B2', 1)
+		VALUES('7', 'Dao Tao Ly Thuyet', '2023-11-16', '2023-11-30', '1102B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('8', 'Thuc Hanh Sa Hinh', '2023-12-01', '2024-01-01', '1002B2' , 1)
+		VALUES('8', 'Thuc Hanh Sa Hinh', '2023-12-01', '2024-01-01', '1102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('9', 'Thuc Hanh Tren Cabin', '2024-01-02', '2024-01-12', '1002B2' , 1)
+		VALUES('9', 'Thuc Hanh Tren Cabin', '2024-01-02', '2024-01-12', '1102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('10', 'Thuc Hanh Tren Duong', '2024-01-13', '2024-02-11', '1002B2' , 1)
+		VALUES('10', 'Thuc Hanh Tren Duong', '2024-01-13', '2024-02-11', '1102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('11', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-13', '2024-02-11', '1002B2' , 1)	
+		VALUES('11', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-13', '2024-02-11', '1102B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('12', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-12', '2024-02-16', '1002B2' , 1)
+		VALUES('12', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-12', '2024-02-16', '1102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2023-12-05', '1003B2', 1)
+		VALUES('13', 'Dao Tao Ly Thuyet', '2023-11-26', '2023-12-05', '1103B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('14', 'Thuc Hanh Sa Hinh', '2023-12-06', '2024-01-11', '1003B2' , 1)
+		VALUES('14', 'Thuc Hanh Sa Hinh', '2023-12-06', '2024-01-11', '1103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('15', 'Thuc Hanh Tren Cabin', '2024-01-12', '2024-01-22', '1003B2' , 1)
+		VALUES('15', 'Thuc Hanh Tren Cabin', '2024-01-12', '2024-01-22', '1103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('16', 'Thuc Hanh Tren Duong', '2024-01-23', '2024-02-21', '1003B2' , 1)
+		VALUES('16', 'Thuc Hanh Tren Duong', '2024-01-23', '2024-02-21', '1103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('17', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-23', '2024-02-21', '1003B2' , 1)	
+		VALUES('17', 'Thuc Hanh Tren Xe Tu Dong', '2024-01-23', '2024-02-21', '1103B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('18', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-22', '2024-02-26', '1003B2' , 1)
+		VALUES('18', 'Thuc Hanh Tong Hop Sa Hinh', '2024-02-22', '2024-02-26', '1103B2' , 1)
 
                                  /*T: 12*/
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('19', 'Dao Tao Ly Thuyet', '2023-12-06', '2023-12-20', '1001B2', 1)
+		VALUES('19', 'Dao Tao Ly Thuyet', '2023-12-06', '2023-12-20', '1201B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('20', 'Thuc Hanh Sa Hinh', '2023-12-21', '2024-01-25', '1001B2' , 1)
+		VALUES('20', 'Thuc Hanh Sa Hinh', '2023-12-21', '2024-01-25', '1201B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('21', 'Thuc Hanh Tren Cabin', '2024-01-25', '2024-02-01', '1001B2' , 1)
+		VALUES('21', 'Thuc Hanh Tren Cabin', '2024-01-25', '2024-02-01', '1201B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('22', 'Thuc Hanh Tren Duong', '2024-02-02', '2024-03-01', '1001B2' , 1)
+		VALUES('22', 'Thuc Hanh Tren Duong', '2024-02-02', '2024-03-01', '1201B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('23', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-02', '2024-03-01', '1001B2' , 1)		
+		VALUES('23', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-02', '2024-03-01', '1201B2' , 1)		
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('24', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-01', '2024-03-06', '1001B2' , 1)
+		VALUES('24', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-01', '2024-03-06', '1201B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('25', 'Dao Tao Ly Thuyet', '2023-12-16', '2023-12-30', '1002B2', 1)
+		VALUES('25', 'Dao Tao Ly Thuyet', '2023-12-16', '2023-12-30', '1202B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('26', 'Thuc Hanh Sa Hinh', '2024-01-01', '2024-02-01', '1002B2' , 1)
+		VALUES('26', 'Thuc Hanh Sa Hinh', '2024-01-01', '2024-02-01', '1202B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('27', 'Thuc Hanh Tren Cabin', '2024-02-02', '2024-02-12', '1002B2' , 1)
+		VALUES('27', 'Thuc Hanh Tren Cabin', '2024-02-02', '2024-02-12', '1202B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('28', 'Thuc Hanh Tren Duong', '2024-02-13', '2024-03-11', '1002B2' , 1)
+		VALUES('28', 'Thuc Hanh Tren Duong', '2024-02-13', '2024-03-11', '1202B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('29', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-13', '2024-03-11', '1002B2' , 1)	
+		VALUES('29', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-13', '2024-03-11', '1202B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('30', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-12', '2024-03-16', '1002B2' , 1)
+		VALUES('30', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-12', '2024-03-16', '1202B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('31', 'Dao Tao Ly Thuyet', '2023-12-26', '2024-02-05', '1003B2', 1)
+		VALUES('31', 'Dao Tao Ly Thuyet', '2023-12-26', '2024-02-05', '1203B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('32', 'Thuc Hanh Sa Hinh', '2024-02-06', '2024-02-11', '1003B2' , 1)
+		VALUES('32', 'Thuc Hanh Sa Hinh', '2024-02-06', '2024-02-11', '1203B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('33', 'Thuc Hanh Tren Cabin', '2024-02-12', '2024-02-22', '1003B2' , 1)
+		VALUES('33', 'Thuc Hanh Tren Cabin', '2024-02-12', '2024-02-22', '1203B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('34', 'Thuc Hanh Tren Duong', '2024-02-23', '2024-03-21', '1003B2' , 1)
+		VALUES('34', 'Thuc Hanh Tren Duong', '2024-02-23', '2024-03-21', '1203B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('35', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-23', '2024-03-21', '1003B2' , 1)	
+		VALUES('35', 'Thuc Hanh Tren Xe Tu Dong', '2024-02-23', '2024-03-21', '1203B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('36', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-22', '2024-03-26', '1003B2' , 1)
+		VALUES('36', 'Thuc Hanh Tong Hop Sa Hinh', '2024-03-22', '2024-03-26', '1203B2' , 1)
                                  /*T: 1*/
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('37', 'Dao Tao Ly Thuyet', '2024-01-06', '2024-01-20', '1001B2', 1)
+		VALUES('37', 'Dao Tao Ly Thuyet', '2024-01-06', '2024-01-20', '0101B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('38', 'Thuc Hanh Sa Hinh', '2023-01-21', '2024-02-25', '1001B2' , 1)
+		VALUES('38', 'Thuc Hanh Sa Hinh', '2023-01-21', '2024-02-25', '0101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('39', 'Thuc Hanh Tren Cabin', '2024-02-25', '2024-03-01', '1001B2' , 1)
+		VALUES('39', 'Thuc Hanh Tren Cabin', '2024-02-25', '2024-03-01', '0101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('40', 'Thuc Hanh Tren Duong', '2024-03-02', '2024-04-01', '1001B2' , 1)
+		VALUES('40', 'Thuc Hanh Tren Duong', '2024-03-02', '2024-04-01', '0101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('41', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-02', '2024-04-01', '1001B2' , 1)		
+		VALUES('41', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-02', '2024-04-01', '0101B2' , 1)		
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('42', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-01', '2024-04-06', '1001B2' , 1)
+		VALUES('42', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-01', '2024-04-06', '0101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('43', 'Dao Tao Ly Thuyet', '2024-01-16', '2024-01-30', '1002B2', 1)
+		VALUES('43', 'Dao Tao Ly Thuyet', '2024-01-16', '2024-01-30', '0102B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('44', 'Thuc Hanh Sa Hinh', '2024-02-01', '2024-03-01', '1002B2' , 1)
+		VALUES('44', 'Thuc Hanh Sa Hinh', '2024-02-01', '2024-03-01', '0102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('45', 'Thuc Hanh Tren Cabin', '2024-03-02', '2024-03-12', '1002B2' , 1)
+		VALUES('45', 'Thuc Hanh Tren Cabin', '2024-03-02', '2024-03-12', '0102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('46', 'Thuc Hanh Tren Duong', '2024-03-13', '2024-04-11', '1002B2' , 1)
+		VALUES('46', 'Thuc Hanh Tren Duong', '2024-03-13', '2024-04-11', '0102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('47', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-13', '2024-04-11', '1002B2' , 1)	
+		VALUES('47', 'Thuc Hanh Tren Xe Tu Dong', '2024-03-13', '2024-04-11', '0102B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('48', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-12', '2024-04-16', '1002B2' , 1)
+		VALUES('48', 'Thuc Hanh Tong Hop Sa Hinh', '2024-04-12', '2024-04-16', '0102B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('49', 'Dao Tao Ly Thuyet', '2024-01-26', '2024-03-05', '1003B2', 1)
+		VALUES('49', 'Dao Tao Ly Thuyet', '2024-01-26', '2024-03-05', '0103B2', 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('50', 'Thuc Hanh Sa Hinh', '2024-03-06', '2024-04-11', '1003B2' , 1)
+		VALUES('50', 'Thuc Hanh Sa Hinh', '2024-03-06', '2024-04-11', '0103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('51', 'Thuc Hanh Tren Cabin', '2024-04-12', '2024-04-22', '1003B2' , 1)
+		VALUES('51', 'Thuc Hanh Tren Cabin', '2024-04-12', '2024-04-22', '0103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('52', 'Thuc Hanh Tren Duong', '2024-04-23', '2024-05-21', '1003B2' , 1)
+		VALUES('52', 'Thuc Hanh Tren Duong', '2024-04-23', '2024-05-21', '0103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('53', 'Thuc Hanh Tren Xe Tu Dong', '2024-04-23', '2024-05-21', '1003B2' , 1)	
+		VALUES('53', 'Thuc Hanh Tren Xe Tu Dong', '2024-04-23', '2024-05-21', '0103B2' , 1)	
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('54', 'Thuc Hanh Tong Hop Sa Hinh', '2024-05-22', '2024-05-26', '1003B2' , 1)
+		VALUES('54', 'Thuc Hanh Tong Hop Sa Hinh', '2024-05-22', '2024-05-26', '0103B2' , 1)
 GO 
 SET IDENTITY_INSERT [dbo].[CourseDetails] OFF
 
@@ -814,247 +787,247 @@ GO
 SET IDENTITY_INSERT [dbo].[Member] ON 
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress],  [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('1', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('1', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001235', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1001B2', '2')
+							'B2', 2, 2, '', '2023-10-22', 1, '1101B2', '2')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('2', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('2', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001236', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1001B2', '3')
+							'B2', 2, 2, '', '2023-10-22', 1, '1101B2', '3')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('3', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('3', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001237', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1001B2', '4')
+							'B2', 2, 2, '', '2023-10-22', 1, '1101B2', '4')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('4', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('4', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001238', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1002B2', '5')
+							'B2', 2, 2, '', '2023-10-22', 1, '1102B2', '5')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('5', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('5', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001239', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1002B2', '6')
+							'B2', 2, 2, '', '2023-10-22', 1, '1102B2', '6')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('6', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('6', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001240', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1002B2', '7')
+							'B2', 2, 2, '', '2023-10-22', 1, '1102B2', '7')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('7', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('7', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001241', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1003B2', '8')
+							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', '8')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('8', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('8', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001242', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1003B2', '9')
+							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', '9')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('9', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('9', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001243', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1003B2', ' 10')
+							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', ' 10')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('10', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('10', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001244', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1004B2', '11')
+							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '11')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('11', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('11', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001245', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1004B2', '12')
+							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '12')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('12', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('12', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001220', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1004B2', '13')
+							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '13')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('13', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('13', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001246', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1005B2', '14')
+							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '14')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('14', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('14', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001247', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1005B2', '15')
+							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '15')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('15', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('15', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001248', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1005B2', '16')
+							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '16')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('16', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('16', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001249', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1006B2', '17')
+							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '17')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('17', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('17', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001250', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1006B2', '18')
+							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '18')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('18', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('18', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001251', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1006B2', '19')
+							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '19')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('19', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('19', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001252', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1007B2', '20')
+							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '20')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('20', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('20', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001253', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1007B2', '21')
+							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '21')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('21', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('21', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001254', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1007B2', '22')
+							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '22')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('22', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('22', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001255', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1008B2', '23')
+							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '23')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('23', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('23', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001256', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1008B2', '24')
+							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '24')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('24', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('24', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001257', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1008B2', '25')
+							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '25')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('25', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('25', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001258', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1009B2', '26')
+							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '26')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('26', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('26', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001259', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1009B2', '27')
+							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '27')
 
 GO
-INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [residenceAddress], [identityCardNumber], 
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
 								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
-		VALUES('27', '2003-08-06', 'Nam', N'VietNam', '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+		VALUES('27', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001260', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1009B2', '36')
+							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '36')
 GO
 SET IDENTITY_INSERT [dbo].[Member] OFF
 
@@ -1099,9 +1072,9 @@ INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [corre
 INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
 	VALUES(6, N'Lý Thuyết', 'https://i.ibb.co/qM1ZvpV/600-cau-hoi6.jpg', 0, '1', '1', 1)
 /*INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
-	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+	VALUES(7, N'Lý Thuyết', 'https://i.ibb.co/0JbcfRL/600-cau-hoi7.jpg', 0, '4', '1', 1)
 INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
-	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
+	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/QbV2qNC/600-cau-hoi8.jpg', 0, '3', '1', 1)
 INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
 	VALUES(4, N'Lý Thuyết', 'https://i.ibb.co/1XNShjk/600-cau-hoi4.jpg', 0, '3', '1', 1)
 INSERT [dbo].[Question] ([questionID], [content], [image], [keyQuestion], [correctAnswer], [staffID], [status])
@@ -1161,23 +1134,5 @@ INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPrac
 	VALUES (5, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 31, 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Mentor] OFF
-GO
-
-/* Add data: Teaching Schedule */
-SET IDENTITY_INSERT [dbo].[TeachingSchedule] ON
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (1, 1, '1001B2', 0, '2023-11-10')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (2, 1, '1001B2', 1, '2023-11-23')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (3, 1, '1001B2', 1, '2023-11-30')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (4, 4, '1001B2', 0, '2023-11-11')
-GO
-SET IDENTITY_INSERT [dbo].[TeachingSchedule] OFF
 GO
 
