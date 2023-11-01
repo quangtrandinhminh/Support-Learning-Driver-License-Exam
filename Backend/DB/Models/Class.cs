@@ -9,25 +9,19 @@ public partial class Class
 
     public int MentorId { get; set; }
 
-    public string CourseId { get; set; } = null!;
+    public string CourseId { get; set; }
 
-    public DateTime? DateStart { get; set; }
+    public bool? IsTheoryClass { get; set; }
 
-    public DateTime? DateEnd { get; set; }
+    public int? DayOfWeek { get; set; }
 
-    public bool? IsPractice { get; set; }
-
-    public byte? DayOfWeek { get; set; }
-
-    public int? CurrentStudent { get; set; }
-
-    public int? LimitStudent { get; set; }
+    public string Shift { get; set; }
 
     public bool? Status { get; set; }
 
     public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();
 
-    public virtual Course Course { get; set; } = null!;
+    public virtual Course Course { get; set; }
 
-    public virtual Mentor Mentor { get; set; } = null!;
+    public virtual Mentor Mentor { get; set; }
 }
