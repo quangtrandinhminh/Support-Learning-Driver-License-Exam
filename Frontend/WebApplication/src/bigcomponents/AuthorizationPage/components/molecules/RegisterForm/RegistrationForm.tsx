@@ -17,12 +17,30 @@ function RegisterForm() {
     status: true
   })
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-
+  const phoneFormat = /^0\d{9}$/;
+  const nameFormat = /^[\p{L} ]{5,32}$/u;
   const navigate = useNavigate();
+  const requiredFields = ['username', 'password', 'fullName', 'phone'];
 
   const handleRegister = async () => {
     try {
+
+      const missingFields = requiredFields.filter(field => !formData[field]);
       // Check if the password and confirmPassword match
+      if (missingFields.length > 0) {
+        setError(`Vui lòng điền đầy đủ thông tin!`);
+        return;
+      }
+
+      // Check format
+      if (!nameFormat.test(formData.fullName)!) {
+        setError('Họ và tên không hợp lệ.');
+        return;
+      } else if (!phoneFormat.test(formData.phone)) {
+        setError('Số điện thoại không hợp lệ.');
+        return;
+      }
+
       if (formData.password !== confirmPassword) {
         setError('Mật khẩu không khớp.');
         return;

@@ -31,7 +31,7 @@ function VerificationForm() {
 
   });
   const navigate = useNavigate();
-  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation'];
+  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation', 'temporaryAddress'];
   const namePattern = /^[\p{L} ]{5,32}$/u,
     nationalityPattern = /^[\p{L} ]{2,32}$/u,
     nation = /^[\p{L} ]{2,32}$/u;
