@@ -56,7 +56,7 @@ function UpdateNewsForm() {
     return (
         <div className='update-news-container'>
             <div className='update-news-title'>
-                <h1 className='text-center text-uppercase'>Tạo tin tức</h1>
+                <h1 className='text-center text-uppercase'>Cập nhật tin tức</h1>
             </div>
             <div className='update-news-form'>
                 {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
@@ -106,7 +106,7 @@ function UpdateNewsForm() {
                             </button>
                         </div>
                     </div>
-                    <button className='btn btn-primary w-25' type='submit'>Tạo</button>
+                    <button className='btn btn-primary w-25' type='submit'>Cập nhật</button>
                 </form>
             </div>
         </div>

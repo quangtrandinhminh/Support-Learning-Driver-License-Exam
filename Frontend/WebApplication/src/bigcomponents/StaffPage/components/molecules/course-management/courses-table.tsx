@@ -122,14 +122,16 @@ function CourseTable() {
                         <thead className='table-primary'>
                             <tr>
                                 <th scope='col'>#</th>
-                                <th scope='col'>ID</th>
-                                <th scope='col'>Name</th>
-                                <th scope='col'>Sta.Date</th>
-                                <th scope='col'>End.Date</th>
-                                <th className='text-center' scope='col'>StudentNum</th>
-                                <th className='text-center' scope='col'>LimitStudent</th>
-                                <th scope='col' className='text-center'>Status</th>
-                                <th scope='col' className='text-center'>Action</th>
+                                <th scope='col'>Mã khoá học</th>
+                                <th scope='col'>Tên</th>
+                                <th scope='col'>Ngày khai giảng</th>
+                                <th scope='col'>Ngày bắt đầu</th>
+                                <th className='text-center' scope='col'>Số học viên</th>
+                                <th className='text-center' scope='col'>Số học viên tối đa</th>
+                                <th scope='col' className='text-center'>Tháng</th>
+                                <th scope='col' className='text-center'>Năm</th>
+                                <th scope='col' className='text-center'>Trạng thái</th>
+                                <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -143,6 +145,8 @@ function CourseTable() {
                                         <td>{formatDate(course.endDate)}</td>
                                         <td className='text-center'>{course.numberOfStudents}</td>
                                         <td className='text-center'>{course.limitStudent}</td>
+                                        <td className='text-center'>{course.courseMonth}</td>
+                                        <td className='text-center'>{course.courseYear}</td>
                                         <td className='text-center'>{course.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
