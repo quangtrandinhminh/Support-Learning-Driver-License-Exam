@@ -128,12 +128,12 @@ namespace Backend.Services.Course
             return result;
         }
 
-        public async Task<ServiceResult<int>> CreateCourse(CourseRequestDTO courseRequestDto)
+        public async Task<ServiceResult<int>> CreateCourse(CourseCreateDTO courseCreateDto)
         {
             var result = new ServiceResult<int>();
             try
             {
-                if (courseRequestDto.EndDate < courseRequestDto.StartDate)
+                if (courseCreateDto.EndDate < courseCreateDto.StartDate)
                 {
                     result.IsError = true;
                     result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
@@ -141,16 +141,17 @@ namespace Backend.Services.Course
                     return result;
                 }
 
-                var courseExist = await _courseRepository.GetByIdAsync(courseRequestDto.CourseId);
+                var courseExist = await _courseRepository.GetByIdAsync(courseCreateDto.CourseId);
                 if (courseExist != null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "Course is already exist";
+                    result.ErrorMessage = "Course ID đã tồn tại";
                     result.Payload = -1;
                     return result;
                 } ;
                 ;
-                var course = _mapper.Map<DB.Models.Course>(courseRequestDto);
+                var course = _mapper.Map<DB.Models.Course>(courseCreateDto);
+                course.NumberOfStudents = 0;
                 course.CreateTime = DateTime.Now;
                 course.CourseMonth = course.StartDate?.Month;
                 course.CourseYear = course.StartDate?.Year;
@@ -166,12 +167,12 @@ namespace Backend.Services.Course
             return result;
         }
 
-        public async Task<ServiceResult<int>> UpdateCourse(CourseRequestDTO courseRequestDto)
+        public async Task<ServiceResult<int>> UpdateCourse(CourseUpdateDTO courseUpdateDto)
         {
             var result = new ServiceResult<int>();
             try
             {
-                if (courseRequestDto.EndDate < courseRequestDto.StartDate)
+                if (courseUpdateDto.EndDate < courseUpdateDto.StartDate)
                 {
                     result.IsError = true;
                     result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
@@ -179,7 +180,7 @@ namespace Backend.Services.Course
                     return result;
                 }
 
-                var originalCourse = await _courseRepository.GetByIdAsync(courseRequestDto.CourseId);
+                var originalCourse = await _courseRepository.GetByIdAsync(courseUpdateDto.CourseId);
                 if (originalCourse == null)
                 {
                     result.IsError = true;
@@ -188,7 +189,7 @@ namespace Backend.Services.Course
                     return result;
                 }
 
-                var course = _mapper.Map(courseRequestDto, originalCourse);
+                var course = _mapper.Map(courseUpdateDto, originalCourse);
                 course.CourseMonth = course.StartDate?.Month;
                 course.CourseYear = course.StartDate?.Year;
 

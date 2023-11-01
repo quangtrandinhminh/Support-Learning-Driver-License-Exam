@@ -114,7 +114,6 @@ const LoginForm: React.FC = () => {
             <p>Đăng Ký</p>
           </button>
         </div>
-        <Link to="/quen-mat-khau" className="forgot_password"><p>Quên mật khẩu?</p></Link>
       </form>
     </div>
   );

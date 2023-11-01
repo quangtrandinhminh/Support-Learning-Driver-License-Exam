@@ -77,9 +77,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCourse(CourseRequestDTO courseRequestDto)
+        public async Task<IActionResult> AddCourse(CourseCreateDTO courseCreateDto)
         {
-            var result = await _courseService.CreateCourse(courseRequestDto);
+            var result = await _courseService.CreateCourse(courseCreateDto);
 
             if (result.IsError)
             {
@@ -97,13 +97,13 @@ namespace Backend.Controllers
                 });
             }
             
-            return Ok("Add course successfully!");
+            return Ok("Thêm khóa học thành công!");
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateCourse(CourseRequestDTO courseRequestDto)
+        public async Task<IActionResult> UpdateCourse(CourseUpdateDTO courseUpdateDto)
         {
-            var result = await _courseService.UpdateCourse(courseRequestDto);
+            var result = await _courseService.UpdateCourse(courseUpdateDto);
 
             if (result.IsError)
             {
@@ -122,7 +122,7 @@ namespace Backend.Controllers
             }
 
 
-            return Ok("Update course successfully!");
+            return Ok("Cập nhật khóa học thành công!");
         }
 
         [HttpDelete("deactivate/{id}")]
@@ -136,7 +136,7 @@ namespace Backend.Controllers
                     error = result.ErrorMessage
                 });
 
-            return Ok("Delete course successfully!");
+            return Ok("Đã xóa khóa học!");
         }
     }
 }

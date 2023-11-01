@@ -12,7 +12,7 @@ namespace Backend.Services.Staff
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public StaffService(IStaffRepository staffRepository, IUserRepository userRepository,IMapper mapper)
+        public StaffService(IStaffRepository staffRepository, IUserRepository userRepository, IMapper mapper)
         {
             _staffRepository = staffRepository;
             _userRepository = userRepository;
@@ -102,6 +102,69 @@ namespace Backend.Services.Staff
             catch (Exception e)
             {
                 result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> CreateStaff(StaffCreateDTO staffCreateDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var user = _userRepository.GetAll();
+
+                var username = await user.FirstOrDefaultAsync(u => u.Username == staffCreateDto.Username);
+                if (username != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Tên đăng nhập đã tồn tại!";
+                    result.Payload = -2;
+                    return result;
+                }
+
+
+                var email = await user.FirstOrDefaultAsync(u => u.Email == staffCreateDto.Email);
+                if (email != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Email đã tồn tại!";
+                    result.Payload = -2;
+                    return result;
+                }
+
+
+
+                var phone = await user.FirstOrDefaultAsync(u => u.Phone == staffCreateDto.Phone);
+                if (phone != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Số điện thoại đã tồn tại!";
+                    result.Payload = -2;
+                    return result;
+                }
+
+
+                var staff = _mapper.Map<DB.Models.User>(staffCreateDto);
+                staff.RoleId = 2;
+                staff.CreateTime = DateTime.Now;
+                staff.Status = true;
+
+                staff = await _userRepository.AddAsync(staff);
+                if (staff != null)
+                {
+                    var newStaff = new DB.Models.Staff()
+                    {
+                        UserId = staff.UserId,
+                    };
+
+                    await _staffRepository.CreateAsync(newStaff);
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

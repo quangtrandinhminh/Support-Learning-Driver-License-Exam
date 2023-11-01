@@ -25,7 +25,10 @@ function VerificationForm() {
     userId: userId,
     fullName: '',
     phone: '',
-    email: ''
+    email: '',
+    nation: '',
+    temporaryAddress: ''
+
   });
   const navigate = useNavigate();
   const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation'];
@@ -165,7 +168,7 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="tempoAddress">Nơi cư trú:</label>
                     <input type="text" name="tempoAddress" className='tempo-input'
-                      onChange={e => setInputData({ ...inputData, tempoAddress: e.target.value })} />
+                      onChange={e => setInputData({ ...inputData, temporaryAddress: e.target.value })} />
                   </li>
                   <li>
                     <label htmlFor="cccdCardNo">Số CMND/CCCD:</label>
@@ -249,7 +252,7 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="tempoAddress">Nơi cư trú:</label>
                     <input type="text" name="tempoAddress" className='tempo-input'
-                      onChange={e => setInputData({ ...inputData, tempoAddress: e.target.value })} />
+                      onChange={e => setInputData({ ...inputData, temporaryAddress: e.target.value })} />
                   </li>
                   <li>
                     <label htmlFor="cccdCardNo">Số CMND/CCCD:</label>
