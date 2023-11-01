@@ -21,6 +21,9 @@ function UpdateNewsForm() {
                 || inputData.content === '') {
                 setError("Vui lòng nhập đủ thông tin");
                 return;
+            } else if (inputData.description.length > 50) {
+                setError('Mô tả không được dài quá 50 ký tự.');
+                return;
             }
 
             await api.put('News/update', inputData);
