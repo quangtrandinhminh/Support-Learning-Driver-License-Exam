@@ -300,6 +300,9 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("identityCardNumber");
             entity.Property(e => e.IntegratedDrivingLicense).HasColumnName("integratedDrivingLicense");
             entity.Property(e => e.IsPaid).HasColumnName("isPaid");
+            entity.Property(e => e.Nation)
+                .HasMaxLength(50)
+                .HasColumnName("nation");
             entity.Property(e => e.Nationality)
                 .HasMaxLength(50)
                 .HasColumnName("nationality");
@@ -316,6 +319,9 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("residenceAddress");
             entity.Property(e => e.RevokedDrivingLicense).HasColumnName("revokedDrivingLicense");
+            entity.Property(e => e.TemporaryAddress)
+                .HasMaxLength(50)
+                .HasColumnName("temporaryAddress");
             entity.Property(e => e.UserId).HasColumnName("userID");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Members)
