@@ -32,7 +32,6 @@
 		<Folder Include="Services\Mentor\" />
 		<Folder Include="Services\Member\" />
 		<Folder Include="Services\Lesson\" />
-		<Folder Include="Services\Feedback\" />
 		<Folder Include="Services\StudentAnswer\" />
 		<Folder Include="Services\User\" />
 		<Folder Include="Services\Class\" />
