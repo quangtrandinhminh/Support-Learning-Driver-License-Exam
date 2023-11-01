@@ -4,13 +4,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../../../AuthorizationPage/assets/images/logo.png";
 import Lock from "../../../assets/images/lock.svg";
-import user from "../../../assets/images/userblur.svg";
+import userImg from "../../../assets/images/userblur.svg";
 import "./index.scss"
 import api from "../../../../../config/axios";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [user, setUser] = useState(null);
+  const [member, setMember] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,21 +24,24 @@ const LoginForm: React.FC = () => {
 
     try {
       // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await api.post("login?username=" + username);
+      const response = await api.post("login?username=" + username + "&password=" + password);
       if (response.status === 200) {
+        console.log(response.data);
         const data = response.data;
         const user = Object.assign(data);
+        setUser(user.payload);
+        console.log(member);
         console.log(user.payload);
         if (data.payload == null) {
           toast.error("Tên đăng nhập không có trong hệ thống. Vui lòng kiểm tra lại!");
         } else {
           if (user.payload.username === username) {
             if (user.payload.password === password) {
-              sessionStorage.setItem('loginedUser', JSON.stringify(user.payload));
               toast.success("Đăng nhập thành công"); // Show the success toast
-              setTimeout(function () {
+              setTimeout(() => {
+                sessionStorage.setItem('loginedUser', JSON.stringify(user.payload));
                 location.reload();
-              }, 2000); // Reload the page after 2 seconds (adjust as needed)
+              }, 1500); // Reload the page after 2 seconds (adjust as needed)
             } else {
               toast.error("Mật khẩu không đúng. Vui lòng nhập lại!")
             }
@@ -48,10 +53,24 @@ const LoginForm: React.FC = () => {
         console.log("Xảy ra lỗi khi nhận dữ liệu")
       }
     } catch (error) {
-      console.log("Error loading data");
       console.log(error);
     }
   };
+
+  const getMemberByUID = async () => {
+    try {
+      if (user != null) {
+        const response = await api.post('Member?userID=' + user.userID);
+        sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
+      }
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
+  }
+
+  useEffect(() => {
+    getMemberByUID();
+  }, [user])
 
   const handleRegister = () => {
     navigate("/dang-ky");
@@ -71,7 +90,7 @@ const LoginForm: React.FC = () => {
         <img src={logo} alt="logo" />
         <div className="rectangle-border">
           <div className="inputField">
-            <img src={user} alt="user" />
+            <img src={userImg} alt="user" />
             <input
               type="text"
               placeholder="Nhập tên đăng nhập"

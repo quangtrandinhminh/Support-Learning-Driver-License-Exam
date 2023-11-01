@@ -1,134 +1,127 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { User } from "../../../../AuthorizationPage/data/User";
-import axios from "axios";
-import logo from "../../../../AuthorizationPage/assets/images/logo.png";
-import user from "../../../../AuthorizationPage/assets/images/userblur.svg";
-import gmail from "../../../../AuthorizationPage/assets/images/gmail logo.svg";
-import lock from "../../../../AuthorizationPage/assets/images/lock.svg";
-import "./index.scss";
+import React, { useState } from 'react';
+import './index.scss';
+import api from '../../../../../config/axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from '../../../assets/images/logo.png';
+import { faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const RegistrationForm: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+
+
+function RegisterForm() {
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    fullName: '',
+    phone: '',
+    status: true
+  })
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    // check if user not input all fields
-    e.preventDefault();
-    if (!username || !email || !password || !confirmPassword) {
-      toast.error("Please fill in all the fields.");
-      return;
-    }
-    // check password is matched or not
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
-      return;
-    }
-
-    //get user
+  const handleRegister = async () => {
     try {
-      // Sử dụng axios để tải dữ liệu từ tệp JSON
-      const response = await axios.get("data.json");
-      if (response.status === 200) {
-        const data = response.data;
-        const userExists = data.users.some((user: User) => user.username === username);
-        const emailExists = data.users.some((user: User) => user.gmail === email);
-
-        if (userExists) {
-          toast.error("Username already exists.");
-        } else if (emailExists) {
-          toast.error("Email already exists.");
-        } else {
-          // Tạo một ID mới cho người dùng
-          const maxId = data.users.reduce((max: number, user: User) => (user.id > max ? user.id : max), 0);
-          const newUserId = maxId + 1;
-
-          // Thêm người dùng mới vào dữ liệu
-          data.users.push({
-            id: newUserId,
-            username,
-            gmail: email,
-            password,
-            phone: "null",
-            role: "user",
-          });
-
-          // // Cập nhật tệp JSON với dữ liệu mới
-          await axios.post("data.json", data);
-          toast.success("Hello new user");
-
-          // Xóa các trường đầu vào
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-
-          setTimeout(() => {
-            navigate("/dang-nhap");
-          }, 2000);
-        }
-      } else {
-        toast.error("Failed to load user data.");
+      // Check if the password and confirmPassword match
+      if (formData.password !== confirmPassword) {
+        setError('Mật khẩu không khớp.');
+        return;
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Error loading data");
+
+      // Send a request to the server for registration
+      await api.post("User/Register", formData);
+      toast.success("Đăng ký thành công. Chào mừng bạn!");
+      setError(null);
+      navigate("/dang-nhap");
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleRegister();
+  }
+
   return (
     <div className="registration-form">
-      <form onSubmit={handleRegister}>
-        <img src={logo} alt="logo" />
-        <div className="rectangle-border">
+      <img src={logo} alt="logo" />
+      <div className="rectangle-border">
+        {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
+        <form onSubmit={handleSubmit}>
           <div className="inputField">
-            <img src={user} alt="user" />
+          <FontAwesomeIcon icon={faUser} className='icon'/>
             <input
               type="text"
-              placeholder="Nhập tên đăng nhập"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="username"
+              placeholder="Tên đăng nhập"
+              name="username"
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
-            <img src={gmail} alt="gmail" />
+          <FontAwesomeIcon icon={faUser} className='icon'/>
             <input
               type="text"
-              placeholder="Nhập tên đăng nhập"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="fullName"
+              placeholder="Họ và tên"
+              name="fullName"
+              onChange={(e) =>
+                setFormData({ ...formData, fullName: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
-            <img src={lock} alt="password" />
+          <FontAwesomeIcon icon={faPhone} className='icon'/>
             <input
-              type="password"
-              placeholder="Nhập tên đăng nhập"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="phone"
+              id="phone"
+              placeholder="Số điện thoại"
+              name="phone"
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
             />
           </div>
           <div className="inputField">
-            <img src={lock} alt="repeatPassword" />
+          <FontAwesomeIcon icon={faLock} className='icon'/>
             <input
               type="password"
-              placeholder="Nhập tên đăng nhập"
-              value={password}
+              id="password"
+              placeholder="Mật khẩu"
+              name="password"
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+          </div>
+          <div className="inputField">
+          <FontAwesomeIcon icon={faLock} className='icon'/>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Nhập lại mật khẩu"
+              name="confirmPassword"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-        </div>
-        <div className="registration-buttons">
-          <button type="submit"><p>ĐĂNG KÝ</p></button>
-        </div>
-      </form>
+          <div className="registration-buttons">
+            <button type="submit">
+              <p>Đăng ký</p>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
-export default RegistrationForm;
+export default RegisterForm;

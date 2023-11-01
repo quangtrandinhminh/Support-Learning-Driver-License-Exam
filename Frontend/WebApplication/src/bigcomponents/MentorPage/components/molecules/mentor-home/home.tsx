@@ -32,6 +32,13 @@ function HomePage() {
               </NavLink>
             </div>
           </li>
+          <li className='home-component'>
+            <div className="mentor-list">
+              <NavLink to='/dang-ki-lich-day'>
+                Đăng kí lịch dạy
+              </NavLink>
+            </div>
+          </li>
         </div>
       </div>
     </>
