@@ -7,11 +7,11 @@ public partial class News
 {
     public int NewsId { get; set; }
 
-    public string? Title { get; set; }
+    public string Title { get; set; }
 
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
-    public string? Content { get; set; }
+    public string Content { get; set; }
 
     public DateTime? CreatedTime { get; set; }
 
@@ -19,5 +19,5 @@ public partial class News
 
     public int StaffId { get; set; }
 
-    public virtual Staff Staff { get; set; } = null!;
+    public virtual Staff Staff { get; set; }
 }

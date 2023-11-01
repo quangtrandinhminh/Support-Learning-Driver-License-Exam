@@ -165,8 +165,8 @@ CREATE TABLE [dbo].[Student](
   [studentID] VARCHAR(10) NOT NULL,
   [memberID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
-  [totalKm] FLOAT NULL,
-  [totalHour] FLOAT NULL,
+  [totalKm] INT NULL,
+  [totalHour] INT NULL,
   [pass] BIT NULL
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
@@ -182,12 +182,9 @@ CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
-  [dateStart] DATE NULL,
-  [dateEnd] DATE NULL,
-  [isPractice] BIT NULL,
-  [dayOfWeek] TINYINT NULL,
-  [currentStudent] INT NULL,
-  [limitStudent] INT NULL,
+  [isTheoryClass] BIT NULL,
+  [dayOfWeek] INT NULL,
+  [shift] NVARCHAR(MAX) NULL,
   [status] BIT NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
@@ -253,7 +250,7 @@ CREATE TABLE [dbo].[ClassStudent](
   [classID] INT NOT NULL,
   [studentID] VARCHAR(10) NOT NULL,
   [comment] NVARCHAR(MAX) NULL,
-  [rating] TINYINT NULL,
+  [rating] INT NULL,
   [feedbackCreatedTime] DATETIME NULL,
   [status] BIT NULL
   CONSTRAINT [PK_ClassStudent] PRIMARY KEY CLUSTERED 
@@ -447,6 +444,12 @@ INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [pho
 GO
 INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [phone], [createTime], [roleID], [status]) 
 	VALUES (36 , N'NguyenVanJJ', N'NguyenVanJJ', N'12345', N'nguyenvanjj@gmail.com', '090212381', '2023-10-16', 2, 1)
+GO
+INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [phone], [createTime], [roleID], [status]) 
+	VALUES (37 , N'NguyenVanKK', N'NguyenVanKK', N'12345', N'nguyenvankk@gmail.com', '090212382', '2023-10-16', 4, 1)
+GO
+INSERT [dbo].[User] ([userID], [userName], [fullName], [password], [email], [phone], [createTime], [roleID], [status]) 
+	VALUES (38 , N'NguyenVanLL', N'NguyenVanLL', N'12345', N'nguyenvanll@gmail.com', '090212383', '2023-10-16', 4, 1)
 GO
 SET IDENTITY_INSERT [dbo].[User] OFF
 
@@ -1029,7 +1032,40 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 					'079302001260', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
 							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '36')
 GO
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
+							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
+								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
+									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
+		VALUES('28', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+					'079302001261', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
+							'B2', 2, 2, '', '2023-10-22', 1, '1101B2', '37')
+GO
+INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
+							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
+								[drivingLicenseProvider], [drivingLicenseProvidedDate], [drivingTestTier],[integratedDrivingLicense],
+									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
+		VALUES('29', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
+					'079302001262', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
+							'B2', 2, 2, '', '2023-10-22', 1, '1101B2', '38')
+GO
 SET IDENTITY_INSERT [dbo].[Member] OFF
+
+/* Add data: Student */
+GO
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
+	VALUES ('1101B2.01', '1', '1101B2', '', '', '')
+GO
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
+	VALUES ('1101B2.02', '2', '1101B2', '', '', '')
+GO
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
+	VALUES ('1101B2.03', '3', '1101B2', '', '', '')
+GO
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
+	VALUES ('1101B2.28', '28', '1101B2', '', '', '')
+GO
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
+	VALUES ('1101B2.29', '29', '1101B2', '', '', '')
 
 GO
 /* Add data: Staff */
@@ -1135,4 +1171,66 @@ INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPrac
 GO
 SET IDENTITY_INSERT [dbo].[Mentor] OFF
 GO
+
+/* Add data: Class */
+SET IDENTITY_INSERT [dbo].[Class] ON 
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('1', '1', '1101B2', 1, '', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('2', '1', '1101B2', 0, '2', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('3', '1', '1101B2', 0, '3', 'Sáng', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('4', '2', '1101B2', 0, '3', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('5', '2', '1101B2', 0, '4', 'Sáng', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('6', '3', '1101B2', 0, '4', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('7', '3', '1101B2', 0, '5', 'Sáng', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('8', '4', '1101B2', 0, '5', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('9', '4', '1101B2', 0, '6', 'Sáng', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('10', '5', '1101B2', 0, '6', 'Chiều', 1)
+GO
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
+	VALUES ('11', '5', '1101B2', 0, '2', 'Sáng', 1)
+SET IDENTITY_INSERT [dbo].[Class] OFF
+
+/* Add data: ClassStudent */
+SET IDENTITY_INSERT [dbo].[ClassStudent] ON 
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
+	[rating], [feedbackCreatedTime], [status])
+	VALUES ('1', '1', '1101B2.01', 'Waoooo', '5', '2023-11-2', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
+	[rating], [feedbackCreatedTime], [status])
+	VALUES ('2', '1', '1101B2.02', 'Waoooo', '5', '2023-11-2', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
+	[rating], [feedbackCreatedTime], [status])
+	VALUES ('3', '1', '1101B2.03', 'Waoooo', '5', '2023-11-2', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
+	[rating], [feedbackCreatedTime], [status])
+	VALUES ('4', '1', '1101B2.28', 'Waoooo', '5', '2023-11-2', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
+	[rating], [feedbackCreatedTime], [status])
+	VALUES ('5', '1', '1101B2.29', 'Waoooo', '5', '2023-11-2', 1)
+
+SET IDENTITY_INSERT [dbo].[ClassStudent] OFF 
 
