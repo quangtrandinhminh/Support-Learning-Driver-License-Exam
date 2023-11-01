@@ -163,6 +163,9 @@ CREATE TABLE [dbo].[Student](
   [studentID] VARCHAR(10) NOT NULL,
   [memberID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
+  [totalKm] FLOAT NULL,
+  [totalHour] FLOAT NULL,
+  [pass] BIT NULL
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
     [studentID] ASC
@@ -172,54 +175,24 @@ CREATE TABLE [dbo].[Student](
 )ON [PRIMARY]
 GO
 
-/* Added data */
-CREATE TABLE [dbo].[TeachingSchedule](
-  [teachingScheduleID] INT IDENTITY(1,1) NOT NULL,
-  [mentorID] INT NOT NULL,
-  [courseID] NVARCHAR(10) NOT NULL,
-  [isPractice] BIT NULL,
-  [teachingDate] DATETIME NULL
-  CONSTRAINT [PK_TeachingSchedule] PRIMARY KEY CLUSTERED 
-  (
-    [teachingScheduleID] ASC
-  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_TeachingSchedule_Mentor] FOREIGN KEY ([mentorID]) REFERENCES [dbo].[Mentor] ([mentorID]),
-  CONSTRAINT [FK_TeachingSchedule_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
-)ON [PRIMARY]
-GO
-
 /* Theory type 0, Practice type 1*/
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
   [mentorID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
+  [dateStart] DATE NULL,
+  [dateEnd] DATE NULL,
   [isPractice] BIT NULL,
+  [dayOfWeek] TINYINT NULL,
   [currentStudent] INT NULL,
   [limitStudent] INT NULL,
-  [location] NVARCHAR(500) NULL
+  [status] BIT NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
   (
     [classID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Class_Mentor] FOREIGN KEY ([mentorID]) REFERENCES [dbo].[Mentor] ([mentorID]),
   CONSTRAINT [FK_Class_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
-)ON [PRIMARY]
-GO
-
-CREATE TABLE [dbo].[Feedback](
-  [feedbackID] INT IDENTITY(1,1) NOT NULL,
-  [studentID] VARCHAR(10) NOT NULL,
-  [classID] INT NOT NULL,
-  [comment] NVARCHAR(MAX) NULL,
-  [rating] INT NULL,
-  [createdTime] DATETIME NULL,
-  [status] BIT NULL,
-  CONSTRAINT [PK_Feedback] PRIMARY KEY CLUSTERED 
-  (
-    [feedbackID] ASC
-  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Feedback_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID]),
-  CONSTRAINT [FK_Feedback_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID])
 )ON [PRIMARY]
 GO
 
@@ -274,12 +247,16 @@ CREATE TABLE [dbo].[Exam](
 GO
 
 CREATE TABLE [dbo].[ClassStudent](
-  [classID] INT IDENTITY(1,1) NOT NULL,
+  [classStudentID] INT IDENTITY(1,1) NOT NULL,
+  [classID] INT NOT NULL,
   [studentID] VARCHAR(10) NOT NULL,
+  [comment] NVARCHAR(MAX) NULL,
+  [rating] TINYINT NULL,
+  [feedbackCreatedTime] DATETIME NULL,
+  [status] BIT NULL
   CONSTRAINT [PK_ClassStudent] PRIMARY KEY CLUSTERED 
   (
-    [classID] ASC,
-    [studentID] ASC
+    [classStudentID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_ClassStudent_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID]),
   CONSTRAINT [FK_ClassStudent_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID])
@@ -288,8 +265,7 @@ GO
 
 CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
-  [classID] INT NOT NULL,
-  [studentID] VARCHAR(10) NOT NULL,
+  [classStudentID] INT NOT NULL,
   [title] NVARCHAR(500) NULL,
   [startTime] DATETIME NULL,
   [endTime] DATETIME NULL,
@@ -301,8 +277,7 @@ CREATE TABLE [dbo].[Lesson](
   (
     [lessonID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Lesson_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID]),
-  CONSTRAINT [FK_Lesson_Class] FOREIGN KEY ([classID]) REFERENCES [dbo].[Class] ([classID])
+  CONSTRAINT [FK_Lesson_ClassStudent] FOREIGN KEY ([classStudentID]) REFERENCES [dbo].[ClassStudent] ([classStudentID])
 )ON [PRIMARY]
 GO
 
@@ -1157,23 +1132,5 @@ INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPrac
 	VALUES (5, N'6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 31, 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Mentor] OFF
-GO
-
-/* Add data: Teaching Schedule */
-SET IDENTITY_INSERT [dbo].[TeachingSchedule] ON
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (1, 1, '1101B2', 0, '2023-11-10')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (2, 1, '1101B2', 1, '2023-11-23')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (3, 1, '1101B2', 1, '2023-11-30')
-GO
-INSERT [dbo].[TeachingSchedule] ([teachingScheduleID], [mentorID], [courseID], [isPractice], [teachingDate])
-	VALUES (4, 4, '1101B2', 0, '2023-11-11')
-GO
-SET IDENTITY_INSERT [dbo].[TeachingSchedule] OFF
 GO
 
