@@ -64,7 +64,7 @@ import {
     return (
       <main className='main-container'>
         <div className='main-title'>
-          <h3>DASHBOARD</h3>
+          <h3>Bảng điều khiển</h3>
         </div>
   
         <div className='main-cards'>
@@ -99,7 +99,7 @@ import {
           </div>
   
             
-          <div className='chart-title'><h1>Lượt truy cập</h1></div>
+          <div className='chart-title'><h3>Lượt truy cập</h3></div>
           <div className='charts'>
           <ResponsiveContainer width='100%' height={300}>
             <BarChart
