@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../../../../config/axios';
-import './courses-table.scss';
+import './/inactive-course-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../../../../../../config/axios';
 
-function CourseTable() {
+function InactiveCourseTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [error, setError] = useState(null);
@@ -21,8 +21,8 @@ function CourseTable() {
         try {
             const response = await api.get('Course/list');
             const res = response.data;
-            const getActiveCourse = res.filter(course => course.status === true);
-            setData(getActiveCourse);
+            const filterList = res.filter(course => course.status === false);
+            setData(filterList);
         } catch (err) {
             console.log(err);
         }
@@ -99,7 +99,7 @@ function CourseTable() {
     return (
         <div className='courses-table-container'>
             <div className="courses-table-title text-center text-uppercase">
-                <h1>Danh sách khoá học</h1>
+                <h1>Danh sách khoá học chưa mở</h1>
             </div>
             <div className='courses-table-content'>
                 <form action="">
@@ -115,7 +115,7 @@ function CourseTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                                <Link to='/quan-ly-khoa-hoc/tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
                             </div>
                         </div>
                     </div>
@@ -127,11 +127,10 @@ function CourseTable() {
                                 <th scope='col'>Tên</th>
                                 <th scope='col'>Ngày khai giảng</th>
                                 <th scope='col'>Ngày bắt đầu</th>
-                                <th className='text-center' scope='col'>Số học viên</th>
                                 <th className='text-center' scope='col'>Số học viên tối đa</th>
                                 <th scope='col' className='text-center'>Tháng</th>
                                 <th scope='col' className='text-center'>Năm</th>
-                                <th scope='col' className='text-center'>Trvạng thái</th>
+                                <th scope='col' className='text-center'>Trạng thái</th>
                                 <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
@@ -144,20 +143,18 @@ function CourseTable() {
                                         <td>{course.name}</td>
                                         <td>{formatDate(course.startDate)}</td>
                                         <td>{formatDate(course.endDate)}</td>
-                                        <td className='text-center'>{course.numberOfStudents}</td>
                                         <td className='text-center'>{course.limitStudent}</td>
                                         <td className='text-center'>{course.courseMonth}</td>
                                         <td className='text-center'>{course.courseYear}</td>
                                         <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={9}>
+                                    <td colSpan={10}>
                                         <h1 className='text-center text-red-600 p-5'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>
@@ -189,4 +186,4 @@ function CourseTable() {
     );
 }
 
-export default CourseTable;
+export default InactiveCourseTable;

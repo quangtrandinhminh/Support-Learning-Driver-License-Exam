@@ -36,8 +36,7 @@ namespace Backend.Services.Course
             var result = new ServiceResult<ICollection<CourseDTO>>();
             try
             {
-                var courses = _courseRepository.GetAll()
-                    .Where(c => c.Status == true);
+                var courses = _courseRepository.GetAll();
 
                 if (!courses.Any())
                 {

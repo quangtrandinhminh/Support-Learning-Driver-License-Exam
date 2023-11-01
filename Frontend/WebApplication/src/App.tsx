@@ -25,6 +25,7 @@ import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-co
 
 // Member import 
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
+import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
@@ -49,8 +50,8 @@ import MentorLayout from './bigcomponents/MentorPage/layout'
 import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
 import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
-import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 function App() {
 
@@ -102,6 +103,7 @@ function App() {
                         <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
+                          <Route path='chua-mo' element={<InactiveCoursePage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
                         </Route>

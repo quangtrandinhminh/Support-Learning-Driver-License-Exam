@@ -39,7 +39,7 @@ function News() {
     }
 
     return (
-        <div className='news-container' id='news-section'>
+        <div className='news-home-container' id='news-section'>
             <h1>Tin tức</h1>
             <div className="news-list">
                 {
