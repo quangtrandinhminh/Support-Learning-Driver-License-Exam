@@ -20,8 +20,6 @@ import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
-import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
-import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
 import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
@@ -43,7 +41,6 @@ import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/pr
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
-import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 
 // Authorization page
