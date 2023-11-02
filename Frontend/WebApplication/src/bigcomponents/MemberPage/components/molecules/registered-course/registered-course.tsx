@@ -64,11 +64,6 @@ function RegisteredCourse() {
                                     <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
                                 </li>
                                 <li>
-                                    <label htmlFor="course-mentor">
-                                        Giáo viên phụ trách: <Link to='/khoa-hoc-cua-ban/thong-tin-giao-vien'>(Tên giáo viên)</Link>
-                                    </label>
-                                </li>
-                                <li>
                                     <label htmlFor="course-theory">
                                         <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
                                     </label>

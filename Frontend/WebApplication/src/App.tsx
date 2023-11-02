@@ -18,6 +18,9 @@ import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-ne
 import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
+import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
+import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -25,6 +28,7 @@ import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-co
 
 // Member import 
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
+import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
@@ -37,18 +41,23 @@ import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/pr
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
+import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 
 // Authorization page
 import LoginPage from './bigcomponents/AuthorizationPage/components/pages/LoginPage/LoginPage'
 import RegistrationPage from './bigcomponents/AuthorizationPage/components/pages/RegistrationPage/RegistrationPage'
+import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
 
 // Mentor page
 import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-home-page/mentor-home-page'
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 import MentorLayout from './bigcomponents/MentorPage/layout'
-import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
-import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
-import ForgetPasswordPage from './bigcomponents/AuthorizationPage/components/pages/ForgetpasswordPage/ForgetPasswordPage'
+import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/mentor-register-schedule-page/mentor-register-schedule-page'
+import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
+import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
+import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
+import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
+import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
 
 function App() {
 
@@ -91,7 +100,7 @@ function App() {
                 <>
                   <Route path='dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
-                    <Route index element={<MemberHomePage />} />
+                    <Route index element={<AdminPage />} />
                   )}
                   {user.roleId === 2 && (
                     <>
@@ -100,6 +109,7 @@ function App() {
                         <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
+                          <Route path='chua-mo' element={<InactiveCoursePage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
                         </Route>
@@ -118,12 +128,14 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
+                        <Route path='danh-sach-lop-hoc' element={<MentorClassListPage />} />
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
-                          <Route path='chi-tiet-lich-day' element={<MentorSchedulePage />} />
-                          <Route path='danh-sach-hoc-vien' element={<MentorSchedulePage />} />
+                          <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
+                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
-                        <Route path='tai-lieu-day-hoc' element={<MentorSchedulePage />} />
+                        <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                        <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>
                     </>
                   )}
@@ -142,7 +154,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:{courseId}' />
+                        <Route path='khoa-hoc/:courseName' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />

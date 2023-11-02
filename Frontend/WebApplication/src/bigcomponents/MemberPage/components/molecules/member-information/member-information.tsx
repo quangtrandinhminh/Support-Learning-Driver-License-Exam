@@ -5,8 +5,6 @@ import api from '../../../../../config/axios';
 import React, { useEffect, useState } from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 
 function MemberInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;

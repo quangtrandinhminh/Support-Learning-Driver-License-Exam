@@ -14,6 +14,15 @@ function CourseTable() {
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
+    // Apply filtering to data before pagination
+    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
+
+    // Pagination
+    const records = filteredData.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(filteredData.length / recordPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
+
     const navigate = useNavigate();
 
     // Fetch all courses
@@ -21,7 +30,8 @@ function CourseTable() {
         try {
             const response = await api.get('Course/list');
             const res = response.data;
-            setData(res);
+            const getActiveCourse = res.filter(course => course.status === true);
+            setData(getActiveCourse);
         } catch (err) {
             console.log(err);
         }
@@ -59,15 +69,6 @@ function CourseTable() {
         setSearchValue(value);
         setCurrentPage(1); // Reset to the first page when filtering
     }
-
-    // Apply filtering to data before pagination
-    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
-
-    // Pagination
-    const records = filteredData.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(filteredData.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-    const overallIndex = (currentPage - 1) * recordPage;
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -130,7 +131,7 @@ function CourseTable() {
                                 <th className='text-center' scope='col'>Số học viên tối đa</th>
                                 <th scope='col' className='text-center'>Tháng</th>
                                 <th scope='col' className='text-center'>Năm</th>
-                                <th scope='col' className='text-center'>Trạng thái</th>
+                                <th scope='col' className='text-center'>Trvạng thái</th>
                                 <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
@@ -147,7 +148,7 @@ function CourseTable() {
                                         <td className='text-center'>{course.limitStudent}</td>
                                         <td className='text-center'>{course.courseMonth}</td>
                                         <td className='text-center'>{course.courseYear}</td>
-                                        <td className='text-center'>{course.status.toString().toUpperCase()}</td>
+                                        <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
                                             <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
@@ -156,7 +157,7 @@ function CourseTable() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={9}>
+                                    <td colSpan={11}>
                                         <h1 className='text-center text-red-600 p-5'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>

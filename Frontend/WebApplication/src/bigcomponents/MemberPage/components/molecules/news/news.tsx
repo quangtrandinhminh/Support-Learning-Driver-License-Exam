@@ -11,6 +11,7 @@ function News() {
 
     const getAllNews = async () => {
         const response = await api.get('News/list');
+        console.log(response);
         setData(response.data);
         setIsLoading(false);
     }
@@ -29,8 +30,16 @@ function News() {
 
     const maxNewsDisplayed = 3; // Set the maximum number of divs to display
 
+    function truncateText(text, maxLength) {
+        if (text.length <= maxLength) {
+            return text;
+        } else {
+            return text.slice(0, maxLength) + '...';
+        }
+    }
+
     return (
-        <div className='news-container' id='news-section'>
+        <div className='news-home-container' id='news-section'>
             <h1>Tin tức</h1>
             <div className="news-list">
                 {
@@ -43,8 +52,11 @@ function News() {
                                     {newsItem ? (
                                         <>
                                             <h2 className={`news-${i + 1}-title`}>{newsItem.title}</h2>
-                                            <p className={`news-${i + 1}-content`}>{newsItem.content}</p>
-                                            <p className={`news-${i + 1}-date`}>Ngày {formatDate(newsItem.createdTime)}</p>
+                                            <h3 className={`news-${i + 1}-description`}>{newsItem.description}</h3>
+                                            <p className={`news-${i + 1}-content`}>{truncateText(newsItem.content, 100)}</p>
+                                            <div className='date-container'>
+                                                <p className={`news-${i + 1}-date`}>{formatDate(newsItem.createdTime)}</p>
+                                            </div>
                                             <button className='mt-1'>Đọc thêm</button>
                                         </>
                                     ) : (
@@ -57,12 +69,8 @@ function News() {
                         })
                     ) : (
                         <h1 className='text-center'>Không có thông tin để hiển thị</h1>
-                    )}
-            </div>
-            <div className="news-page-nav">
-                <a href=''>1</a>
-                <a href=''>2</a>
-                <a href='' className='page-nav-text'>Trang sau</a>
+                    )
+                }
             </div>
         </div>
     )
