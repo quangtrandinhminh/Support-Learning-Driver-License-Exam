@@ -28,7 +28,6 @@ import GuestCoursePage from './bigcomponents/GuestPage/components/pages/guest-co
 
 // Member import 
 import MentorInformationPage from './bigcomponents/MemberPage/components/pages/mentor-information/mentor-information'
-import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-home/member-home'
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
