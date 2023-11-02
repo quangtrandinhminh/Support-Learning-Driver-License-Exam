@@ -19,5 +19,15 @@
             line-height: 250%;
             font-size: 24px;
         }
+
+        .disabled-link {
+            color: gray;
+            /* Change the text color to gray */
+            pointer-events: none;
+            /* Prevent the link from being clickable */
+            text-decoration: none;
+            /* Remove underline, if any */
+            cursor: not-allowed;
+        }
     }
 }
