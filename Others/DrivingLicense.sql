@@ -167,6 +167,7 @@ CREATE TABLE [dbo].[Student](
   [courseID] NVARCHAR(10) NOT NULL,
   [totalKm] INT NULL,
   [totalHour] INT NULL,
+  [studyTheoryStatus] BIT NULL,
   [pass] BIT NULL
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
@@ -1052,20 +1053,20 @@ SET IDENTITY_INSERT [dbo].[Member] OFF
 
 /* Add data: Student */
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
-	VALUES ('1101B2.01', '1', '1101B2', '', '', '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
+	VALUES ('1101B2.01', '1', '1101B2', '', '', 1, '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
-	VALUES ('1101B2.02', '2', '1101B2', '', '', '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
+	VALUES ('1101B2.02', '2', '1101B2', '', '', 1, '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
-	VALUES ('1101B2.03', '3', '1101B2', '', '', '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
+	VALUES ('1101B2.03', '3', '1101B2', '', '', 1, '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
-	VALUES ('1101B2.28', '28', '1101B2', '', '', '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
+	VALUES ('1101B2.28', '28', '1101B2', '', '', 1, '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [pass])
-	VALUES ('1101B2.29', '29', '1101B2', '', '', '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
+	VALUES ('1101B2.29', '29', '1101B2', '', '', 1, '')
 
 GO
 /* Add data: Staff */
