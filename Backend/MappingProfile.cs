@@ -91,6 +91,10 @@ namespace Backend
             //Class 
             CreateMap<DB.Models.Class, DTO.Class.ClassDTO>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();
+
+            //ClassStudent
+            CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDTO>();
+            CreateMap<DTO.ClassStudent.ClassStudentDTO, DB.Models.ClassStudent>();
         }
     }
 }

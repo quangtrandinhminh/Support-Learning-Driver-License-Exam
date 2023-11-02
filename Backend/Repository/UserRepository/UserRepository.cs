@@ -18,7 +18,7 @@ namespace Backend.Repository.UserRepository
         {
             try
             {
-                var users = _dbSet.AsQueryable().Where(u => u.Status == true);
+                var users = _dbSet.AsQueryable();
                 return users;
             }
             catch (Exception e)

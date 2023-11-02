@@ -440,7 +440,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("courseID");
             entity.Property(e => e.MemberId).HasColumnName("memberID");
             entity.Property(e => e.Pass).HasColumnName("pass");
-            entity.Property(e => e.StudyTheoryStatus).HasColumnName("studyTheoryStatus");
             entity.Property(e => e.TotalHour).HasColumnName("totalHour");
             entity.Property(e => e.TotalKm).HasColumnName("totalKm");
 
@@ -530,8 +529,5 @@ public partial class DrivingLicenseContext : DbContext
                 .HasConstraintName("FK_User_Role");
         });
 
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

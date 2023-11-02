@@ -78,9 +78,10 @@ namespace Backend.Services.Member
                     e = 2;
                 }
                 var users = _userRepository.GetAll().ToList();
+                var userr = _userRepository.GetAll().Where(p => p.UserId == memberCreateDTO.UserId).FirstOrDefault();
                 foreach (var user in users) 
                 { 
-                    if (user.Phone.Equals(memberCreateDTO.Phone))
+                    if (user.Phone.Equals(memberCreateDTO.Phone) && !memberCreateDTO.Phone.Equals(user.Phone))
                     {
                         e = 3;
                     }
