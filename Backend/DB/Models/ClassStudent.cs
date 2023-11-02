@@ -9,9 +9,9 @@ public partial class ClassStudent
 
     public int ClassId { get; set; }
 
-    public string StudentId { get; set; }
+    public string StudentId { get; set; } = null!;
 
-    public string Comment { get; set; }
+    public string? Comment { get; set; }
 
     public int? Rating { get; set; }
 
@@ -19,9 +19,9 @@ public partial class ClassStudent
 
     public bool? Status { get; set; }
 
-    public virtual Class Class { get; set; }
+    public virtual Class Class { get; set; } = null!;
 
     public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 
-    public virtual Student Student { get; set; }
+    public virtual Student Student { get; set; } = null!;
 }

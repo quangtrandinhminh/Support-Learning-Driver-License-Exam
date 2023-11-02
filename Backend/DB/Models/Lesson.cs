@@ -9,13 +9,13 @@ public partial class Lesson
 
     public int ClassStudentId { get; set; }
 
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     public DateTime? StartTime { get; set; }
 
     public DateTime? EndTime { get; set; }
 
-    public string Location { get; set; }
+    public string? Location { get; set; }
 
     public double? Hours { get; set; }
 
@@ -23,5 +23,5 @@ public partial class Lesson
 
     public bool? Attendance { get; set; }
 
-    public virtual ClassStudent ClassStudent { get; set; }
+    public virtual ClassStudent ClassStudent { get; set; } = null!;
 }

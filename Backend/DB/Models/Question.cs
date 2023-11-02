@@ -7,9 +7,9 @@ public partial class Question
 {
     public int QuestionId { get; set; }
 
-    public string Content { get; set; }
+    public string? Content { get; set; }
 
-    public string Image { get; set; }
+    public string? Image { get; set; }
 
     public bool? KeyQuestion { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Question
 
     public bool? Status { get; set; }
 
-    public virtual Staff Staff { get; set; }
+    public virtual Staff Staff { get; set; } = null!;
 
     public virtual ICollection<Test> Tests { get; set; } = new List<Test>();
 }

@@ -5,11 +5,11 @@ namespace Backend.DB.Models;
 
 public partial class Student
 {
-    public string StudentId { get; set; }
+    public string StudentId { get; set; } = null!;
 
     public int MemberId { get; set; }
 
-    public string CourseId { get; set; }
+    public string CourseId { get; set; } = null!;
 
     public int? TotalKm { get; set; }
 
@@ -21,11 +21,11 @@ public partial class Student
 
     public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();
 
-    public virtual Course Course { get; set; }
+    public virtual Course Course { get; set; } = null!;
 
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-    public virtual Member Member { get; set; }
+    public virtual Member Member { get; set; } = null!;
 
     public virtual ICollection<Test> Tests { get; set; } = new List<Test>();
 }

@@ -181,7 +181,7 @@ GO
 /* Theory type 0, Practice type 1*/
 CREATE TABLE [dbo].[Class](
   [classID] INT IDENTITY(1,1) NOT NULL,
-  [mentorID] INT NOT NULL,
+  [mentorID] INT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
   [isTheoryClass] BIT NULL,
   [dayOfWeek] INT NULL,
