@@ -104,7 +104,63 @@ function RegisteredCourse() {
                                 </ul>
                             </div>
                         ) : (
-                            <h1>chưa đóng tiền sao mà học</h1>
+                            <div className='registered-course-content'>
+                                <ul>
+                                    <li>
+                                        <span className='fst-italic tw-text-red-500'>Bạn cần thanh toán học phí để truy cập vào khoá học</span>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-name"
+                                            className='disabled-link'>Khoá học: {course.name}</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-start"
+                                            className='disabled-link'>Ngày khai giảng: {formatDate(course.startDate)}</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory">
+                                            <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'
+                                                className='disabled-link'
+                                                onClick={(e) => e.preventDefault()}>Lịch học lý thuyết</Link>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice-location" className='disabled-link'>Trạng thái học lý thuyết: (Status)</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice">
+                                            <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'
+                                                className='disabled-link'
+                                                onClick={(e) => e.preventDefault()} >Lịch học thực hành
+                                            </Link>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory-location">
+                                            <Link to='/danh-sach-khoa-hoc'
+                                                className='disabled-link'
+                                                onClick={(e) => e.preventDefault()}>
+                                                Đăng ký lịch học thực hành</Link>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory-location"
+                                            className='disabled-link'>Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
+                                    </li>
+                                    <li>
+                                        <form>
+                                            <label htmlFor="exam-application">
+                                                <Link to='/ho-so-thi'
+                                                    className='disabled-link'
+                                                    onClick={(e) => e.preventDefault()} >Hồ sơ thi</Link>
+                                            </label>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         )
                     ) : (
                         <>

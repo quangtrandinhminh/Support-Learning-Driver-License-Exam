@@ -1,6 +1,8 @@
 /* Import Bootstrap CSS */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 /* Import Tailwind CSS Base Styles */
+@tailwind components;
+@tailwind utilities;
 
 * {
   padding: 0;
