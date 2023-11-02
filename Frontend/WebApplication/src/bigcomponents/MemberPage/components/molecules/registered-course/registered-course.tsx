@@ -55,47 +55,57 @@ function RegisteredCourse() {
             {
                 member != null ? (
                     !isLoading ? (
-                        <div className='registered-course-content'>
-                            <ul>
-                                <li>
-                                    <label htmlFor="course-name">Khoá học: {course.name}</label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-theory">
-                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-practice-location">Trạng thái học lý thuyết: (Status)</label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-practice">
-                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-theory-location">
-                                        <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
-                                </li>
-                                <li>
-                                    <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
-                                </li>
-                                <li>
-                                    <form>
-                                        <label htmlFor="exam-application">
-                                            <Link to='/ho-so-thi'>Hồ sơ thi</Link>
+                        member.isPaid ? (
+                            <div className='registered-course-content'>
+                                <ul>
+                                    <li>
+                                        <label htmlFor="course-name">Khoá học: {course.name}</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-start">Ngày khai giảng: {formatDate(course.startDate)}</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory">
+                                            <Link to='/khoa-hoc-cua-ban/lich-hoc-ly-thuyet'>Lịch học lý thuyết</Link>
                                         </label>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: (Status)</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice">
+                                            <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'
+                                                className='disabled-link'
+                                                onClick={(e) => e.preventDefault()}>Lịch học thực hành
+                                            </Link>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory-location">
+                                            <Link to='/danh-sach-khoa-hoc'
+                                                className='disabled-link'
+                                                onClick={(e) => e.preventDefault()}>
+                                                Đăng ký lịch học thực hành</Link>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
+                                    </li>
+                                    <li>
+                                        <form>
+                                            <label htmlFor="exam-application">
+                                                <Link to='/ho-so-thi'>Hồ sơ thi</Link>
+                                            </label>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <h1>chưa đóng tiền sao mà học</h1>
+                        )
                     ) : (
                         <>
                             <Backdrop
