@@ -9,7 +9,7 @@ public partial class Mentor
 
     public int UserId { get; set; }
 
-    public string ResidenceAddress { get; set; }
+    public string? ResidenceAddress { get; set; }
 
     public bool? IsTeachingTheory { get; set; }
 
@@ -17,5 +17,5 @@ public partial class Mentor
 
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
-    public virtual User User { get; set; }
+    public virtual User User { get; set; } = null!;
 }

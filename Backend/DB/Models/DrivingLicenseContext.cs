@@ -61,7 +61,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.Property(e => e.ClassId).HasColumnName("classID");
             entity.Property(e => e.CourseId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
             entity.Property(e => e.DayOfWeek).HasColumnName("dayOfWeek");
@@ -77,7 +76,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.HasOne(d => d.Mentor).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.MentorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Class_Mentor");
         });
 
@@ -94,7 +92,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StudentId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("studentID");
@@ -143,7 +140,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.CourseDetailsId).HasColumnName("courseDetailsID");
             entity.Property(e => e.CourseContent).HasColumnName("courseContent");
             entity.Property(e => e.CourseId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
             entity.Property(e => e.CourseTimeEnd)
@@ -166,7 +162,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.Property(e => e.ExamId).HasColumnName("examID");
             entity.Property(e => e.CourseId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
             entity.Property(e => e.CreatedTime)
@@ -205,7 +200,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.StudentId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("studentID");
@@ -435,7 +429,6 @@ public partial class DrivingLicenseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("studentID");
             entity.Property(e => e.CourseId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
             entity.Property(e => e.MemberId).HasColumnName("memberID");
@@ -481,7 +474,6 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.Pass).HasColumnName("pass");
             entity.Property(e => e.Score).HasColumnName("score");
             entity.Property(e => e.StudentId)
-                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("studentID");
@@ -529,5 +521,8 @@ public partial class DrivingLicenseContext : DbContext
                 .HasConstraintName("FK_User_Role");
         });
 
+        OnModelCreatingPartial(modelBuilder);
     }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
