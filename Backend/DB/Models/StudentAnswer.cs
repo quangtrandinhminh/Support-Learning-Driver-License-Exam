@@ -13,5 +13,5 @@ public partial class StudentAnswer
 
     public int TestId { get; set; }
 
-    public virtual Test Test { get; set; } = null!;
+    public virtual Test Test { get; set; }
 }

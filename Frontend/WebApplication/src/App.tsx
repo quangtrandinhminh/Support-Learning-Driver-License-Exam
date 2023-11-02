@@ -20,6 +20,7 @@ import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
 import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -55,7 +56,6 @@ import StudentsListPage from './bigcomponents/MentorPage/components/pages/studen
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
-import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 function App() {
 
@@ -152,7 +152,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:{courseId}' element={<PracticeSpecificPage />} />
+                        <Route path='khoa-hoc/:courseName' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />

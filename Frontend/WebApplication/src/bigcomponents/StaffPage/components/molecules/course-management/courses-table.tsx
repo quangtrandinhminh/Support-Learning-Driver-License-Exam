@@ -14,6 +14,15 @@ function CourseTable() {
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
+    // Apply filtering to data before pagination
+    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
+
+    // Pagination
+    const records = filteredData.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(filteredData.length / recordPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
+
     const navigate = useNavigate();
 
     // Fetch all courses
@@ -60,15 +69,6 @@ function CourseTable() {
         setSearchValue(value);
         setCurrentPage(1); // Reset to the first page when filtering
     }
-
-    // Apply filtering to data before pagination
-    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
-
-    // Pagination
-    const records = filteredData.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(filteredData.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-    const overallIndex = (currentPage - 1) * recordPage;
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);

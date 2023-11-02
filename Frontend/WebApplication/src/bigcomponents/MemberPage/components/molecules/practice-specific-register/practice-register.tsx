@@ -10,7 +10,7 @@ function PracticeSpecificRegister() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         window.scrollTo(0, 0);
-        toast.success("Đăng ký thành công");
+        toast.success("Đăng ký học thực hành thành công");
         navigate('/khoa-hoc-cua-ban');
     }
 
@@ -41,60 +41,32 @@ function PracticeSpecificRegister() {
                     </p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <thead>
-                        <tr>
-                            <th rowSpan={2} className='practice-time'>Ca học</th>
-                            <th rowSpan={2} className='practice-yard'>Thực hành trên sân tập</th>
-                            <th rowSpan={2} className='practice-cabin'>Thực hành trên cabin</th>
-                            <th rowSpan={1} colSpan={3} className='practice-tLight'>Thực hành trên đường giao thông (DAT)</th>
-                            <th rowSpan={2} className='practice-note'>Ghi chú</th>
-                        </tr>
-                        <tr>
-                            <th className='practice-tLight-sub' colSpan={1}>Các ngày học</th>
-                            <th className='practice-tLight-sub' colSpan={1}>Ngày ca đêm</th>
-                            <th className='practice-tLight-sub' colSpan={1}>Ngày ca sáng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sáng</td>
-                            <td>Thứ hai hàng tuần</td>
-                            <td>
-                                Thứ hai
-                                13h10 - 14h40
-                                và 15h00 - 16h30
-                                07/08/2023
-                            </td>
-                            <td>
-                                Thứ năm các ngày
-                                12, 13, 14, 15, 16, 17/08/2023
-                            </td>
-                            <td>dd/mm/yyyy, dd/mm/yyyy</td>
-                            <td>dd/mm/yyyy</td>
-                            <td>
-                                <button className='register-btn'>Đăng ký</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Chiều</td>
-                            <td>Thứ hai hàng tuần</td>
-                            <td>
-                                Thứ hai
-                                13h10 - 14h40
-                                và 15h00 - 16h30
-                                07/08/2023
-                            </td>
-                            <td>
-                                Thứ năm các ngày
-                                12, 13, 14, 15, 16, 17/08/2023
-                            </td>
-                            <td>dd/mm/yyyy, dd/mm/yyyy</td>
-                            <td>dd/mm/yyyy</td>
-                            <td>
-                                <button className='register-btn'>Đăng ký</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th rowSpan={1} className='practice-day w-25'>Thứ</th>
+                                <th rowSpan={1} className='practice-time'>Ca học</th>
+                                <th rowSpan={1} className='practice-time'></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sáng</td>
+                                <td>Thứ hai hàng tuần</td>
+                                <td>
+                                    <button className='register-btn'>Đăng ký</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Chiều</td>
+                                <td>Thứ hai hàng tuần</td>
+                                <td>
+                                    <button className='register-btn'>Đăng ký</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div className='practice-register-note'>
                         <h2>Lưu ý: Học viên phải bắt buộc tham gia ca học đêm và  học đủ các buổi học để có thể tham gia thi bằng lái xe B2</h2>
                     </div>

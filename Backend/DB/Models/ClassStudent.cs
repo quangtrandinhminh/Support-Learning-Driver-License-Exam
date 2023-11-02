@@ -9,19 +9,19 @@ public partial class ClassStudent
 
     public int ClassId { get; set; }
 
-    public string StudentId { get; set; } = null!;
+    public string StudentId { get; set; }
 
-    public string? Comment { get; set; }
+    public string Comment { get; set; }
 
-    public byte? Rating { get; set; }
+    public int? Rating { get; set; }
 
     public DateTime? FeedbackCreatedTime { get; set; }
 
     public bool? Status { get; set; }
 
-    public virtual Class Class { get; set; } = null!;
+    public virtual Class Class { get; set; }
 
     public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 
-    public virtual Student Student { get; set; } = null!;
+    public virtual Student Student { get; set; }
 }
