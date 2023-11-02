@@ -30,7 +30,7 @@
     }
 
     .sidebar-component {
-        .member-list {
+        .member-manage {
             .logout-btn {
                 text-transform: uppercase;
                 text-decoration: underline;
@@ -38,6 +38,34 @@
                 &:hover {
                     color: red;
                 }
+            }
+        }
+
+        .course-manage {
+            position: relative;
+
+            &:hover {
+                transition: transform 0.3s ease-out, position 0.3s ease-out;
+
+                .course-manage-subnav {
+                    position: relative;
+                    display: block;
+
+                    &:hover {
+                        font-weight: 600;
+                        padding-left: 12px;
+                        background-color: #3572B8;
+                        border-left: 4px solid gray;
+                        transition: padding-left 0.3s ease-out;
+                    }
+                }
+            }
+
+            .course-manage-subnav {
+                position: absolute;
+                width: 220px;
+                background-color: #4292eb;
+                display: none;
             }
         }
     }

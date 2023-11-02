@@ -13,7 +13,7 @@ function CreateCourseForm() {
     endDate: '',
     numberOfStudents: 0,
     limitStudent: 0,
-    status: true
+    status: false
   });
 
   const navigate = useNavigate();
@@ -94,9 +94,10 @@ function CreateCourseForm() {
           <div className='form-group row'>
             <label htmlFor="limitStudent" className="col-sm-3 col-form-label">Số học viên tối đa: </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control" id="limitStudent" placeholder="limit student"
+              <input type="text" className="form-control" id="limitStudent"
                 name='limitStudent'
-                onChange={e => setInputData({ ...inputData, limitStudent: parseInt(e.target.value) })} />
+                value={0}
+                disabled />
             </div>
           </div>
           <button className='btn btn-primary w-20 justify-self-end' type='submit'>Tạo</button>

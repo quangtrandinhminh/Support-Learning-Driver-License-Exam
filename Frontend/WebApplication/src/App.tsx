@@ -39,7 +39,6 @@ import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/pr
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
 import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
-import PracticeRegisterTemplate from './bigcomponents/MemberPage/components/templates/practice-register-template/practice-list'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 
 // Authorization page
@@ -56,6 +55,7 @@ import StudentsListPage from './bigcomponents/MentorPage/components/pages/studen
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
+import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 function App() {
 
@@ -107,6 +107,7 @@ function App() {
                         <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
+                          <Route path='chua-mo' element={<InactiveCoursePage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
                         </Route>

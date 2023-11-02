@@ -36,24 +36,29 @@ function StaffSidebar() {
       </div>
       <div className='staff-sidebar'>
         <li className='sidebar-component'>
-          <div className="member-list">
+          <div className="overview">
             <NavLink style={styleSidebarCom} to='/'>
               Tổng quan
             </NavLink>
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="member-list">
+          <div className="user-manage">
             <NavLink style={styleSidebarCom} to='/quan-ly-nguoi-dung'>
               Quản lý người dùng
             </NavLink>
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="mentor-manage">
+          <div className="course-manage">
             <NavLink style={styleSidebarCom} to='/quan-ly-khoa-hoc'>
               Quản lý khoá học
             </NavLink>
+            <div className='course-manage-subnav'>
+              <NavLink to='quan-ly-khoa-hoc/chua-mo'>
+                Các khoá học chưa mở
+              </NavLink>
+            </div>
           </div>
         </li>
         <li className='sidebar-component'>
@@ -71,21 +76,21 @@ function StaffSidebar() {
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="mentor-container">
+          <div className="news-container">
             <NavLink style={styleSidebarCom} to='/quan-ly-tin-tuc'>
               Quản lý tin tức
             </NavLink>
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="member-list">
+          <div className="report-list">
             <NavLink style={styleSidebarCom} to='/bao-cao'>
               Báo cáo
             </NavLink>
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="member-list">
+          <div className="logout">
             <NavLink className='logout-btn' onClick={handleLogout} to='/'>
               Đăng xuất
             </NavLink>
