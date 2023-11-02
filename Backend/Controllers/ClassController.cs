@@ -1,4 +1,5 @@
-﻿using Backend.Services.Class;
+﻿using Backend.DTO.Class;
+using Backend.Services.Class;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,37 @@ namespace Backend.Controllers
                 Console.WriteLine(a);
                 throw;
             }
+        }
+
+        [HttpGet("course/{courseId}")]
+        public ActionResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId)
+        {
+            var result = _classService.GetAllClassesByCourseId(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<ActionResult<int>> CreateClass(ClassCreateDTO classCreateDto)
+        {
+            var result = await _classService.CreateClass(classCreateDto);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Đã thêm lớp học");
         }
     }
 }
