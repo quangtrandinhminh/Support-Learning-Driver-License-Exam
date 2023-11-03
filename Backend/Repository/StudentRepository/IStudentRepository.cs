@@ -6,7 +6,7 @@ namespace Backend.Repository.StudentRepository
     {
         IQueryable<Student>? GetAll();
 
-        Task<Student?> GetByIdAsync(int id);
+        Task<Student?> GetByIdAsync(string id);
 
         Task<Student?> CreateAsync(Student student);
 
