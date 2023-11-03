@@ -1166,38 +1166,38 @@ GO
 /* Add data: Class */
 SET IDENTITY_INSERT [dbo].[Class] ON 
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('1', '1', '1101B2', 1, '', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('1', '1', '1101B2', 1, '', '', 'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('2', '1', '1101B2', 0, '2', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('2', '1', '1101B2', 0, '2', 3,'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('3', '1', '1101B2', 0, '3', 'Sáng', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('3', '1', '1101B2', 0, '3', 3,'Sáng', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('4', '2', '1101B2', 0, '3', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('4', '2', '1101B2', 0, '3', 3,'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('5', '2', '1101B2', 0, '4', 'Sáng', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('5', '2', '1101B2', 0, '4', 3,'Sáng', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('6', '3', '1101B2', 0, '4', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('6', '3', '1101B2', 0, '4', 3,'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('7', '3', '1101B2', 0, '5', 'Sáng', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('7', '3', '1101B2', 0, '5', 3,'Sáng', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('8', '4', '1101B2', 0, '5', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('8', '4', '1101B2', 0, '5', 3,'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('9', '4', '1101B2', 0, '6', 'Sáng', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('9', '4', '1101B2', 0, '6', 3, 'Sáng', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('10', '5', '1101B2', 0, '6', 'Chiều', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('10', '5', '1101B2', 0, '6', 3, 'Chiều', 1)
 GO
-INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [shift], [status])
-	VALUES ('11', '5', '1101B2', 0, '2', 'Sáng', 1)
+INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
+	VALUES ('11', '5', '1101B2', 0, '2', 3, 'Sáng', 1)
 SET IDENTITY_INSERT [dbo].[Class] OFF
 
 /* Add data: ClassStudent */
