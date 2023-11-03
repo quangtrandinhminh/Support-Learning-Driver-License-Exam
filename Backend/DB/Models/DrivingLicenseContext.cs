@@ -6,24 +6,9 @@ namespace Backend.DB.Models;
 
 public partial class DrivingLicenseContext : DbContext
 {
-    public DrivingLicenseContext(string connectionString)
+    public DrivingLicenseContext()
     {
-        this.Database.SetConnectionString(connectionString);
     }
-
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
-            .Build();
-        var strConn = config["ConnectionStrings:DefaultConnection"];
-
-        return strConn;
-    }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
-
 
     public DrivingLicenseContext(DbContextOptions<DrivingLicenseContext> options)
         : base(options)
@@ -64,6 +49,10 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=DrivingLicense;TrustServerCertificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Class>(entity =>
@@ -76,6 +65,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("courseID");
             entity.Property(e => e.DayOfWeek).HasColumnName("dayOfWeek");
             entity.Property(e => e.IsTheoryClass).HasColumnName("isTheoryClass");
+            entity.Property(e => e.LimitStudent).HasColumnName("limitStudent");
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
             entity.Property(e => e.Shift).HasColumnName("shift");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -184,11 +174,8 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.LimitKeyQuestion).HasColumnName("limitKeyQuestion");
             entity.Property(e => e.LimitQuestion).HasColumnName("limitQuestion");
             entity.Property(e => e.MinimumCorrectAnswer).HasColumnName("minimumCorrectAnswer");
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("password");
             entity.Property(e => e.StaffId).HasColumnName("staffID");
+            entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Exams)
                 .HasForeignKey(d => d.CourseId)
@@ -228,17 +215,14 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.LessonId).HasColumnName("lessonID");
             entity.Property(e => e.Attendance).HasColumnName("attendance");
             entity.Property(e => e.ClassStudentId).HasColumnName("classStudentID");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("datetime")
-                .HasColumnName("endTime");
+            entity.Property(e => e.Date)
+                .HasColumnType("date")
+                .HasColumnName("date");
             entity.Property(e => e.Hours).HasColumnName("hours");
             entity.Property(e => e.Kilometers).HasColumnName("kilometers");
             entity.Property(e => e.Location)
                 .HasMaxLength(500)
                 .HasColumnName("location");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("datetime")
-                .HasColumnName("startTime");
             entity.Property(e => e.Title)
                 .HasMaxLength(500)
                 .HasColumnName("title");
@@ -387,25 +371,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.StaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Question_Staff");
-
-            entity.HasMany(d => d.Tests).WithMany(p => p.Questions)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TestQuestion",
-                    r => r.HasOne<Test>().WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_TestQuestion_Test"),
-                    l => l.HasOne<Question>().WithMany()
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_TestQuestion_Question"),
-                    j =>
-                    {
-                        j.HasKey("QuestionId", "TestId");
-                        j.ToTable("TestQuestion");
-                        j.IndexerProperty<int>("QuestionId").HasColumnName("questionID");
-                        j.IndexerProperty<int>("TestId").HasColumnName("testID");
-                    });
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -466,7 +431,13 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.StudentAnswerId).HasColumnName("studentAnswerID");
             entity.Property(e => e.IsCorrect).HasColumnName("isCorrect");
             entity.Property(e => e.OptionId).HasColumnName("optionID");
+            entity.Property(e => e.QuestionId).HasColumnName("questionID");
             entity.Property(e => e.TestId).HasColumnName("testID");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.StudentAnswers)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_StudentAnswer_Question");
 
             entity.HasOne(d => d.Test).WithMany(p => p.StudentAnswers)
                 .HasForeignKey(d => d.TestId)
