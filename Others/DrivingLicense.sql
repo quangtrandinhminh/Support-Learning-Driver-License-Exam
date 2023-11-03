@@ -185,6 +185,7 @@ CREATE TABLE [dbo].[Class](
   [courseID] NVARCHAR(10) NOT NULL,
   [isTheoryClass] BIT NULL,
   [dayOfWeek] INT NULL,
+  [limitStudent] INT NULL,
   [shift] NVARCHAR(MAX) NULL,
   [status] BIT NULL
   CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
@@ -227,16 +228,16 @@ GO
 
 CREATE TABLE [dbo].[Exam](
   [examID] INT IDENTITY(1,1) NOT NULL,
+  [staffID] INT NOT NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [examName] NVARCHAR(MAX) NULL,
   [description] NVARCHAR(MAX) NULL,
   [duration] INT NULL,
-  [courseID] NVARCHAR(10) NOT NULL,
   [limitQuestion] INT NULL,
   [limitKeyQuestion] INT NULL,
   [minimumCorrectAnswer] SMALLINT NULL,
-  [password] VARCHAR(50) NULL,
   [createdTime] DATETIME NULL,
-  [staffID] INT NOT NULL,
+  [status] BIT NULL
   CONSTRAINT [PK_Exam] PRIMARY KEY CLUSTERED 
   (
     [examID] ASC
@@ -267,8 +268,7 @@ CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
   [classStudentID] INT NOT NULL,
   [title] NVARCHAR(500) NULL,
-  [startTime] DATETIME NULL,
-  [endTime] DATETIME NULL,
+  [date] DATE NULL,
   [location] NVARCHAR(500) NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
@@ -299,29 +299,19 @@ GO
 
 CREATE TABLE [dbo].[StudentAnswer](
   [studentAnswerID] INT IDENTITY(1,1) NOT NULL,
-  [optionID] TINYINT NULL,
-  [isCorrect] BIT NULL,
   [testID] INT NOT NULL,
+  [questionID] INT NOT NULL,
+  [optionID] TINYINT NULL,
+  [isCorrect] BIT NULL
   CONSTRAINT [PK_StudentAnswer] PRIMARY KEY CLUSTERED 
   (
     [studentAnswerID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_StudentAnswer_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID])
+  CONSTRAINT [FK_StudentAnswer_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID]),
+  CONSTRAINT [FK_StudentAnswer_Question] FOREIGN KEY ([questionID]) REFERENCES [dbo].[Question] ([questionID])
 )ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[TestQuestion](
-  [questionID] INT NOT NULL,
-  [testID] INT NOT NULL,
-  CONSTRAINT [PK_TestQuestion] PRIMARY KEY CLUSTERED 
-  (
-    [questionID] ASC,
-    [testID] ASC
-  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_TestQuestion_Question] FOREIGN KEY ([questionID]) REFERENCES [dbo].[Question] ([questionID]),
-  CONSTRAINT [FK_TestQuestion_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID])
-)ON [PRIMARY]
-GO
 /*-- Add data: Role -- 16/10/2023/ ---*/
 SET IDENTITY_INSERT [dbo].[Role] ON 
 GO
@@ -458,55 +448,55 @@ SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1101B2', '230B2', '2023-11-06', '2024-02-06', '25', '25', 
+		VALUES('1101B2', '230B2', '2023-11-06', '2024-02-06', '5', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1102B2', '231B2', '2023-11-16', '2024-02-16', '25', '25', 
+		VALUES('1102B2', '231B2', '2023-11-16', '2024-02-16', '0', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1103B2', '232B2', '2023-11-26', '2024-02-26', '25', '25', 
+		VALUES('1103B2', '232B2', '2023-11-26', '2024-02-26', '0', '25', 
 				'2023-10-06', '11', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1201B2', '233B2', '2023-12-06', '2024-03-06', '25', '25', 
+		VALUES('1201B2', '233B2', '2023-12-06', '2024-03-06', '0', '25', 
 				'2023-10-06', '12', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1202B2', '234B2', '2023-12-16', '2024-03-06', '25', '25', 
+		VALUES('1202B2', '234B2', '2023-12-16', '2024-03-06', '0', '25', 
 				'2023-10-06', '12', '2023', 1)
 
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('1203B2', '235B2', '2023-12-26', '2024-03-26', '25', '25', 
+		VALUES('1203B2', '235B2', '2023-12-26', '2024-03-26', '0', '25', 
 				'2023-10-06', '12', '2023', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0101B2', '236B2', '2023-01-06', '2024-04-06', '25', '25', 
+		VALUES('0101B2', '236B2', '2023-01-06', '2024-04-06', '0', '25', 
 				'2023-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0102B2', '237B2', '2023-01-16', '2024-04-16', '25', '25', 
+		VALUES('0102B2', '237B2', '2023-01-16', '2024-04-16', '0', '25', 
 				'2023-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0103B2', '238B2', '2023-01-26', '2024-04-26', '25', '25', 
+		VALUES('0103B2', '238B2', '2023-01-26', '2024-04-26', '0', '25', 
 				'2023-10-06', '01', '2024', 1)
 GO
 
