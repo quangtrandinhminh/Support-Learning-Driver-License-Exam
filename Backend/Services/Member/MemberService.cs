@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
+using Backend.DTO.Course;
 using Backend.DTO.Members;
 using Backend.DTO.News;
 using Backend.Repository.MemberRepository;
@@ -126,6 +127,35 @@ namespace Backend.Services.Member
                 user.Email = memberCreateDTO.Email;
                 await _userRepository.UpdateAsync(user);
                 await _memberRepository.AddAsync(members);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> UpdateIsPaid(int memberID)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var member = _memberRepository.GetAll().
+                    Where(p => p.MemberId == memberID).FirstOrDefault();
+                if (member == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Member is not exist";
+                    result.Payload = -2;
+                    return result;
+                }
+                else
+                {
+                    member.IsPaid = true;
+                    await _memberRepository.UpdateAsync(member);
+                }
             }
             catch (Exception e)
             {
