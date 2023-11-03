@@ -64,7 +64,7 @@ import {
     return (
       <main className='main-container'>
         <div className='main-title'>
-          <h3>DASHBOARD</h3>
+          <h3 className='tw-text-black'>DASHBOARD</h3>
         </div>
   
         <div className='main-cards'>
@@ -77,7 +77,7 @@ import {
           </div>
           <div className='card'>
             <div className='card-inner'>
-              <h3>MEMTOR</h3>
+              <h3>MENTOR</h3>
               <BsPeopleFill className='card_icon' />
             </div>
             <h1>20</h1>

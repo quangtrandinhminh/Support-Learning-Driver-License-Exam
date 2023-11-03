@@ -13,6 +13,7 @@ function MemberInformationForm() {
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [student, setStudent] = useState(null);
 
     const handleScroll = () => {
         window.scrollTo(0, 0);

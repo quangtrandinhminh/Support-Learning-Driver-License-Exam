@@ -10,6 +10,7 @@ function RegisteredCourse() {
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [student, setStudent] = useState(null);
 
     const getMemberById = async () => {
         try {
@@ -33,12 +34,18 @@ function RegisteredCourse() {
         }
     }
 
+    const getStudentByMemberId = async () => {
+        const response = await api.get('Student/' + member.memberID);
+        console.log(response.data);
+    }
+
     useEffect(() => {
         getMemberById();
     }, [])
 
     useEffect(() => {
         getCourseById();
+        getStudentByMemberId();
     }, [member])
 
     const formatDate = (dbDate) => {

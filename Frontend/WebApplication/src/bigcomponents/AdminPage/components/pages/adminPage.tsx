@@ -4,7 +4,7 @@ import Header from '../organisms/Header';
 import Slidebar from '../organisms/Slidebar';
 import Home from '../templates/Home';
 
-function adminPage() {
+function AdminPage() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
   const OpenSidebar = () => {
@@ -20,4 +20,4 @@ function adminPage() {
   );
 }
 
-export default adminPage;
+export default AdminPage;
