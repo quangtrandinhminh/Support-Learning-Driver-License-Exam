@@ -101,7 +101,7 @@ function TeachingSchedule() {
                                 <td>Ca sáng</td>
                                 <td>
                                     <p>
-                                        <a href="">Lý thuyết</a>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
                                         Buổi thứ 1
                                         <br />
@@ -113,11 +113,11 @@ function TeachingSchedule() {
                                 <td>-</td>
                                 <td>
                                     <p>
-                                        <a href="">Thực hành</a>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
-                                        Buổi thứ 2
+                                        Buổi thứ 3
                                         <br />
-                                        <a href="">Lớp: XXB2</a>
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p>
@@ -125,11 +125,11 @@ function TeachingSchedule() {
                                 <td>-</td>
                                 <td>
                                     <p>
-                                        <a href="">Thực hành</a>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
-                                        Buổi thứ 3
+                                        Buổi thứ 5
                                         <br />
-                                        <a href="">Lớp: XXB2</a>
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p>
@@ -140,11 +140,11 @@ function TeachingSchedule() {
                                 <td>-</td>
                                 <td>
                                     <p>
-                                        <a href="">Thực hành</a>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
-                                        Buổi thứ 1
+                                        Buổi thứ 2
                                         <br />
-                                        <a href="">Lớp: XXB2</a>
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p>
@@ -152,11 +152,11 @@ function TeachingSchedule() {
                                 <td>-</td>
                                 <td>
                                     <p>
-                                        <a href="">Lý thuyết</a>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
-                                        Buổi thứ 2
+                                        Buổi thứ 4
                                         <br />
-                                        <a href="">Lớp: XXB2</a>
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p>
