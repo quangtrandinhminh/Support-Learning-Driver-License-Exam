@@ -23,9 +23,8 @@ const NewPassword: React.FC = () => {
     }
 
     // Tiến hành đặt lại mật khẩu tại đây (có thể gửi yêu cầu đặt lại mật khẩu đến máy chủ)
-
-    toast.success("Password reset successful");
     navigate("/dang-nhap");
+    toast.success("Password reset successful");
   };
 
   return (
@@ -52,7 +51,7 @@ const NewPassword: React.FC = () => {
             />
           </div>
           <div className="new-password"><button type="submit"><p>Tiếp Theo</p></button></div>
-          
+
         </div>
       </form>
     </div>
