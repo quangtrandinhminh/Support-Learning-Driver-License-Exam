@@ -230,6 +230,7 @@ CREATE TABLE [dbo].[Exam](
   [staffID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
   [examName] NVARCHAR(MAX) NULL,
+  [examTime] DATETIME NULL,
   [description] NVARCHAR(MAX) NULL,
   [duration] INT NULL,
   [limitQuestion] INT NULL,
@@ -1240,3 +1241,14 @@ GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
 	VALUES ('1', '1', '10 điểm', '2023-11-04', 1)
 SET IDENTITY_INSERT [dbo].[FeedBack] OFF
+GO
+
+/* Add data: Exam */
+SET IDENTITY_INSERT [dbo].[Exam] ON
+GO
+INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
+	VALUES (1, '1101B2', '1', '2023-11-04', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+GO
+INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
+	VALUES (2, '1101B2', '1', '2023-11-04', N'Kì thi thử lý thuyết', '2023-11-05T11:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+SET IDENTITY_INSERT [dbo].[Exam] OFF
