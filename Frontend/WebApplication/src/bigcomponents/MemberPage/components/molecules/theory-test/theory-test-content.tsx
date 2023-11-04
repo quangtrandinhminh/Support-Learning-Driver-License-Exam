@@ -1,9 +1,20 @@
-import React from 'react'
+// import React, { useEffect } from 'react'
 import './theory-test-content.scss'
-import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/esm/Button'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function TheoryTestContent() {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        toast.success('Chúc bạn làm bài tốt!');
+        navigate('bai-lam')
+        window.scroll({
+            top: 0,
+            behavior: 'instant'
+        });
+    }
 
     return (
         <div className='theory-test-container'>
@@ -36,10 +47,8 @@ function TheoryTestContent() {
                 </h5>
             </div>
             <div className="btn-test">
-                <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
-                <Link to='/kiem-tra'>
-                    <Button className='theory-test-btn btn-primary'>Bắt đầu làm bài</Button>
-                </Link>
+                <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
+                <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
             </div>
         </div>
     )

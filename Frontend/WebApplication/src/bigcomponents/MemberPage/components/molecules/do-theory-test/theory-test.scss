@@ -1,0 +1,78 @@
+.theory-paper-container {
+    padding-top: 50px;
+
+    .theory-paper-title {
+        .paper-title {
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .theory-paper-box {
+        margin-top: 50px;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+
+        table {
+            width: 40%;
+            height: 700px;
+            border: 0.5mm solid black;
+
+            thead {
+                .question-number-container {
+                    text-align: center;
+
+                    .countdown-timer {
+                        display: flex;
+                        align-items: center;
+                        padding: 30px 0;
+                        vertical-align: middle;
+                        justify-content: center;
+                        line-height: inherit;
+                        text-align: center;
+                        gap: 5px;
+                        font-size: 24px;
+
+                        .clock-icon {
+                            font-size: 36px;
+                            vertical-align: middle;
+                            color: #4292EB;
+                        }
+
+                        span {
+                            margin-left: 3px;
+                        }
+                    }
+
+                    .top-line {
+                        background-color: black;
+                        width: 100%;
+                        height: 0.5mm;
+                    }
+                }
+            }
+
+            tbody {
+                padding: 20px;
+
+                ul {
+                    padding: 0 !important;
+                    display: flex;
+                    gap: 20px;
+                    li {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;    
+                        width: 50px;
+                        height: 50px;
+                        border: 1px solid black;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+}

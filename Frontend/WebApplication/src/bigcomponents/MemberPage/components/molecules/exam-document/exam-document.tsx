@@ -16,7 +16,10 @@ function ExamDocument() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.scrollTo(0, 0);
+    window.scroll({
+      top: 0,
+      behavior: 'instant'
+    });
     navigate('/ho-so-thi/cap-nhat')
   }
 

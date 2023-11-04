@@ -7,7 +7,10 @@ function ExamDocumentUpdate() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.scrollTo(0, 0);
+    window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     toast.success("Cập nhật hồ sơ thi thành công");
     navigate('/ho-so-thi');
   }
