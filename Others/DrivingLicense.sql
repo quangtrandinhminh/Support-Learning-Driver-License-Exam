@@ -167,7 +167,6 @@ CREATE TABLE [dbo].[Student](
   [courseID] NVARCHAR(10) NOT NULL,
   [totalKm] INT NULL,
   [totalHour] INT NULL,
-  [studyTheoryStatus] BIT NULL,
   [pass] BIT NULL
   CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
   (
@@ -251,9 +250,6 @@ CREATE TABLE [dbo].[ClassStudent](
   [classStudentID] INT IDENTITY(1,1) NOT NULL,
   [classID] INT NOT NULL,
   [studentID] VARCHAR(10) NOT NULL,
-  [comment] NVARCHAR(MAX) NULL,
-  [rating] INT NULL,
-  [feedbackCreatedTime] DATETIME NULL,
   [status] BIT NULL
   CONSTRAINT [PK_ClassStudent] PRIMARY KEY CLUSTERED 
   (
@@ -263,6 +259,19 @@ CREATE TABLE [dbo].[ClassStudent](
   CONSTRAINT [FK_ClassStudent_Student] FOREIGN KEY ([studentID]) REFERENCES [dbo].[Student] ([studentID])
 )ON [PRIMARY]
 GO
+
+CREATE TABLE [dbo].[FeedBack](
+	[feedBackId] INT IDENTITY(1,1) NOT NULL, 
+	[classStudentID] INT NOT NULL,
+	[comment] NVARCHAR(255) NULL,
+	[feedBackTime] DATE NULL,
+	[status] BIT NOT NULL
+	CONSTRAINT [PK_FeedBack] PRIMARY KEY CLUSTERED 
+   (
+   [feedBackId] ASC
+  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+  CONSTRAINT [FK_FeedBack_ClassStudent] FOREIGN KEY ([classStudentID]) REFERENCES [dbo].[ClassStudent] ([classStudentID])
+)ON [PRIMARY]
 
 CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
@@ -1043,20 +1052,20 @@ SET IDENTITY_INSERT [dbo].[Member] OFF
 
 /* Add data: Student */
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
-	VALUES ('1101B2.01', '1', '1101B2', '', '', 1, '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour],  [pass])
+	VALUES ('1101B2.01', '1', '1101B2', '', '', '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
-	VALUES ('1101B2.02', '2', '1101B2', '', '', 1, '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour],  [pass])
+	VALUES ('1101B2.02', '2', '1101B2', '', '', '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
-	VALUES ('1101B2.03', '3', '1101B2', '', '', 1, '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour],  [pass])
+	VALUES ('1101B2.03', '3', '1101B2', '', '', '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
-	VALUES ('1101B2.28', '28', '1101B2', '', '', 1, '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour],  [pass])
+	VALUES ('1101B2.28', '28', '1101B2', '', '', '')
 GO
-INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour], [studyTheoryStatus],  [pass])
-	VALUES ('1101B2.29', '29', '1101B2', '', '', 1, '')
+INSERT [dbo].[Student] ([studentID], [memberID], [courseID], [totalKm], [totalHour],  [pass])
+	VALUES ('1101B2.29', '29', '1101B2', '', '', '')
 
 GO
 /* Add data: Staff */
@@ -1203,25 +1212,30 @@ SET IDENTITY_INSERT [dbo].[Class] OFF
 /* Add data: ClassStudent */
 SET IDENTITY_INSERT [dbo].[ClassStudent] ON 
 GO
-INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
-	[rating], [feedbackCreatedTime], [status])
-	VALUES ('1', '1', '1101B2.01', 'Waoooo', '5', '2023-11-2', 1)
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('1', '1', '1101B2.01', 1)
 GO
-INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
-	[rating], [feedbackCreatedTime], [status])
-	VALUES ('2', '1', '1101B2.02', 'Waoooo', '5', '2023-11-2', 1)
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('2', '1', '1101B2.02', 1)
 GO
-INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
-	[rating], [feedbackCreatedTime], [status])
-	VALUES ('3', '1', '1101B2.03', 'Waoooo', '5', '2023-11-2', 1)
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('3', '1', '1101B2.03', 1)
 GO
-INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
-	[rating], [feedbackCreatedTime], [status])
-	VALUES ('4', '1', '1101B2.28', 'Waoooo', '5', '2023-11-2', 1)
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('4', '1', '1101B2.28', 1)
 GO
-INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID], [comment], 
-	[rating], [feedbackCreatedTime], [status])
-	VALUES ('5', '1', '1101B2.29', 'Waoooo', '5', '2023-11-2', 1)
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('5', '1', '1101B2.29', 1)
 
 SET IDENTITY_INSERT [dbo].[ClassStudent] OFF 
 
+SET IDENTITY_INSERT [dbo].[FeedBack] ON
+GO
+INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
+	VALUES ('1', '1', '10 điểm', '2023-11-04', 1)
+SET IDENTITY_INSERT [dbo].[FeedBack] OFF
