@@ -279,6 +279,7 @@ CREATE TABLE [dbo].[Lesson](
   [title] NVARCHAR(500) NULL,
   [date] DATE NULL,
   [location] NVARCHAR(500) NULL,
+  [isNight] BIT NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
   [attendance] BIT NULL,
