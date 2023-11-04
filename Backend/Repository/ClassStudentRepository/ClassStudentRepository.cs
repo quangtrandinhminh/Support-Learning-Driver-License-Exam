@@ -28,6 +28,19 @@ namespace Backend.Repository.ClassStudentRepository
             }
         }
 
+        public async Task<DB.Models.ClassStudent?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public async Task<DB.Models.ClassStudent?> CreateAsync(Backend.DB.Models.ClassStudent classStudent)
         {
             try

@@ -4,7 +4,7 @@ using Backend.Repository.ClassStudentRepository;
 
 namespace Backend.Services.ClassStudent
 {
-    public class ClassStudentService
+    public class ClassStudentService : IClassStudentService
     {
         private readonly IClassStudentRepository _classStudentRepository;
         private readonly IMapper _mapper;
