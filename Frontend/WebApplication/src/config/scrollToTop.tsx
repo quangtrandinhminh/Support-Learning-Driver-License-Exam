@@ -5,7 +5,10 @@ function ScrollToTop() {
 
     useEffect(() => {
         // Scroll to the top of the page when the route changes
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }, []);
 
     return null; // This component doesn't render anything

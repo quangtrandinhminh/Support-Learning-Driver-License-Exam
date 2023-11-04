@@ -6,7 +6,10 @@ import { useEffect } from 'react';
 function CourseTemplate() {
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
   }, [])
 
   return (

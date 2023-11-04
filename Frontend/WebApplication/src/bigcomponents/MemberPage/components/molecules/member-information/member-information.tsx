@@ -16,14 +16,20 @@ function MemberInformationForm() {
     const [student, setStudent] = useState(null);
 
     const handleScroll = () => {
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
         navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 

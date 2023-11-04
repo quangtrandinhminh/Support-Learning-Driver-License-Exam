@@ -1,4 +1,4 @@
-import TheoryTestContent from "../../molecules/theory-test-content/theory-test-content"
+import TheoryTestContent from "../../molecules/theory-test/theory-test-content"
 
 function TheoryTestTemplate() {
     return (

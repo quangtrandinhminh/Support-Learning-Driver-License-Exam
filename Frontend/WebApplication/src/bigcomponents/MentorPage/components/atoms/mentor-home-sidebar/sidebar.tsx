@@ -32,7 +32,10 @@ function MentorSidebar() {
 
   const handleScroll = () => {
     {
-      window.scrollTo(0, 0);
+      window.scroll({
+        top: 0,
+        behavior: 'instant'
+      });
     }
   }
 
