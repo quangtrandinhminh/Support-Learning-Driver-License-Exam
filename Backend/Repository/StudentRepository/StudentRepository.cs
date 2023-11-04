@@ -27,7 +27,7 @@ namespace Backend.Repository.StudentRepository
             }
         }
 
-        public async Task<Student?> GetByIdAsync(int id)
+        public async Task<Student?> GetByIdAsync(string id)
         {
             try
             {

@@ -15,6 +15,8 @@ public partial class Class
 
     public int? DayOfWeek { get; set; }
 
+    public int? LimitStudent { get; set; }
+
     public string? Shift { get; set; }
 
     public bool? Status { get; set; }

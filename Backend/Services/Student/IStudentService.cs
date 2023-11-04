@@ -1,4 +1,5 @@
-﻿using Backend.DTO.Members;
+﻿using Backend.DTO.Course;
+using Backend.DTO.Members;
 using Backend.DTO.Student;
 using Backend.DTO.Users;
 

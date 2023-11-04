@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { BsPersonCircle, BsJustify } from "react-icons/bs";
+
 import {
-  BsFillBellFill,
-  BsPersonCircle,
-  BsJustify,
-  BsFillGearFill,
-} from "react-icons/bs";
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+} from "@chakra-ui/react";
 
 import "./Header.scss";
 
@@ -13,40 +20,55 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ OpenSidebar }) => {
+  const [selectedOption, setSelectedOption] = useState("Profile");
   const [isAdminPopUpVisible, setIsAdminPopUpVisible] = useState(false);
+
+  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
+  };
 
   const handleAdminIconClick = () => {
     setIsAdminPopUpVisible(!isAdminPopUpVisible);
   };
-  
+
   return (
-    <header className="header">
+    <div className="Header">
       <div className="menu-icon">
         <BsJustify className="icon" onClick={OpenSidebar} />
       </div>
       <div className="header-left"></div>
       <div className="header-right">
-        <button className="button_icon"><BsFillBellFill className="icon" /></button>
-        <button className="button_icon">
-        <BsPersonCircle className="icon" onClick={handleAdminIconClick} />
-        {isAdminPopUpVisible && (
-          <div className="adminIconclick">
-            <div className="adminPopUp">
-              <a href="#">Profile</a>
-            </div>
-            <div className="adminPopUp">
-              <a href="#">
-                <BsFillGearFill className="icon" /> Setting
-              </a>
-            </div>
-            <div className="adminPopUp">
-              <a href="#">Log Out</a>
-            </div>
-          </div>
-        )}
-        </button>
+        <Popover>
+          <PopoverTrigger>
+            <Button className="button" onClick={handleAdminIconClick}>
+              <BsPersonCircle className="icon" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="Popup">
+            <PopoverArrow className="Popup-Arrow" />
+            <PopoverCloseButton className="Popup-close-button" />
+            <PopoverHeader className="Popup-Content">
+              <div className="popup_header_context">
+                <p>name:Admin</p>
+                <p>email:Admin@gmail.com</p>
+              </div>
+            </PopoverHeader>
+            <PopoverBody>
+            <div className="popup_body_context">
+                <p>name:Admin</p>
+                <p>email:Admin@gmail.com</p>
+              </div>
+            </PopoverBody>
+            <PopoverFooter>
+            <div className="popup_footer_context">
+                <p>name:Admin</p>
+                <p>email:Admin@gmail.com</p>
+              </div>
+            </PopoverFooter>
+          </PopoverContent>
+        </Popover>
       </div>
-    </header>
+    </div>
   );
 };
 

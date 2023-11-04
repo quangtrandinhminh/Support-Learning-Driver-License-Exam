@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
         if (data.errorMessage === "User is not exist") {
           toast.error("Tên đăng nhập không có trong hệ thống. Vui lòng kiểm tra lại!");
         } else {
-          if (data.errorMessage !== "Password is not correct") {
+          if (data.errorMessage !== "Password is not correct") {  
             toast.success("Đăng nhập thành công"); // Show the success toast
             setTimeout(() => {
               sessionStorage.setItem('loginedUser', JSON.stringify(user.payload));

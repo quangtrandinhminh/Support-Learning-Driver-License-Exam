@@ -1,15 +1,13 @@
 import React from 'react';
 import { BsGrid1X2Fill, BsListCheck } from 'react-icons/bs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faImages, faNewspaper, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faFloppyDisk, faImages, faNewspaper, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import './Slidebar.scss';
 
 interface SidebarProps {
   openSidebarToggle: boolean;
   OpenSidebar: () => void;
 }
-
-// ... (các phần code khác)
 
 const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => {
   return (
@@ -22,7 +20,7 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
       </div>
       <ul className="sidebar-list">
         <li className="list-header">
-          <p>điều hướng</p>
+          <p>Điều hướng</p>
         </li>
         <SidebarItem
           icon={<BsGrid1X2Fill className="icon" />}
@@ -54,6 +52,11 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
           icon={<FontAwesomeIcon icon={faNewspaper} />}
           text="Tin tức"
           link="/news"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faFloppyDisk} />}
+          text="Thay đổi và cập nhật"
+          link="/database"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faDatabase} />}

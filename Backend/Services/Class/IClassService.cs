@@ -4,10 +4,12 @@ namespace Backend.Services.Class
 {
     public interface IClassService
     {
-        public ICollection<ClassDTO> GetAllCllass();
+        ICollection<ClassDTO> GetAllClass();
 
         ServiceResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId);
 
         Task<ServiceResult<int>> CreateClass(ClassCreateDTO classCreateDto);
+
+        Task<ServiceResult<int>> CreateClassByMentor(ClassDTO classDto);
     }
 }

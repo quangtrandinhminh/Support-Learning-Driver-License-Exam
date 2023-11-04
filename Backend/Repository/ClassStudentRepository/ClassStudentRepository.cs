@@ -1,25 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
 using Backend.DB.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Repository.UserRepository
+namespace Backend.Repository.ClassStudentRepository
 {
-    public class UserRepository : IUserRepository
+    public class ClassStudentRepository : IClassStudentRepository
     {
         private readonly DrivingLicenseContext _context;
-        private readonly DbSet<User> _dbSet;
+        private readonly DbSet<DB.Models.ClassStudent> _dbSet;
 
-        public UserRepository(DrivingLicenseContext context)
+        public ClassStudentRepository(DrivingLicenseContext context)
         {
             _context = context;
-            _dbSet = _context.Set<User>(); 
+            _dbSet = _context.Set<DB.Models.ClassStudent>();
         }
 
-        public IQueryable<User>? GetAll()
+        public IQueryable<DB.Models.ClassStudent>? GetAll()
         {
             try
             {
-                var users = _dbSet.AsQueryable();
-                return users;
+                return _dbSet.AsQueryable();
             }
             catch (Exception e)
             {
@@ -28,13 +28,11 @@ namespace Backend.Repository.UserRepository
             }
         }
 
-        public async Task<User?> AddAsync(User user)
+        public async Task<DB.Models.ClassStudent?> GetByIdAsync(int id)
         {
             try
             {
-                var result = await _dbSet.AddAsync(user);
-                await _context.SaveChangesAsync();
-                return result.Entity;
+                return await _dbSet.FindAsync(id);
             }
             catch (Exception e)
             {
@@ -43,11 +41,11 @@ namespace Backend.Repository.UserRepository
             }
         }
 
-        public async Task<User?> UpdateAsync(User user)
+        public async Task<DB.Models.ClassStudent?> CreateAsync(Backend.DB.Models.ClassStudent classStudent)
         {
             try
             {
-                var result = _dbSet.Update(user);
+                var result = await _dbSet.AddAsync(classStudent);
                 await _context.SaveChangesAsync();
                 return result.Entity;
             }

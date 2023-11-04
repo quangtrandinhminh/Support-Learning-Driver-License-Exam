@@ -22,6 +22,4 @@ public partial class Test
     public virtual Student Student { get; set; } = null!;
 
     public virtual ICollection<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
-
-    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
 }

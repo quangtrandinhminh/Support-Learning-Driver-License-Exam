@@ -57,6 +57,7 @@ import MentorClassInformationPage from './bigcomponents/MentorPage/components/pa
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
 
 function App() {
 
@@ -99,7 +100,7 @@ function App() {
                 <>
                   <Route path='dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
-                    <Route index element={<MemberHomePage />} />
+                    <Route index element={<AdminPage />} />
                   )}
                   {user.roleId === 2 && (
                     <>

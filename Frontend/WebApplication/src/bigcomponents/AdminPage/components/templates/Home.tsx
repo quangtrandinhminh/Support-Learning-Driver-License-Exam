@@ -64,34 +64,34 @@ import {
     return (
       <main className='main-container'>
         <div className='main-title'>
-          <h3>DASHBOARD</h3>
+          <h3>Bảng điều khiển</h3>
         </div>
   
         <div className='main-cards'>
           <div className='card'>
             <div className='card-inner'>
-              <h3>STAFF</h3>
+              <h3>Quản lý</h3>
               <BsPeopleFill className='card_icon' />
             </div>
             <h1>10</h1>
           </div>
           <div className='card'>
             <div className='card-inner'>
-              <h3>MEMTOR</h3>
+              <h3>Giáo viên</h3>
               <BsPeopleFill className='card_icon' />
             </div>
             <h1>20</h1>
           </div>
           <div className='card'>
             <div className='card-inner'>
-              <h3>MEMBER</h3>
+              <h3>Học viên</h3>
               <BsPeopleFill className='card_icon' />
             </div>
             <h1>100</h1>
           </div>
             <div className='card'>
               <div className='card-inner'>
-                <h3>ALERTS</h3>
+                <h3>Thông báo</h3>
                 <BsFillBellFill className='card_icon' />
               </div>
               <h1>9</h1>
@@ -99,7 +99,7 @@ import {
           </div>
   
             
-          <div className='chart-title'><h1>Lượt truy cập</h1></div>
+          <div className='chart-title'><h3>Lượt truy cập</h3></div>
           <div className='charts'>
           <ResponsiveContainer width='100%' height={300}>
             <BarChart

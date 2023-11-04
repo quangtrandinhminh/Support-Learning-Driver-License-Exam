@@ -1,6 +1,7 @@
 using Backend.DB;
 using Backend.DB.Models;
 using Backend.Repository.ClassRepository;
+using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.UserRepository;
 using Backend.Repository.CourseRepository;
 using Backend.Repository.NewsRepository;
@@ -24,6 +25,8 @@ using Backend.Services.Mentor;
 using Backend.Services.Staff;
 using Backend.Services.Student;
 using Backend.Services.Class;
+using Backend.Services.ClassStudent;
+using Backend.Services.Lesson;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,16 +42,18 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IMemberService, MemberService>();
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-/*builder.Services.AddScoped<IStudentService, StudentService>();*/
 builder.Services.AddScoped<IMentorRepository, MentorRepository>();
 builder.Services.AddScoped<IMentorService, MentorService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
-/*builder.Services.AddScoped<IClassService, ClassService>();*/
+builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<IClassStudentRepository, ClassStudentRepository>();
+builder.Services.AddScoped<IClassStudentService, ClassStudentService>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
-/*builder.Services.AddScoped<ILessonService, LessonService>();*/
+builder.Services.AddScoped<ILessonService, LessonService>();
 /*builder.Services.AddScoped<IFeedbackService, FeedbackService>();*/
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 /*builder.Services.AddScoped<IExamService, ExamService>();*/
@@ -58,10 +63,7 @@ builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 /*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 /*builder.Services.AddScoped<IQuestionService, QuestionService>();*/
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<IClassRepository, ClassRepository>();
-builder.Services.AddScoped<IClassService, ClassService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
