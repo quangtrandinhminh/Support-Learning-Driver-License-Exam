@@ -15,8 +15,6 @@ public partial class Student
 
     public int? TotalHour { get; set; }
 
-    public bool? StudyTheoryStatus { get; set; }
-
     public bool? Pass { get; set; }
 
     public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();

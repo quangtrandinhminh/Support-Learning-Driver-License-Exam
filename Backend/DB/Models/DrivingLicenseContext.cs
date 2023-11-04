@@ -25,6 +25,8 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<Exam> Exams { get; set; }
 
+    public virtual DbSet<FeedBack> FeedBacks { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<Lesson> Lessons { get; set; }
@@ -86,11 +88,6 @@ public partial class DrivingLicenseContext : DbContext
 
             entity.Property(e => e.ClassStudentId).HasColumnName("classStudentID");
             entity.Property(e => e.ClassId).HasColumnName("classID");
-            entity.Property(e => e.Comment).HasColumnName("comment");
-            entity.Property(e => e.FeedbackCreatedTime)
-                .HasColumnType("datetime")
-                .HasColumnName("feedbackCreatedTime");
-            entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StudentId)
                 .HasMaxLength(10)
@@ -186,6 +183,26 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.StaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Exam_Staff");
+        });
+
+        modelBuilder.Entity<FeedBack>(entity =>
+        {
+            entity.ToTable("FeedBack");
+
+            entity.Property(e => e.FeedBackId).HasColumnName("feedBackId");
+            entity.Property(e => e.ClassStudentId).HasColumnName("classStudentID");
+            entity.Property(e => e.Comment)
+                .HasMaxLength(255)
+                .HasColumnName("comment");
+            entity.Property(e => e.FeedBackTime)
+                .HasColumnType("date")
+                .HasColumnName("feedBackTime");
+            entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.HasOne(d => d.ClassStudent).WithMany(p => p.FeedBacks)
+                .HasForeignKey(d => d.ClassStudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_FeedBack_ClassStudent");
         });
 
         modelBuilder.Entity<Image>(entity =>
@@ -409,7 +426,6 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("courseID");
             entity.Property(e => e.MemberId).HasColumnName("memberID");
             entity.Property(e => e.Pass).HasColumnName("pass");
-            entity.Property(e => e.StudyTheoryStatus).HasColumnName("studyTheoryStatus");
             entity.Property(e => e.TotalHour).HasColumnName("totalHour");
             entity.Property(e => e.TotalKm).HasColumnName("totalKm");
 
