@@ -64,9 +64,8 @@ import {
     return (
       <main className='main-container'>
         <div className='main-title'>
-          <h3>Bảng điều khiển</h3>
+          <h3 className='tw-text-black'>Bảng điều khiển</h3>
         </div>
-  
         <div className='main-cards'>
           <div className='card'>
             <div className='card-inner'>
