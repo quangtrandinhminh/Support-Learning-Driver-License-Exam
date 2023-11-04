@@ -15,19 +15,19 @@ function GuestNavHome() {
                             </Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                            <Link to="center-introduction" spy={true} offset={-100} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Trang chủ</a>
                                 </li></Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="course-section" spy={true} smooth={true} offset={-120} duration={500}>
+                            <Link to="course-section" spy={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Khóa học</a>
                                 </li></Link>
                         </div>
                         <div className='nav-home-items'>
-                            <Link to="center-consultation" spy={true} smooth={true} offset={-120} duration={500}>
+                            <Link to="center-consultation" spy={true} offset={-120} duration={500}>
                                 <li className='inline-block'>
                                     <a href="">Tư vấn</a>
                                 </li>

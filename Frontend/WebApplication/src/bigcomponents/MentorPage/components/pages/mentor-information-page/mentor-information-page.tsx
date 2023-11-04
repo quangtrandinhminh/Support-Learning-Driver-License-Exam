@@ -1,7 +1,7 @@
 import MentorInformation from '../../molecules/mentor-information/mentor-information'
 import '../../mentor-general.scss'
 
-function MentorInformationPage() {
+function InformationPage() {
   return (
     <>
     <MentorInformation />
@@ -9,4 +9,4 @@ function MentorInformationPage() {
   )
 }
 
-export default MentorInformationPage
+export default InformationPage

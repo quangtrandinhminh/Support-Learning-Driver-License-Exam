@@ -2,6 +2,7 @@ import MentorTeachingRegister from "../../molecules/teaching-register/teaching-r
 import '../../mentor-general.scss'
 import TeachingRegisterNote from "../../molecules/teaching-register-note/teaching-register-note"
 
+
 function MentorRegisterSchedule() {
     return (
         <>

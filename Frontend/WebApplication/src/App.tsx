@@ -56,6 +56,7 @@ import StudentsListPage from './bigcomponents/MentorPage/components/pages/studen
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
+import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
+                        <Route path ='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
                         <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
                         <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>

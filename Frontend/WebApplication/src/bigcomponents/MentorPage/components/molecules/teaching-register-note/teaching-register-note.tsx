@@ -12,8 +12,7 @@ function TeachingRegisterNote() {
             </p>
             <h3>Lưu ý: </h3>
             <p>
-                Giáo viên chọn ít nhất 2 ngày trong tuần để dạy, ngày dạy thực hành 
-                không được trùng với ngày có lịch dạy lí thuyết 
+                Giáo viên chọn ít nhất 2 ngày trong tuần để dạy
                 <br />
                 Giáo viên cần sắp xếp thời gian biểu bản thân phù hợp để 
                 có thể tham gia dạy các lớp đầy đủ
