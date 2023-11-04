@@ -64,11 +64,7 @@ import {
     return (
       <main className='main-container'>
         <div className='main-title'>
-<<<<<<< Updated upstream
-          <h3 className='tw-text-black'>DASHBOARD</h3>
-=======
           <h3>Bảng điều khiển</h3>
->>>>>>> Stashed changes
         </div>
   
         <div className='main-cards'>
@@ -81,11 +77,7 @@ import {
           </div>
           <div className='card'>
             <div className='card-inner'>
-<<<<<<< Updated upstream
-              <h3>MENTOR</h3>
-=======
               <h3>Giáo viên</h3>
->>>>>>> Stashed changes
               <BsPeopleFill className='card_icon' />
             </div>
             <h1>20</h1>
