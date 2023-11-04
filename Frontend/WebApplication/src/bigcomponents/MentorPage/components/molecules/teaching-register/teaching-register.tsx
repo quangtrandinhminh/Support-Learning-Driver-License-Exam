@@ -1,8 +1,40 @@
-import './teaching-register.scss'
+import React, { Component } from 'react';
+import './teaching-register.scss';
+interface CheckboxTableState {
+  checkboxes: {
+    [key: string]: boolean;
+  };
+}
+class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkboxes: {
+        "sang-monday": false,
+        "sang-tuesday": false,
+        "sang-wednesday": false,
+        "sang-thursday": false,
+        "sang-friday": false,
+        "chieu-monday": false,
+        "chieu-tuesday": false,
+        "chieu-wednesday": false,
+        "chieu-thursday": false,
+        "chieu-friday": false,
+      },
+    };
+  }
 
-function MentorTeachingRegister() {
-  return (
-    <>  
+  handleCheckboxChange = (key) => {
+    this.setState((prevState) => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [key]: !prevState.checkboxes[key],
+      },
+    }));
+  };
+
+  render() {
+    return (<>
       <div className="title">
         <h1>Đăng kí lịch dạy</h1>
       </div>
@@ -10,44 +42,77 @@ function MentorTeachingRegister() {
         <div className="register-table-container">
           <form action="">
             <table>
-              <thead className='register-header'>
+              <thead className="register-header">
                 <tr>
                   <th></th>
-                  <th>Ca sáng</th>
-                  <th>Ca chiều</th>
+                  <th>Thứ hai</th>
+                  <th>Thứ ba</th>
+                  <th>Thứ tư</th>
+                  <th>Thứ năm</th>
+                  <th>Thứ sáu</th>
                 </tr>
               </thead>
-              <tbody className='register-body'>
+              <tbody className="register-body">
                 <tr>
-                  <td>Thứ hai</td>
-                  <td align='center'><input type="checkbox" /></td>
-                  <td align='center'><input type="checkbox" /></td>
+                  <td>Ca sáng</td>
+                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                    (day) => (
+                      <td
+                        key={`sang-${day}`}
+                        align="center"
+                        className={`custom-checkbox ${this.state.checkboxes[`sang-${day}`] ? "checked" : ""
+                          }`}
+                        style={{
+                          backgroundColor: this.state.checkboxes[`sang-${day}`]
+                            ? 'green'
+                            : 'white',
+                        }}
+                        onClick={() => this.handleCheckboxChange(`sang-${day}`)}
+                      >
+                        <div className="custom-checkbox-inner">
+                          {this.state.checkboxes[`sang-${day}`] && (
+                            <span className="checkmark">Đã đăng kí</span>
+                          )}
+                        </div>
+                      </td>
+                    )
+                  )}
                 </tr>
                 <tr>
-                  <td>Thứ ba</td>
-                  <td align='center'><input type="checkbox" /></td>
-                  <td align='center'><input type="checkbox" /></td></tr>
-                <tr>
-                  <td>Thứ tư</td>
-                  <td align='center'><input type="checkbox" /></td>
-                  <td align='center'><input type="checkbox" /></td></tr>
-                <tr>
-                  <td>Thứ năm</td>
-                  <td align='center'><input type="checkbox" /></td>
-                  <td align='center'><input type="checkbox" /></td></tr>
-                <tr>
-                  <td>Thứ sáu</td>
-                  <td align='center'><input type="checkbox" /></td>
-                  <td align='center'><input type="checkbox" /></td>
+                  <td>Ca chiều</td>
+                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                    (day) => (
+                      <td
+                        key={`chieu-${day}`}
+                        align="center"
+                        className={`custom-checkbox ${this.state.checkboxes[`chieu-${day}`] ? "checked" : ""
+                          }`}
+                        style={{
+                          backgroundColor: this.state.checkboxes[`chieu-${day}`]
+                            ? 'green'
+                            : 'white',
+                        }}
+                        onClick={() => this.handleCheckboxChange(`chieu-${day}`)}
+
+                      >
+                        <div className="custom-checkbox-inner">
+                          {this.state.checkboxes[`chieu-${day}`] && (
+                            <span className="checkmark">Đã đăng kí</span>
+                          )}
+                        </div>
+                      </td>
+                    )
+                  )}
                 </tr>
               </tbody>
             </table>
           </form>
-          <button>Xác nhận</button>
+          <button>Đặt lịch</button>
         </div>
       </div>
     </>
-  )
+    );
+  }
 }
 
-export default MentorTeachingRegister
+export default MentorTeachingRegister;
