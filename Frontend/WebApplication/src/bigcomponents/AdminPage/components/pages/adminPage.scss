@@ -1,4 +1,4 @@
-body {
+.AdminPage-contain {
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -38,7 +38,7 @@ body {
   }
   
   /* Header  */
-  .header {
+  .Header {
     grid-area: header;
     height: 60px;
     display: flex;
@@ -136,6 +136,10 @@ body {
   .main-title {
     display: flex;
     justify-content: space-between;
+
+      h3{
+        color: #4292EB;
+      }
   }
   
   .main-cards {
@@ -151,6 +155,14 @@ body {
     justify-content: space-around;
     padding: 8px 15px;
     border-radius: 5px;
+
+     h1{
+          color: #fff;
+     }
+
+      h3{
+          color: #fff;
+      }
   }
   
   .card:first-child {
@@ -173,6 +185,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #fff;
   }
   
   .card-inner > .card_icon {

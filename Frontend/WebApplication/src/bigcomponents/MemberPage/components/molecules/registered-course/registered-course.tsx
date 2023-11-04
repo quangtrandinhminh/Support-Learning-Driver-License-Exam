@@ -132,7 +132,7 @@ function RegisteredCourse() {
                                         </label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-location" className='disabled-link'>Trạng thái học lý thuyết: (Status)</label>
+                                        <label htmlFor="course-practice-location" className='disabled-link'>Trạng thái học lý thuyết:</label>
                                     </li>
                                     <li>
                                         <label htmlFor="course-practice">

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import api from '../../../../../config/axios';
 import './course.scss';
 import { Backdrop, CircularProgress } from '@mui/material';
-import { Link } from 'react-scroll';
 
 function Course() {
     const [isLoading, setIsLoading] = useState(true);
@@ -122,9 +121,7 @@ function Course() {
             <nav>
                 <ul className='pagination'>
                     <li className='page-item'>
-                        <Link to="course-section" spy={true} smooth={true} offset={-120} duration={500} className='page-item'>
-                            <button type='button' className='page-link' onClick={prePage}>Prev</button>
-                        </Link>
+                        <button type='button' className='page-link' onClick={prePage}>Prev</button>
                     </li>
                     {
                         numbers.map((n, i) => (
