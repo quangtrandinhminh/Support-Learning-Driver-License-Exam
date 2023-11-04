@@ -42,5 +42,20 @@ namespace Backend.Repository.MemberRepository
                 throw;
             }
         }
+
+        public async Task<bool> UpdateAsync(Member? member)
+        {
+            try
+            {
+                _dbSet.Update(member);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

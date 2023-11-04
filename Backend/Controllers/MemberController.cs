@@ -70,5 +70,29 @@ namespace Backend.Controllers
 
             return Ok("Add member successfully!");
         }
+
+        [HttpPut("Edit isPaid")]
+        public async Task<IActionResult> UpdateIsPaid(int memberId)
+        {
+            var result = await _memberService.UpdateIsPaid(memberId);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Update member successfully!");
+        }
     }
 }
