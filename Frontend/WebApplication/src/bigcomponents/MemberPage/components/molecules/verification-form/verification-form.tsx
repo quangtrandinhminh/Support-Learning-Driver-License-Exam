@@ -14,7 +14,7 @@ function VerificationForm() {
   const [error, setError] = useState('');
   const [inputData, setInputData] = useState({
     dob: '',
-    gender: 'nam',
+    gender: 'Nam',
     nationality: '',
     residenceAddress: '',
     identityCardNumber: '',
