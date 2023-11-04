@@ -236,6 +236,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnType("date")
                 .HasColumnName("date");
             entity.Property(e => e.Hours).HasColumnName("hours");
+            entity.Property(e => e.IsNight).HasColumnName("isNight");
             entity.Property(e => e.Kilometers).HasColumnName("kilometers");
             entity.Property(e => e.Location)
                 .HasMaxLength(500)
