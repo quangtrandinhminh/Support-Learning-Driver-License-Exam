@@ -6,6 +6,7 @@ import './member-nav-home.scss'
 import api from '../../../../../config/axios';
 import { useEffect } from 'react'
 import { toast } from 'react-toastify';
+import { easeOut } from 'framer-motion';
 
 function MemberNavHome() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -40,26 +41,26 @@ function MemberNavHome() {
                         <nav>
                             <ul>
                                 <div className="nav-home-items">
-                                    <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                                    <Link to="center-introduction" spy={true} offset={-100} duration={500}>
                                         <img src={LogoImg} alt='logo-img' className='logo-home' />
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                                    <Link to="center-introduction" spy={true} offset={-100} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Trang chủ</a>
                                         </li>
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="course-section" spy={true} smooth={true} offset={-120} duration={500}>
+                                    <Link to="course-section" spy={true} offset={-120} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Khoá học</a>
                                         </li>
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="news-section" spy={true} smooth={true} offset={-120} duration={500}>
+                                    <Link to="news-section" spy={true} offset={-120} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Tin tức</a>
                                         </li>
@@ -106,26 +107,26 @@ function MemberNavHome() {
                         <nav>
                             <ul>
                                 <div className="nav-home-items">
-                                    <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                                    <Link to="center-introduction" spy={true} offset={-100} duration={500}>
                                         <img src={LogoImg} alt='logo-img' className='logo-home' />
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="center-introduction" spy={true} smooth={true} offset={-100} duration={500}>
+                                    <Link to="center-introduction" spy={true} offset={-100} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Trang chủ</a>
                                         </li>
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="course-section" spy={true} smooth={true} offset={-120} duration={500}>
+                                    <Link to="course-section" spy={true} offset={-120} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Khoá học</a>
                                         </li>
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Link to="news-section" spy={true} smooth={true} offset={-120} duration={500}>
+                                    <Link to="news-section" spy={true} offset={-120} duration={500}>
                                         <li className='inline-block'>
                                             <a href="">Tin tức</a>
                                         </li>
