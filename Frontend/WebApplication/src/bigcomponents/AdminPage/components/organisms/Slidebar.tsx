@@ -1,7 +1,7 @@
 import React from 'react';
-import { BsGrid1X2Fill, BsListCheck } from 'react-icons/bs';
+import { BsGrid1X2Fill } from 'react-icons/bs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faFloppyDisk, faImages, faNewspaper, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUsersCog} from '@fortawesome/free-solid-svg-icons';
 import './Slidebar.scss';
 
 interface SidebarProps {
@@ -23,21 +23,21 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
           <p>Điều hướng</p>
         </li>
         <SidebarItem
-          icon={<BsGrid1X2Fill className="icon" />}
-          text="bảng điều khiển"
+          icon={<FontAwesomeIcon icon={faTableColumns} />}
+          text="Bảng điều khiển"
           link="/dashboard"
         />
         <li className="list-header">
           <p>Phân Quyền Đăng Nhập</p>
         </li>
         <SidebarItem
-          icon={<FontAwesomeIcon icon={faRightToBracket} />}
-          text="Đăng nhập"
-          link="/login"
+          icon={<FontAwesomeIcon icon={faUsersCog} />}
+          text="Quản lý nhân viên"
+          link="/staff"
         />
         <SidebarItem
-          icon={<BsListCheck className="icon" />}
-          text="Đăng ký"
+          icon={<FontAwesomeIcon icon={faChalkboardUser} />}
+          text="Quản lý giáo viên"
           link="/register"
         />
         <li className="list-header">
@@ -45,7 +45,7 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faImages} />}
-          text="Bài viết"
+          text="Quản lý lịch huấn luyện thực hành"
           link="/post"
         />
         <SidebarItem
