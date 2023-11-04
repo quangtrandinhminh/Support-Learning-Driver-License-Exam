@@ -123,18 +123,4 @@ namespace Backend.Services.Class
             return result;
         }
     }
-
-    /*ICollection<DB.Models.CourseDetail> courseDetails = _courseDetails.GetAll()
-    .Where(x => x.CourseId == course.CourseId)
-    .ToList();
-if (newClass.IsPractice == false)
-{
-    newClass.DateStart = courseDetails.First().CourseTimeStart;
-    newClass.DateEnd = courseDetails.First().CourseTimeEnd;
-}
-else
-{
-    newClass.DateStart = courseDetails.ElementAt(1).CourseTimeStart;
-    newClass.DateEnd = courseDetails.Last().CourseTimeEnd;
-}*/
 }
