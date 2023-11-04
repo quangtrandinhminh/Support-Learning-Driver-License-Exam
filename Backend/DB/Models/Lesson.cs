@@ -15,6 +15,8 @@ public partial class Lesson
 
     public string? Location { get; set; }
 
+    public bool? IsNight { get; set; }
+
     public double? Hours { get; set; }
 
     public double? Kilometers { get; set; }

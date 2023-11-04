@@ -4,6 +4,7 @@ using Backend.DTO.CourseDetails;
 using Backend.DTO.Members;
 using Backend.DTO.Mentor;
 using System.Diagnostics;
+using Backend.DTO.TeachingSchedule;
 
 namespace Backend
 {
@@ -101,9 +102,14 @@ namespace Backend
             CreateMap<DB.Models.Lesson, DTO.Lesson.LessonDTO>()
                 .ForMember(dto => dto.Shift, opt => opt.MapFrom(entity => entity.ClassStudent.Class.Shift))
                 .ForMember(dto => dto.IsTheory, opt => opt.MapFrom(entity => entity.ClassStudent.Class.IsTheoryClass));
+            CreateMap<Lesson, TeachingScheduleDTO>()
+                .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.ClassStudent.Class.CourseId))
+                .ForMember(dto => dto.Shift, opt => opt.MapFrom(entity => entity.ClassStudent.Class.Shift))
+                .ForMember(dto => dto.IsTheory, opt => opt.MapFrom(entity => entity.ClassStudent.Class.IsTheoryClass));
             CreateMap<DTO.Lesson.LessonDTO, DB.Models.Lesson>();
             CreateMap<DTO.Lesson.LessonCreateDTO, DB.Models.Lesson>();
             CreateMap<DTO.Lesson.LessonTheoryCreateDTO, DB.Models.Lesson>();
+
         }
     }
 }

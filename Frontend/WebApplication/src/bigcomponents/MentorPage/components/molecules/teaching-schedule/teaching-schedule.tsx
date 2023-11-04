@@ -105,7 +105,7 @@ function TeachingSchedule() {
                                         <br />
                                         Buổi thứ 1
                                         <br />
-                                        <a href="">Lớp: XXB2</a>
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p>

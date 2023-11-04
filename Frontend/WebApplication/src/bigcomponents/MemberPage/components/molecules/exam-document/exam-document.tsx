@@ -85,7 +85,7 @@ function ExamDocument() {
                   </div>
                   <div className="gender-container">
                     <label htmlFor="gender">Giới tính: </label>
-                    <span> {member.gender}</span>
+                    <span> {member.gender.charAt(0).toUpperCase() + member.gender.slice(1)}</span>
                   </div>
                 </li>
                 <li>
@@ -94,7 +94,7 @@ function ExamDocument() {
                 </li>
                 <li>
                   <label htmlFor="tempAddress">Nơi cư trú: </label>
-                  <span> Cần Thơ, Sapa</span>
+                  <span> {member.temporaryAddress}</span>
                 </li>
                 <li>
                   <label htmlFor="cccdNo">Số giấy CMND, hoặc thẻ căn cước công dân (hoặc hộ chiếu): </label>

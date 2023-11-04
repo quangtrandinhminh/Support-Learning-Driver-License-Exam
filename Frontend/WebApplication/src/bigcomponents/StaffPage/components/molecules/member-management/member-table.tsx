@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './member-table.scss'
 import api from '../../../../../config/axios';
+import { toast } from 'react-toastify';
 
 function MemberTable() {
   const [member, setMember] = useState<any[]>([])
   const [user, setUser] = useState<any[]>([])
+  const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
 
   const getAllMembers = async () => {
     const response = await api.get('/Members');
@@ -18,6 +20,18 @@ function MemberTable() {
     setUser(res);
   }
 
+  const updateMemberIsPaid = async (memberId) => {
+    try {
+      await api.put('Member/editIsPaid?memberId=' + memberId);
+      setUpdateSuccess(true);
+      const notificationMessage = "Cập nhật thành công!";
+      localStorage.setItem("notificationMessage", notificationMessage);
+      location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   //paganition part
   const [currentPage, setCurrentPage] = useState(1);
   const recordPage = 6;
@@ -26,7 +40,6 @@ function MemberTable() {
   const records = member.slice(firsIndex, lastIndex);
   const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
-  const overallIndex = (currentPage - 1) * recordPage;
 
   useEffect(() => {
     getAllMembers();
@@ -35,6 +48,15 @@ function MemberTable() {
   useEffect(() => {
     getAllUser();
   }, [member]);
+
+  useEffect(() => {
+    const storedNotificationMessage = localStorage.getItem("notificationMessage");
+
+    if (storedNotificationMessage) {
+      toast.success(storedNotificationMessage);
+      localStorage.removeItem("notificationMessage"); // Remove the message from localStorage
+    }
+  }, []);
 
   const prePage = () => {
     if (currentPage !== 1) {
@@ -79,9 +101,9 @@ function MemberTable() {
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>
                     <td>{member.email}</td>
-                    <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>  
+                    <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="submit">Update</button>
+                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaid(member.memberID)}>Update</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
                     </td>
                   </tr>
@@ -101,20 +123,17 @@ function MemberTable() {
           <nav>
             <ul className='pagination'>
               <li className='page-item'>
-                <button type='button' className='page-link'
-                  onClick={prePage}>Prev</button>
+                <button type='button' className='page-link' onClick={prePage}>Prev</button>
               </li>
               {
                 numbers.map((n, i) => (
                   <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                    <button type='button' className='page-link'
-                      onClick={() => changeCPage(n)}>{n}</button>
+                    <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
                   </li>
                 ))
               }
               <li className='page-item'>
-                <button type='button' className='page-link'
-                  onClick={nextPage}>Next</button>
+                <button type='button' className='page-link' onClick={nextPage}>Next</button>
               </li>
             </ul>
           </nav>

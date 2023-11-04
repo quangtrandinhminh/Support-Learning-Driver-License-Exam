@@ -10,6 +10,8 @@
 
         public string DayOfWeek { get; set; }
 
+        public bool IsNight { get; set; }
+
         public string Shift { get; set; }
 
         public string Title { get; set; }
