@@ -3,6 +3,7 @@ using Backend.DB.Models;
 using Backend.DTO.Class;
 using Backend.DTO.CourseDetails;
 using Backend.Repository.ClassRepository;
+using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +14,17 @@ namespace Backend.Services.Class
     {
         private readonly IClassRepository _classRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IClassStudentRepository _classStudentRepository;
         private readonly IMapper _mapper;
 
         public ClassService(IClassRepository classRepository
             , ICourseRepository courseRepository
-            , ICourseDetailsRepository courseDetails
+            , IClassStudentRepository classStudentRepository
             , IMapper mapper)
         {
             _classRepository = classRepository;
             _courseRepository = courseRepository;
+            _classStudentRepository = classStudentRepository;
             _mapper = mapper;
         }
 
@@ -82,12 +85,20 @@ namespace Backend.Services.Class
                 var course = await _courseRepository.GetByIdAsync(courseId);
                 if (course == null) throw new Exception("Không tìm thấy khóa học!");
 
+                // get all class by mentor id in a course,  
+
+
+
                 var classes = await _classRepository.GetAll() 
                     .Where(x => x.Status == true && x.CourseId == courseId && x.MentorId == mentorId)
                     .ToListAsync();
 
                 if (!classes.Any()) throw new Exception("Không tìm thấy lớp học!");
- 
+
+                // foreach class dont have classStudent, exclude it from classes
+                var classStudents = await _classStudentRepository.GetAll().ToListAsync();
+                var classIds = classStudents.Select(x => x.ClassId).ToList();
+                classes = classes.Where(x => classIds.Contains(x.ClassId)).ToList();
 
                 result.Payload = _mapper.Map<ICollection<ClassDTO>>(classes);
             }
