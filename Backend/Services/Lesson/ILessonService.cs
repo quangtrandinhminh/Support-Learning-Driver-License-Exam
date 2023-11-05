@@ -18,5 +18,9 @@ namespace Backend.Services.Lesson
 
         Task<ServiceResult<ICollection<TeachingScheduleDTO>>> GetTeachingScheduleByMentorId(DateTime startDate
             , DateTime endDate, int mentorId, string courseId);
+
+        Task<ServiceResult<ICollection<AttendanceDTO>>> GetLessonsByClassIdAndDate(int classId, DateTime date);
+
+        Task<ServiceResult<int>> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons);
     }
 }

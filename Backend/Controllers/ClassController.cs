@@ -71,6 +71,21 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        [HttpGet("course/mentor")]
+        public async Task<ActionResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId)
+        {
+            var result = await _classService.GetAllClassesByMentorId(mentorId, courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpPost]
         [Route("add")]
         public async Task<ActionResult<int>> CreateClass(ClassCreateDTO classCreateDto)

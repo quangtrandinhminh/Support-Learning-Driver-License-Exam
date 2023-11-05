@@ -122,5 +122,35 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }
+
+        [HttpGet("attendance/{classId}/{date}")]
+        public async Task<IActionResult> GetLessonsByClassIdAndDate(int classId, DateTime date)
+        {
+            var result = await _lessonService.GetLessonsByClassIdAndDate(classId, date);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpPatch("attendance")]
+        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons)
+        {
+            var result = await _lessonService.CheckAttendanceForStudents(lessons);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
+        }
     }
 }

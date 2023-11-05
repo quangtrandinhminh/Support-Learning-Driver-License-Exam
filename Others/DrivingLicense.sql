@@ -1267,8 +1267,8 @@ GO
 SET IDENTITY_INSERT [dbo].[Exam] ON
 GO
 INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
-	VALUES (1, '1101B2', '1', '2023-11-04', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+	VALUES (1, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
 GO
 INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
-	VALUES (2, '1101B2', '1', '2023-11-04', N'Kì thi thử lý thuyết', '2023-11-05T11:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+	VALUES (2, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T11:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
 SET IDENTITY_INSERT [dbo].[Exam] OFF
