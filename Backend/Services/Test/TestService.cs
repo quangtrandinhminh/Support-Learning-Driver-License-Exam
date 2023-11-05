@@ -65,7 +65,7 @@ namespace Backend.Services.Test
             var result = new ServiceResult<int>();
             try
             {
-                var test = _testRepository.GetAll().Where(p => p.ExamId == testCreateDTO.ExamId);   
+                var test = _testRepository.GetAll().Where(p => p.ExamId == testCreateDTO.ExamId).FirstOrDefault();   
                 if (test != null)
                 {
                     result.IsError = true;
