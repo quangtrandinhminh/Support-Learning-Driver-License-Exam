@@ -12,6 +12,7 @@ function VerificationForm() {
   const { courseName } = useParams();
   const courseID = localStorage.getItem('courseID') ? JSON.parse(localStorage.getItem('courseID')) : null;
   const [error, setError] = useState('');
+  
   const [inputData, setInputData] = useState({
     dob: '',
     gender: 'Nam',
@@ -28,8 +29,8 @@ function VerificationForm() {
     email: '',
     nation: '',
     temporaryAddress: ''
-
   });
+
   const navigate = useNavigate();
   const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation', 'temporaryAddress'];
   const namePattern = /^[\p{L} ]{5,32}$/u,
@@ -71,7 +72,7 @@ function VerificationForm() {
         return;
       } else if (!cccdPattern.test(inputData.identityCardNumber)) {
         setError("Số CMND/CCCD không hợp lệ!");
-        return;
+        return; 
       } else if (inputData.cardProvidedLocation === '' || inputData.cardProvidedLocation === null) {
         setError("Địa chỉ cung cấp CMND/CCCD không hợp lệ!");
         return;
