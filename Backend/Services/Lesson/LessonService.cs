@@ -206,8 +206,8 @@ namespace Backend.Services.Lesson
                 {
                     var count = 0;
                     var dayOfWeek = (int)student.Class.DayOfWeek!;
-                    var dates = GetAllDatesForDayOfWeek(lessonCreateDto.StartDate
-                        , lessonCreateDto.EndDate, dayOfWeek);
+                    var dates = GetAllDatesForDayOfWeek(lessonCreateDto.StartDate.Date
+                        , lessonCreateDto.EndDate.Date, dayOfWeek);
                     foreach (var date in dates)
                     {
                         if (existLesson.Any(x => x.Date == date.Date
@@ -216,6 +216,8 @@ namespace Backend.Services.Lesson
                         {
                             continue;
                         }
+
+                        if(count == lessonCreateDto.numberOfLessons) break;
 
                         var newLesson = _mapper.Map<DB.Models.Lesson>(lessonCreateDto);
                         newLesson.ClassStudentId = student.ClassStudentId;
