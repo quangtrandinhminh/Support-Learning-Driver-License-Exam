@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './registered-course.scss'
 import { useEffect, useState } from 'react'
 import api from '../../../../../config/axios';
