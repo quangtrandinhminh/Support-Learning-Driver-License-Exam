@@ -50,7 +50,7 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
-        [HttpPost("/api/Create Student Answer/{studentID}")]
+        [HttpPost("/api/CreateStudentAnswer/{studentID}")]
         public async Task<ActionResult<int>> CreateStudentQuestion(string studentID)
         {
             var result = await _studentAnswerService.CreateRandomQuestion(studentID);

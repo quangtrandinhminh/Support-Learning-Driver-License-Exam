@@ -1,5 +1,6 @@
 ﻿using Backend.DTO.Course;
 using Backend.DTO.Test;
+using Backend.DTO.Users;
 using Backend.Services.Course;
 using Backend.Services.Test;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,21 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm bài thi thành công!");
+        }
+        [HttpGet("/api/TestByStudentId")]
+        public async Task<IActionResult> GetMember(string studentId)
+        {
+            var result = await _testService.GetTestByStudentId(studentId);
+            if (result.IsError)
+            {
+                return NotFound(
+                    new
+                    {
+                        error = result.ErrorMessage
+                    });
+            }
+
+            return Ok(result.Payload);
         }
 
         [HttpPut("editIsPass")]
