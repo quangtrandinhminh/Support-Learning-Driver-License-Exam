@@ -1,69 +1,87 @@
-import { useState, useEffect } from 'react';
-import api from '../../../../../config/axios';
+import React, { useState, useEffect } from 'react';
 import './teaching-schedule.scss';
 
 function TeachingSchedule() {
-    const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
-    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const [mentorClass, setMentorClass] = useState(null);
+    const [selectedYear, setSelectedYear] = useState(2023);
+    const [selectedWeek, setSelectedWeek] = useState(1);
+    const [dateOptions, setDateOptions] = useState([]);
+    const [weekStartDate, setWeekStartDate] = useState(null);
+    const [weekEndDate, setWeekEndDate] = useState(null);
 
-    const getClassByMentorID = async () => {
-        try {
-            const response = await api.get(`Class/${mentor.mentorId}`);
-            setMentorClass(response.data);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
+    const getStartDay = (year) => {
+        // Zeller's Congruence algorithm to calculate the start day of the year
+        if (year < 0) {
+            year += 1; // Adjust for the algorithm if year is BC
         }
+        const q = 1;
+        const m = 13; // January (13) and February (14) are counted as months 13 and 14 of the previous year
+        const K = year % 100;
+        const J = Math.floor(year / 100);
+
+        const f = q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J;
+        const startDay = (f % 7 + 7) % 7;
+
+        return startDay; // 0 for Saturday, 1 for Sunday, 2 for Monday, etc.
+    };
+
+    const isLeapYear = (year) => {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    };
+
+    const generateDateOptions = () => {
+        const options = [];
+
+        for (let year = 2023; year <= 2025; year++) {
+            const isLeap = isLeapYear(year);
+            const startDay = getStartDay(year);
+            let startDate = new Date(year, 0, 1);
+            startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+
+            for (let week = 1; week <= 52; week++) {
+                const endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 6);
+
+                options.push({
+                    label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
+                    value: week,
+                });
+
+                startDate.setDate(startDate.getDate() + 7);
+            }
+        }
+
+        setDateOptions(options);
+    };
+
+    const formatDate = (date) => {
+        return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+    };
+
+    const handleYearChange = (year) => {
+        setSelectedYear(year);
+        setSelectedWeek(1);
     };
 
     useEffect(() => {
-        getClassByMentorID();
+        generateDateOptions();
     }, []);
 
-    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    const [selectedWeek, setSelectedWeek] = useState(1);
-    const [weekDates, setWeekDates] = useState([]);
-
     useEffect(() => {
-        const startOfWeek = new Date(selectedYear, 0, 1 + (selectedWeek - 1) * 7);
-        const dates = [];
+        const currentYear = selectedYear;
+        const isLeap = isLeapYear(currentYear);
+        const startDay = getStartDay(currentYear);
+        let startDate = new Date(currentYear, 0, 1);
+        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+        startDate.setDate(startDate.getDate() + (selectedWeek - 1) * 7);
 
-        for (let i = 0; i < 7; i++) {
-            const currentDate = new Date(startOfWeek);
-            currentDate.setDate(startOfWeek.getDate() + i);
-            const dayOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'][currentDate.getDay()];
-            dates.push(`${dayOfWeek}: ${currentDate.getDate()}/${currentDate.getMonth() + 1}`);
-        }
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 6);
 
-        setWeekDates(dates);
-    }, [selectedYear, selectedWeek]);
+        setWeekStartDate(startDate);
+        setWeekEndDate(endDate);
+    }, [selectedWeek, selectedYear]);
 
     return (
-        // <div>
-        //     <h1>Teaching Schedule</h1>
-        //     <div>
-        //         <label>Select Year: </label>
-        //         <select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-        //             {Array.from({ length: 5 }, (_, i) => (
-        //                 <option key={i} value={selectedYear + i}>{selectedYear + i}</option>
-        //             ), 0)}
-        //         </select>
-        //     </div>
-        //     <div>
-        //         <label>Select Week: </label>
-        //         <input type="number" value={selectedWeek} onChange={(e) => setSelectedWeek(parseInt(e.target.value))} />
-        //     </div>
-        //     <div>
-        //         <h2>Week {selectedWeek} Dates:</h2>
-        //         <ul>
-        //             {weekDates.map((date, index) => (
-        //                 <li key={index}>{date}</li>
-        //             ))}
-        //         </ul>
-        //     </div>
-        // </div>
-
         <div className="teaching-schedule-container">
             <div>
                 <h1>Lịch dạy</h1>
@@ -77,23 +95,28 @@ function TeachingSchedule() {
                                     <span className="mini-title">
                                         <strong>Năm</strong>
                                     </span>
-                                    <select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-                                        {
-                                            Array.from({ length: 5 }, (_, i) => (
-                                                <option key={i} value={selectedYear + i}>{selectedYear + i}</option>
-                                            ), 0)
-                                        }
+                                    <select
+                                        value={selectedYear}
+                                        onChange={(e) => handleYearChange(parseInt(e.target.value))}
+                                    >
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
                                     </select>
                                     <br />
                                     <span className="mini-title">
                                         <strong>Tuần</strong>
                                     </span>
-                                    <select value={selectedWeek} onChange={(e) => setSelectedWeek(parseInt(e.target.value))}>
-                                        {
-                                            Array.from({ length: 52 }, (_, i) => (
-                                                <option key={i} value={i + 1}>{i + 1}</option>
-                                            ), 0)
-                                        }
+                                    <br />
+                                    <select
+                                        value={selectedWeek}
+                                        onChange={(e) => setSelectedWeek(parseInt(e.target.value))}
+                                    >
+                                        {dateOptions.map((option, index) => (
+                                            <option key={index} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
                                     </select>
 
                                 </th>
@@ -106,133 +129,22 @@ function TeachingSchedule() {
                                 <th align="center">Chủ nhật</th>
                             </tr>
                             <tr>
-                                <th align="center">{weekDates[0]}</th>
-                                <th align="center">{weekDates[1]}</th>
-                                <th align="center">{weekDates[2]}</th>
-                                <th align="center">{weekDates[3]}</th>
-                                <th align="center">{weekDates[4]}</th>
-                                <th align="center">{weekDates[5]}</th>
-                                <th align="center">{weekDates[6]}</th></tr>
+                                {weekStartDate && weekEndDate ? (
+                                    [...Array(7)].map((_, dayIndex) => {
+                                        const currentDate = new Date(weekStartDate);
+                                        currentDate.setDate(currentDate.getDate() + dayIndex);
+                                        return (
+                                            <th key={dayIndex} align="center">
+                                                {formatDate(currentDate)}
+                                            </th>
+                                        );
+                                    })
+                                ) : null}
+                            </tr>
                         </thead>
                         <tbody className="schedule-body">
-                            <tr>
-                                <td>Ca sáng</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 1
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 3
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 5
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ca chiều</td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 2
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 4
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>Ca tối</td>
-                                <td><p>
-                                    <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                    <br />
-                                    Buổi thứ 1
-                                    <br />
-                                    <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                    <br />
-                                    Trạng thái: Đã dạy
-                                </p></td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 2
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td><p>
-                                    <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                    <br />
-                                    Buổi thứ 3
-                                    <br />
-                                    <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                    <br />
-                                    Trạng thái: Đã dạy
-                                </p></td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 4
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td><p>
-                                    <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                    <br />
-                                    Buổi thứ 5
-                                    <br />
-                                    <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                    <br />
-                                    Trạng thái: Đã dạy
-                                </p></td>
-                            </tr>
+                            {/* Your table data here */}
+                            {/* Modify this part with your class schedule data */}
                         </tbody>
                     </table>
                 </form>
