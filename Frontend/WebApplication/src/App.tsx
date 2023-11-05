@@ -59,6 +59,7 @@ import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/me
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
+import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 
 function App() {
 
@@ -162,9 +163,10 @@ function App() {
                         <Route index element={<ExamDocumentPage />} />
                         <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
                       </Route>
-                      <Route path='thi-thu'>
+                      <Route path='kiem-tra'>
                         <Route index element={<TheoryTestPage />} />
                         <Route path='bai-lam' element={<DoTheoryTestPage />} />
+                        <Route path='ket-qua' element={<TheoryResultPage />} />
                       </Route>
                     </>
                   )}

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../../../../config/axios';
+import { useEffect, useState } from 'react';
+import api from '../../../../../../config/axios';
 import './courses-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
 
 function CourseTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [error, setError] = useState(null);
+    const [mapRecord, setMapRecord] = useState(new Map());
+    const map = new Map();
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +26,8 @@ function CourseTable() {
 
     const navigate = useNavigate();
 
+    const [member, setMember] = useState([]);
+
     // Fetch all courses
     const getAllCourse = async () => {
         try {
@@ -36,6 +39,16 @@ function CourseTable() {
             console.log(err);
         }
     };
+
+    const getMember = async () => {
+        try {
+            const response = await api.get('/Members');
+            const res = response.data;
+            setMember(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     // Handle page navigation
     const prePage = () => {
@@ -54,13 +67,9 @@ function CourseTable() {
         }
     }
 
-    useEffect(() => {
-        getAllCourse();
-    }, []);
-
     const updateBtn = (courseId) => {
         navigate(`cap-nhat-khoa-hoc/${courseId}`);
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
@@ -98,6 +107,20 @@ function CourseTable() {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        // Create and populate the map when data and member are available
+        const uniqueCourseIds = new Set(data.map(data => data.courseId));
+        for (const courseId of uniqueCourseIds) {
+            map.set(String(courseId), member.filter(member => member.courseId === courseId));
+        }
+        setMapRecord(map);
+    }, [data, member]);
+
+    useEffect(() => {
+        getAllCourse();
+        getMember();
+    }, []);
 
     return (
         <div className='courses-table-container'>
@@ -140,24 +163,29 @@ function CourseTable() {
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
-                                records.map((course, i) => (
-                                    <tr key={i}>
-                                        <td>{overallIndex + i + 1}</td>
-                                        <td>{course.courseId}</td>
-                                        <td>{course.name}</td>
-                                        <td>{formatDate(course.startDate)}</td>
-                                        <td>{formatDate(course.endDate)}</td>
-                                        <td className='text-center'>{course.numberOfStudents}</td>
-                                        <td className='text-center'>{course.limitStudent}</td>
-                                        <td className='text-center'>{course.courseMonth}</td>
-                                        <td className='text-center'>{course.courseYear}</td>
-                                        <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
-                                        <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={(e) => handleDelete(course.courseId)}>Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
+                                records.map((course, i) => {
+                                    const mapKey = mapRecord.get(course.courseId);
+                                    const mapValue = mapKey ? mapKey.length : 0;
+                                    console.log(mapValue);
+                                    return (
+                                        <tr key={i}>
+                                            <td>{overallIndex + i + 1}</td>
+                                            <td>{course.courseId}</td>
+                                            <td>{course.name}</td>
+                                            <td>{formatDate(course.startDate)}</td>
+                                            <td>{formatDate(course.endDate)}</td>
+                                            <td className='text-center'>{mapValue}</td>
+                                            <td className='text-center'>{course.limitStudent}</td>
+                                            <td className='text-center'>{course.courseMonth}</td>
+                                            <td className='text-center'>{course.courseYear}</td>
+                                            <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
+                                            <td className='button text-center'>
+                                                <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
+                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Delete</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
                             ) : (
                                 <tr>
                                     <td colSpan={11}>

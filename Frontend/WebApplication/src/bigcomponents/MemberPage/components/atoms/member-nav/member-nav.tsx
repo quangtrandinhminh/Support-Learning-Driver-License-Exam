@@ -65,9 +65,9 @@ function MemberNav() {
                                     </Forward>
                                 </div>
                                 <div className='nav-items'>
-                                    <Forward to='/thi-thu' onClick={handleScroll}>
+                                    <Forward to='/kiem-tra' onClick={handleScroll}>
                                         <li>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
@@ -130,9 +130,9 @@ function MemberNav() {
                                     </Forward>
                                 </div>
                                 <div className='nav-items'>
-                                    <Forward to='/thi-thu' onClick={handleScroll}>
+                                    <Forward to='/kiem-tra' onClick={handleScroll}>
                                         <li>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
