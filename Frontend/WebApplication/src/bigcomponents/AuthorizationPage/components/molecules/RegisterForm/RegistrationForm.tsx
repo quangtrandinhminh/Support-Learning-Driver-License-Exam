@@ -48,9 +48,9 @@ function RegisterForm() {
 
       // Send a request to the server for registration
       await api.post("User/Register", formData);
-      toast.success("Đăng ký thành công. Chào mừng bạn!");
-      setError(null);
       navigate("/dang-nhap");
+      toast.success("Đăng ký thành công!");
+      setError(null);
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);

@@ -1,24 +1,18 @@
 ﻿namespace Backend.DTO.Lesson
 {
-    public class LessonDTO
+    public class AttendanceDTO
     {
         public int LessonId { get; set; }
 
         public int ClassStudentId { get; set; }
 
-        public DateTime Date { get; set; }
+        public string StudentName { get; set; }
 
-        public string DayOfWeek { get; set; }
-
-        public bool IsNight { get; set; }
-
-        public string Shift { get; set; }
-
-        public string Title { get; set; }
-
-        public string Location { get; set; }
+        public DateTime Dob { get; set; }
 
         public bool IsTheory { get; set; }
+
+        public bool IsNight { get; set; }
 
         public double Hours { get; set; }
 

@@ -46,10 +46,11 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
-        [HttpGet("course-student/{studentId}")]
-        public async Task<IActionResult> GetLessonsByCourseIdAndStudentId(string studentId)
+        [HttpGet("student/{studentId}")]
+        public async Task<IActionResult> GetLessonsByCourseIdAndStudentId(DateTime startDate
+            , DateTime endDate, string studentId)
         {
-            var result = await _lessonService.GetLessonsByCourseIdAndStudentId(studentId);
+            var result = await _lessonService.GetLessonsByStudentId(startDate, endDate, studentId);
             if (result.IsError)
             {
                 return NotFound(new
@@ -63,7 +64,7 @@ namespace Backend.Controllers
 
         [HttpPost("createPracticeLesson")]
         public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
-            var result = await _lessonService.CreateLesson(lessonCreateDto);
+            var result = await _lessonService.CreatePracticeLesson(lessonCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -104,6 +105,52 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm buổi học lý thuyết thành công!");
+        }
+
+        [HttpGet("teaching-schedule/{mentorId}")]
+        public async Task<IActionResult> GetTeachingScheduleByMentorId(DateTime startDate
+            , DateTime endDate, int mentorId, string courseId)
+        {
+            var result = await _lessonService.GetTeachingScheduleByMentorId(startDate, endDate, mentorId, courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpGet("attendance/{classId}/{date}")]
+        public async Task<IActionResult> GetLessonsByClassIdAndDate(int classId, DateTime date)
+        {
+            var result = await _lessonService.GetLessonsByClassIdAndDate(classId, date);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpPatch("attendance")]
+        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons)
+        {
+            var result = await _lessonService.CheckAttendanceForStudents(lessons);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
     }
 }

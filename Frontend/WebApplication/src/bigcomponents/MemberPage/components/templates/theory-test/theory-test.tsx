@@ -1,9 +1,9 @@
-import React from 'react'
+import TheoryTestContent from "../../molecules/theory-test/theory-test-content"
 
 function TheoryTestTemplate() {
     return (
         <div className='template'>
-            <h1>Theory Test Template</h1>
+            <TheoryTestContent />
         </div>
     )
 }

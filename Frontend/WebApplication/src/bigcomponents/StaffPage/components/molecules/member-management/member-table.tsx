@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './member-table.scss'
 import api from '../../../../../config/axios';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 function MemberTable() {
   const [member, setMember] = useState<any[]>([])
   const [user, setUser] = useState<any[]>([])
+  const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
 
   const getAllMembers = async () => {
     const response = await api.get('/Members');
@@ -21,9 +22,11 @@ function MemberTable() {
 
   const updateMemberIsPaid = async (memberId) => {
     try {
-      await api.put('Member/editIsPaid?memberId=' + memberId)
+      await api.put('Member/editIsPaid?memberId=' + memberId);
+      setUpdateSuccess(true);
+      const notificationMessage = "Cập nhật thành công!";
+      localStorage.setItem("notificationMessage", notificationMessage);
       location.reload();
-      toast.success("Cập nhật trạng thái thanh toán thành công");
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +40,6 @@ function MemberTable() {
   const records = member.slice(firsIndex, lastIndex);
   const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
-  const overallIndex = (currentPage - 1) * recordPage;
 
   useEffect(() => {
     getAllMembers();
@@ -46,6 +48,15 @@ function MemberTable() {
   useEffect(() => {
     getAllUser();
   }, [member]);
+
+  useEffect(() => {
+    const storedNotificationMessage = localStorage.getItem("notificationMessage");
+
+    if (storedNotificationMessage) {
+      toast.success(storedNotificationMessage);
+      localStorage.removeItem("notificationMessage"); // Remove the message from localStorage
+    }
+  }, []);
 
   const prePage = () => {
     if (currentPage !== 1) {
@@ -112,20 +123,17 @@ function MemberTable() {
           <nav>
             <ul className='pagination'>
               <li className='page-item'>
-                <button type='button' className='page-link'
-                  onClick={prePage}>Prev</button>
+                <button type='button' className='page-link' onClick={prePage}>Prev</button>
               </li>
               {
                 numbers.map((n, i) => (
                   <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                    <button type='button' className='page-link'
-                      onClick={() => changeCPage(n)}>{n}</button>
+                    <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
                   </li>
                 ))
               }
               <li className='page-item'>
-                <button type='button' className='page-link'
-                  onClick={nextPage}>Next</button>
+                <button type='button' className='page-link' onClick={nextPage}>Next</button>
               </li>
             </ul>
           </nav>

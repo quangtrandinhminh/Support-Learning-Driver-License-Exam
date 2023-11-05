@@ -11,7 +11,10 @@ function MemberNav() {
     console.log(member);
 
     const handleScroll = () => {
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     const navigate = useNavigate()

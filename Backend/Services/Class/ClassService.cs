@@ -5,6 +5,7 @@ using Backend.DTO.CourseDetails;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.CourseRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Class
 {
@@ -72,6 +73,33 @@ namespace Backend.Services.Class
             return result;
         }
 
+        // get all class by mentor id in a course
+        public async Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId)
+        {
+            var result = new ServiceResult<ICollection<ClassDTO>>();
+            try
+            {
+                var course = await _courseRepository.GetByIdAsync(courseId);
+                if (course == null) throw new Exception("Không tìm thấy khóa học!");
+
+                var classes = await _classRepository.GetAll() 
+                    .Where(x => x.Status == true && x.CourseId == courseId && x.MentorId == mentorId)
+                    .ToListAsync();
+
+                if (!classes.Any()) throw new Exception("Không tìm thấy lớp học!");
+ 
+
+                result.Payload = _mapper.Map<ICollection<ClassDTO>>(classes);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+
         public async Task<ServiceResult<int>> CreateClass(ClassCreateDTO classCreateDto)
         {
             var result = new ServiceResult<int>();
@@ -123,18 +151,4 @@ namespace Backend.Services.Class
             return result;
         }
     }
-
-    /*ICollection<DB.Models.CourseDetail> courseDetails = _courseDetails.GetAll()
-    .Where(x => x.CourseId == course.CourseId)
-    .ToList();
-if (newClass.IsPractice == false)
-{
-    newClass.DateStart = courseDetails.First().CourseTimeStart;
-    newClass.DateEnd = courseDetails.First().CourseTimeEnd;
-}
-else
-{
-    newClass.DateStart = courseDetails.ElementAt(1).CourseTimeStart;
-    newClass.DateEnd = courseDetails.Last().CourseTimeEnd;
-}*/
 }

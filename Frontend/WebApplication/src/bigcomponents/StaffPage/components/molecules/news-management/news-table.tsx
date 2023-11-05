@@ -74,7 +74,10 @@ function NewsTable() {
 
     const updateBtn = (newsId) => {
         navigate(`cap-nhat-tin-tuc/${newsId}`);
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     return (

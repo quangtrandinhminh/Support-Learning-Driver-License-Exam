@@ -14,7 +14,7 @@ function VerificationForm() {
   const [error, setError] = useState('');
   const [inputData, setInputData] = useState({
     dob: '',
-    gender: 'nam',
+    gender: 'Nam',
     nationality: '',
     residenceAddress: '',
     identityCardNumber: '',
@@ -84,7 +84,10 @@ function VerificationForm() {
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
       navigate('/khoa-hoc-cua-ban');
-      window.scrollTo(0, 0);
+      window.scroll({
+        top: 0,
+        behavior: 'instant'
+      });
 
     } catch (error) {
       console.log(error.response);
@@ -95,13 +98,19 @@ function VerificationForm() {
   //form event
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.scrollTo(0, 0);
+    window.scroll({
+      top: 0,
+      behavior: 'instant'
+    });
     createMember();
   }
 
   //useEffect
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({
+      top: 0,
+      behavior: 'instant'
+    });
   }, [])
 
   return (

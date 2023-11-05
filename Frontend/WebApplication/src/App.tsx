@@ -56,8 +56,9 @@ import StudentsListPage from './bigcomponents/MentorPage/components/pages/studen
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
-import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
+import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 
 function App() {
 
@@ -134,7 +135,7 @@ function App() {
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
-                        <Route path ='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
+                        <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
                         <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
                         <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>
@@ -161,7 +162,10 @@ function App() {
                         <Route index element={<ExamDocumentPage />} />
                         <Route path='cap-nhat' element={<ExamDocumentUpdatePage />} />
                       </Route>
-                      <Route path='thi-thu' element={<TheoryTestPage />} />
+                      <Route path='thi-thu'>
+                        <Route index element={<TheoryTestPage />} />
+                        <Route path='bai-lam' element={<DoTheoryTestPage />} />
+                      </Route>
                     </>
                   )}
                 </>

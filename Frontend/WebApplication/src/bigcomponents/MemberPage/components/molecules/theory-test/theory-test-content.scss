@@ -1,0 +1,55 @@
+.theory-test-container {
+    padding-top: 50px;
+
+    .theory-test-title {
+        text-transform: uppercase;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .theory-test-subtitle {
+        text-transform: uppercase;
+        padding-top: 20px;
+        color: red
+    }
+
+    .theory-content {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 40px;
+        width: 85%;
+
+        .first-part {
+            text-align: justify;
+            font-size: 18px;
+            line-height: 200%;
+        }
+
+        .demand-list {
+            padding-top: 20px;
+            font-size: 18px;
+
+            li {
+                line-height: 2.5em;
+            }
+        }
+
+        .second-part {
+            padding-top: 20px;
+        }
+    }
+
+    .btn-test {
+        margin-top: 60px;
+        text-align: center;
+        display: grid;
+        justify-content: center;
+        gap: 20px;
+        
+        button {
+            margin-left: auto;
+            margin-right: auto;
+            width: 140px;
+        }
+    }
+
+}

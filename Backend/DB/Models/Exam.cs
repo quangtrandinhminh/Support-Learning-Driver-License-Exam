@@ -13,6 +13,8 @@ public partial class Exam
 
     public string? ExamName { get; set; }
 
+    public DateTime? ExamTime { get; set; }
+
     public string? Description { get; set; }
 
     public int? Duration { get; set; }

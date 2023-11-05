@@ -9,7 +9,10 @@ function PracticeSpecificRegister() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
         toast.success("Đăng ký học thực hành thành công");
         navigate('/khoa-hoc-cua-ban');
     }

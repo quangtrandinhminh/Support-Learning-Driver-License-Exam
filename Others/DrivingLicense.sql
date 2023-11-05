@@ -230,6 +230,7 @@ CREATE TABLE [dbo].[Exam](
   [staffID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
   [examName] NVARCHAR(MAX) NULL,
+  [examTime] DATETIME NULL,
   [description] NVARCHAR(MAX) NULL,
   [duration] INT NULL,
   [limitQuestion] INT NULL,
@@ -279,6 +280,7 @@ CREATE TABLE [dbo].[Lesson](
   [title] NVARCHAR(500) NULL,
   [date] DATE NULL,
   [location] NVARCHAR(500) NULL,
+  [isNight] BIT NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
   [attendance] BIT NULL,
@@ -1231,6 +1233,26 @@ GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
 	VALUES ('5', '1', '1101B2.29', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('6', '2', '1101B2.01', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('7', '3', '1101B2.02', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('8', '5', '1101B2.03', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('9', '7', '1101B2.28', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('10', '9', '1101B2.29', 1)
 
 SET IDENTITY_INSERT [dbo].[ClassStudent] OFF 
 
@@ -1239,3 +1261,14 @@ GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
 	VALUES ('1', '1', '10 điểm', '2023-11-04', 1)
 SET IDENTITY_INSERT [dbo].[FeedBack] OFF
+GO
+
+/* Add data: Exam */
+SET IDENTITY_INSERT [dbo].[Exam] ON
+GO
+INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
+	VALUES (1, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+GO
+INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
+	VALUES (2, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T11:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+SET IDENTITY_INSERT [dbo].[Exam] OFF

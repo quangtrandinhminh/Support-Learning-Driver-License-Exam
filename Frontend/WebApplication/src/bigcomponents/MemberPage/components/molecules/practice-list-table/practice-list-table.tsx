@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 
 function PracticeList() {
     useEffect(() => {
-        window.scrollTo(0, 0);
+        window.scroll({
+            top: 0,
+            behavior: 'instant'
+        });
     }, [])
 
     return (
