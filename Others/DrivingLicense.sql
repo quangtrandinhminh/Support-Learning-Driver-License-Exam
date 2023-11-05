@@ -1240,6 +1240,84 @@ BEGIN
     SET @date = '2023-11-06';
 END
 
+SET @classStudentID = 6;
+DECLARE @preferredDayOfWeek INT;
+DECLARE @title NVARCHAR(255);
+
+WHILE @classStudentID <= 10
+BEGIN
+    -- Retrieve the preferred day of week for the current student from the associated class
+    SELECT @preferredDayOfWeek = DayOfWeek
+    FROM Class
+    INNER JOIN ClassStudent ON Class.ClassId = ClassStudent.ClassId
+    WHERE ClassStudentId = @classStudentID;
+
+    -- Set the initial date based on the preferred day of week
+    SET @date = CASE 
+                  WHEN @preferredDayOfWeek >= DATEPART(WEEKDAY, '2023-12-25') THEN DATEADD(DAY, @preferredDayOfWeek - DATEPART(WEEKDAY, '2023-12-25'), '2023-12-25')
+                  ELSE DATEADD(DAY, 7 - (DATEPART(WEEKDAY, '2023-12-25') - @preferredDayOfWeek), '2023-12-25')
+                END
+
+    WHILE @date <= '2024-02-06'
+    BEGIN
+        -- Assign titles based on the date range
+        SET @title = CASE 
+                       WHEN @date BETWEEN '2023-12-25' AND '2024-01-01' THEN N'Thực hành trên cabin'
+                       WHEN @date BETWEEN '2024-01-02' AND '2024-02-01' THEN N'Thực hành trên đường'
+                       WHEN @date BETWEEN '2024-02-01' AND '2024-02-06' THEN N'Thực hành tổng hợp sa hình'
+                       ELSE @title -- Keep the previous title if the date doesn't match any range
+                     END
+
+        -- Insert the lesson
+        INSERT INTO [dbo].[Lesson] 
+        ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+        VALUES (@classStudentID, @title, @date, N'Sân tập', 0, 0, 0, CASE WHEN @classStudentID < 9 THEN 1 ELSE 0 END);
+
+        -- Calculate the next date for the same day of the week
+        SET @date = DATEADD(DAY, 7, @date);
+    END
+
+    -- Move to the next student
+    SET @classStudentID = @classStudentID + 1;
+END
+
+/*WHILE @classStudentID <= 10
+BEGIN
+    -- Retrieve the preferred day of week for the current student
+    SELECT @preferredDayOfWeek = c.dayOfWeek
+    FROM ClassStudent cs inner join Class c ON cs.classID = c.classID
+    WHERE ClassStudentId = @classStudentID;
+
+    -- Calculate the next date that matches the preferred day of the week starting from '2023-11-21'
+    SET @date = (SELECT TOP 1 DATEADD(DAY, number, '2023-11-20') as NextDate
+                 FROM master..spt_values
+                 WHERE '2023-11-20' <= DATEADD(DAY, number, '2023-11-20')
+                   AND DATEPART(WEEKDAY, DATEADD(DAY, number, '2023-11-20')) = @preferredDayOfWeek
+                   AND TYPE = 'P' ORDER BY number);
+
+    WHILE @date <= '2023-11-25'
+    BEGIN
+        IF @classStudentID < 9
+            SET @attendance = 1;
+        ELSE
+            SET @attendance = 0;
+
+        INSERT INTO [dbo].[Lesson] 
+        ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+        VALUES (@classStudentID, N'Thực hành sa hình', @date, N'Sân tập', 0, 0, 0, @attendance);
+
+        -- Get the next date that matches the preferred day of the week
+        SET @date = (SELECT TOP 1 DATEADD(DAY, number, @date) as NextDate
+                     FROM master..spt_values
+                     WHERE @date < DATEADD(DAY, number, @date)
+                       AND DATEPART(WEEKDAY, DATEADD(DAY, number, @date)) = @preferredDayOfWeek
+                       AND TYPE = 'P' ORDER BY number);
+    END
+
+    SET @classStudentID = @classStudentID + 1;
+END*/
+
+
 /* Add data: question*/
 GO
 SET IDENTITY_INSERT [dbo].[Question] ON
