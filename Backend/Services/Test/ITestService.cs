@@ -6,5 +6,6 @@ namespace Backend.Services.Test
     {
         ServiceResult<ICollection<TestDTO>> GetAllTest();
         Task<ServiceResult<int>> CreateTest(TestCreateDTO testCreateDTO);
+        Task<ServiceResult<int>> CheckPassTest(string studentID);
     }
 }

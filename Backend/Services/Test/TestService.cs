@@ -122,5 +122,34 @@ namespace Backend.Services.Test
             return result;
         }
 
+        public async Task<ServiceResult<int>> CheckPassTest(string studentID)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var test = _testRepository.GetAll().FirstOrDefault(p => p.StudentId.Equals(studentID));
+
+                if (test != null)
+                {
+                    test.Pass = true;
+                    await _testRepository.UpdateAsync(test);
+                    result.Payload = 1;
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "No test found for the student.";
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = -1;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
     }
 }

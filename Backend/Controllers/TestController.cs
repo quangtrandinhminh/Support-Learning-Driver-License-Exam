@@ -56,5 +56,29 @@ namespace Backend.Controllers
 
             return Ok("Thêm bài thi thành công!");
         }
+
+        [HttpPut("editIsPass")]
+        public async Task<IActionResult> UpdateIsPaid(string studentID)
+        {
+            var result = await _testService.CheckPassTest(studentID);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Update test successfully!");
+        }
     }
 }
