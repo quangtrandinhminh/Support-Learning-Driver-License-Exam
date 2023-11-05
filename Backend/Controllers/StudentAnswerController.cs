@@ -35,6 +35,21 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpGet("/api/GetStudentQuestion/{studentID}")]
+        public IActionResult GetCourseByMonth(string studentID)
+        {
+            var result = _studentAnswerService.GetAllStudentAnswerByStudentID(studentID);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpPost("/api/Create Student Answer/{studentID}")]
         public async Task<ActionResult<int>> CreateStudentQuestion(string studentID)
         {

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Backend.DTO.Question;
-using Backend.DTO.Test;
 using Backend.Repository.QuestionRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
