@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './teaching-register.scss';
 interface CheckboxTableState {
   checkboxes: {
@@ -32,7 +32,35 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
       },
     }));
   };
+  state = {
+    checkboxes: {},
+  };
 
+  handleSubmit = () => {
+    // Prepare data to send to the server
+    const dataToSend = {
+      checkboxes: this.state.checkboxes,
+    };
+
+    // Make an API request to the server
+    fetch('your-api-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Response from the server:', data);
+        // Handle the response data here
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle errors here
+      });
+  };
+  
   render() {
     return (<>
       <div className="title">
@@ -93,7 +121,6 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
                             : 'white',
                         }}
                         onClick={() => this.handleCheckboxChange(`chieu-${day}`)}
-
                       >
                         <div className="custom-checkbox-inner">
                           {this.state.checkboxes[`chieu-${day}`] && (
@@ -107,7 +134,7 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
               </tbody>
             </table>
           </form>
-          <input type="submit" id='submit-btn' form='teaching-register-form' value="Đặt lịch" />
+          <button onClick={this.handleSubmit}>Đặt lịch</button>
         </div>
       </div>
     </>
