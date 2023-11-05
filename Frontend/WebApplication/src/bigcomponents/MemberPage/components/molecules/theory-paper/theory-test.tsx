@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import './theory-test.scss'
+import { useEffect, useState } from 'react';
+import './theory-test.scss';
 import Countdown from "react-countdown";
-import { AiFillClockCircle } from 'react-icons/ai'
+import { AiFillClockCircle } from 'react-icons/ai';
 import Button from 'react-bootstrap/esm/Button';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../../../config/axios';
 
 function TheoryTestPaper() {
+    const member = sessionStorage.getItem("loginedMember") ? JSON.parse(sessionStorage.getItem("loginedMember")) : null;
+
     const [start, setStart] = useState(false);
+    const [question, setQuestion] = useState([]);
+    const [student, setStudent] = useState(null);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const navigate = useNavigate();
 
     // Random component
@@ -19,7 +25,7 @@ function TheoryTestPaper() {
             // Render a complete state
             return <Completionist />;
         } else {
-            // Render a cosuntdownconst formattedMinutes = String(minutes).padStart(2, "0");
+            // Render a countdown
             const formattedMinutes = String(minutes).padStart(2, "0");
             const formattedSeconds = String(seconds).padStart(2, "0");
             return (
@@ -30,7 +36,17 @@ function TheoryTestPaper() {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const getStudentByMemberID = async () => {
+        try {
+            const response = await api.get(`Student/${member.memberID}`);
+            setStudent(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         navigate('/kiem-tra/ket-qua')
         toast.success('Nộp bài thành công!', {
@@ -51,9 +67,29 @@ function TheoryTestPaper() {
         }
     }
 
+    const getExam = async () => {
+        try {
+            const response = await api.get(`GetStudentQuestion/${student.studentId}`);
+            setQuestion(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    useEffect(() => {
+        getStudentByMemberID();
+    }, [])
+
+    useEffect(() => {
+        getExam();
+        console.log(question);
+    }, [student])
+
     useEffect(() => {
         const handleBeforeUnload = (e) => {
-            e.preventDefault(); // This will show a confirmation dialog to the user.
+            e.preventDefault();
             e.returnValue = 'Bạn có muốn tải lại trang?';
         };
 
@@ -64,9 +100,27 @@ function TheoryTestPaper() {
         };
     }, []);
 
-
     const targetTime = new Date();
     targetTime.setMinutes(targetTime.getMinutes() + 20);
+
+    const handlePreviousQuestion = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+        } else {
+            setCurrentQuestionIndex(34);
+
+        }
+    };
+
+    const handleNextQuestion = () => {
+        if (currentQuestionIndex < question.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            setCurrentQuestionIndex(0);
+        }
+    };
+
+    console.log(member);
 
     return (
         <div className='theory-paper-container'>
@@ -106,59 +160,54 @@ function TheoryTestPaper() {
                         <tbody>
                             <div className='questions-circle'>
                                 <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                    <li>6</li>
-                                    <li>7</li>
-                                    <li>8</li>
-                                    <li>9</li>
-                                    <li>10</li>
-                                    <li>11</li>
-                                    <li>12</li>
-                                    <li>13</li>
-                                    <li>14</li>
-                                    <li>15</li>
-                                    <li>16</li>
-                                    <li>17</li>
-                                    <li>18</li>
-                                    <li>19</li>
-                                    <li>20</li>
-                                    <li>21</li>
-                                    <li>22</li>
-                                    <li>23</li>
-                                    <li>24</li>
-                                    <li>25</li>
-                                    <li>26</li>
-                                    <li>27</li>
-                                    <li>28</li>
-                                    <li>29</li>
-                                    <li>30</li>
-                                    <li>31</li>
-                                    <li>32</li>
-                                    <li>33</li>
-                                    <li>34</li>
-                                    <li>35</li>
+                                    {question.map((_, index) => (
+                                        <li key={index}>{index + 1}</li>
+                                    ))}
                                 </ul>
                             </div>
                         </tbody>
                     </table>
-                    <div className='question-content-container'>
-                        {
-                            start ? (
-                                <>
-                                    <div className='content-box'>
-                                        <div className='question-title'>
-                                            <h4 className='question-num'>Câu hỏi 1:</h4>
-                                            <h6 className='question-notice'>Câu hỏi liệt</h6>
-                                        </div>
-                                        <div className='tw-text-center img-container'>
-                                            <img src="https://i.ibb.co/Zfhkf17/600-cau-hoi386.jpg" alt="" />
-                                        </div>
+                    {
+                        start && question && question.length > 0 ? (
+                            <div className='question-content-container'>
+                                <div className='content-box'>
+                                    <div className='question-title'>
+                                        <h4 className='question-num'>Câu hỏi {currentQuestionIndex + 1}:</h4>
                                     </div>
-                                    <div className='answer-box'>
+                                    <div className='tw-text-center img-container'>
+                                        <img src={question[currentQuestionIndex].image} alt="" />
+                                    </div>
+                                </div>
+                                <div className='answer-box'>
+                                    <div className='answer'>
+                                        <input type='radio' name='answer-content' value={1} />1
+                                    </div>
+                                    <div className='answer'>
+                                        <input type='radio' name='answer-content' value={2} />2
+                                    </div>
+                                    <div className='answer'>
+                                        <input type='radio' name='answer-content' value={3} />3
+                                    </div>
+                                    <div className='answer'>
+                                        <input type='radio' name='answer-content' value={4} />4
+                                    </div>
+                                </div>
+                                <div className='button-box'>
+                                    <Button className='previous-btn' onClick={handlePreviousQuestion}>Câu trước</Button>
+                                    <Button className='next-btn' onClick={handleNextQuestion}>Câu tiếp theo</Button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='question-content-container'>
+                                <div className='content-box'>
+                                    <div className='question-title'>
+                                        {/* <h4 className='question-num'>Câu hỏi 1:</h4> */}
+                                    </div>
+                                    <div className='tw-text-center img-container'>
+
+                                    </div>
+                                </div>
+                                {/* <div className='answer-box'>
                                         <div className='answer'>
                                             <input type='radio' name='answer-content' />1
                                         </div>
@@ -171,23 +220,14 @@ function TheoryTestPaper() {
                                         <div className='answer'>
                                             <input type='radio' name='answer-content' />4
                                         </div>
-                                    </div>
-                                    <div className='button-box'>
-                                        <Button className='previous-btn'>Câu trước</Button>
-                                        <Button className='next-btn'>Câu tiếp theo</Button>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div className='content-box'>
-                                        <div className='question-title'>
-                                            <h4 className='question-num'>Câu hỏi:</h4>
-                                        </div>
-                                    </div>
-                                </>
-                            )
-                        }
-                    </div>
+                                    </div> */}
+                                {/* <div className='button-box'>
+                                        <Button className='previous-btn' onClick={handlePreviousQuestion}>Câu trước</Button>
+                                        <Button className='next-btn' onClick={handleNextQuestion}>Câu tiếp theo</Button>
+                                s    </div> */}
+                            </div>
+                        )
+                    }
                     {
                         start ? (
                             <div className='submit-btn'>
@@ -201,4 +241,4 @@ function TheoryTestPaper() {
     )
 }
 
-export default TheoryTestPaper
+export default TheoryTestPaper;

@@ -57,7 +57,9 @@ import MentorClassInformationPage from './bigcomponents/MentorPage/components/pa
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+
 import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
+import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile";
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 
@@ -102,7 +104,10 @@ function App() {
                 <>
                   <Route path='dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
+                    <>
                     <Route index element={<AdminPage />} />
+                      <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
+                    </>
                   )}
                   {user.roleId === 2 && (
                     <>

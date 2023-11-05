@@ -32,7 +32,8 @@ namespace Backend.Services.StudentAnswer
             var result = new ServiceResult<ICollection<StudentAnswerDTO>>();
             try
             {
-                var studentAnswers = _studentAnswerRepository.GetAll();
+                var studentAnswers = _studentAnswerRepository.GetAll().
+                    Include(x => x.Question);
 
                 if (!studentAnswers.Any())
                 {
@@ -58,6 +59,7 @@ namespace Backend.Services.StudentAnswer
             {
                 var studentAnswers = _studentAnswerRepository.GetAll().
                     Include(x => x.Test).
+                    Include(x => x.Question).
                     Where(x => x.Test.StudentId.Equals(studentID)).ToList();
 
                 if (!studentAnswers.Any())
@@ -90,8 +92,12 @@ namespace Backend.Services.StudentAnswer
                     if (studentAnswers == null)
                     {
                         var questions = _questionRepository.GetAll().
-                                OrderBy(q => Guid.NewGuid()).Take(35).ToList();
-                        foreach (var question in questions)
+                                OrderBy(q => Guid.NewGuid()).Take(32).ToList();
+                        var questionss = _questionRepository.GetAll().
+                            Where(p => p.KeyQuestion == true).Take(3).ToList();
+                        var selectQuestion = questions.Concat(questionss).ToList();
+                        selectQuestion = selectQuestion.OrderBy(q => Guid.NewGuid()).ToList();
+                        foreach (var question in selectQuestion)
                         {
                             var studentAnswer = new DB.Models.StudentAnswer();
                             studentAnswer.TestId = test.TestId;

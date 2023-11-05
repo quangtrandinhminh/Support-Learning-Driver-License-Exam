@@ -10,6 +10,8 @@
 
         public byte? OptionId { get; set; }
 
-        public bool? IsCorrect { get; set; }
+        //Question 
+        public string? Image { get; set; }
+
     }
 }

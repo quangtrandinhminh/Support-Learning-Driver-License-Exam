@@ -36,8 +36,8 @@ namespace Backend.Services.User
             var result = new ServiceResult<UserDTO>();
             try
             {
-                var user = await _userRepository.GetAll()
-                    .FirstOrDefaultAsync(p => p.Username == username);
+                var user =  _userRepository.GetAll()
+                    .Where(p => p.Username.Equals(username)).FirstOrDefault();
 
                 if (user is null)
                 {

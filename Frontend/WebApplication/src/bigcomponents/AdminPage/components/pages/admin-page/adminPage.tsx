@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./adminPage.scss";
-import Header from "../organisms/Header";
-import Slidebar from "../organisms/Slidebar";
-import Home from "../templates/Home";
+import Header from "../../organisms/Header/Header";
+import Slidebar from "../../organisms/SideBar/Sidebar";
+import Home from "../../templates/Home-templates/Home";
 
 function AdminPage() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);

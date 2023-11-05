@@ -3,6 +3,7 @@ using AutoMapper.Configuration.Conventions;
 using Backend.DB.Models;
 using Backend.DTO.Course;
 using Backend.DTO.Lesson;
+using Backend.DTO.Members;
 using Backend.DTO.Student;
 using Backend.DTO.Test;
 using Backend.Repository.ClassRepository;
@@ -55,6 +56,31 @@ namespace Backend.Services.Test
             catch (Exception e)
             {
                 result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public async Task<ServiceResult<TestDTO>> GetTestByStudentId(string studentId)
+        {
+            var result = new ServiceResult<TestDTO>();
+            try
+            {
+                var test = _testRepository.GetAll().
+                    Where(p => p.StudentId.Equals(studentId)).FirstOrDefault();
+
+                if (test is null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "User is not exist";
+                    return result;
+                }
+
+                result.Payload = _mapper.Map<TestDTO>(test);
+            }
+            catch (Exception e)
+            {
+                result.IsError = false;
                 result.ErrorMessage = e.Message;
             }
             return result;
@@ -119,6 +145,35 @@ namespace Backend.Services.Test
                 result.ErrorMessage = e.Message;
             }
 
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> CheckPassTest(string studentID)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var test = _testRepository.GetAll().FirstOrDefault(p => p.StudentId.Equals(studentID));
+
+                if (test != null)
+                {
+                    test.Pass = true;
+                    await _testRepository.UpdateAsync(test);
+                    result.Payload = 1;
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "No test found for the student.";
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = -1;
+                result.ErrorMessage = e.Message;
+            }
             return result;
         }
 

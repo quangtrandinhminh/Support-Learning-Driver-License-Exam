@@ -12,6 +12,7 @@ namespace Backend.Services.Class
 
         Task<ServiceResult<int>> CreateClass(ClassCreateDTO classCreateDto);
 
-        Task<ServiceResult<int>> CreateClassPracticeByMentor(ClassCreatePracticeDTO classDto);
+        Task<ServiceResult<int>> CreateClassPracticeByMentor(
+            ICollection<ClassCreatePracticeDTO> classCreatePracticeDTOs);
     }
 }

@@ -73,7 +73,6 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     const user = sessionStorage.getItem("loginedUser") ? JSON.stringify(sessionStorage.getItem("loginedUser")) : null;
     if (user !== null) {
-      console.log("Hello");
       navigate('/');
     }
   })
@@ -90,6 +89,7 @@ const LoginForm: React.FC = () => {
               placeholder="Nhập tên đăng nhập"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autoComplete="on"
             />
           </div>
           <div className="inputField">
