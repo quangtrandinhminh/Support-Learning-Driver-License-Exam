@@ -1275,46 +1275,26 @@ GO
 SET IDENTITY_INSERT [dbo].[Exam] OFF
 
 /* Add data: Lesson */
-SET IDENTITY_INSERT [dbo].[Lesson] ON
-GO
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (1, 1, N'Đào tạo lý thuyết', '2023-11-06', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (2, 1, N'Đào tạo lý thuyết', '2023-11-07', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (3, 1, N'Đào tạo lý thuyết', '2023-11-08', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (4, 1, N'Đào tạo lý thuyết', '2023-11-09', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (5, 1, N'Đào tạo lý thuyết', '2023-11-10', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (6, 1, N'Đào tạo lý thuyết', '2023-11-11', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (7, 1, N'Đào tạo lý thuyết', '2023-11-12', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (8, 1, N'Đào tạo lý thuyết', '2023-11-13', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (9, 1, N'Đào tạo lý thuyết', '2023-11-14', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (10, 1, N'Đào tạo lý thuyết', '2023-11-15', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (11, 1, N'Đào tạo lý thuyết', '2023-11-16', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (12, 1, N'Đào tạo lý thuyết', '2023-11-17', 'P12', 0, 0, 0, 1);
-INSERT INTO [dbo].[Lesson] 
-           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-     VALUES (13, 1, N'Đào tạo lý thuyết', '2023-11-18', 'P12', 0, 0, 0, 1);
-SET IDENTITY_INSERT [dbo].[Lesson] OFF
-GO
+DECLARE @classStudentID INT = 1;
+DECLARE @date DATE = '2023-11-06';
+DECLARE @attendance INT;
+
+WHILE @classStudentID <= 5
+BEGIN
+    IF @classStudentID < 4
+        SET @attendance = 1;
+    ELSE
+        SET @attendance = 0;
+
+    WHILE @date <= '2023-11-18'
+    BEGIN
+        INSERT INTO [dbo].[Lesson] 
+        ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+        VALUES (@classStudentID, N'Đào tạo lý thuyết', @date, 'P12', 0, 0, 0, @attendance);
+
+        SET @date = DATEADD(DAY, 1, @date);
+    END
+
+    SET @classStudentID = @classStudentID + 1;
+    SET @date = '2023-11-06';
+END
