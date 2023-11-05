@@ -40,7 +40,7 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
       </div>
       <div className="register-form-container">
         <div className="register-table-container">
-          <form action="">
+          <form action="" id='teaching-register-form'>
             <table>
               <thead className="register-header">
                 <tr>
@@ -107,7 +107,7 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
               </tbody>
             </table>
           </form>
-          <button>Đặt lịch</button>
+          <input type="submit" id='submit-btn' form='teaching-register-form' value="Đặt lịch" />
         </div>
       </div>
     </>
