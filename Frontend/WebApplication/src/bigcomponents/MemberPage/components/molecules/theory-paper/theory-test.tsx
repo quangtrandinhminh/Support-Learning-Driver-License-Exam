@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './theory-test.scss';
 import Countdown from "react-countdown";
 import { AiFillClockCircle } from 'react-icons/ai';
@@ -106,12 +106,17 @@ function TheoryTestPaper() {
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
+        } else {
+            setCurrentQuestionIndex(34);
+
         }
     };
 
     const handleNextQuestion = () => {
         if (currentQuestionIndex < question.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            setCurrentQuestionIndex(0);
         }
     };
 
@@ -175,16 +180,16 @@ function TheoryTestPaper() {
                                 </div>
                                 <div className='answer-box'>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' />1
+                                        <input type='radio' name='answer-content' value={1} />1
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' />2
+                                        <input type='radio' name='answer-content' value={2} />2
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' />3
+                                        <input type='radio' name='answer-content' value={3} />3
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' />4
+                                        <input type='radio' name='answer-content' value={4} />4
                                     </div>
                                 </div>
                                 <div className='button-box'>
@@ -203,23 +208,23 @@ function TheoryTestPaper() {
                                     </div>
                                 </div>
                                 {/* <div className='answer-box'>
-                                    <div className='answer'>
-                                        <input type='radio' name='answer-content' />1
-                                    </div>
-                                    <div className='answer'>
-                                        <input type='radio' name='answer-content' />2
-                                    </div>
-                                    <div className='answer'>
-                                        <input type='radio' name='answer-content' />3
-                                    </div>
-                                    <div className='answer'>
-                                        <input type='radio' name='answer-content' />4
-                                    </div>
-                                </div> */}
+                                        <div className='answer'>
+                                            <input type='radio' name='answer-content' />1
+                                        </div>
+                                        <div className='answer'>
+                                            <input type='radio' name='answer-content' />2
+                                        </div>
+                                        <div className='answer'>
+                                            <input type='radio' name='answer-content' />3
+                                        </div>
+                                        <div className='answer'>
+                                            <input type='radio' name='answer-content' />4
+                                        </div>
+                                    </div> */}
                                 {/* <div className='button-box'>
-                                    <Button className='previous-btn' onClick={handlePreviousQuestion}>Câu trước</Button>
-                                    <Button className='next-btn' onClick={handleNextQuestion}>Câu tiếp theo</Button>
-                                </div> */}
+                                        <Button className='previous-btn' onClick={handlePreviousQuestion}>Câu trước</Button>
+                                        <Button className='next-btn' onClick={handleNextQuestion}>Câu tiếp theo</Button>
+                                s    </div> */}
                             </div>
                         )
                     }

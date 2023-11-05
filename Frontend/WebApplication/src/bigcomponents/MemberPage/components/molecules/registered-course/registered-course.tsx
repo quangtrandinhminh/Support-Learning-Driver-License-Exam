@@ -1,53 +1,58 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './registered-course.scss'
 import { useEffect, useState } from 'react'
 import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function RegisteredCourse() {
-    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const memberr = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
-    console.log(memberr);
-    const [member, setMember] = useState(null);
+    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
     const [student, setStudent] = useState(null);
-
-    const getMemberById = async () => {
-        try {
-            const respone = await api.post('Member?userID=' + user.userID);
-            const res = respone.data;
-            setMember(res);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    const [theoryStatus, setTheoryStats] = useState(null);
 
     const getCourseById = async () => {
         try {
             const response = await api.get('Course/' + member.courseId);
             const res = response.data;
-            console.log(res);
             setCourse(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getTheoryTestStatus = async () => {
+        try {
+            const response = await api.get('TestByStudentId?studentId=' + student.studentId);
+            console.log(response.data);
+            setTheoryStats(response.data);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
     }
 
-    const getStudentByMemberId = async () => {
-        const response = await api.get('Student/' + member.memberID);
-        console.log(response.data);
-    }
-
     useEffect(() => {
-        getMemberById();
+        getCourseById();
     }, [])
 
     useEffect(() => {
-        getCourseById();
-        getStudentByMemberId();
-    }, [member])
+        getStudentById();
+    }, [])
+
+    useEffect(() => {
+        getTheoryTestStatus();
+    }, [course, student])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -78,24 +83,48 @@ function RegisteredCourse() {
                                         </label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: (Status)</label>
+                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: {theoryStatus.pass.toString ? ("Hoàn thành") : ("Chưa hoàn thành")}</label>
                                     </li>
-                                    <li>
-                                        <label htmlFor="course-practice">
-                                            <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'
-                                                className='disabled-link'
-                                                onClick={(e) => e.preventDefault()}>Lịch học thực hành
-                                            </Link>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label htmlFor="course-theory-location">
-                                            <Link to='/danh-sach-khoa-hoc'
-                                                className='disabled-link'
-                                                onClick={(e) => e.preventDefault()}>
-                                                Đăng ký lịch học thực hành</Link>
-                                        </label>
-                                    </li>
+                                    {
+                                        theoryStatus.pass ? (
+                                            <>
+
+                                                <li>
+                                                    <label htmlFor="course-practice">
+                                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>
+                                                            Lịch học thực hành
+                                                        </Link>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label htmlFor="course-theory-location">
+                                                        <Link to='/danh-sach-khoa-hoc'>
+                                                            Đăng ký lịch học thực hành
+                                                        </Link>
+                                                    </label>
+                                                </li>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <li>
+                                                    <label htmlFor="course-practice">
+                                                        <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'
+                                                            className='disabled-link'
+                                                            onClick={(e) => e.preventDefault()}>Lịch học thực hành
+                                                        </Link>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label htmlFor="course-theory-location">
+                                                        <Link to='/danh-sach-khoa-hoc'
+                                                            className='disabled-link'
+                                                            onClick={(e) => e.preventDefault()}>
+                                                            Đăng ký lịch học thực hành</Link>
+                                                    </label>
+                                                </li>
+                                            </>
+                                        )
+                                    }
                                     <li>
                                         <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
                                     </li>
