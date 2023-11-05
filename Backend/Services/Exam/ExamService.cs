@@ -61,7 +61,7 @@ namespace Backend.Services.Exam
             var result = new ServiceResult<int>();
             try
             {
-                var course = _courseRepository.GetByIdAsync(examDTO.CourseId);
+                var course = await _courseRepository.GetByIdAsync(examDTO.CourseId);
                 if (course == null)
                 {
                     result.IsError = true;
@@ -69,12 +69,12 @@ namespace Backend.Services.Exam
                     result.ErrorMessage = "Không tìm thấy khóa học!";
                 }
 
-                var exam = _examRepository.GetAll().Where(e => e.CourseId == examDTO.CourseId)
-                    .OrderByDescending(e => e.ExamTime).FirstOrDefault();
+                var exam = await _examRepository.GetAll().Where(e => e.CourseId == examDTO.CourseId)
+                    .OrderByDescending(e => e.ExamTime).FirstOrDefaultAsync();
                 if (exam != null)
                 {
                     var newExam = _mapper.Map<Backend.DB.Models.Exam>(examDTO);
-                    if (newExam.ExamTime > exam.ExamTime)
+                    if (newExam.ExamTime < exam.ExamTime )
                     {
                         newExam.CreatedTime = DateTime.Now;
                         await _examRepository.CreateAsync(newExam);

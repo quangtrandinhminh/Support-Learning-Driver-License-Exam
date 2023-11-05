@@ -1178,37 +1178,37 @@ GO
 SET IDENTITY_INSERT [dbo].[Class] ON 
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('1', '1', '1101B2', 1, '', '', 'Chiều', 1)
+	VALUES ('1', '1', '1101B2', 1, '', '', N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('2', '1', '1101B2', 0, '2', 3,'Chiều', 1)
+	VALUES ('2', '1', '1101B2', 0, '2', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('3', '1', '1101B2', 0, '3', 3,'Sáng', 1)
+	VALUES ('3', '1', '1101B2', 0, '3', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('4', '2', '1101B2', 0, '3', 3,'Chiều', 1)
+	VALUES ('4', '2', '1101B2', 0, '3', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('5', '2', '1101B2', 0, '4', 3,'Sáng', 1)
+	VALUES ('5', '2', '1101B2', 0, '4', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('6', '3', '1101B2', 0, '4', 3,'Chiều', 1)
+	VALUES ('6', '3', '1101B2', 0, '4', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('7', '3', '1101B2', 0, '5', 3,'Sáng', 1)
+	VALUES ('7', '3', '1101B2', 0, '5', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('8', '4', '1101B2', 0, '5', 3,'Chiều', 1)
+	VALUES ('8', '4', '1101B2', 0, '5', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('9', '4', '1101B2', 0, '6', 3, 'Sáng', 1)
+	VALUES ('9', '4', '1101B2', 0, '6', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('10', '5', '1101B2', 0, '6', 3, 'Chiều', 1)
+	VALUES ('10', '5', '1101B2', 0, '6', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('11', '5', '1101B2', 0, '2', 3, 'Sáng', 1)
+	VALUES ('11', '5', '1101B2', 0, '2', 3, N'Sáng', 1)
 SET IDENTITY_INSERT [dbo].[Class] OFF
 
 /* Add data: ClassStudent */
@@ -1270,5 +1270,51 @@ INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [d
 	VALUES (1, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
 GO
 INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
-	VALUES (2, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T11:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+	VALUES (2, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-06T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+GO
 SET IDENTITY_INSERT [dbo].[Exam] OFF
+
+/* Add data: Lesson */
+SET IDENTITY_INSERT [dbo].[Lesson] ON
+GO
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (1, 1, N'Đào tạo lý thuyết', '2023-11-06', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (2, 1, N'Đào tạo lý thuyết', '2023-11-07', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (3, 1, N'Đào tạo lý thuyết', '2023-11-08', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (4, 1, N'Đào tạo lý thuyết', '2023-11-09', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (5, 1, N'Đào tạo lý thuyết', '2023-11-10', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (6, 1, N'Đào tạo lý thuyết', '2023-11-11', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (7, 1, N'Đào tạo lý thuyết', '2023-11-12', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (8, 1, N'Đào tạo lý thuyết', '2023-11-13', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (9, 1, N'Đào tạo lý thuyết', '2023-11-14', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (10, 1, N'Đào tạo lý thuyết', '2023-11-15', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (11, 1, N'Đào tạo lý thuyết', '2023-11-16', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (12, 1, N'Đào tạo lý thuyết', '2023-11-17', 'P12', 0, 0, 0, 1);
+INSERT INTO [dbo].[Lesson] 
+           ([lessonID], [classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+     VALUES (13, 1, N'Đào tạo lý thuyết', '2023-11-18', 'P12', 0, 0, 0, 1);
+SET IDENTITY_INSERT [dbo].[Lesson] OFF
+GO
