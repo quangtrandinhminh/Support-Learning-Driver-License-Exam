@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './member-table.scss'
 import api from '../../../../../config/axios';
+import { toast } from 'react-toastify';
 
 function MemberTable() {
   const [member, setMember] = useState<any[]>([])
@@ -16,6 +17,16 @@ function MemberTable() {
     const response = await api.get('/Users');
     const res = response.data;
     setUser(res);
+  }
+
+  const updateMemberIsPaid = async (memberId) => {
+    try {
+      await api.put('Member/editIsPaid?memberId=' + memberId)
+      location.reload();
+      toast.success("Cập nhật trạng thái thanh toán thành công");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   //paganition part
@@ -79,9 +90,9 @@ function MemberTable() {
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>
                     <td>{member.email}</td>
-                    <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>  
+                    <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="submit">Update</button>
+                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaid(member.memberID)}>Update</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
                     </td>
                   </tr>

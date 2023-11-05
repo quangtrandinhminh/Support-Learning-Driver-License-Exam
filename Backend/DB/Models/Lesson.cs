@@ -11,9 +11,7 @@ public partial class Lesson
 
     public string? Title { get; set; }
 
-    public DateTime? StartTime { get; set; }
-
-    public DateTime? EndTime { get; set; }
+    public DateTime? Date { get; set; }
 
     public string? Location { get; set; }
 

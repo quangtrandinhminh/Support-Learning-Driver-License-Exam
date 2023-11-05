@@ -21,7 +21,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var classes = _classService.GetAllCllass();
+                var classes = _classService.GetAllClass();
                 if (classes == null)
                 {
                     return NotFound();
@@ -40,7 +40,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var classes = _classService.GetAllCllass().
+                var classes = _classService.GetAllClass().
                     Where(p => p.MentorId == mentorId).
                     Where(q => q.IsTheoryClass == false);
                 if (classes == null)
@@ -85,6 +85,22 @@ namespace Backend.Controllers
             }
 
             return Ok("Đã thêm lớp học");
+        }
+
+        [HttpPost]
+        [Route("addByMentor")]
+        public async Task<ActionResult<int>> CreateClassByMentor(ClassDTO classDto)
+        {
+            var result = await _classService.CreateClassByMentor(classDto);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Đã đăng kí lịch thành công");
         }
     }
 }

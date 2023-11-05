@@ -12,7 +12,6 @@ namespace Backend.Services.Class
     {
         private readonly IClassRepository _classRepository;
         private readonly ICourseRepository _courseRepository;
-        private readonly ICourseDetailsRepository _courseDetails;
         private readonly IMapper _mapper;
 
         public ClassService(IClassRepository classRepository
@@ -22,11 +21,10 @@ namespace Backend.Services.Class
         {
             _classRepository = classRepository;
             _courseRepository = courseRepository;
-            _courseDetails = courseDetails;
             _mapper = mapper;
         }
 
-        public ICollection<ClassDTO> GetAllCllass()
+        public ICollection<ClassDTO> GetAllClass()
         {
             try
             {
@@ -54,7 +52,7 @@ namespace Backend.Services.Class
                 }
 
                 var classes = _classRepository.GetAll()
-                    .Where(x => x.Status == true && x.CourseId == courseId)
+                    .Where(x => x.Status == true && x.CourseId == courseId && x.IsTheoryClass == false)
                     .ToList();
 
                 if (!classes.Any())
@@ -89,20 +87,32 @@ namespace Backend.Services.Class
                 }
 
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
-                /*ICollection<DB.Models.CourseDetail> courseDetails = _courseDetails.GetAll()
-                    .Where(x => x.CourseId == course.CourseId)
-                    .ToList();
-                if (newClass.IsPractice == false)
-                {
-                    newClass.DateStart = courseDetails.First().CourseTimeStart;
-                    newClass.DateEnd = courseDetails.First().CourseTimeEnd;
-                }
-                else
-                {
-                    newClass.DateStart = courseDetails.ElementAt(1).CourseTimeStart;
-                    newClass.DateEnd = courseDetails.Last().CourseTimeEnd;
-                }*/
+                await _classRepository.CreateAsync(newClass);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
 
+        public async Task<ServiceResult<int>> CreateClassByMentor(ClassDTO classDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var course = await _courseRepository.GetByIdAsync(classDto.CourseId);
+                if (course == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var newClass = _mapper.Map<DB.Models.Class>(classDto);
+                newClass.IsTheoryClass = false;
                 await _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
@@ -113,4 +123,18 @@ namespace Backend.Services.Class
             return result;
         }
     }
+
+    /*ICollection<DB.Models.CourseDetail> courseDetails = _courseDetails.GetAll()
+    .Where(x => x.CourseId == course.CourseId)
+    .ToList();
+if (newClass.IsPractice == false)
+{
+    newClass.DateStart = courseDetails.First().CourseTimeStart;
+    newClass.DateEnd = courseDetails.First().CourseTimeEnd;
+}
+else
+{
+    newClass.DateStart = courseDetails.ElementAt(1).CourseTimeStart;
+    newClass.DateEnd = courseDetails.Last().CourseTimeEnd;
+}*/
 }

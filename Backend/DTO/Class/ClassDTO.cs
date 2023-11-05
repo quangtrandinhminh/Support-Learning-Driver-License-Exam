@@ -8,9 +8,9 @@
 
         public string CourseId { get; set; }
 
-        public bool? IsTheoryClass { get; set; }
+        public bool IsTheoryClass { get; set; }
 
-        public int? DayOfWeek { get; set; }
+        public int DayOfWeek { get; set; }
 
         public string Shift { get; set; }
 

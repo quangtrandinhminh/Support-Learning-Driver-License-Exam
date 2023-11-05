@@ -64,57 +64,18 @@
                 th,
                 td {
                     border: 1px solid black;
-                }
-
-                thead {
-                    th {
-                        padding: 10px;
                     }
 
-                    .practice-time {
-                        width: 150px;
+                    thead {
+                        th {
+                            padding: 10px;
+                        }
                     }
-
-                    .practice-yard {
-                        width: 200px;
-                    }
-
-                    .practice-cabin {
-                        width: 300px;
-                    }
-
-                    .practice-tLight-sub {
-                        width: 220px;
-                    }
-
-                    .practice-note {
-                        width: 150px;
-                    }
-                }
 
                 tbody {
                     td {
                         height: 100px;
                         padding: 10px;
-                    }
-
-                    .schedule-btn {
-                        margin: auto;
-                        width: 100px;
-                        display: block;
-                        padding: 10px;
-                        text-decoration: none;
-                        border: none;
-                        font-size: 16px;
-                        border: 1px solid black;
-                        background-color: white;
-
-                        &:hover {
-                            color: red;
-                            cursor: pointer;
-                            box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.12);
-                            border: 2px solid rgba(0, 0, 0, 0.7);
-                        }
                     }
                 }
             }

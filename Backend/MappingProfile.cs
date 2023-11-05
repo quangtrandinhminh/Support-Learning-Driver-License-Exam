@@ -90,7 +90,20 @@ namespace Backend
 
             //Class 
             CreateMap<DB.Models.Class, DTO.Class.ClassDTO>();
+            CreateMap<DTO.Class.ClassCreateDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();
+
+            //ClassStudent
+            CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDTO>();
+            CreateMap<DTO.ClassStudent.ClassStudentDTO, DB.Models.ClassStudent>();
+
+            //Lesson
+            CreateMap<DB.Models.Lesson, DTO.Lesson.LessonDTO>()
+                .ForMember(dto => dto.Shift, opt => opt.MapFrom(entity => entity.ClassStudent.Class.Shift))
+                .ForMember(dto => dto.IsTheory, opt => opt.MapFrom(entity => entity.ClassStudent.Class.IsTheoryClass));
+            CreateMap<DTO.Lesson.LessonDTO, DB.Models.Lesson>();
+            CreateMap<DTO.Lesson.LessonCreateDTO, DB.Models.Lesson>();
+            CreateMap<DTO.Lesson.LessonTheoryCreateDTO, DB.Models.Lesson>();
         }
     }
 }

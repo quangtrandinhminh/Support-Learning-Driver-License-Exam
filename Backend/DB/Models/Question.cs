@@ -21,5 +21,5 @@ public partial class Question
 
     public virtual Staff Staff { get; set; } = null!;
 
-    public virtual ICollection<Test> Tests { get; set; } = new List<Test>();
+    public virtual ICollection<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
 }

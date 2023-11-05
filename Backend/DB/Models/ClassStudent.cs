@@ -11,15 +11,11 @@ public partial class ClassStudent
 
     public string StudentId { get; set; } = null!;
 
-    public string? Comment { get; set; }
-
-    public int? Rating { get; set; }
-
-    public DateTime? FeedbackCreatedTime { get; set; }
-
     public bool? Status { get; set; }
 
     public virtual Class Class { get; set; } = null!;
+
+    public virtual ICollection<FeedBack> FeedBacks { get; set; } = new List<FeedBack>();
 
     public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 

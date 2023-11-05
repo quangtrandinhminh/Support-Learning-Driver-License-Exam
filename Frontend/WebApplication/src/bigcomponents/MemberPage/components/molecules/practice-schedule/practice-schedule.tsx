@@ -40,23 +40,16 @@ function PracticeSchedule() {
                             <tr>
                                 <th rowSpan={1} className='practice-day w-25'>Thứ</th>
                                 <th rowSpan={1} className='practice-time'>Ca học</th>
-                                <th rowSpan={1} className='practice-time'></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Sáng</td>
                                 <td>Thứ hai hàng tuần</td>
-                                <td>
-                                    <button className='schedule-btn'>Đăng ký</button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>Chiều</td>
                                 <td>Thứ hai hàng tuần</td>
-                                <td>
-                                    <button className='schedule-btn'>Đăng ký</button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
