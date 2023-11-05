@@ -1,9 +1,6 @@
 .AdminPage-contain {
     margin: 0;
     padding: 0;
-    background-color: #fff;
-    color: #9e9ea4;
-    font-family: 'Montserrat', sans-serif;
   }
   
   .icon {
@@ -65,7 +62,7 @@
   
     .sidebar-brand {
       color: #fff;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }      
   
   .sidebar-title {
@@ -81,6 +78,7 @@
   }
   
   .sidebar-brand {
+    color: #fff;
     margin-top: 15px;
     font-size: 30px;
     font-weight: 700;
@@ -90,14 +88,17 @@
     padding: 0;
     list-style-type: none;
          p{
-            font-size: 15px;
+            font-size: 20px;
             margin: 0;
             color: #fff;
         }
   }
   
   .sidebar-list-item {
-    padding: 10px 10px 10px 10px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
     font-size: 20px;
   }
   
