@@ -126,9 +126,6 @@ function TheoryTestResult() {
                                 <input type='radio' name='answer-content' />
                                 3 - Trên đường có 2 làn đường được phân chia làn bằng vạch kẻ nét đứt
                             </div>
-                            <div className='answer-explanation'>
-                                <p>Giải thích: </p> 
-                            </div>
                         </div>
                         <div className='button-box'>
                             <Button className='previous-btn'>Câu trước</Button>

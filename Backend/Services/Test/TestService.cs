@@ -93,13 +93,13 @@ namespace Backend.Services.Test
                 {
                     foreach (var lesson in lessons)
                     {
-                        if (lesson.ClassStudent.StudentId == student.StudentId)
+                        if (lesson.ClassStudent.StudentId == student.StudentId && lesson.Attendance == true)
                         {
                             cont++;
                         }
                     }
 
-                    if (cont >= 13)
+                    if (cont >= 9)
                     {
                         var newTest = _mapper.Map<DB.Models.Test>(testCreateDTO);
                         newTest.StudentId = student.StudentId;
