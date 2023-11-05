@@ -1233,6 +1233,26 @@ GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
 	VALUES ('5', '1', '1101B2.29', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('6', '2', '1101B2.01', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('7', '3', '1101B2.02', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('8', '5', '1101B2.03', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('9', '7', '1101B2.28', 1)
+GO
+INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
+	 [status])
+	VALUES ('10', '9', '1101B2.29', 1)
 
 SET IDENTITY_INSERT [dbo].[ClassStudent] OFF 
 

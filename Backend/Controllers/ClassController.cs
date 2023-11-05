@@ -84,7 +84,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Đã thêm lớp học");
+            return Ok("Đã thêm lịch học");
         }
 
         [HttpPost]
