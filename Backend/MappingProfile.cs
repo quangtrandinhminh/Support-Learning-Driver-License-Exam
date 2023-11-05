@@ -6,6 +6,7 @@ using Backend.DTO.Mentor;
 using System.Diagnostics;
 using Backend.DTO.Lesson;
 using Backend.DTO.TeachingSchedule;
+using Backend.DTO.Test;
 
 namespace Backend
 {
@@ -117,6 +118,13 @@ namespace Backend
             // Exam
             CreateMap<DB.Models.Exam, DTO.Exam.ExamDTO>();
             CreateMap<DTO.Exam.ExamCreateDTO, DB.Models.Exam>();
+
+            //Test
+            CreateMap<Test, TestDTO>()
+                .ForMember(dto => dto.ExamId, opt => opt.MapFrom(entity => entity.Exam.ExamId))
+                .ForMember(dto => dto.ExamTime, opt => opt.MapFrom(entity => entity.Exam.ExamTime));
+            CreateMap<DTO.Test.TestDTO, DB.Models.Test>();
+            CreateMap<DTO.Test.TestCreateDTO, DB.Models.Test>();
         }
     }
 }
