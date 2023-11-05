@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Backend.DTO.CourseDetails;
 using Backend.DTO.Members;
 using Backend.DTO.Student;
 using Backend.DTO.Users;
 using Backend.Repository.MemberRepository;
 using Backend.Repository.StudentRepository;
 using Backend.Repository.UserRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Student
 {

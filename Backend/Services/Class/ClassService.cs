@@ -136,7 +136,7 @@ namespace Backend.Services.Class
             return result;
         }
 
-        public async Task<ServiceResult<int>> CreateClassByMentor(ClassDTO classDto)
+        public async Task<ServiceResult<int>> CreateClassPracticeByMentor(ClassCreatePracticeDTO classDto)
         {
             var result = new ServiceResult<int>();
             try

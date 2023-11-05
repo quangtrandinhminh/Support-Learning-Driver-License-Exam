@@ -28,6 +28,7 @@ using Backend.Services.Class;
 using Backend.Services.ClassStudent;
 using Backend.Services.Exam;
 using Backend.Services.Lesson;
+using Backend.Services.Test;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +60,7 @@ builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
+builder.Services.AddScoped<ITestService, TestService>();
 /*builder.Services.AddScoped<ITestService, TestService>();*/
 builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 /*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/

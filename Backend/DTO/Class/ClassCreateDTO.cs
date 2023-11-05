@@ -2,6 +2,7 @@
 {
     public class ClassCreateDTO
     {
+        public int MentorId { get; set; }
         public string CourseId { get; set; } = null!;
 
         public bool? IsTheoryClass { get; set; }

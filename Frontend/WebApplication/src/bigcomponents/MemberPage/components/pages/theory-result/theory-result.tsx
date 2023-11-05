@@ -1,21 +1,23 @@
+import React from 'react'
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
-import TheoryTestPaper from '../../molecules/theory-paper/theory-test'
+import TheoryTestResult from '../../molecules/theory-paper-result/theory-paper-result'
 
-function DoTheoryTestPage() {
+function TheoryResultPage() {
     return (
         <>
+
             <header>
                 <MemberHeader />
             </header>
             <div className='body-container'>
-                <TheoryTestPaper />
+                <TheoryTestResult />
             </div>
-            <footer className='exam-document-footer'>
+            <footer>
                 <MemberFooter />
             </footer>
         </>
     )
 }
 
-export default DoTheoryTestPage
+export default TheoryResultPage
