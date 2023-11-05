@@ -104,9 +104,9 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("addClassPracticeByMentor")]
-        public async Task<ActionResult<int>> CreateClassByMentor(ClassCreatePracticeDTO classDto)
+        public async Task<ActionResult<int>> CreateClassByMentor(ICollection<ClassCreatePracticeDTO> classCreatePracticeDTOs)
         {
-            var result = await _classService.CreateClassPracticeByMentor(classDto);
+            var result = await _classService.CreateClassPracticeByMentor(classCreatePracticeDTOs);
             if (result.IsError)
             {
                 return BadRequest(new

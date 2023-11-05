@@ -2,11 +2,13 @@
 using Backend.DB.Models;
 using Backend.DTO.Class;
 using Backend.DTO.CourseDetails;
+using Backend.DTO.Lesson;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Backend.Services.Class
 {
@@ -136,23 +138,27 @@ namespace Backend.Services.Class
             return result;
         }
 
-        public async Task<ServiceResult<int>> CreateClassPracticeByMentor(ClassCreatePracticeDTO classDto)
+        public async Task<ServiceResult<int>> CreateClassPracticeByMentor(
+            ICollection<ClassCreatePracticeDTO> classCreatePracticeDTOs)
         {
             var result = new ServiceResult<int>();
             try
             {
-                var course = await _courseRepository.GetByIdAsync(classDto.CourseId);
-                if (course == null)
+                foreach (var classCreatePracticeDTO in classCreatePracticeDTOs)
                 {
-                    result.IsError = true;
-                    result.ErrorMessage = "Không tìm thấy khóa học!";
-                    result.Payload = -1;
-                    return result;
+                    var course = _courseRepository.GetAll().
+                        Where(p => p.CourseId.Equals(classCreatePracticeDTO.CourseId)).FirstOrDefault();
+                    if (course == null)
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = "Không tìm thấy khóa học!";
+                        result.Payload = -1;
+                        return result;
+                    }
+                    var newClass = _mapper.Map<DB.Models.Class>(classCreatePracticeDTO);
+                    newClass.IsTheoryClass = false;
+                    await _classRepository.CreateAsync(newClass);
                 }
-
-                var newClass = _mapper.Map<DB.Models.Class>(classDto);
-                newClass.IsTheoryClass = false;
-                await _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
             {

@@ -23,7 +23,7 @@
             table {
                 width: 100%;
                 border: 0.1mm solid black;
-                height: auto;
+                max-height: 500px;
 
                 thead {
                     .question-number-container {
@@ -60,10 +60,8 @@
                 }
 
                 tbody {
-                    height: inherit;
 
                     .questions-circle {
-                        height: inherit;
                         padding: 20px 20px;
 
                         ul {
@@ -97,7 +95,7 @@
 
         .question-content-container {
             width: 95%;
-            max-height: 500px;
+            max-height: 700px;
             border: 0.1mm solid black;
             justify-self: flex-end;
             padding: 10px;
@@ -118,33 +116,41 @@
                         color: red;
                         align-self: center;
                         justify-self: flex-end;
+                        font-size: 18px;
                     }
 
                 }
 
-                .question-content {
-                    font-weight: 600;
-                    font-size: 20px;
+                .img-container {
+                    width: 800px;
+
+                    img {
+                        width: 100%;
+                        height: 450px;
+                        object-fit: contain;
+                    }
                 }
+
             }
 
             .answer-box {
+                position: relative;
                 display: grid;
-                grid-template-rows: repeat(3, 1fr);
-                gap: 20px;
+                grid-template-columns: repeat(4, 1fr);
                 padding: 10px 10px;
+                align-items: center;
+                justify-content: center;
                 justify-items: center;
+                transform: translateY(-20px);
 
                 .answer {
-                    padding: 10px 10px;
-                    height: calc(350px / 4);
-                    width: 90%;
-                    border: 1px solid black;
-                    font-size: 17px;
+                    display: flex;
+                    font-size: 18px;
 
                     input {
-                        width: 15px;
-                        height: 15px;
+                        align-self: center;
+                        width: 20px;
+                        height: 20px;
                         margin-right: 5px;
                     }
                 }
@@ -152,9 +158,11 @@
             }
 
             .button-box {
+                position: relative;
                 padding: 10px 10px;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                transform: translateY(-10px);
 
                 .previous-btn {
                     width: 30%;
