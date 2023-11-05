@@ -15,7 +15,6 @@
 .register-form-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     font-size: 20px;
 
     .register-table-container {
@@ -24,6 +23,7 @@
 
             table {
                 width: 120%;
+
                 td {
                     padding: 20px;
                 }
@@ -60,5 +60,9 @@
             }
         }
 
+        .subtmit-button {
+            display: flex;
+            justify-content: center ;
+        }}
+
     }
-}
