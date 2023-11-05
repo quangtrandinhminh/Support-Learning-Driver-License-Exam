@@ -21,48 +21,49 @@ function TeachingSchedule() {
         getClassByMentorID();
     }, []);
 
-    const getWeek = (date) => {
-        const currentDate = date || new Date();
-        const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
-        const days = Math.floor((currentDate.getTime() - firstDayOfYear.getTime()) / 86400000); // Use .getTime() to get timestamps
-        return Math.ceil((days + firstDayOfYear.getDay()) / 7);
-    };
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const [selectedWeek, setSelectedWeek] = useState(1);
+    const [weekDates, setWeekDates] = useState([]);
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [dateOptions, setDateOptions] = useState([]);
-    const [selectedWeek, setSelectedWeek] = useState(getWeek(selectedDate));
+    useEffect(() => {
+        const startOfWeek = new Date(selectedYear, 0, 1 + (selectedWeek - 1) * 7);
+        const dates = [];
 
-    const generateDateOptions = () => {
-        const currentYear = selectedDate.getFullYear();
-        const options = [];
-
-        for (let week = 0; week < 52; week++) {
-            const startDate = new Date(selectedDate.getTime() - (24 * 60 * 60 * 1000));
-            const endDate = new Date(currentYear, 0, (week * 7) + 6);
-
-            options.push({
-                label: `${startDate.getDate()}/${startDate.getMonth() + 1} To ${endDate.getDate()}/${endDate.getMonth() + 1}`,
-                value: week,
-            });
+        for (let i = 0; i < 7; i++) {
+            const currentDate = new Date(startOfWeek);
+            currentDate.setDate(startOfWeek.getDate() + i);
+            const dayOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'][currentDate.getDay()];
+            dates.push(`${dayOfWeek}: ${currentDate.getDate()}/${currentDate.getMonth() + 1}`);
         }
 
-        setDateOptions(options);
-    };
-
-
-
-    useEffect(() => {
-        generateDateOptions();
-    }, [selectedDate]);
-
-    useEffect(() => {
-        // Update selectedDate based on selectedWeek
-        const currentYear = selectedDate.getFullYear();
-        const startDate = new Date(currentYear, 0, (selectedWeek - 1) * 7 + 1);
-        setSelectedDate(startDate);
-    }, [selectedWeek]);
+        setWeekDates(dates);
+    }, [selectedYear, selectedWeek]);
 
     return (
+        // <div>
+        //     <h1>Teaching Schedule</h1>
+        //     <div>
+        //         <label>Select Year: </label>
+        //         <select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+        //             {Array.from({ length: 5 }, (_, i) => (
+        //                 <option key={i} value={selectedYear + i}>{selectedYear + i}</option>
+        //             ), 0)}
+        //         </select>
+        //     </div>
+        //     <div>
+        //         <label>Select Week: </label>
+        //         <input type="number" value={selectedWeek} onChange={(e) => setSelectedWeek(parseInt(e.target.value))} />
+        //     </div>
+        //     <div>
+        //         <h2>Week {selectedWeek} Dates:</h2>
+        //         <ul>
+        //             {weekDates.map((date, index) => (
+        //                 <li key={index}>{date}</li>
+        //             ))}
+        //         </ul>
+        //     </div>
+        // </div>
+
         <div className="teaching-schedule-container">
             <div>
                 <h1>Lịch dạy</h1>
@@ -76,42 +77,42 @@ function TeachingSchedule() {
                                     <span className="mini-title">
                                         <strong>Năm</strong>
                                     </span>
-                                    <select
-                                        value={selectedDate.getFullYear()}
-                                        onChange={(e) => setSelectedDate(new Date(parseInt(e.target.value), 0, 1))}
-                                    >
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
+                                    <select value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+                                        {
+                                            Array.from({ length: 5 }, (_, i) => (
+                                                <option key={i} value={selectedYear + i}>{selectedYear + i}</option>
+                                            ), 0)
+                                        }
                                     </select>
                                     <br />
                                     <span className="mini-title">
                                         <strong>Tuần</strong>
                                     </span>
-                                    <br />
-                                    <select
-                                        value={getWeek(selectedDate).toString()}
-                                        onChange={(e) => setSelectedDate(new Date(selectedDate.getFullYear(), 0, parseInt(e.target.value) * 7))}
-                                    >
-                                        {dateOptions.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
-                                            </option>
-                                        ))}
+                                    <select value={selectedWeek} onChange={(e) => setSelectedWeek(parseInt(e.target.value))}>
+                                        {
+                                            Array.from({ length: 52 }, (_, i) => (
+                                                <option key={i} value={i + 1}>{i + 1}</option>
+                                            ), 0)
+                                        }
                                     </select>
+
                                 </th>
                                 <th align="center">Thứ hai</th>
                                 <th align="center">Thứ ba</th>
                                 <th align="center">Thứ tư</th>
                                 <th align="center">Thứ năm</th>
                                 <th align="center">Thứ sáu</th>
+                                <th align="center">Thứ bảy</th>
+                                <th align="center">Chủ nhật</th>
                             </tr>
                             <tr>
-                                <th align="center">{selectedDate.getDate()}/{selectedDate.getMonth() + 1}</th>
-                                <th align="center">{new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 1).getDate()}/{selectedDate.getMonth() + 1}</th>
-                                <th align="center">{new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 2).getDate()}/{selectedDate.getMonth() + 1}</th>
-                                <th align="center">{new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 3).getDate()}/{selectedDate.getMonth() + 1}</th>
-                                <th align="center">{new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 4).getDate()}/{selectedDate.getMonth() + 1}</th></tr>
+                                <th align="center">{weekDates[0]}</th>
+                                <th align="center">{weekDates[1]}</th>
+                                <th align="center">{weekDates[2]}</th>
+                                <th align="center">{weekDates[3]}</th>
+                                <th align="center">{weekDates[4]}</th>
+                                <th align="center">{weekDates[5]}</th>
+                                <th align="center">{weekDates[6]}</th></tr>
                         </thead>
                         <tbody className="schedule-body">
                             <tr>
