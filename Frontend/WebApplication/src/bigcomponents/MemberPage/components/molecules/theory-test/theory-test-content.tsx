@@ -40,12 +40,12 @@ function TheoryTestContent() {
                 <ul className='demand-list'>
                     <li>Số câu trả lời phải đúng từ 32/35 câu trở lên</li>
                     <li>Thời gian làm bài: 22 phút</li>
-                    <li className='important-element'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT (câu hỏi có <span className='tw-text-red-600'>*</span>)</li>
+                    <li className='important-element tw-text-red'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT</li>
                 </ul>
                 <h5 className='second-part'>
                     <strong>
                         <i>
-                            Lưu ý: Để có thể học các lớp học thực hành sau này, học viên cần vượt qua bài kiểm tra này.
+                            Lưu ý: Để có thể đăng ký và thamg ia lớp học thực hành sau này, học viên cần vượt qua bài kiểm tra này.
                             Những học viên có kết quả không đạt trong đợt kiểm tra lý thuyết này sẽ phải đợi lượt kiểm tra tiếp theo.
                         </i>
                     </strong>
