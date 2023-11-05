@@ -152,5 +152,51 @@ namespace Backend.Controllers
 
             return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
+
+        [HttpPost("createTheoryLessonAuto")]
+        public async Task<IActionResult> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto)
+        {
+            var result = await _lessonService.CreateTheoryLessonAuto(lessonTheoryCreateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm buổi học lý thuyết thành công!");
+        }
+
+        [HttpPost("createPracticeLessonAuto")]
+        public async Task<IActionResult> CreatePracticeLessonAuto(string courseId)
+        {
+            var result = await _lessonService.CreatePracticeLessonsAuto(courseId);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm buổi học thực hành thành công!");
+        }
     }
 }
