@@ -5,9 +5,14 @@ import { AiFillClockCircle } from 'react-icons/ai'
 import Button from 'react-bootstrap/esm/Button';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../../../config/axios';
 
 function TheoryTestPaper() {
+    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+
     const [start, setStart] = useState(false);
+    const [question, setQuestion] = useState([]);
+    const [student, setStudent] = useState(null);
     const navigate = useNavigate();
 
     // Random component
@@ -30,6 +35,16 @@ function TheoryTestPaper() {
         }
     };
 
+    const getStudentByMemberID = async () => {
+        try {
+            const response = await api.get(`Student/${member.memberId}`);
+            setStudent(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         navigate('/kiem-tra/ket-qua')
@@ -50,6 +65,26 @@ function TheoryTestPaper() {
             setStart(true);
         }
     }
+
+    const getExam = async () => {
+        try {
+            const response = await api.get(`GetStudentQuestion/${student.studentId}`);
+            setQuestion(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    
+    }
+
+    useEffect(() => {
+        getStudentByMemberID();
+    }, [])
+
+    useEffect(() => {
+        getExam();
+        console.log(question);
+    }, [student])
 
     useEffect(() => {
         const handleBeforeUnload = (e) => {

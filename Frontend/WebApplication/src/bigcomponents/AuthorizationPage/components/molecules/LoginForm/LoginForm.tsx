@@ -90,6 +90,7 @@ const LoginForm: React.FC = () => {
               placeholder="Nhập tên đăng nhập"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autoComplete="on"
             />
           </div>
           <div className="inputField">
