@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
+using Backend.DB.Models;
 using Backend.DTO.Course;
 using Backend.DTO.Members;
 using Backend.DTO.News;
 using Backend.Repository.MemberRepository;
+using Backend.Repository.StudentRepository;
 using Backend.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +15,16 @@ namespace Backend.Services.Member
     {
         private readonly IUserRepository _userRepository;
         private readonly IMemberRepository _memberRepository;
+        private readonly IStudentRepository _studentRepository;
         private readonly IMapper _mapper;
 
-        public MemberService(IMemberRepository memberRepository, IMapper mapper, IUserRepository userRepository)
+        public MemberService(IMemberRepository memberRepository, 
+            IMapper mapper, IUserRepository userRepository,
+            IStudentRepository studentRepository)
         {
             _userRepository = userRepository;
             _memberRepository = memberRepository;
+            _studentRepository = studentRepository;
             _mapper = mapper;
         }
 
@@ -153,6 +159,27 @@ namespace Backend.Services.Member
                 }
                 else
                 {
+                    int i = 0;
+                    var student = new DB.Models.Student();
+                    var students = _userRepository.GetAll().ToList();
+                    foreach (var studentt  in students) 
+                    {
+                        i++;
+                    }
+                    string v;
+                    if (i < 10)
+                    {
+                        v = "0" + $"{i}";
+                    }
+                    else
+                    {
+                        v = $"{i}";
+                    }
+                    student.StudentId = member.CourseId + "." + v;
+                    student.CourseId = member.CourseId;
+                    student.MemberId = memberID;
+
+                    await _studentRepository.CreateAsync(student);
                     member.IsPaid = true;
                     await _memberRepository.UpdateAsync(member);
                 }
