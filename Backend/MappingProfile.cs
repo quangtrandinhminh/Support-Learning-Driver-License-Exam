@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Backend.DTO.Lesson;
 using Backend.DTO.TeachingSchedule;
 using Backend.DTO.Test;
+using Backend.DTO.StudentAnswer;
 
 namespace Backend
 {
@@ -94,6 +95,7 @@ namespace Backend
             //Class 
             CreateMap<DB.Models.Class, DTO.Class.ClassDTO>();
             CreateMap<DTO.Class.ClassCreateDTO, DB.Models.Class>();
+            CreateMap<DTO.Class.ClassCreatePracticeDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();
 
             //ClassStudent
@@ -131,7 +133,9 @@ namespace Backend
             CreateMap<DTO.Question.QuestionDTO, DB.Models.Question>();
 
             //StudentAnswer
-            CreateMap<DB.Models.StudentAnswer, DTO.StudentAnswer.StudentAnswerDTO>();
+            CreateMap<StudentAnswer,StudentAnswerDTO>()
+                .ForMember(dto => dto.QuestionId, opt => opt.MapFrom(entity => entity.Question.QuestionId))
+                .ForMember(dto => dto.Image, opt => opt.MapFrom(entity => entity.Question.Image));
             CreateMap<DTO.StudentAnswer.StudentAnswerDTO, DB.Models.StudentAnswer>();
         }
     }

@@ -32,7 +32,8 @@ namespace Backend.Services.StudentAnswer
             var result = new ServiceResult<ICollection<StudentAnswerDTO>>();
             try
             {
-                var studentAnswers = _studentAnswerRepository.GetAll();
+                var studentAnswers = _studentAnswerRepository.GetAll().
+                    Include(x => x.Question);
 
                 if (!studentAnswers.Any())
                 {
@@ -58,6 +59,7 @@ namespace Backend.Services.StudentAnswer
             {
                 var studentAnswers = _studentAnswerRepository.GetAll().
                     Include(x => x.Test).
+                    Include(x => x.Question).
                     Where(x => x.Test.StudentId.Equals(studentID)).ToList();
 
                 if (!studentAnswers.Any())

@@ -10,5 +10,8 @@
 
         public byte? OptionId { get; set; }
 
+        //Question 
+        public string? Image { get; set; }
+
     }
 }
