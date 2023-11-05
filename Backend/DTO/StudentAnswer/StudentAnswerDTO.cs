@@ -10,6 +10,5 @@
 
         public byte? OptionId { get; set; }
 
-        public bool? IsCorrect { get; set; }
     }
 }
