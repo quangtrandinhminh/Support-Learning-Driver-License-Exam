@@ -1,9 +1,25 @@
-import React from 'react'
+// import React, { useEffect } from 'react'
 import './theory-test-content.scss'
-import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/esm/Button'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function TheoryTestContent() {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        toast.success('Chúc bạn làm bài tốt!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        });
+        navigate('bai-lam')
+        window.scroll({
+            top: 0,
+            behavior: 'instant'
+        });
+    }
 
     return (
         <div className='theory-test-container'>
@@ -24,22 +40,20 @@ function TheoryTestContent() {
                 <ul className='demand-list'>
                     <li>Số câu trả lời phải đúng từ 32/35 câu trở lên</li>
                     <li>Thời gian làm bài: 22 phút</li>
-                    <li className='important-element'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT (câu hỏi có <span className='tw-text-red-600'>*</span>)</li>
+                    <li className='important-element tw-text-red'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT</li>
                 </ul>
                 <h5 className='second-part'>
                     <strong>
                         <i>
-                            Lưu ý: Để có thể học các lớp học thực hành sau này, học viên cần vượt qua bài kiểm tra này.
+                            Lưu ý: Để có thể đăng ký và thamg ia lớp học thực hành sau này, học viên cần vượt qua bài kiểm tra này.
                             Những học viên có kết quả không đạt trong đợt kiểm tra lý thuyết này sẽ phải đợi lượt kiểm tra tiếp theo.
                         </i>
                     </strong>
                 </h5>
             </div>
             <div className="btn-test">
-                <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
-                <Link to='/kiem-tra'>
-                    <Button className='theory-test-btn btn-primary'>Bắt đầu làm bài</Button>
-                </Link>
+                <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
+                <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
             </div>
         </div>
     )

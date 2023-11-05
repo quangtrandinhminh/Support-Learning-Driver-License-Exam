@@ -8,10 +8,12 @@ function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
-    console.log(member);
 
     const handleScroll = () => {
-        window.scrollTo(0, 0);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     const navigate = useNavigate()
@@ -62,9 +64,9 @@ function MemberNav() {
                                     </Forward>
                                 </div>
                                 <div className='nav-items'>
-                                    <Forward to='/thi-thu' onClick={handleScroll}>
+                                    <Forward to='/kiem-tra' onClick={handleScroll}>
                                         <li>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
@@ -127,9 +129,9 @@ function MemberNav() {
                                     </Forward>
                                 </div>
                                 <div className='nav-items'>
-                                    <Forward to='/thi-thu' onClick={handleScroll}>
+                                    <Forward to='/kiem-tra' onClick={handleScroll}>
                                         <li>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>

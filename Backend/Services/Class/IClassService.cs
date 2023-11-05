@@ -8,8 +8,11 @@ namespace Backend.Services.Class
 
         ServiceResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId);
 
+        Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId);
+
         Task<ServiceResult<int>> CreateClass(ClassCreateDTO classCreateDto);
 
-        Task<ServiceResult<int>> CreateClassByMentor(ClassDTO classDto);
+        Task<ServiceResult<int>> CreateClassPracticeByMentor(
+            ICollection<ClassCreatePracticeDTO> classCreatePracticeDTOs);
     }
 }

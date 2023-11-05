@@ -1,6 +1,86 @@
+import React, { useState, useEffect } from 'react';
 import './teaching-schedule.scss';
 
 function TeachingSchedule() {
+    const [selectedYear, setSelectedYear] = useState(2023);
+    const [selectedWeek, setSelectedWeek] = useState(1);
+    const [dateOptions, setDateOptions] = useState([]);
+    const [weekStartDate, setWeekStartDate] = useState(null);
+    const [weekEndDate, setWeekEndDate] = useState(null);
+
+    const getStartDay = (year) => {
+        // Zeller's Congruence algorithm to calculate the start day of the year
+        if (year < 0) {
+            year += 1; // Adjust for the algorithm if year is BC
+        }
+        const q = 1;
+        const m = 13; // January (13) and February (14) are counted as months 13 and 14 of the previous year
+        const K = year % 100;
+        const J = Math.floor(year / 100);
+
+        const f = q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J;
+        const startDay = (f % 7 + 7) % 7;
+
+        return startDay; // 0 for Saturday, 1 for Sunday, 2 for Monday, etc.
+    };
+
+    const isLeapYear = (year) => {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    };
+
+    const generateDateOptions = () => {
+        const options = [];
+
+        for (let year = 2023; year <= 2025; year++) {
+            const isLeap = isLeapYear(year);
+            const startDay = getStartDay(year);
+            let startDate = new Date(year, 0, 1);
+            startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+
+            for (let week = 1; week <= 52; week++) {
+                const endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 6);
+
+                options.push({
+                    label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
+                    value: week,
+                });
+
+                startDate.setDate(startDate.getDate() + 7);
+            }
+        }
+
+        setDateOptions(options);
+    };
+
+    const formatDate = (date) => {
+        return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+    };
+
+    const handleYearChange = (year) => {
+        setSelectedYear(year);
+        setSelectedWeek(1);
+    };
+
+    useEffect(() => {
+        generateDateOptions();
+    }, []);
+
+    useEffect(() => {
+        const currentYear = selectedYear;
+        const isLeap = isLeapYear(currentYear);
+        const startDay = getStartDay(currentYear);
+        let startDate = new Date(currentYear, 0, 1);
+        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+        startDate.setDate(startDate.getDate() + (selectedWeek - 1) * 7);
+
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 6);
+
+        setWeekStartDate(startDate);
+        setWeekEndDate(endDate);
+    }, [selectedWeek, selectedYear]);
+
     return (
         <div className="teaching-schedule-container">
             <div>
@@ -15,10 +95,11 @@ function TeachingSchedule() {
                                     <span className="mini-title">
                                         <strong>Năm</strong>
                                     </span>
-                                    <select>
-                                        <option selected={true} value="2023">
-                                            2023
-                                        </option>
+                                    <select
+                                        value={selectedYear}
+                                        onChange={(e) => handleYearChange(parseInt(e.target.value))}
+                                    >
+                                        <option value="2023">2023</option>
                                         <option value="2024">2024</option>
                                         <option value="2025">2025</option>
                                     </select>
@@ -27,59 +108,15 @@ function TeachingSchedule() {
                                         <strong>Tuần</strong>
                                     </span>
                                     <br />
-                                    <select>
-                                        <option value="1">02/01 To 07/01</option>
-                                        <option value="2">09/01 To 14/01</option>
-                                        <option value="3">16/01 To 21/01</option>
-                                        <option value="4">23/01 To 28/01</option>
-                                        <option value="5">30/01 To 04/02</option>
-                                        <option value="6">06/02 To 11/02</option>
-                                        <option value="7">13/02 To 18/02</option>
-                                        <option value="8">20/02 To 25/02</option>
-                                        <option value="9">27/02 To 04/03</option>
-                                        <option value="10">06/03 To 11/03</option>
-                                        <option value="11">13/03 To 18/03</option>
-                                        <option value="12">20/03 To 27/03</option>
-                                        <option value="13">27/03 To 03/04</option>
-                                        <option value="14">03/04 To 08/04</option>
-                                        <option value="15">10/04 To 15/04</option>
-                                        <option value="16">17/04 To 22/04</option>
-                                        <option value="17">24/04 To 29/04</option>
-                                        <option value="18">01/05 To 06/05</option>
-                                        <option value="19">08/05 To 13/05</option>
-                                        <option value="20">15/05 To 20/05</option>
-                                        <option value="21">22/05 To 27/05</option>
-                                        <option value="22">29/05 To 03/06</option>
-                                        <option value="23">05/06 To 10/06</option>
-                                        <option value="24">12/06 To 17/06</option>
-                                        <option value="25">19/06 To 24/06</option>
-                                        <option value="26">26/06 To 01/07</option>
-                                        <option value="27">03/07 To 08/07</option>
-                                        <option value="28">10/07 To 15/07</option>
-                                        <option value="29">17/07 To 22/07</option>
-                                        <option value="30">24/07 To 29/07</option>
-                                        <option value="31">31/07 To 06/08</option>
-                                        <option value="32">07/08 To 13/08</option>
-                                        <option value="33">14/08 To 20/08</option>
-                                        <option value="34">21/08 To 27/08</option>
-                                        <option value="35">28/08 To 03/09</option>
-                                        <option value="36">04/09 To 10/09</option>
-                                        <option value="37">11/09 To 17/09</option>
-                                        <option value="38">18/09 To 24/09</option>
-                                        <option value="39">25/09 To 01/10</option>
-                                        <option value="40">02/10 To 08/10</option>
-                                        <option value="41">09/10 To 15/10</option>
-                                        <option value="42">16/10 To 22/10</option>
-                                        <option selected={true} value="43">23/10 To 28/10</option>
-                                        <option value="44">30/10 To 05/11</option>
-                                        <option value="45">06/11 To 12/11</option>
-                                        <option value="46">13/11 To 19/11</option>
-                                        <option value="47">20/11 To 26/11</option>
-                                        <option value="48">27/11 To 03/12</option>
-                                        <option value="49">04/12 To 10/12</option>
-                                        <option value="50">11/12 To 17/12</option>
-                                        <option value="51">18/12 To 24/12</option>
-                                        <option value="52">25/12 To 31/12</option>
+                                    <select
+                                        value={selectedWeek}
+                                        onChange={(e) => setSelectedWeek(parseInt(e.target.value))}
+                                    >
+                                        {dateOptions.map((option, index) => (
+                                            <option key={index} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
                                     </select>
                                 </th>
                                 <th align="center">Thứ hai</th>
@@ -87,82 +124,26 @@ function TeachingSchedule() {
                                 <th align="center">Thứ tư</th>
                                 <th align="center">Thứ năm</th>
                                 <th align="center">Thứ sáu</th>
+                                <th align="center">Thứ bảy</th>
+                                <th align="center">Chủ nhật</th>
                             </tr>
                             <tr>
-                                <th align="center">23/10</th>
-                                <th align="center">24/10</th>
-                                <th align="center">25/10</th>
-                                <th align="center">26/10</th>
-                                <th align="center">27/10</th>
+                                {weekStartDate && weekEndDate ? (
+                                    [...Array(7)].map((_, dayIndex) => {
+                                        const currentDate = new Date(weekStartDate);
+                                        currentDate.setDate(currentDate.getDate() + dayIndex);
+                                        return (
+                                            <th key={dayIndex} align="center">
+                                                {formatDate(currentDate)}
+                                            </th>
+                                        );
+                                    })
+                                ) : null}
                             </tr>
                         </thead>
-                        <tbody className='schedule-body-container'>
-                            <tr>
-                                <td>Ca sáng</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 1
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 3
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 5
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ca chiều</td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 2
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>
-                                    <p>
-                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
-                                        <br />
-                                        Buổi thứ 4
-                                        <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
-                                        <br />
-                                        Trạng thái: Đã dạy
-                                    </p>
-                                </td>
-                                <td>-</td>
-                            </tr>
+                        <tbody className="schedule-body">
+                            {/* Your table data here */}
+                            {/* Modify this part with your class schedule data */}
                         </tbody>
                     </table>
                 </form>

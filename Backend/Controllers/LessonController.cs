@@ -64,7 +64,7 @@ namespace Backend.Controllers
 
         [HttpPost("createPracticeLesson")]
         public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
-            var result = await _lessonService.CreatePracticeLesson(lessonCreateDto);
+            var result = await _lessonService.CreatePracticeLessons(lessonCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -87,7 +87,7 @@ namespace Backend.Controllers
         [HttpPost("createTheoryLesson")]
         public async Task<IActionResult> CreateTheoryLesson(LessonTheoryCreateDTO lessonCreateDto)
         {
-            var result = await _lessonService.CreateTheoryLesson(lessonCreateDto);
+            var result = await _lessonService.CreateTheoryLessons(lessonCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -121,6 +121,36 @@ namespace Backend.Controllers
             }
 
             return Ok(result.Payload);
+        }
+
+        [HttpGet("attendance/{classId}/{date}")]
+        public async Task<IActionResult> GetLessonsByClassIdAndDate(int classId, DateTime date)
+        {
+            var result = await _lessonService.GetLessonsByClassIdAndDate(classId, date);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        [HttpPatch("attendance")]
+        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons)
+        {
+            var result = await _lessonService.CheckAttendanceForStudents(lessons);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
     }
 }

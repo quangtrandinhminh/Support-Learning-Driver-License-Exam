@@ -5,11 +5,11 @@ function TheorySchedule() {
         <div className='theory-schedule-container'>
             <div className='title-container'>
                 <h1 className='theory-container-title'>Lịch học lý thuyết</h1>
-                <h2 className='theory-container-subtitle'>
+                <h4 className='theory-container-subtitle'>
                     Thời gian học lý thuyết từ ngày ... đến hết ngày ...
                     <br />
                     Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
-                </h2>
+                </h4>
             </div>
             <table>
                 <thead>
@@ -24,61 +24,51 @@ function TheorySchedule() {
                 <tbody>
                     <tr>
                         <td className='class-no-content'>1</td>
-                        <td className='class-time-content'>Ngày 16/09/2023
-                            <br />
-                            Thứ bảy</td>
+                        <td className='class-time-content'>Ngày 16/09/2023</td>
                         <td className='class-mentor-content'>Nguyễn Văn A</td>
                         <td className='class-content-content'>Hướng dẫn lý thuyết Luật GTĐB.
                             Hỗ trợ học viên cách điểm danh, quét Thẻ và phản hồi thông tin, thời gian</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td className='class-destination-content'>Trung tâm dạy lái xe B2 FDriving</td>
                     </tr>
                     <tr>
                         <td className='class-no-content'>2</td>
-                        <td className='class-time-content'>Ngày 17/09/2023
-                            <br />
-                            Chủ nhật</td>
+                        <td className='class-time-content'>Ngày 17/09/2023</td>
                         <td className='class-mentor-content'>Nguyễn Văn A</td>
                         <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Quy tắc chung Luật GTĐB,
                             Phần biển báo hiệu đường bộ. Ôn luyện</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td className='class-destination-content'>Trung tâm dạy lái xe B2 FDriving</td>
                     </tr>
                     <tr>
                         <td className='class-no-content'>3</td>
-                        <td className='class-time-content'>Ngày 18/09/2023
-                            <br />
-                            Thứ hai</td>
+                        <td className='class-time-content'>Ngày 18/09/2023</td>
                         <td className='class-mentor-content'>Nguyễn Văn A</td>
                         <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Nghiệp vụ vận tải,
                             Phần Đạo đức người lái xe. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td className='class-destination-content'>Trung tâm dạy lái xe B2 FDriving</td>
                     </tr>
                     <tr>
                         <td className='class-no-content'>4</td>
-                        <td className='class-time-content'>Ngày 19/09/2023
-                            <br />
-                            Thứ ba</td>
+                        <td className='class-time-content'>Ngày 19/09/2023</td>
                         <td className='class-mentor-content'>Nguyễn Văn A</td>
                         <td className='class-content-content'>Hướng dẫn học viên học lý thuyết
                             Phần Cấu tạo, sửa chữa thông thường. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td className='class-destination-content'>Trung tâm dạy lái xe B2 FDriving</td>
                     </tr>
                     <tr>
                         <td className='class-no-content'>5</td>
-                        <td className='class-time-content'>Ngày 20/09/2023
-                            <br />
-                            Thứ tư</td>
+                        <td className='class-time-content'>Ngày 20/09/2023</td>
                         <td className='class-mentor-content'>Nguyễn Văn A</td>
                         <td className='class-content-content'>Hướng dẫn học viên học lý thuyết Phần Cấu tạo,
                             sửa chữa thông thường. Ôn luyện P13</td>
-                        <td className='class-destination-content'>Địa điểm</td>
+                        <td className='class-destination-content'>Trung tâm dạy lái xe B2 FDriving</td>
                     </tr>
                 </tbody>
             </table>
-            <h2 className='theory-schedule-note'>
+            <h3 className='theory-schedule-note'>
                 Ghi chú: Học viên tham gia học và điểm danh đầy đủ theo quy định.
-                Học viên cần tham gia hơn 90% trong tổng số buổi lý thuyết để đủ điều kiện
-                tham gia cuộc thi sát hạch lái xe
-            </h2>
+                Học viên cần tham gia hơn 90% tổng số buổi học lý thuyết để đủ điều kiện
+                tham gia cuộc kiểm tra lý thuyết.
+            </h3>
         </div>
     )
 }

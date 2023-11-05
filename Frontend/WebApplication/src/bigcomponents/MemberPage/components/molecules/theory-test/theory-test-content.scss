@@ -39,9 +39,17 @@
     }
 
     .btn-test {
+        margin-top: 60px;
         text-align: center;
-        padding-top: 50px;
         display: grid;
+        justify-content: center;
         gap: 20px;
+        
+        button {
+            margin-left: auto;
+            margin-right: auto;
+            width: 140px;
+        }
     }
+
 }

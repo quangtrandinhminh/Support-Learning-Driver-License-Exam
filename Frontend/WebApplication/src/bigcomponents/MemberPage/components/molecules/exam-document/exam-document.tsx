@@ -16,7 +16,10 @@ function ExamDocument() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.scrollTo(0, 0);
+    window.scroll({
+      top: 0,
+      behavior: 'instant'
+    });
     navigate('/ho-so-thi/cap-nhat')
   }
 
@@ -170,7 +173,7 @@ function ExamDocument() {
                   <p>NGƯỜI LÀM ĐƠN</p>
                   <p>(Ký và ghi rõ họ, tên)</p>
                 </div>
-                <button className='update-btn' type='submit'>Cập nhật</button>
+                <button className='update-btn btn btn-primary' type='submit'>Cập nhật</button>
               </form>
             </div>
           ) : (

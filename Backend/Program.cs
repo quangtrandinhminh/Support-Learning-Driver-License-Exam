@@ -26,7 +26,11 @@ using Backend.Services.Staff;
 using Backend.Services.Student;
 using Backend.Services.Class;
 using Backend.Services.ClassStudent;
+using Backend.Services.Exam;
 using Backend.Services.Lesson;
+using Backend.Services.Test;
+using Backend.Services.Question;
+using Backend.Services.StudentAnswer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,13 +60,16 @@ builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 /*builder.Services.AddScoped<IFeedbackService, FeedbackService>();*/
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
-/*builder.Services.AddScoped<IExamService, ExamService>();*/
+builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
+builder.Services.AddScoped<ITestService, TestService>();
 /*builder.Services.AddScoped<ITestService, TestService>();*/
 builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 /*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-/*builder.Services.AddScoped<IQuestionService, QuestionService>();*/
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
+builder.Services.AddScoped<IStudentAnswerService, StudentAnswerService>();
 
 
 builder.Services.AddControllers();

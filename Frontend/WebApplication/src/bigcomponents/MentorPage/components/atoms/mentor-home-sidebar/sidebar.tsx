@@ -21,6 +21,7 @@ function MentorSidebar() {
     try {
       const response = await api.get('Mentor/user/' + user.userID);
       setMentor(response.data);
+      sessionStorage.setItem('loginedMentor', JSON.stringify(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +33,10 @@ function MentorSidebar() {
 
   const handleScroll = () => {
     {
-      window.scrollTo(0, 0);
+      window.scroll({
+        top: 0,
+        behavior: 'instant'
+      });
     }
   }
 

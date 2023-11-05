@@ -71,6 +71,21 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        [HttpGet("course/mentor")]
+        public async Task<ActionResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId)
+        {
+            var result = await _classService.GetAllClassesByMentorId(mentorId, courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpPost]
         [Route("add")]
         public async Task<ActionResult<int>> CreateClass(ClassCreateDTO classCreateDto)
@@ -84,14 +99,14 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Đã thêm lớp học");
+            return Ok("Đã thêm lịch học");
         }
 
         [HttpPost]
-        [Route("addByMentor")]
-        public async Task<ActionResult<int>> CreateClassByMentor(ClassDTO classDto)
+        [Route("addClassPracticeByMentor")]
+        public async Task<ActionResult<int>> CreateClassByMentor(ICollection<ClassCreatePracticeDTO> classCreatePracticeDTOs)
         {
-            var result = await _classService.CreateClassByMentor(classDto);
+            var result = await _classService.CreateClassPracticeByMentor(classCreatePracticeDTOs);
             if (result.IsError)
             {
                 return BadRequest(new

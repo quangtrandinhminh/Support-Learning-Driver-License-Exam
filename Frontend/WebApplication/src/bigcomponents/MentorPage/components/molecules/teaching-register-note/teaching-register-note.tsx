@@ -9,13 +9,14 @@ function TeachingRegisterNote() {
                 Ca sáng: từ 7h30 đến 11h30
                 <br />
                 Ca chiều: từ 13h30 đến 17h30
+                <br />
+                Ca tối: từ 18h đến 21h
             </p>
             <h3>Lưu ý: </h3>
             <p>
-                Giáo viên chọn ít nhất 2 ngày trong tuần để dạy
+                Giáo viên cần sắp xếp thời gian biểu bản thân phù hợp để có thể tham gia dạy các lớp đầy đủ
                 <br />
-                Giáo viên cần sắp xếp thời gian biểu bản thân phù hợp để 
-                có thể tham gia dạy các lớp đầy đủ
+                Ca tối là ca dạy bắt buộc. Giáo viên chỉ cần đăng kí ca sáng hoặc tối
             </p>
         </div>
     </div>

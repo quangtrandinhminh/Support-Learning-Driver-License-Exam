@@ -68,7 +68,10 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Add member successfully!");
+            return Ok(new {
+                message = "Add member successfully!",
+                data = result.Payload // Include the object in the response
+            });
         }
 
         [HttpPut("editIsPaid")]
