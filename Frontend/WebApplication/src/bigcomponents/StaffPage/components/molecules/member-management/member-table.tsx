@@ -89,6 +89,7 @@ function MemberTable() {
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
                 <th scope='col' style={{ width: '200px' }}>Email</th>
+                <th scope='col'>Khoá học đang học</th>
                 <th scope='col' className='text-center'>Trạng thái thanh toán</th>
                 <th scope='col' className='text-center'>Action</th>
               </tr>
@@ -101,6 +102,7 @@ function MemberTable() {
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>
                     <td>{member.email}</td>
+                    <td className='tw-text-center'>{member.courseId}</td>
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
                       <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaid(member.memberID)}>Update</button>

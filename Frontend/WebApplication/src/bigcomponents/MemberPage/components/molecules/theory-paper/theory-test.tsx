@@ -33,18 +33,21 @@ function TheoryTestPaper() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        navigate('/thi-thu/ket-qua')
-        toast.success('Nộp bài thành công!');
+        navigate('/kiem-tra/ket-qua')
+        toast.success('Nộp bài thành công!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        })
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        })
     }
 
     const handleStart = () => {
         if (!start) {
-            toast.info('Bắt đầu làm bài', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-            });
             setStart(true);
         }
     }

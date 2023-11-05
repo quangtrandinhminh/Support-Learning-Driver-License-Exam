@@ -8,7 +8,12 @@ function TheoryTestContent() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        toast.success('Chúc bạn làm bài tốt!');
+        toast.success('Chúc bạn làm bài tốt!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        });
         navigate('bai-lam')
         window.scroll({
             top: 0,

@@ -51,7 +51,7 @@ function News() {
                                     <img src={NewsImg} alt="news-img" />
                                     {newsItem ? (
                                         <>
-                                            <h2 className={`news-${i + 1}-title`}>{newsItem.title}</h2>
+                                            <a href='' className={`news-${i + 1}-title`}>{newsItem.title}</a>
                                             <h3 className={`news-${i + 1}-description`}>{newsItem.description}</h3>
                                             <p className={`news-${i + 1}-content`}>{truncateText(newsItem.content, 100)}</p>
                                             <div className='date-container'>

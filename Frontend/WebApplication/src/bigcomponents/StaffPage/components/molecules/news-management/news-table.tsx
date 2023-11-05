@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../../../../config/axios';
 import './news-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function NewsTable() {
     function truncateText(text, maxLength) {
@@ -13,7 +14,6 @@ function NewsTable() {
     }
 
     const [data, setData] = useState([]);
-    const [error, setError] = useState(null);
 
     const getAllNews = async () => {
         try {
@@ -60,10 +60,7 @@ function NewsTable() {
         try {
             // Perform the deletion
             await api.delete('News/deactivate/' + newsId);
-
-            setTimeout(() => {
-                location.reload();
-            }, 0.1);
+            toast.success("Xóa thành công!")
 
             await getAllNews();
 
