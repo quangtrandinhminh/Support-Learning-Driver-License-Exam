@@ -64,7 +64,7 @@ namespace Backend.Controllers
 
         [HttpPost("createPracticeLesson")]
         public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
-            var result = await _lessonService.CreatePracticeLesson(lessonCreateDto);
+            var result = await _lessonService.CreatePracticeLessons(lessonCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -87,7 +87,7 @@ namespace Backend.Controllers
         [HttpPost("createTheoryLesson")]
         public async Task<IActionResult> CreateTheoryLesson(LessonTheoryCreateDTO lessonCreateDto)
         {
-            var result = await _lessonService.CreateTheoryLesson(lessonCreateDto);
+            var result = await _lessonService.CreateTheoryLessons(lessonCreateDto);
             if (result.IsError)
             {
                 if (result.Payload == -1)
