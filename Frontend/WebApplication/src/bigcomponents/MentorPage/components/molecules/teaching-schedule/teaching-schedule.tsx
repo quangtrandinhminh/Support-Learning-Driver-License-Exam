@@ -82,74 +82,192 @@ function TeachingSchedule() {
     }, [selectedWeek, selectedYear]);
 
     return (
-        <div className="teaching-schedule-container">
-            <div>
-                <h1>Lịch dạy</h1>
-            </div>
-            <div className="teaching-schedule">
-                <form action="">
-                    <table className="schedule-table">
-                        <thead className="schedule-header-container">
-                            <tr>
-                                <th rowSpan={2} className='mini-title'>
-                                    <span className="mini-title">
-                                        <strong>Năm</strong>
-                                    </span>
-                                    <select
-                                        value={selectedYear}
-                                        onChange={(e) => handleYearChange(parseInt(e.target.value))}
-                                    >
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                    </select>
-                                    <br />
-                                    <span className="mini-title">
-                                        <strong>Tuần</strong>
-                                    </span>
-                                    <br />
-                                    <select
-                                        value={selectedWeek}
-                                        onChange={(e) => setSelectedWeek(parseInt(e.target.value))}
-                                    >
-                                        {dateOptions.map((option, index) => (
-                                            <option key={index} value={option.value}>
-                                                {option.label}
-                                            </option>
-                                        ))}
-                                    </select>
+        <>
+            <div className="teaching-schedule-container">
+                <div>
+                    <h1>Lịch dạy</h1>
+                </div>
+                <div className="teaching-schedule">
+                    <form action="">
+                        <table className="schedule-table">
+                            <thead className="schedule-header-container">
+                                <tr>
+                                    <th rowSpan={2} className='mini-title'>
+                                        <span className="mini-title">
+                                            <strong>Năm</strong>
+                                        </span>
+                                        <select
+                                            value={selectedYear}
+                                            onChange={(e) => handleYearChange(parseInt(e.target.value))}
+                                        >
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                        <br />
+                                        <span className="mini-title">
+                                            <strong>Tuần</strong>
+                                        </span>
+                                        <br />
+                                        <select
+                                            value={selectedWeek}
+                                            onChange={(e) => setSelectedWeek(parseInt(e.target.value))}
+                                        >
+                                            {dateOptions.map((option, index) => (
+                                                <option key={index} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
 
-                                </th>
-                                <th align="center">Thứ hai</th>
-                                <th align="center">Thứ ba</th>
-                                <th align="center">Thứ tư</th>
-                                <th align="center">Thứ năm</th>
-                                <th align="center">Thứ sáu</th>
-                                <th align="center">Thứ bảy</th>
-                                <th align="center">Chủ nhật</th>
-                            </tr>
-                            <tr>
-                                {weekStartDate && weekEndDate ? (
-                                    [...Array(7)].map((_, dayIndex) => {
-                                        const currentDate = new Date(weekStartDate);
-                                        currentDate.setDate(currentDate.getDate() + dayIndex);
-                                        return (
-                                            <th key={dayIndex} align="center">
-                                                {formatDate(currentDate)}
-                                            </th>
-                                        );
-                                    })
-                                ) : null}
-                            </tr>
-                        </thead>
-                        <tbody className="schedule-body">
-                            {/* Your table data here */}
-                            {/* Modify this part with your class schedule data */}
-                        </tbody>
-                    </table>
-                </form>
+                                    </th>
+                                    <th align="center">Thứ hai</th>
+                                    <th align="center">Thứ ba</th>
+                                    <th align="center">Thứ tư</th>
+                                    <th align="center">Thứ năm</th>
+                                    <th align="center">Thứ sáu</th>
+                                    <th align="center">Thứ bảy</th>
+                                    <th align="center">Chủ nhật</th>
+                                </tr>
+                                <tr>
+                                    {weekStartDate && weekEndDate ? (
+                                        [...Array(7)].map((_, dayIndex) => {
+                                            const currentDate = new Date(weekStartDate);
+                                            currentDate.setDate(currentDate.getDate() + dayIndex);
+                                            return (
+                                                <th key={dayIndex} align="center">
+                                                    {formatDate(currentDate)}
+                                                </th>
+                                            );
+                                        })
+                                    ) : null}
+                                </tr>
+                            </thead>
+                            <tbody className="schedule-body">
+                                <tr>
+                                    <td>Ca sáng</td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 1
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td>-</td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 3
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td>-</td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 5
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ca chiều</td>
+                                    <td>-</td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 2
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td>-</td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 4
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Ca tối</td>
+                                    <td><p>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                        <br />
+                                        Buổi thứ 1
+                                        <br />
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p></td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 2
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td><p>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                        <br />
+                                        Buổi thứ 3
+                                        <br />
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p></td>
+                                    <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 4
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                    <td><p>
+                                        <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                        <br />
+                                        Buổi thứ 5
+                                        <br />
+                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <br />
+                                        Trạng thái: Đã dạy
+                                    </p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
             </div>
-        </div>
+            </>
     );
 }
 
