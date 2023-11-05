@@ -1,6 +1,6 @@
 import MemberHeader from '../../organisms/member-header/member-header'
 import MemberFooter from '../../organisms/member-footer/member-footer'
-import TheoryTestPaper from '../../molecules/do-theory-test/theory-test'
+import TheoryTestPaper from '../../molecules/theory-paper/theory-test'
 
 function DoTheoryTestPage() {
     return (
