@@ -154,26 +154,22 @@ function TheoryTestPaper() {
                                             <h4 className='question-num'>Câu hỏi 1:</h4>
                                             <h6 className='question-notice'>Câu hỏi liệt</h6>
                                         </div>
-
-                                        <h5 className='question-content'>Người lái xe máy không được vượt xe khác khi gặp trường
-                                            hợp nào ghi ở dưới đây?
-                                        </h5>
+                                        <div className='tw-text-center img-container'>
+                                            <img src="https://i.ibb.co/Zfhkf17/600-cau-hoi386.jpg" alt="" />
+                                        </div>
                                     </div>
                                     <div className='answer-box'>
                                         <div className='answer'>
-                                            <input type='radio' name='answer-content' />
-                                            1- Trên cầu hẹp có một làn xe.
-                                            Nơi đường giao nhau, đường bộ giao nhau, cùng mức với đường sắt;
-                                            xe được quyền ưu tiên đang phát tín hiệu ưu tiên khi làm nhiệm vụ.
+                                            <input type='radio' name='answer-content' />1
                                         </div>
                                         <div className='answer'>
-                                            <input type='radio' name='answer-content' />
-                                            2 - Trên cầu có từ 02 làn xe trở lên; nơi có đường bộ giao nhau không cùng mức với đường sắt;
-                                            xe được quyền ưu tiên đang đi phía trước nhưng không phát tín hiệu ưu tiên.
+                                            <input type='radio' name='answer-content' />2
                                         </div>
                                         <div className='answer'>
-                                            <input type='radio' name='answer-content' />
-                                            3 - Trên đường có 2 làn đường được phân chia làn bằng vạch kẻ nét đứt
+                                            <input type='radio' name='answer-content' />3
+                                        </div>
+                                        <div className='answer'>
+                                            <input type='radio' name='answer-content' />4
                                         </div>
                                     </div>
                                     <div className='button-box'>
@@ -186,16 +182,6 @@ function TheoryTestPaper() {
                                     <div className='content-box'>
                                         <div className='question-title'>
                                             <h4 className='question-num'>Câu hỏi:</h4>
-                                        </div>
-
-                                        <h5 className='question-content'></h5>
-                                    </div>
-                                    <div className='answer-box'>
-                                        <div className='answer'>
-                                        </div>
-                                        <div className='answer'>
-                                        </div>
-                                        <div className='answer'>
                                         </div>
                                     </div>
                                 </>
