@@ -125,6 +125,14 @@ namespace Backend
                 .ForMember(dto => dto.ExamTime, opt => opt.MapFrom(entity => entity.Exam.ExamTime));
             CreateMap<DTO.Test.TestDTO, DB.Models.Test>();
             CreateMap<DTO.Test.TestCreateDTO, DB.Models.Test>();
+
+            //Question
+            CreateMap<DB.Models.Question, DTO.Question.QuestionDTO>();
+            CreateMap<DTO.Question.QuestionDTO, DB.Models.Question>();
+
+            //StudentAnswer
+            CreateMap<DB.Models.StudentAnswer, DTO.StudentAnswer.StudentAnswerDTO>();
+            CreateMap<DTO.StudentAnswer.StudentAnswerDTO, DB.Models.StudentAnswer>();
         }
     }
 }

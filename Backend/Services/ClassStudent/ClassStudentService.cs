@@ -34,8 +34,26 @@ namespace Backend.Services.ClassStudent
             var result = new ServiceResult<int>();
             try
             {
-                var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
-                await _classStudentRepository.CreateAsync(classStudent);
+                var classStudents = _classStudentRepository.GetAll().
+                    Where(p => p.StudentId == classStudentDTO.StudentId && p.ClassId == classStudentDTO.ClassId).
+                    FirstOrDefault();
+                if (classStudents is null) 
+                {
+                    var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
+                    await _classStudentRepository.CreateAsync(classStudent);
+                }
+                else if (classStudents.Class.IsTheoryClass == true) 
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Học viên này đã đăng ký lớp học lý thuyết!";
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Payload = -2;
+                    result.ErrorMessage = "Học viên này đã đăng ký lớp học thực hành";
+                }    
             }
             catch (Exception e)
             {
