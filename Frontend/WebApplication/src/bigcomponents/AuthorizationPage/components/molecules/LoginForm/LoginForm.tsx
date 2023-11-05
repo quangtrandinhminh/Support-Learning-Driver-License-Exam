@@ -73,7 +73,6 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     const user = sessionStorage.getItem("loginedUser") ? JSON.stringify(sessionStorage.getItem("loginedUser")) : null;
     if (user !== null) {
-      console.log("Hello");
       navigate('/');
     }
   })

@@ -71,7 +71,7 @@ function RegisterForm() {
         {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
         <form onSubmit={handleSubmit}>
           <div className="inputField">
-            <FontAwesomeIcon icon={faUser} className='icon' />
+            <FontAwesomeIcon icon={faUser} />
             <input
               type="text"
               id="username"
