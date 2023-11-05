@@ -70,9 +70,9 @@ function MemberNavHome() {
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Forward to='/thi-thu'>
+                                    <Forward to='/kiem-tra'>
                                         <li className='inline-block'>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
@@ -136,9 +136,9 @@ function MemberNavHome() {
                                     </Link>
                                 </div>
                                 <div className='nav-home-items'>
-                                    <Forward to='/thi-thu'>
+                                    <Forward to='/kiem-tra'>
                                         <li className='inline-block'>
-                                            <a href="">Thi thử</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>

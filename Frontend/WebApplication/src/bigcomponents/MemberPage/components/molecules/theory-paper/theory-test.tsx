@@ -3,12 +3,11 @@ import './theory-test.scss'
 import Countdown from "react-countdown";
 import { AiFillClockCircle } from 'react-icons/ai'
 import Button from 'react-bootstrap/esm/Button';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 function TheoryTestPaper() {
     const [start, setStart] = useState(false);
-    const [isStart, setIsStart] = useState(false);
     const navigate = useNavigate();
 
     // Random component
@@ -33,18 +32,21 @@ function TheoryTestPaper() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        navigate('/thi-thu/ket-qua')
-        toast.success('Nộp bài thành công!');
+        navigate('/kiem-tra/ket-qua')
+        toast.success('Nộp bài thành công!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        })
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        })
     }
 
     const handleStart = () => {
         if (!start) {
-            toast.info('Bắt đầu làm bài', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-            });
             setStart(true);
         }
     }
@@ -200,14 +202,14 @@ function TheoryTestPaper() {
                             )
                         }
                     </div>
+                    {
+                        start ? (
+                            <div className='submit-btn'>
+                                <Button className='submit-btn' type='submit' form="theory-paper-form">Nộp bài thi</Button>
+                            </div>
+                        ) : null
+                    }
                 </form>
-                {
-                    start ? (
-                        <div className='submit-btn'>
-                            <Button className='submit-btn' type='submit' form="theory-paper-form">Nộp bài</Button>
-                        </div>
-                    ) : null
-                }
             </div>
         </div>
     )

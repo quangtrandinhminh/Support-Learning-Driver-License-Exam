@@ -12,9 +12,9 @@ namespace Backend.Services.Lesson
         Task<ServiceResult<ICollection<LessonDTO>>> GetLessonsByStudentId(DateTime startDate, DateTime endDate,
             string studentId);
 
-        Task<ServiceResult<int>> CreatePracticeLesson(LessonCreateDTO lessonCreateDto);
+        Task<ServiceResult<int>> CreatePracticeLessons(LessonCreateDTO lessonCreateDto);
 
-        Task<ServiceResult<int>> CreateTheoryLesson(LessonTheoryCreateDTO lessonTheoryCreateDto);
+        Task<ServiceResult<int>> CreateTheoryLessons(LessonTheoryCreateDTO lessonTheoryCreateDto);
 
         Task<ServiceResult<ICollection<TeachingScheduleDTO>>> GetTeachingScheduleByMentorId(DateTime startDate
             , DateTime endDate, int mentorId, string courseId);

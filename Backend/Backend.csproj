@@ -35,7 +35,6 @@
 		<Folder Include="Services\StudentAnswer\" />
 		<Folder Include="Services\User\" />
 		<Folder Include="Services\Question\" />
-		<Folder Include="Services\Test\" />
 	</ItemGroup>
 
 </Project>

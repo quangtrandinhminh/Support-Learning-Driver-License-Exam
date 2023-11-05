@@ -1,15 +1,15 @@
-.theory-paper-container {
+.theory-result-container {
     padding-top: 50px;
 
-    .theory-paper-title {
-        .paper-title {
+    .theory-result-title {
+        .result-title {
             text-transform: uppercase;
             text-align: center;
             text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         }
     }
 
-    .theory-paper-box {
+    .theory-result-box {
         margin-top: 100px;
         width: 85%;
         margin-left: auto;
@@ -20,50 +20,37 @@
             position: relative;
             grid-template-columns: 1fr 2fr;
 
-            table {
+            .explanation-box {
                 width: 100%;
-                border: 0.1mm solid black;
                 height: auto;
+                border: 0.1mm solid black;
+                padding: 5px;
 
-                thead {
-                    .question-number-container {
-                        text-align: center;
+                ul {
+                    padding-left: 10px;
+                    margin: 0;
 
-                        .countdown-timer {
-                            display: flex;
-                            align-items: center;
-                            padding: 30px 0;
-                            vertical-align: middle;
-                            justify-content: center;
-                            line-height: inherit;
-                            text-align: center;
-                            gap: 5px;
-                            font-size: 24px;
+                    li {
+                        font-size: 16px;
+                        list-style: none;
+                        line-height: 200%;
+                    }
 
-                            .clock-icon {
-                                font-size: 36px;
-                                vertical-align: middle;
-                                color: #4292EB;
-                            }
-
-                            span {
-                                margin-left: 3px;
-                            }
-                        }
-
-                        .top-line {
-                            background-color: black;
-                            width: 100%;
-                            height: 0.1mm;
-                        }
+                    span {
+                        font-weight: 600;
                     }
                 }
+            }
+
+            table {
+                margin-top: 20px;
+                width: 100%;
+                border: 0.1mm solid black;
+                height: 50%;
 
                 tbody {
-                    height: inherit;
 
                     .questions-circle {
-                        height: inherit;
                         padding: 20px 20px;
 
                         ul {
@@ -85,7 +72,7 @@
                                 width: 40px;
                                 height: 40px;
                                 font-size: 16px;
-                                border: 1px solid black;
+                                border: 0.1mm solid black;
                                 border-radius: 50%;
                                 background: rgba(0, 162, 255, 0.1);
                             }
@@ -103,7 +90,6 @@
             padding: 10px;
 
             .content-box {
-
                 .question-title {
                     display: grid;
                     grid-template-columns: 2fr 1fr;
@@ -147,6 +133,13 @@
                         height: 15px;
                         margin-right: 5px;
                     }
+                }
+
+                .answer-explanation {
+                    padding: 10px 10px;
+                    height: calc(350px / 4);
+                    width: 100%;
+                    border: 1px solid black;
                 }
 
             }

@@ -49,5 +49,25 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }
+
+        [HttpGet("/api/{courseId}")]
+        public IActionResult GetStudentByCourseId(string courseId)
+        {
+            try
+            {
+                var students = _studentService.GetAllStudent().
+                    Where(p => p.CourseId.Equals(courseId));
+                if (students == null)
+                {
+                    return NotFound();
+                }
+                return Ok(students);
+            }
+            catch (Exception a)
+            {
+                Console.WriteLine(a);
+                throw;
+            }
+        }
     }
 }
