@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './teaching-schedule.scss';
+import api from '../../../../../config/axios';
 
 function TeachingSchedule() {
     const [selectedYear, setSelectedYear] = useState(2023);
@@ -7,6 +8,24 @@ function TeachingSchedule() {
     const [dateOptions, setDateOptions] = useState([]);
     const [weekStartDate, setWeekStartDate] = useState(null);
     const [weekEndDate, setWeekEndDate] = useState(null);
+    const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
+    const [mentorClass, setMentorClass] = useState(null);
+    const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
+
+
+    const getClassByMentorID = async () => {
+        try {
+            const response = await api.get(`Class/${mentor.mentorId}`);
+            setMentorClass(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getClassByMentorID();
+    }, []);
 
     const getStartDay = (year) => {
         // Zeller's Congruence algorithm to calculate the start day of the year
@@ -61,6 +80,22 @@ function TeachingSchedule() {
         setSelectedYear(year);
         setSelectedWeek(1);
     };
+
+    const fetchScheduleData = async (mentorId, selectedYear, selectedWeek) => {
+        try {
+            const response = await api.get(`Class/${mentorId}/${selectedYear}/${selectedWeek}`);
+            setScheduleData(response.data); // Update the state with the API response data
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch schedule data when selectedYear or selectedWeek changes
+        if (mentor && selectedYear && selectedWeek) {
+            fetchScheduleData(mentor.mentorId, selectedYear, selectedWeek);
+        }
+    }, [selectedYear, selectedWeek, mentor]);
 
     useEffect(() => {
         generateDateOptions();
@@ -144,9 +179,27 @@ function TeachingSchedule() {
                                 </tr>
                             </thead>
                             <tbody className="schedule-body">
-                                <tr>
-                                    <td>Ca sáng</td>
-                                    <td>
+                                {scheduleData.map((scheduleItem, index) => (
+                                    <tr key={index}>
+                                        <td>Ca sáng</td>
+                                        {scheduleItem.days.map((day, dayIndex) => (
+                                            <td key={dayIndex}>
+                                                {day ? (
+                                                    <p>
+                                                        <a href={`lich-day/chi-tiet-lich-day/${day.id}`}>{day.name}</a>
+                                                        <br />
+                                                        Buổi thứ {dayIndex + 1}
+                                                        <br />
+                                                        <a href={`lich-day/danh-sach-hoc-vien/${day.classId}`}>Lớp: {day.className}</a>
+                                                        <br />
+                                                        Trạng thái: {day.status}
+                                                    </p>
+                                                ) : (
+                                                    '-'
+                                                )}
+                                            </td>
+                                        ))}
+                                        {/* <td>
                                         <p>
                                             <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                             <br />
@@ -180,11 +233,11 @@ function TeachingSchedule() {
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
-                                    </td>
-                                </tr>
+                                    </td> */}
+                                    </tr>))}
                                 <tr>
                                     <td>Ca chiều</td>
-                                    <td>-</td>
+                                    {/* <td>-</td>
                                     <td>
                                         <p>
                                             <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
@@ -208,11 +261,11 @@ function TeachingSchedule() {
                                             Trạng thái: Đã dạy
                                         </p>
                                     </td>
-                                    <td>-</td>
+                                    <td>-</td> */}
                                 </tr>
                                 <tr>
                                     <td>Ca tối</td>
-                                    <td><p>
+                                    {/* <td><p>
                                         <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
                                         Buổi thứ 1
@@ -260,14 +313,36 @@ function TeachingSchedule() {
                                         <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
-                                    </p></td>
+                                    </p></td> */}
                                 </tr>
+                                {scheduleData.map((scheduleItem, index) => (
+                                    <tr key={index}>
+                                        <td>{scheduleItem.time}</td>
+                                        {scheduleItem.days.map((day, dayIndex) => (
+                                            <td key={dayIndex}>
+                                                {day ? (
+                                                    <p>
+                                                        <a href={`lich-day/chi-tiet-lich-day/${day.id}`}>{day.name}</a>
+                                                        <br />
+                                                        Buổi thứ {dayIndex + 1}
+                                                        <br />
+                                                        <a href={`lich-day/danh-sach-hoc-vien/${day.classId}`}>Lớp: {day.className}</a>
+                                                        <br />
+                                                        Trạng thái: {day.status}
+                                                    </p>
+                                                ) : (
+                                                    '-'
+                                                )}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </form>
                 </div>
             </div>
-            </>
+        </>
     );
 }
 
