@@ -1246,6 +1246,11 @@ DECLARE @title NVARCHAR(255);
 
 WHILE @classStudentID <= 10
 BEGIN
+	IF @classStudentID < 9
+        SET @attendance = 1;
+    ELSE
+        SET @attendance = 0;
+
     -- Retrieve the preferred day of week for the current student from the associated class
     SELECT @preferredDayOfWeek = DayOfWeek
     FROM Class
@@ -1271,7 +1276,14 @@ BEGIN
         -- Insert the lesson
         INSERT INTO [dbo].[Lesson] 
         ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-        VALUES (@classStudentID, @title, @date, N'Sân tập', 0, 0, 0, CASE WHEN @classStudentID < 9 THEN 1 ELSE 0 END);
+        VALUES (@classStudentID, @title, @date, N'', 0, CASE WHEN @attendance = 1 THEN 4 ELSE 0 END, 
+		CASE WHEN @attendance = 1 THEN 70 ELSE 0 END, @attendance);
+
+		IF @date BETWEEN '2024-01-15' AND '2024-01-28'
+		INSERT INTO [dbo].[Lesson] 
+        ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
+        VALUES (@classStudentID, @title, @date, N'', 0, CASE WHEN @attendance = 1 THEN 4 ELSE 0 END, 
+		CASE WHEN @attendance = 1 THEN 70 ELSE 0 END, @attendance);
 
         -- Calculate the next date for the same day of the week
         SET @date = DATEADD(DAY, 7, @date);
@@ -1281,42 +1293,31 @@ BEGIN
     SET @classStudentID = @classStudentID + 1;
 END
 
-/*WHILE @classStudentID <= 10
+-- Calculate the sum of kilometers and hours for each student
 BEGIN
-    -- Retrieve the preferred day of week for the current student
-    SELECT @preferredDayOfWeek = c.dayOfWeek
-    FROM ClassStudent cs inner join Class c ON cs.classID = c.classID
-    WHERE ClassStudentId = @classStudentID;
+WITH LessonTotals AS (
+    SELECT 
+        cs.studentID, 
+        SUM(l.kilometers) AS TotalKilometers, 
+        SUM(l.hours) AS TotalHours
+    FROM 
+        dbo.Lesson l
+        INNER JOIN dbo.ClassStudent cs ON l.classStudentID = cs.classStudentID
+    GROUP BY 
+        cs.studentID
+)
 
-    -- Calculate the next date that matches the preferred day of the week starting from '2023-11-21'
-    SET @date = (SELECT TOP 1 DATEADD(DAY, number, '2023-11-20') as NextDate
-                 FROM master..spt_values
-                 WHERE '2023-11-20' <= DATEADD(DAY, number, '2023-11-20')
-                   AND DATEPART(WEEKDAY, DATEADD(DAY, number, '2023-11-20')) = @preferredDayOfWeek
-                   AND TYPE = 'P' ORDER BY number);
-
-    WHILE @date <= '2023-11-25'
-    BEGIN
-        IF @classStudentID < 9
-            SET @attendance = 1;
-        ELSE
-            SET @attendance = 0;
-
-        INSERT INTO [dbo].[Lesson] 
-        ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
-        VALUES (@classStudentID, N'Thực hành sa hình', @date, N'Sân tập', 0, 0, 0, @attendance);
-
-        -- Get the next date that matches the preferred day of the week
-        SET @date = (SELECT TOP 1 DATEADD(DAY, number, @date) as NextDate
-                     FROM master..spt_values
-                     WHERE @date < DATEADD(DAY, number, @date)
-                       AND DATEPART(WEEKDAY, DATEADD(DAY, number, @date)) = @preferredDayOfWeek
-                       AND TYPE = 'P' ORDER BY number);
-    END
-
-    SET @classStudentID = @classStudentID + 1;
-END*/
-
+-- Update the Student table with the calculated totals
+UPDATE 
+    s
+SET 
+    s.totalKm = lt.TotalKilometers,
+    s.totalHour = lt.TotalHours,
+    s.pass = CASE WHEN lt.TotalKilometers >= 810 THEN 1 ELSE 0 END
+FROM 
+    dbo.Student s
+    INNER JOIN LessonTotals lt ON s.studentID = lt.studentID
+END
 
 /* Add data: question*/
 GO
