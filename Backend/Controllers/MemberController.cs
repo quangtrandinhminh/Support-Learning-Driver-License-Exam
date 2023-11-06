@@ -1,4 +1,5 @@
-﻿using Backend.DTO.Course;
+﻿using Backend.DB.Models;
+using Backend.DTO.Course;
 using Backend.DTO.Members;
 using Backend.Repository.UserRepository;
 using Backend.Services.Member;
@@ -31,10 +32,10 @@ namespace Backend.Controllers
             return Ok(members);
         }
 
-        [HttpPost("/api/Member")]
-        public async Task<IActionResult> GetMember(int userID)
+        [HttpGet("/api/Member")]
+        public async Task<IActionResult> GetMember(int memberId)
         {
-            var result = await _memberService.GetMemberById(userID);
+            var result = await _memberService.GetMemberById(memberId);
             if (result.IsError)
             {
                 return NotFound(
@@ -44,6 +45,19 @@ namespace Backend.Controllers
                     });
             }
 
+            return Ok(result.Payload);
+        }
+
+
+        [HttpGet("/api/Member/{userId}")]
+        public async Task<IActionResult> GetMemberByUserId(int userId) {
+            var result = await _memberService.GetMemberByUserId(userId);
+            if (result.IsError) {
+                return NotFound(
+                    new {
+                        error = result.ErrorMessage
+                    });
+            }
             return Ok(result.Payload);
         }
 

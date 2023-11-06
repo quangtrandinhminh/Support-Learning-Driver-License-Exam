@@ -7,10 +7,10 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function MemberInformationForm() {
-    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null
+    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null
     const userId = user.userID;
 
-    const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
 
@@ -32,16 +32,6 @@ function MemberInformationForm() {
         navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 
-    const getMemberById = async () => {
-        try {
-            const response = await api.post('Member?userID=' + userId);
-            const res = response.data;
-            setMember(res);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     const getCourseById = async () => {
         try {
             const response = await api.get('Course/' + member.courseId);
@@ -55,12 +45,8 @@ function MemberInformationForm() {
     }
 
     useEffect(() => {
-        getMemberById();
-    }, [])
-
-    useEffect(() => {
         getCourseById();
-    }, [member])
+    }, [])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
