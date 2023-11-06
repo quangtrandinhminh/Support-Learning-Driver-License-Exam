@@ -33,7 +33,7 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
           link="/"
         />
         <li className="list-header">
-          <p>Phân Quyền Đăng Nhập và tiện ích</p>
+          <p>Quản lý và cài đặt</p>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
