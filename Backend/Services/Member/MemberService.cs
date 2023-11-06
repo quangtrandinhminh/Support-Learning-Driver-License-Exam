@@ -161,12 +161,12 @@ namespace Backend.Services.Member
                 {
                     int i = 0;
                     var student = new DB.Models.Student();
-                    var students = _userRepository.GetAll().ToList();
+                    var students = _studentRepository.GetAll().ToList();
                     foreach (var studentt  in students) 
                     {
                         i++;
                     }
-                    string v;
+                    string v = null;
                     if (i < 10)
                     {
                         v = "0" + $"{i}";
