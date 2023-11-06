@@ -58,7 +58,7 @@ import MentorClassListPage from './bigcomponents/MentorPage/components/pages/men
 import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 
-import AdminPage from './bigcomponents/AdminPage/components/pages/adminPage'
+import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
 import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile";
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
