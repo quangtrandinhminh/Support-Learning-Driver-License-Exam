@@ -12,7 +12,7 @@ function VerificationForm() {
   const { courseName } = useParams();
   const courseID = localStorage.getItem('courseID') ? JSON.parse(localStorage.getItem('courseID')) : null;
   const [error, setError] = useState('');
-  
+
   const [inputData, setInputData] = useState({
     dob: '',
     gender: 'Nam',
@@ -72,7 +72,7 @@ function VerificationForm() {
         return;
       } else if (!cccdPattern.test(inputData.identityCardNumber)) {
         setError("Số CMND/CCCD không hợp lệ!");
-        return; 
+        return;
       } else if (inputData.cardProvidedLocation === '' || inputData.cardProvidedLocation === null) {
         setError("Địa chỉ cung cấp CMND/CCCD không hợp lệ!");
         return;
@@ -81,10 +81,9 @@ function VerificationForm() {
       const response = await api.post('/Member/add', inputData);
       setError('');
       setMember(response.data);
-      sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
-      navigate('/khoa-hoc-cua-ban');
+      // navigate('/khoa-hoc-cua-ban');
       window.scroll({
         top: 0,
         behavior: 'instant'
@@ -105,6 +104,19 @@ function VerificationForm() {
     });
     createMember();
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/Member?userID=${userId}`);
+        console.log(response.data);
+        sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
+      } catch (error) {
+        // Handle any errors that occur during the API request
+      }
+    }
+    fetchData();
+  }, [member, userId]);
 
   //useEffect
   useEffect(() => {

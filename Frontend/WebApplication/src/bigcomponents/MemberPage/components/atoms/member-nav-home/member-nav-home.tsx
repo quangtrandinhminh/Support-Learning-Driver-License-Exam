@@ -6,23 +6,38 @@ import './member-nav-home.scss'
 import api from '../../../../../config/axios';
 import { useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { easeOut } from 'framer-motion';
 
 function MemberNavHome() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+    console.log(member);
 
     const navigate = useNavigate()
 
     const handleScroll = () => {
         {
-            window.scroll( {
-            top: 0,
-            behavior: 'instant'
-        });
+            window.scroll({
+                top: 0,
+                behavior: 'instant'
+            });
         }
     }
+
+    const getMemberByID = async () => {
+        try {
+            const res = await api.get(`Member/${user.userID}`);
+            sessionStorage.setItem('loginedMember', JSON.stringify(res.data));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        if (user != null) {
+            getMemberByID();
+        }
+    }, [])
 
     const handleClickNotMember = () => {
         toast.info("Bạn cần đăng ký khoá học để sử dụng chức năng");

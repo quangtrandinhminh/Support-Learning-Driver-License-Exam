@@ -43,19 +43,19 @@ namespace Backend.Services.Member
             }
         }
 
-        public async Task<ServiceResult<MemberDTO>> GetMemberById(int userID)
+        public async Task<ServiceResult<MemberDTO>> GetMemberById(int memberId)
         {
             var result = new ServiceResult<MemberDTO>();
             try
             {
-                var member = _memberRepository.GetAll().
-                    Include(c => c.User).ToList()
-                    .FirstOrDefault(p => p.UserId == userID);
+                var member = await _memberRepository.GetAll().
+                    Include(c => c.User).
+                    FirstOrDefaultAsync(p => p.MemberId == memberId);
 
                 if (member is null)
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "User is not exist";
+                    result.ErrorMessage = "Member is not exist";
                     return result;
                 }
 
@@ -63,13 +63,35 @@ namespace Backend.Services.Member
             }
             catch (Exception e)
             {
-                result.IsError = false;
+                result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
             return result;
         }
 
-        public int checkValidation(MemberCreateDTO memberCreateDTO)
+        public async Task<ServiceResult<MemberDTO>> GetMemberByUserId(int userID)
+        {
+            var result = new ServiceResult<MemberDTO>();
+            try {
+                var member = _memberRepository.GetAll().
+                    Include(c => c.User).ToList()
+                    .FirstOrDefault(p => p.UserId == userID);
+                
+                if (member is null) {
+                    result.IsError = true;
+                    result.ErrorMessage = "User is not exist";
+                    return result;
+                }
+                result.Payload = _mapper.Map<MemberDTO>(member);
+            } catch (Exception e) {
+                result.IsError = false;
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+            public int checkValidation(MemberCreateDTO memberCreateDTO)
         {
             int e = 0;
             var members = _memberRepository.GetAll().ToList();

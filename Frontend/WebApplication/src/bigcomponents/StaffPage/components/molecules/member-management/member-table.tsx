@@ -14,19 +14,20 @@ function MemberTable() {
     setMember(res);
   }
 
-  const getAllUser = async () => {
-    const response = await api.get('/Users');
-    const res = response.data;
-    setUser(res);
-  }
-
-  const updateMemberIsPaid = async (memberId) => {
+  const updateMemberIsPaidAndFetchData = async (memberId) => {
     try {
+      console.log(memberId);
+      // Update the payment status
       await api.put('Member/editIsPaid?memberId=' + memberId);
       setUpdateSuccess(true);
+
+      // Fetch member data
+      const fetchResponse = await api.get(`Member?memberId=${memberId}`);
+      console.log(fetchResponse.data);
+      sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
+
       const notificationMessage = "Cập nhật thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
-      location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -44,10 +45,6 @@ function MemberTable() {
   useEffect(() => {
     getAllMembers();
   }, [])
-
-  useEffect(() => {
-    getAllUser();
-  }, [member]);
 
   useEffect(() => {
     const storedNotificationMessage = localStorage.getItem("notificationMessage");
@@ -98,14 +95,14 @@ function MemberTable() {
               {records.length > 0 ? (
                 records.map((member, i: number = 1) => (
                   <tr key={i}>
-                    <td>{member.userId}</td>
+                    <td>{member.memberID}</td>
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>
                     <td>{member.email}</td>
                     <td className='tw-text-center'>{member.courseId}</td>
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaid(member.memberID)}>Update</button>
+                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaidAndFetchData(member.memberID)}>Update</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
                     </td>
                   </tr>

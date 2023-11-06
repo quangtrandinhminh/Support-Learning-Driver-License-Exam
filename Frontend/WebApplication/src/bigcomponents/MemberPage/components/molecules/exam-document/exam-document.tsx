@@ -5,9 +5,8 @@ import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function ExamDocument() {
-  const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
 
-  const [member, setMember] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [integratedDrivingLicense, setIntegratedDrivingLicense] = useState(null);
   const [revokedDrivingLicense, setRevokedDrivingLicense] = useState(null);
@@ -23,23 +22,6 @@ function ExamDocument() {
     navigate('/ho-so-thi/cap-nhat')
   }
 
-  const getMemberById = async () => {
-    try {
-      const response = await api.post('Member?userID=' + user.userID);
-      const res = response.data;
-      setMember(res);
-      setIntegratedDrivingLicense(res.integratedDrivingLicense);
-      setRevokedDrivingLicense(res.revokedDrivingLicense);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getMemberById();
-  }, [])
-
   const formatDate = (dbDate) => {
     const date = new Date(dbDate);
     const day = date.getDate().toString().padStart(2, '0');
@@ -47,6 +29,12 @@ function ExamDocument() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+  useEffect(() => {
+    if (member != null) {
+      setIsLoading(false);
+    }
+  }, [])
 
   return (
     <div className='exam-document-container'>
