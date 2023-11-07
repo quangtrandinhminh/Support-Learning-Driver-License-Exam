@@ -25,9 +25,9 @@ function MemberTable() {
       const fetchResponse = await api.get(`Member?memberId=${memberId}`);
       console.log(fetchResponse.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
-
       const notificationMessage = "Cập nhật thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
+      location.reload();
     } catch (err) {
       console.log(err);
     }

@@ -201,9 +201,9 @@ function CourseTable() {
                                                     </td>
                                                     <td className='course-register'>
                                                         <Link to={`/khoahoc/xac-nhan-khoa-hoc/${course.name}`}>
-                                                            <button className='btnRegister' onClick={
-                                                                e => localStorage.setItem('courseID', JSON.stringify(course.courseId))
-                                                            }>Đăng ký</button>
+                                                            <button className='btnRegister' onClick={() => localStorage.setItem('courseID', JSON.stringify(course.courseId))}>
+                                                                Đăng ký
+                                                            </button>
                                                         </Link>
                                                     </td>
                                                 </tr>
