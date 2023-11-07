@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../../../AuthorizationPage/assets/images/logo.png";
@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,13 +24,13 @@ const LoginForm: React.FC = () => {
       const response = await api.post("login?username=" + username + "&password=" + password);
       if (response.status === 200) {
         const data = response.data;
-        setUser(data.payload);
         if (data.errorMessage === "User is not exist") {
           toast.error("Tên đăng nhập không có trong hệ thống. Vui lòng kiểm tra lại!");
         } else {
           if (data.errorMessage !== "Password is not correct") {
-            toast.success("Đăng nhập thành công");
-            setTimeout(handleLoginSuccess, 1000);
+            sessionStorage.setItem('loginedUser', JSON.stringify(data.payload));
+            localStorage.setItem('loginSuccessNotify', 'Đăng nhập thành công!');
+            location.reload();
           } else {
             toast.error("Mật khẩu không đúng. Vui lòng nhập lại!");
           }
@@ -39,17 +38,6 @@ const LoginForm: React.FC = () => {
       } else {
         console.log("Xảy ra lỗi khi nhận dữ liệu");
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleLoginSuccess = async () => {
-    try {
-      const res = await api.get('Member/  ' + user.userID);
-      sessionStorage.setItem('loginedUser', JSON.stringify(user));
-      sessionStorage.setItem('loginedMember', JSON.stringify(res.data));
-      location.reload();
     } catch (error) {
       console.log(error);
     }

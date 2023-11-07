@@ -4,14 +4,13 @@ import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 import './member-nav-home.scss'
 import api from '../../../../../config/axios';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
 function MemberNavHome() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
-    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
-    console.log(member);
+    const [member, setMember] = useState(null);
 
     const navigate = useNavigate()
 
@@ -27,6 +26,7 @@ function MemberNavHome() {
     const getMemberByID = async () => {
         try {
             const res = await api.get(`Member/${user.userID}`);
+            setMember(res.data);
             sessionStorage.setItem('loginedMember', JSON.stringify(res.data));
         } catch (err) {
             console.log(err);
@@ -36,6 +36,14 @@ function MemberNavHome() {
     useEffect(() => {
         if (user != null) {
             getMemberByID();
+        }
+    }, [])
+
+    useEffect(() => {
+        const notify = localStorage.getItem('loginSuccessNotify');
+        if (notify != null) {
+            toast.success(notify);
+            localStorage.removeItem('loginSuccessNotify');
         }
     }, [])
 

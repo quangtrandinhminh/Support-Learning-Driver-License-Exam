@@ -81,9 +81,10 @@ function VerificationForm() {
       const response = await api.post('/Member/add', inputData);
       setError('');
       setMember(response.data);
+      sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
-      // navigate('/khoa-hoc-cua-ban');
+      navigate('/khoa-hoc-cua-ban');
       window.scroll({
         top: 0,
         behavior: 'instant'

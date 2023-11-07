@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './registered-course.scss';
 import api from '../../../../../config/axios';
@@ -16,71 +16,63 @@ function RegisteredCourse() {
     const getMemberByUID = async () => {
         try {
             const response = await api.get('Member/' + user.userID);
+            setMember(response.data);
+            
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getCourseById = async () => {
+        try {
+            const response = await api.get('Course/' + member.courseId);
             const res = response.data;
-            setMember(res);
+            setCourse(res);
             setIsLoading(false);
         } catch (err) {
             console.error(err);
         }
     }
 
-    // const getCourseById = async () => {
-    //     try {
-    //         const response = await api.get('Course/' + member.courseId);
-    //         const res = response.data;
-    //         setCourse(res);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            console.log(res);
+            setStudent(res);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
-    // const getStudentById = async () => {
-    //     try {
-    //         const response = await api.get('Student/' + member.memberID);
-    //         const res = response.data;
-    //         console.log(res);
-    //         setStudent(res);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
-
-    // const getTheoryTestStatus = async () => {
-    //     try {
-    //         const response = await api.get('TestByStudentId?studentId=' + student.studentId);
-    //         console.log(response.data);
-    //         setTheoryStatus(response.data);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         setIsLoading(true);
-    //         try {
-    //             await getCourseById();
-    //             await getStudentById();
-    //         } catch (err) {
-    //             console.error(err);
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
+    const getTheoryTestStatus = async () => {
+        try {
+            const response = await api.get('TestByStudentId?studentId=' + student.studentId);
+            console.log(response.data);
+            setTheoryStatus(response.data);
+        } catch (err) {
+            console.error(err.response.data.error);
+        }
+    }
 
     useEffect(() => {
         getMemberByUID();
     }, [])
 
-    // useEffect(() => {
-    //     if (student && student.studentId) {
-    //         getTheoryTestStatus();
-    //         console.log(member);
-    //     }
-    // }, [student]);
+    useEffect(() => {
+        getCourseById();
+    }, [member]);
+
+    useEffect(() => {
+        getStudentById();
+    }, [member]);
+
+    useEffect(() => {
+        if (student && student.studentId) {
+            getTheoryTestStatus();
+            console.log(member);
+        }
+    }, [student]);
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);

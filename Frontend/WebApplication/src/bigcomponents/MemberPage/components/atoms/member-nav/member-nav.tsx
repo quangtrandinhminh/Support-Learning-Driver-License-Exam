@@ -7,10 +7,11 @@ import { toast } from 'react-toastify';
 function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
+    
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
 
     const handleScroll = () => {
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
