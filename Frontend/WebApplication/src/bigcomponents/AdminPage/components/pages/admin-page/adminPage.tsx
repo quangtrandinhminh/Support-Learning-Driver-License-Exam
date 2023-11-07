@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./adminPage.scss";
 import Header from "../../organisms/Header/Header";
-import Slidebar from "../../organisms/SideBar/Sidebar";
+import Sidebar from "../../organisms/SideBar/Sidebar";
 import Home from "../../templates/Home-templates/Home";
 
 function AdminPage() {
@@ -15,7 +15,7 @@ function AdminPage() {
     <div className="AdminPage-contain">
       <div className="grid-container">
         <Header OpenSidebar={OpenSidebar} />
-        <Slidebar
+        <Sidebar 
           openSidebarToggle={openSidebarToggle}
           OpenSidebar={OpenSidebar}
         />
