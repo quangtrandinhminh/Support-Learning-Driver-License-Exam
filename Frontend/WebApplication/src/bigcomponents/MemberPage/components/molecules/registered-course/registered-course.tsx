@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './registered-course.scss';
 import api from '../../../../../config/axios';
@@ -17,7 +17,7 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Member/' + user.userID);
             setMember(response.data);
-            
+
         } catch (err) {
             console.error(err);
         }
@@ -38,7 +38,6 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Student/' + member.memberID);
             const res = response.data;
-            console.log(res);
             setStudent(res);
         } catch (err) {
             console.error(err);
@@ -64,15 +63,11 @@ function RegisteredCourse() {
     }, [member]);
 
     useEffect(() => {
-        getStudentById();
-    }, [member]);
-
-    useEffect(() => {
         if (student && student.studentId) {
             getTheoryTestStatus();
             console.log(member);
         }
-    }, [student]);
+    }, []);
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
