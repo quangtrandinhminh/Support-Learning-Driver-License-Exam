@@ -32,12 +32,6 @@ function MemberNav() {
         handleScroll();
     }
 
-    const onClickIsPass = (e) => {
-        e.preventDefault();
-        toast.info("Bạn cần học hết khoá học lý thuyết");
-    }
-
-
     return (
         <>
             {
@@ -72,7 +66,7 @@ function MemberNav() {
                                     </Forward>
                                 </div>
                                 <div onClick={handleScroll} className='nav-items'>
-                                    <Forward to='kiem-tra'>
+                                    <Forward to='/kiem-tra'>
                                         <li>
                                             <a href="">Kiểm tra</a>
                                         </li>

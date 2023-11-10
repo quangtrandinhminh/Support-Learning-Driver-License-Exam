@@ -79,11 +79,6 @@ function MemberNavHome() {
         handleScroll();
     }
 
-    const onClickIsPass = (e) => {
-        e.preventDefault();
-        toast.info("Bạn cần học hết khoá học lý thuyết");
-    }
-
     return (
         <>
             {
@@ -120,7 +115,7 @@ function MemberNavHome() {
                                 <div className='nav-home-items'>
                                     <Forward to='/kiem-tra'>
                                         <li className='inline-block'>
-                                            <a >Kiểm tra</a>
+                                            <a href="">Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
