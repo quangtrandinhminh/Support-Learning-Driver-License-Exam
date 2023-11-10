@@ -3,11 +3,12 @@ import { Link as Forward, useNavigate } from 'react-router-dom'
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import api from '../../../../../config/axios';
 
 function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
-    
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
 
     const handleScroll = () => {
@@ -30,6 +31,12 @@ function MemberNav() {
         location.reload();
         handleScroll();
     }
+
+    const onClickIsPass = (e) => {
+        e.preventDefault();
+        toast.info("Bạn cần học hết khoá học lý thuyết");
+    }
+
 
     return (
         <>
@@ -64,8 +71,8 @@ function MemberNav() {
                                         </li>
                                     </Forward>
                                 </div>
-                                <div className='nav-items'>
-                                    <Forward to='/kiem-tra' onClick={handleScroll}>
+                                <div onClick={handleScroll} className='nav-items'>
+                                    <Forward to='kiem-tra'>
                                         <li>
                                             <a href="">Kiểm tra</a>
                                         </li>
@@ -129,8 +136,8 @@ function MemberNav() {
                                         </li>
                                     </Forward>
                                 </div>
-                                <div className='nav-items'>
-                                    <Forward to='/kiem-tra' onClick={handleScroll}>
+                                <div onClick={handleScroll} className='nav-items'>
+                                    <Forward to='kiem-tra'>
                                         <li>
                                             <a href="">Kiểm tra</a>
                                         </li>

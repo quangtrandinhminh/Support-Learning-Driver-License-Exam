@@ -11,6 +11,8 @@ function MemberNavHome() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
     const [member, setMember] = useState(null);
+    const [student, setStudent] = useState(null);
+    const [isPass, setIsPass] = useState(false);
 
     const navigate = useNavigate()
 
@@ -33,6 +35,20 @@ function MemberNavHome() {
         }
     }
 
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+            console.log(res.pass);
+            if (res.pass !== null && res.pass === true) {
+                setIsPass(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         if (user != null) {
             getMemberByID();
@@ -47,6 +63,10 @@ function MemberNavHome() {
         }
     }, [])
 
+    useEffect(() => {
+        getStudentById();
+    }, [member])
+
     const handleClickNotMember = () => {
         toast.info("Bạn cần đăng ký khoá học để sử dụng chức năng");
     }
@@ -57,6 +77,11 @@ function MemberNavHome() {
         navigate('/');
         location.reload();
         handleScroll();
+    }
+
+    const onClickIsPass = (e) => {
+        e.preventDefault();
+        toast.info("Bạn cần học hết khoá học lý thuyết");
     }
 
     return (
@@ -95,7 +120,7 @@ function MemberNavHome() {
                                 <div className='nav-home-items'>
                                     <Forward to='/kiem-tra'>
                                         <li className='inline-block'>
-                                            <a href="">Kiểm tra</a>
+                                            <a >Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
@@ -161,7 +186,7 @@ function MemberNavHome() {
                                 <div className='nav-home-items'>
                                     <Forward to='/kiem-tra'>
                                         <li className='inline-block'>
-                                            <a href="">Kiểm tra</a>
+                                            <a >Kiểm tra</a>
                                         </li>
                                     </Forward>
                                 </div>
