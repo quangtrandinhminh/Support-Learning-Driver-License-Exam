@@ -55,6 +55,10 @@ function RegisteredCourse() {
     }
 
     useEffect(() => {
+        getStudentById();
+    }, [course])
+
+    useEffect(() => {
         getMemberByUID();
     }, [])
 
@@ -67,7 +71,7 @@ function RegisteredCourse() {
             getTheoryTestStatus();
             console.log(member);
         }
-    }, []);
+    }, [student]);
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);

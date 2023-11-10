@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './theory-test.scss';
 import Countdown from "react-countdown";
 import { AiFillClockCircle } from 'react-icons/ai';
@@ -15,10 +15,11 @@ function TheoryTestPaper() {
     const [student, setStudent] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answer, setAnswer] = useState(new Array(35).fill(0));
+    const [targetTime, setTargetTime] = useState(0);
     const navigate = useNavigate();
 
     // Random component
-    const Completionist = () => <span>You are good to go!</span>;
+    const Completionist = () => <span className='tw-text-uppercase '></span>;
 
     // Renderer callback with condition
     const renderer = ({ minutes, seconds, completed }) => {
@@ -60,6 +61,7 @@ function TheoryTestPaper() {
             top: 0,
             behavior: "instant"
         })
+        console.log(answer);
     }
 
     const handleStart = () => {
@@ -101,21 +103,16 @@ function TheoryTestPaper() {
         };
     }, []);
 
-    // useEffect(() => {
-    //     if (!start) {
-    //         renderer()
-    //     }
-    // }, [start])
-
-    const targetTime = new Date();
-    targetTime.setMinutes(targetTime.getMinutes() + 20);
+    useEffect(() => {
+        let minutes = new Date();
+        setTargetTime(minutes.setMinutes(minutes.getMinutes() + 20));
+    }, [start]);
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
         } else {
             setCurrentQuestionIndex(34);
-
         }
     };
 
@@ -156,7 +153,7 @@ function TheoryTestPaper() {
                                     {
                                         start ? (
                                             <>
-                                                <AiFillClockCircle className='clock-icon' /> Thời gian còn lại:<Countdown date={targetTime} renderer={renderer} />
+                                                <AiFillClockCircle className='clock-icon' /> Thời gian còn lại: <Countdown date={targetTime} renderer={renderer} />
                                             </>
                                         ) : (
                                             <>
