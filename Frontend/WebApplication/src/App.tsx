@@ -102,7 +102,7 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Route path='dang-nhap' element={<LoginPage />} />
+                  <Route path='/dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
                     <>
                     <Route index element={<AdminPage />} />

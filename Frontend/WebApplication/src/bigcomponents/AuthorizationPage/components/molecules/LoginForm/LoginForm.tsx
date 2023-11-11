@@ -53,6 +53,7 @@ const LoginForm: React.FC = () => {
     if (user !== null) {
       navigate('/');
     }
+    console.log(user);
   }, [user]);
 
   return (
