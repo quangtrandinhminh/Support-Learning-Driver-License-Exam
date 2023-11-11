@@ -67,6 +67,13 @@ function MentorSidebar() {
             </li>
             <li className='sidebar-component'>
               <div className="mentor-list">
+                <NavLink style={styleSidebarCom} to='/danh-sach-lop-hoc'>
+                  Danh sách lớp học
+                </NavLink>
+              </div>
+            </li>
+            <li className='sidebar-component'>
+              <div className="mentor-list">
                 <NavLink style={styleSidebarCom} to='/lich-day'>
                   Lịch dạy
                 </NavLink>
