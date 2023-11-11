@@ -135,7 +135,10 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
-                        <Route path='danh-sach-lop-hoc' element={<MentorClassListPage />} />
+                        <Route path='danh-sach-lop-hoc'>
+                          <Route index element={<MentorClassListPage />} />
+                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
+                        </Route>
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
