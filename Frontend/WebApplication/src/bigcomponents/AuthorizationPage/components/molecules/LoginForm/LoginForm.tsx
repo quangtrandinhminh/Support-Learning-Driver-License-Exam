@@ -30,9 +30,6 @@ const LoginForm: React.FC = () => {
           if (data.errorMessage !== "Password is not correct") {
             sessionStorage.setItem('loginedUser', JSON.stringify(data.payload));
             localStorage.setItem('loginSuccessNotify', 'Đăng nhập thành công!');
-            setTimeout(() => {
-              navigate('/');
-            }, 100);
             location.reload();
           } else {
             toast.error("Mật khẩu không đúng. Vui lòng nhập lại!");
