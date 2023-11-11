@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './theory-test.scss';
 import Countdown from "react-countdown";
 import { AiFillClockCircle } from 'react-icons/ai';

@@ -1,4 +1,3 @@
-import React from 'react'
 import MentorTable from '../../molecules/mentor-management/mentor-table'
 
 function MentorMamagementTemplate() {

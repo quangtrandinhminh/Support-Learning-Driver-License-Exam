@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './users-table.scss'
 import api from '../../../../../config/axios';
 

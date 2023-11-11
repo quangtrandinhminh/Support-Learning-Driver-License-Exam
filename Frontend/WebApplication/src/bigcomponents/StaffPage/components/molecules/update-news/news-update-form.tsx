@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './news-update-form.scss';
 import api from '../../../../../config/axios';
 import { useNavigate, useParams } from 'react-router-dom';
