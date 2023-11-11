@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 function UpdateCourseForm() {
     const { courseId } = useParams();
     const [error, setError] = useState(null);
-    const [course, setCourse] = useState(null);
     const [inputData, setInputData] = useState({
         courseId: '',
         name: '',

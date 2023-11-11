@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './mentor-table.scss'
 import api from '../../../../../config/axios';
 
@@ -23,7 +23,6 @@ function MemberTable() {
     const records = mentor.slice(firsIndex, lastIndex);
     const npage = Math.ceil(mentor.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1)
-    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllMentors();

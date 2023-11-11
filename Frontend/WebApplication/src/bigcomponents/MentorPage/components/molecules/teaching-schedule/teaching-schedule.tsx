@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './teaching-schedule.scss';
 import api from '../../../../../config/axios';
 
@@ -9,7 +9,7 @@ function TeachingSchedule() {
     const [weekStartDate, setWeekStartDate] = useState(null);
     const [weekEndDate, setWeekEndDate] = useState(null);
     const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
-    const [mentorClass, setMentorClass] = useState(null);
+    const [_, setMentorClass] = useState(null);
     const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
 
 
@@ -49,24 +49,23 @@ function TeachingSchedule() {
 
     const generateDateOptions = () => {
         const options = [];
+        const currentYear = selectedYear; // Use the selected year
 
-        for (let year = 2023; year <= 2025; year++) {
-            const isLeap = isLeapYear(year);
-            const startDay = getStartDay(year);
-            let startDate = new Date(year, 0, 1);
-            startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+        const isLeap = isLeapYear(currentYear);
+        const startDay = getStartDay(currentYear);
+        let startDate = new Date(currentYear, 0, 1);
+        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
 
-            for (let week = 1; week <= 52; week++) {
-                const endDate = new Date(startDate);
-                endDate.setDate(endDate.getDate() + 6);
+        for (let week = 1; week <= 52; week++) {
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + 6);
 
-                options.push({
-                    label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
-                    value: week,
-                });
+            options.push({
+                label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
+                value: week,
+            });
 
-                startDate.setDate(startDate.getDate() + 7);
-            }
+            startDate.setDate(startDate.getDate() + 7);
         }
 
         setDateOptions(options);
