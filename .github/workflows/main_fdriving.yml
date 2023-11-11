@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'fdriving'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D82B0724330E4F7DB9BB0CD686DDFF07 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DF9457631F8E4613AF5CD2A4776AE486 }}
           package: .
