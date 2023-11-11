@@ -67,6 +67,7 @@ function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+  console.log(window.location.href);
 
   console.log(user);
   console.log(member);
@@ -105,7 +106,7 @@ function App() {
                   <Route path='/dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
                     <>
-                    <Route index element={<AdminPage />} />
+                      <Route index element={<AdminPage />} />
                       <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
                     </>
                   )}
