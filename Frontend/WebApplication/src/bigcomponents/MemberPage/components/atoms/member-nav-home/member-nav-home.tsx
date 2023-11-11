@@ -11,8 +11,8 @@ function MemberNavHome() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
     const [member, setMember] = useState(null);
-    const [student, setStudent] = useState(null);
-    const [isPass, setIsPass] = useState(false);
+    const [_student, setStudent] = useState(null);
+    const [_isPass, setIsPass] = useState(false);
 
     const navigate = useNavigate()
 

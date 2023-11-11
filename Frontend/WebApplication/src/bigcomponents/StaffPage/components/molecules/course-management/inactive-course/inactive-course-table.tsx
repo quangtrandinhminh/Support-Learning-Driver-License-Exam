@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './/inactive-course-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../../../../config/axios';
@@ -6,7 +6,6 @@ import api from '../../../../../../config/axios';
 function InactiveCourseTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [error, setError] = useState(null);
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
@@ -81,23 +80,23 @@ function InactiveCourseTable() {
         return `${day}/${month}/${year}`;
     }
 
-    const handleDelete = async (courseId) => {
-        try {
-            // Perform the deletion
-            await api.delete('Course/deactivate/' + courseId);
+    // const handleDelete = async (courseId) => {
+    //     try {
+    //         // Perform the deletion
+    //         await api.delete('Course/deactivate/' + courseId);
 
-            // Reload the page after successful deletion
-            setTimeout(() => {
-                location.reload();
-            }, 0.1);
+    //         // Reload the page after successful deletion
+    //         setTimeout(() => {
+    //             location.reload();
+    //         }, 0.1);
 
-            // Once deletion is successful, fetch the updated data
-            await getAllCourse();
+    //         // Once deletion is successful, fetch the updated data
+    //         await getAllCourse();
 
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     return (
         <div className='courses-table-container'>

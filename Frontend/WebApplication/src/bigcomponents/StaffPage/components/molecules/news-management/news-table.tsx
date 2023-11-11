@@ -109,7 +109,7 @@ function NewsTable() {
                                         <td className='text-center'>{news.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
                                             <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={e => handleDelete(news.newsId)}>Delete</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))

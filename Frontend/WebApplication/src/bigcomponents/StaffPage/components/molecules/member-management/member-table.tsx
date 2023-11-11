@@ -5,8 +5,7 @@ import { toast } from 'react-toastify';
 
 function MemberTable() {
   const [member, setMember] = useState<any[]>([])
-  const [user, setUser] = useState<any[]>([])
-  const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
+  const [_, setUpdateSuccess] = useState<boolean>(false);
 
   const getAllMembers = async () => {
     const response = await api.get('/Members');

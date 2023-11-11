@@ -7,9 +7,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function MemberInformationForm() {
-    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null
-    const userId = user.userID;
 
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
