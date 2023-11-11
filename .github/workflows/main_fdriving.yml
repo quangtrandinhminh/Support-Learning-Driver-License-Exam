@@ -6,8 +6,8 @@ name: Build and deploy ASP.Net Core app to Azure Web App - fdriving
 on:
   push:
     branches:
-      - Backend
-  workflow_dispatch: 
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'fdriving'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DF9457631F8E4613AF5CD2A4776AE486 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CC5D10257E364CB889E44CC5146EF475 }}
           package: .
