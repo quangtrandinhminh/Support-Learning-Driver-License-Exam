@@ -50,7 +50,7 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     const user = sessionStorage.getItem("loginedUser") ? JSON.parse(sessionStorage.getItem("loginedUser")) : null;
     if (user !== null) {
-      navigate('/');
+      navigate('main--fdriving.netlify.app');
     }
   }, [navigate]);
 
