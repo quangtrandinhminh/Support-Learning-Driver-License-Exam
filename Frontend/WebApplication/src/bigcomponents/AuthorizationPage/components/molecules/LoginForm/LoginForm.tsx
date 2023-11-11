@@ -9,6 +9,7 @@ import api from "../../../../../config/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LoginForm: React.FC = () => {
+  const user = sessionStorage.getItem("loginedUser") ? JSON.parse(sessionStorage.getItem("loginedUser")) : null;
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const LoginForm: React.FC = () => {
     if (user !== null) {
       navigate('/');
     }
-  }, [navigate]);
+  }, [user]);
 
   return (
     <div className="login-form">
