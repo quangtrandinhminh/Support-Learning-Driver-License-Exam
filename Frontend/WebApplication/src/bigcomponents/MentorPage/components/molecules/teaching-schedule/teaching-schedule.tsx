@@ -81,21 +81,22 @@ function TeachingSchedule() {
         setSelectedWeek(1);
     };
 
-    const fetchScheduleData = async (mentorId, selectedYear, selectedWeek) => {
+    const fetchScheduleData = async () => {
         try {
-            const response = await api.get(`Class/${mentorId}/${selectedYear}/${selectedWeek}`);
-            setScheduleData(response.data); // Update the state with the API response data
+            const response = await api.get(`Class/${mentor.mentorId}`);
+            if (response.status === 200) {
+                setScheduleData(response.data); // Update the state with the API response data
+            } else {
+                // Handle unexpected response status codes
+                console.error("Unexpected response status: " + response.status);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Error fetching schedule data:", error);
+            // Handle the error here, e.g., set an error state or show an error message to the user
         }
     };
 
-    useEffect(() => {
-        // Fetch schedule data when selectedYear or selectedWeek changes
-        if (mentor && selectedYear && selectedWeek) {
-            fetchScheduleData(mentor.mentorId, selectedYear, selectedWeek);
-        }
-    }, [selectedYear, selectedWeek, mentor]);
+    useEffect(() => { fetchScheduleData }, []);
 
     useEffect(() => {
         generateDateOptions();
@@ -120,7 +121,7 @@ function TeachingSchedule() {
         <>
             <div className="teaching-schedule-container">
                 <div>
-                    <h1>Lịch dạy</h1>
+                    <h1>Lịch dạy thực hành lớp XXB2 khóa XXB2</h1>
                 </div>
                 <div className="teaching-schedule">
                     <form action="">
@@ -179,27 +180,20 @@ function TeachingSchedule() {
                                 </tr>
                             </thead>
                             <tbody className="schedule-body">
-                                {scheduleData.map((scheduleItem, index) => (
-                                    <tr key={index}>
+                                    <tr>
                                         <td>Ca sáng</td>
-                                        {scheduleItem.days.map((day, dayIndex) => (
-                                            <td key={dayIndex}>
-                                                {day ? (
-                                                    <p>
-                                                        <a href={`lich-day/chi-tiet-lich-day/${day.id}`}>{day.name}</a>
-                                                        <br />
-                                                        Buổi thứ {dayIndex + 1}
-                                                        <br />
-                                                        <a href={`lich-day/danh-sach-hoc-vien/${day.classId}`}>Lớp: {day.className}</a>
-                                                        <br />
-                                                        Trạng thái: {day.status}
-                                                    </p>
-                                                ) : (
-                                                    '-'
-                                                )}
-                                            </td>
-                                        ))}
-                                        {/* <td>
+                                        <td>
+                                        <p>
+                                            <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
+                                            <br />
+                                            Buổi thứ 1
+                                            <br />
+                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <br />
+                                            Trạng thái: Đã dạy
+                                        </p>
+                                    </td>
+                                        <td>
                                         <p>
                                             <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                             <br />
@@ -233,11 +227,11 @@ function TeachingSchedule() {
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
-                                    </td> */}
-                                    </tr>))}
+                                    </td>
+                                    </tr>
                                 <tr>
                                     <td>Ca chiều</td>
-                                    {/* <td>-</td>
+                                    <td>-</td>
                                     <td>
                                         <p>
                                             <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
@@ -261,11 +255,11 @@ function TeachingSchedule() {
                                             Trạng thái: Đã dạy
                                         </p>
                                     </td>
-                                    <td>-</td> */}
+                                    <td>-</td>
                                 </tr>
                                 <tr>
                                     <td>Ca tối</td>
-                                    {/* <td><p>
+                                    <td><p>
                                         <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
                                         <br />
                                         Buổi thứ 1
@@ -313,30 +307,9 @@ function TeachingSchedule() {
                                         <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
                                         <br />
                                         Trạng thái: Đã dạy
-                                    </p></td> */}
+                                    </p></td>
                                 </tr>
-                                {scheduleData.map((scheduleItem, index) => (
-                                    <tr key={index}>
-                                        <td>{scheduleItem.time}</td>
-                                        {scheduleItem.days.map((day, dayIndex) => (
-                                            <td key={dayIndex}>
-                                                {day ? (
-                                                    <p>
-                                                        <a href={`lich-day/chi-tiet-lich-day/${day.id}`}>{day.name}</a>
-                                                        <br />
-                                                        Buổi thứ {dayIndex + 1}
-                                                        <br />
-                                                        <a href={`lich-day/danh-sach-hoc-vien/${day.classId}`}>Lớp: {day.className}</a>
-                                                        <br />
-                                                        Trạng thái: {day.status}
-                                                    </p>
-                                                ) : (
-                                                    '-'
-                                                )}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
+                                
                             </tbody>
                         </table>
                     </form>
