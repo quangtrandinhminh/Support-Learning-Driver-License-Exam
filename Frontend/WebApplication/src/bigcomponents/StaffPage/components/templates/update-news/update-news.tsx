@@ -1,4 +1,3 @@
-import React from 'react'
 import UpdateNewsForm from '../../molecules/update-news/news-update-form'
 
 function UpdateNewsTemplate() {

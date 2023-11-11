@@ -1,4 +1,3 @@
-import React from 'react'
 import UpdateCourseTemplate from '../../templates/course-update/course-update'
 
 function UpdateCoursePage() {

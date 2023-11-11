@@ -1,4 +1,3 @@
-import React from 'react'
 import MemberTable from '../../molecules/member-management/member-table'
 
 function MemberManagementTemplate() {
