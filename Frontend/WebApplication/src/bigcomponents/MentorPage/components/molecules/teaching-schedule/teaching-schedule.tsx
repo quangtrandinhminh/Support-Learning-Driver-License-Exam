@@ -27,45 +27,46 @@ function TeachingSchedule() {
         getClassByMentorID();
     }, []);
 
-    const getStartDay = (year) => {
-        // Zeller's Congruence algorithm to calculate the start day of the year
-        if (year < 0) {
-            year += 1; // Adjust for the algorithm if year is BC
-        }
-        const q = 1;
-        const m = 13; // January (13) and February (14) are counted as months 13 and 14 of the previous year
-        const K = year % 100;
-        const J = Math.floor(year / 100);
+    // const getStartDay = (year) => {
+    //     // Zeller's Congruence algorithm to calculate the start day of the year
+    //     if (year < 0) {
+    //         year += 1; // Adjust for the algorithm if year is BC
+    //     }
+    //     const q = 1;
+    //     const m = 13; // January (13) and February (14) are counted as months 13 and 14 of the previous year
+    //     const K = year % 100;
+    //     const J = Math.floor(year / 100);
 
-        const f = q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J;
-        const startDay = (f % 7 + 7) % 7;
+    //     const f = q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J;
+    //     const startDay = (f % 7 + 7) % 7;
 
-        return startDay; // 0 for Saturday, 1 for Sunday, 2 for Monday, etc.
-    };
+    //     return startDay; // 0 for Saturday, 1 for Sunday, 2 for Monday, etc.
+    // };
 
-    const isLeapYear = (year) => {
-        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    };
+    // const isLeapYear = (year) => {
+    //     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    // };
 
     const generateDateOptions = () => {
         const options = [];
-        const currentYear = selectedYear; // Use the selected year
 
-        const isLeap = isLeapYear(currentYear);
-        const startDay = getStartDay(currentYear);
-        let startDate = new Date(currentYear, 0, 1);
-        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+        for (let year = 2023; year <= 2025; year++) {
+            // const isLeap = isLeapYear(year);
+            // const startDay = getStartDay(year);
+            let startDate = new Date(year, 0, 1);
+            startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
 
-        for (let week = 1; week <= 52; week++) {
-            const endDate = new Date(startDate);
-            endDate.setDate(endDate.getDate() + 6);
+            for (let week = 1; week <= 52; week++) {
+                const endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 6);
 
-            options.push({
-                label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
-                value: week,
-            });
+                options.push({
+                    label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
+                    value: week,
+                });
 
-            startDate.setDate(startDate.getDate() + 7);
+                startDate.setDate(startDate.getDate() + 7);
+            }
         }
 
         setDateOptions(options);
@@ -102,8 +103,8 @@ function TeachingSchedule() {
 
     useEffect(() => {
         const currentYear = selectedYear;
-        const isLeap = isLeapYear(currentYear);
-        const startDay = getStartDay(currentYear);
+        // const isLeap = isLeapYear(currentYear);
+        // const startDay = getStartDay(currentYear);
         let startDate = new Date(currentYear, 0, 1);
         startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
         startDate.setDate(startDate.getDate() + (selectedWeek - 1) * 7);

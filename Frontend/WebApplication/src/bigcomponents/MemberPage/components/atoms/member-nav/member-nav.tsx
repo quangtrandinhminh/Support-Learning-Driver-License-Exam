@@ -3,8 +3,6 @@ import { Link as Forward, useNavigate } from 'react-router-dom'
 import MemberImg from '../../../../../../assets/imgs/member/member_img.png'
 import LogoImg from '../../../../../../assets/imgs/logo.png'
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
-import api from '../../../../../config/axios';
 
 function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
