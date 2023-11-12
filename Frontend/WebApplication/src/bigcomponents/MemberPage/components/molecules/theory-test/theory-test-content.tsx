@@ -91,7 +91,7 @@ function TheoryTestContent() {
                 <ul className='demand-list'>
                     <li>Số câu trả lời phải đúng từ 32/35 câu trở lên</li>
                     <li>Thời gian làm bài: 22 phút</li>
-                    <li className='important-element tw-text-red'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT</li>
+                    <li className='important-element tw-text-realRed'>KHÔNG LÀM SAI NHỮNG CÂU ĐIỂM LIỆT</li>
                 </ul>
                 <h5 className='second-part'>
                     <strong>

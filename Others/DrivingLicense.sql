@@ -823,7 +823,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('4', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001238', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1102B2', '5')
+							'B2', 2, 2, '', '2023-10-22', 0, '1102B2', '5')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -841,7 +841,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('6', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001240', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1102B2', '7')
+							'B2', 2, 2, '', '2023-10-22', 0, '1102B2', '7')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -850,7 +850,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('7', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001241', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', '8')
+							'B2', 2, 2, '', '2023-10-22', 0, '1103B2', '8')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -859,7 +859,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('8', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001242', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', '9')
+							'B2', 2, 2, '', '2023-10-22', 0, '1103B2', '9')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -868,7 +868,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('9', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001243', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1103B2', ' 10')
+							'B2', 2, 2, '', '2023-10-22', 0, '1103B2', ' 10')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -877,7 +877,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('10', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001244', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '11')
+							'B2', 2, 2, '', '2023-10-22', 0, '1201B2', '11')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -886,7 +886,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('11', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001245', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '12')
+							'B2', 2, 2, '', '2023-10-22', 0, '1201B2', '12')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -895,7 +895,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('12', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001220', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1201B2', '13')
+							'B2', 2, 2, '', '2023-10-22', 0, '1201B2', '13')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -904,7 +904,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('13', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001246', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '14')
+							'B2', 2, 2, '', '2023-10-22', 0, '1202B2', '14')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -913,7 +913,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('14', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001247', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '15')
+							'B2', 2, 2, '', '2023-10-22', 0, '1202B2', '15')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -922,7 +922,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('15', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001248', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1202B2', '16')
+							'B2', 2, 2, '', '2023-10-22', 0, '1202B2', '16')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -931,7 +931,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('16', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001249', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '17')
+							'B2', 2, 2, '', '2023-10-22', 0, '1203B2', '17')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -940,7 +940,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('17', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001250', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '18')
+							'B2', 2, 2, '', '2023-10-22', 0, '1203B2', '18')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -949,7 +949,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('18', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001251', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '1203B2', '19')
+							'B2', 2, 2, '', '2023-10-22', 0, '1203B2', '19')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -958,7 +958,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('19', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001252', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '20')
+							'B2', 2, 2, '', '2023-10-22', 0, '0101B2', '20')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -967,7 +967,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('20', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001253', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '21')
+							'B2', 2, 2, '', '2023-10-22', 0, '0101B2', '21')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -976,7 +976,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('21', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001254', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0101B2', '22')
+							'B2', 2, 2, '', '2023-10-22', 0, '0101B2', '22')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -985,7 +985,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('22', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001255', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '23')
+							'B2', 2, 2, '', '2023-10-22', 0, '0102B2', '23')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -994,7 +994,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('23', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001256', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '24')
+							'B2', 2, 2, '', '2023-10-22', 0, '0102B2', '24')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -1003,7 +1003,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('24', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001257', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0102B2', '25')
+							'B2', 2, 2, '', '2023-10-22', 0, '0102B2', '25')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -1012,7 +1012,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('25', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001258', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '26')
+							'B2', 2, 2, '', '2023-10-22', 0, '0103B2', '26')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -1021,7 +1021,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('26', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001259', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '27')
+							'B2', 2, 2, '', '2023-10-22', 0, '0103B2', '27')
 
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
@@ -1030,7 +1030,7 @@ INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [t
 									[revokedDrivingLicense], [relatedDocument], [registrationDate], [isPaid], [courseID], [userID])
 		VALUES('27', '2003-08-06', 'Nam', N'VietNam', '', '',  '6th street, Tan Phong Ward, district 7, Ho Chi Minh city', 
 					'079302001260', '', '2022-10-22', 'Cong An Phuong', '', 'A1', 'Cong An Thanh Pho', '2023-8-22', 
-							'B2', 2, 2, '', '2023-10-22', 1, '0103B2', '36')
+							'B2', 2, 2, '', '2023-10-22', 0, '0103B2', '36')
 GO
 INSERT [dbo].[Member] ([memberID],  [dob], [gender], [nationality], [nation], [temporaryAddress], [residenceAddress], [identityCardNumber], 
 							[passport], [cardProvidedDate], [cardProvidedLocation], [drivingLicenseNumber], [drivingLicenseTier], 
@@ -1924,3 +1924,52 @@ INSERT INTO [dbo].[Question] ([questionId], [content], [image], [correctAnswer],
 GO
 SET IDENTITY_INSERT [dbo].[Question] OFF
 GO
+
+-- add table Test
+SET IDENTITY_INSERT [dbo].[Test] ON
+GO
+INSERT INTO [dbo].[Test] ([testID], [studentID], [examID], [score],[pass], [createTime])
+	VALUES (1, '1101B2.01', 1, null, null, '2023-10-16')
+
+SET IDENTITY_INSERT [dbo].[Test] OFF
+
+-- add table StudentAnswer
+SET IDENTITY_INSERT [dbo].[StudentAnswer] ON
+INSERT INTO [dbo].[StudentAnswer] (studentAnswerID, testID, questionID, optionID, isCorrect)
+VALUES
+(1, 1, 55, NULL, NULL),
+(2, 1, 13, NULL, NULL),
+(3, 1, 43, NULL, NULL),
+(4, 1, 58, NULL, NULL),
+(5, 1, 5, NULL, NULL),
+(6, 1, 18, NULL, NULL),
+(7, 1, 3, NULL, NULL),
+(8, 1, 32, NULL, NULL),
+(9, 1, 6, NULL, NULL),
+(10, 1, 34, NULL, NULL),
+(11, 1, 38, NULL, NULL),
+(12, 1, 8, NULL, NULL),
+(13, 1, 15, NULL, NULL),
+(14, 1, 39, NULL, NULL),
+(15, 1, 10, NULL, NULL),
+(16, 1, 7, NULL, NULL),
+(17, 1, 16, NULL, NULL),
+(18, 1, 12, NULL, NULL),
+(19, 1, 31, NULL, NULL),
+(20, 1, 36, NULL, NULL),
+(21, 1, 42, NULL, NULL),
+(22, 1, 54, NULL, NULL),
+(23, 1, 9, NULL, NULL),
+(24, 1, 37, NULL, NULL),
+(25, 1, 56, NULL, NULL),
+(26, 1, 14, NULL, NULL),
+(27, 1, 17, NULL, NULL),
+(28, 1, 2, NULL, NULL),
+(29, 1, 44, NULL, NULL),
+(30, 1, 4, NULL, NULL),
+(31, 1, 57, NULL, NULL),
+(32, 1, 11, NULL, NULL),
+(33, 1, 1, NULL, NULL),
+(34, 1, 59, NULL, NULL),
+(35, 1, 41, NULL, NULL);
+SET IDENTITY_INSERT [dbo].[StudentAnswer] OFF

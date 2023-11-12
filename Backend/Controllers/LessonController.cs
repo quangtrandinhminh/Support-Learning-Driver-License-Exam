@@ -203,7 +203,7 @@ namespace Backend.Controllers
         }
 
         [HttpPatch("attendance")]
-        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons)
+        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateAttendanceDTO> lessons)
         {
             var result = await _lessonService.CheckAttendanceForStudents(lessons);
             if (result.IsError)
@@ -271,6 +271,29 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm buổi học thực hành thành công!");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateLesson(LessonUpdateDTO lessonUpdateDto)
+        {
+            var result = await _lessonService.UpdateLesson(lessonUpdateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật buổi học thành công!");
         }
     }
 }
