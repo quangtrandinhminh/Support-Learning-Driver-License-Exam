@@ -35,4 +35,31 @@
             cursor: not-allowed;
         }
     }
+
+    /* Define your CSS classes for styling the text */
+    .theory-status-incomplete {
+        color: red;
+        /* Color for "Chưa hoàn thành" */
+    }
+
+    .theory-status-complete {
+        color: green;
+        /* Color for "Hoàn thành" */
+    }
+
+    .theory-exam-fail {
+        color: red;
+    }
+
+    .theory-exam-pass {
+        color: green;
+    }
+
+    .payment-finish {
+        color: green;
+    }
+
+    .payment-notyet {
+        color: red;
+    }
 }
