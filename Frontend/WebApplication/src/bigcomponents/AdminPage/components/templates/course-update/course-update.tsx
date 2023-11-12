@@ -1,4 +1,4 @@
-import UpdateCourseForm from "../../molocules/course-update/course-update-form"
+import UpdateCourseForm from '../../molecules/course-update/course-update-form'
 
 function UpdateCourseTemplate() {
     return (

@@ -67,11 +67,11 @@ function MemberTable() {
                             {records.length > 0 ? (
                                 records.map((mentor, i: number = 1) => (
                                     <tr key={i}>
-                                        <td>{mentor.mentorId}</td>
+                                        <td>{mentor.userId}</td>
                                         <td>{mentor.fullName}</td>
                                         <td>{mentor.phone}</td>
-                                        <td>{mentor.isTeachingTheory ? 'Đang dạy' : 'Không dạy'}</td>
-                                        <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
+                                        <td>{mentor.isTheor}</td>
+                                        <td>{mentor.email}</td>
                                         <td>{mentor.email}</td>
                                     </tr>
                                 ))

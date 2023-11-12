@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUser, faUsersCog } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUser, faUsersCog} from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
 import { NavLink } from 'react-router-dom';
 
@@ -9,18 +9,18 @@ interface SidebarProps {
   OpenSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => {
-  const [khoaHocOpen, setKhoaHocOpen] = useState(false);
+const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => {
+  const [databaseOpen, setDatabaseOpen] = React.useState(false);
 
-  const toggleKhoaHoc = () => {
-    setKhoaHocOpen(!khoaHocOpen);
+  const toggleDatabase = () => {
+    setDatabaseOpen(!databaseOpen);
   };
 
   return (
     <aside id="sidebar" className={openSidebarToggle ? 'sidebar-responsive' : ''}>
       <div className="sidebar-title">
         <div className="sidebar-brand">
-          ADMIN PAGE
+            ADMIN PAGE
         </div>
         <span className="icon close_icon" onClick={OpenSidebar}>X</span>
       </div>
@@ -39,58 +39,41 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
           text="Quản lý tin tức"
-          link="/quan-ly-tin-tuc"
+          link="/Quản_lý_tin_tức"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUsersCog} />}
           text="Quản lý nhân viên"
-          link="/quan-ly-nhan-vien"
+          link="/Quản_lý_nhân_viên"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faChalkboardUser} />}
           text="Quản lý giáo viên"
-          link="/quan-ly-giao-vien"
+          link="/Quản_lý_giáo_viên"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUser} />}
           text="Quản lý học viên"
-          link="/quan-ly-hoc-vien"
+          link="/Quản_lý_học_viên"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}
           text="Quản lý khóa học"
-          link="/quan-ly-khoa-hoc"
-          onClick={toggleKhoaHoc}
-        >
-          {khoaHocOpen && (
-            <SidebarItem
-              icon={<FontAwesomeIcon icon={faCalendarDays} />}
-              text="Các khóa học chưa mở"
-              link="/quan-ly-khoa-hoc/chua-mo"
-            />
-          )}
-        </SidebarItem>
+          link="/Quản_lý_khóa_học"
+        />
       </ul>
     </aside>
   );
 }
 
-const SidebarItem: React.FC<{
-  icon: React.ReactNode;
-  text: string;
-  link: string;
-  onClick?: () => void;
-  children?: React.ReactNode;
-}> = ({ icon, text, link, onClick, children }) => {
+const SidebarItem: React.FC<{ icon: React.ReactNode; text: string; link: string }> = ({ icon, text, link }) => {
   return (
-    <li className="sidebar-list-item">
-      <NavLink to={link} className="sidebar-link" onClick={onClick}>
+      <li className="sidebar-list-item">
+      <NavLink to={link} className="sidebar-link">
         {icon} {text}
-        {children}
       </NavLink>
     </li>
   );
-};
+}
 
-
-export default Sidebar;
+export default Slidebar;
