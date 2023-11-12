@@ -3,6 +3,8 @@ import './theory-paper-result.scss'
 import Button from 'react-bootstrap/esm/Button'
 
 function TheoryTestResult() {
+    const studentAswer = localStorage.getItem('studentAnswer') ? JSON.parse(localStorage.getItem('studentAnswer')) : null;
+    console.log(studentAswer);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate('/');
@@ -26,21 +28,32 @@ function TheoryTestResult() {
                                 <h4 className='tw-mb-6'>Kết quả làm bài</h4>
                             </li>
                             <li>
-                                <label htmlFor="">Đề số:</label>
-                                <span className='tw-text-green-600'> 01</span>
-                            </li>
-                            <li>
                                 <label htmlFor="">Số câu đúng:</label>
-                                <span className='tw-text-realRed'> xx</span>
+                                <span className='tw-text-green-600'> {studentAswer.numberOfCorrectAnswer}</span>
                             </li>
                             <li>
                                 <label htmlFor="">Số câu sai:</label>
-                                <span className='tw-text-realRed'> xx</span>
+                                <span className='tw-text-realRed'> {35 - studentAswer.numberOfCorrectAnswer}</span>
+                            </li>
+                            <li>
+                                <label htmlFor="">Số câu đểm liệt sai:</label>
+                                <span className='tw-text-realRed'> {studentAswer.numberOfWrongKeyQuestion}</span>
                             </li>
                             <li>
                                 <label htmlFor="">Kết quả:</label>
-                                <span><span className='tw-text-green-600'>ĐẠT</span>/<span className='tw-text-realRed'>KHÔNG ĐẠT</span></span>
+                                <span className={`${studentAswer.result == "Not Pass" ? 'result-fail' : 'result-pass'}`}>
+                                    {studentAswer.result == "Not Pass" ? ' KHÔNG ĐẠT' : ' ĐẠT'}
+                                </span>
                             </li>
+                            {
+                                studentAswer.result == "Not Pass" ? (
+                                    <li>
+                                        <span><i>Kết quả của bạn không đạt, bạn cần đợi đợt thi lý thuyết tiếp theo!</i></span>
+                                    </li>
+                                ) : (
+                                    null
+                                )
+                            }
                         </ul>
                     </div>
                     <div className='back-btn tw-text-center tw-mt-10'>

@@ -15,19 +15,25 @@
         margin-left: auto;
         margin-right: auto;
 
+        h4 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
         .explanation-box {
             margin: auto;
-            width: 40%;
+            width: 30%;
             height: auto;
             border: 0.1mm solid black;
-            padding: 5px;
+            padding: 20px;
 
             ul {
                 padding-left: 10px;
                 margin: 0;
 
                 li {
-                    font-size: 16px;
+                    font-size: 18px;
                     list-style: none;
                     line-height: 200%;
                 }
@@ -35,6 +41,14 @@
                 span {
                     font-weight: 600;
                 }
+            }
+
+            .result-pass {
+                color: green;
+            }
+
+            .result-fail {
+                color: red;
             }
         }
     }

@@ -5,6 +5,7 @@ import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function RegisteredCourse() {
+    const theoryResult = localStorage.getItem('studentAnswer') ? JSON.parse(localStorage.getItem('studentAnswer')) : null;
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
     const [isLoading, setIsLoading] = useState(true);
@@ -124,16 +125,35 @@ function RegisteredCourse() {
                                                     </li>
                                                 )
                                             }
-                                            <li>
-                                                <label htmlFor="course-practice">
-                                                    <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label htmlFor="course-theory-register">
-                                                    <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
-                                                </label>
-                                            </li>
+                                            {
+                                                theoryStatus.pass == null || theoryStatus.pass == false ? (
+                                                    <>
+                                                        <li>
+                                                            <label htmlFor="course-practice">
+                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh' className='disabled-link'>Lịch học thực hành</Link>
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor="course-theory-register">
+                                                                <Link to='/danh-sach-khoa-hoc' className='disabled-link'>Đăng ký lịch học thực hành</Link>
+                                                            </label>
+                                                        </li>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <li>
+                                                            <label htmlFor="course-practice">
+                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor="course-theory-register">
+                                                                <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
+                                                            </label>
+                                                        </li>
+                                                    </>
+                                                )
+                                            }
                                         </>
                                     ) : (
                                         <>
