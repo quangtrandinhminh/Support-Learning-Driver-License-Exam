@@ -423,7 +423,7 @@ namespace Backend.Services.Lesson
 
         // check attendance for students by a list of lessons
         public async Task<ServiceResult<int>> CheckAttendanceForStudents(
-            ICollection<LessonUpdateDTO> lessons)
+            ICollection<LessonUpdateAttendanceDTO> lessons)
         {
             var result = new ServiceResult<int>();
             try
@@ -706,6 +706,36 @@ namespace Backend.Services.Lesson
             catch (Exception e)
             {
                 result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
+        // update lesson by lesson id
+        public async Task<ServiceResult<int>> UpdateLesson(LessonUpdateDTO lessonUpdateDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var lesson = await _lessonRepository.GetByIdAsync(lessonUpdateDto.LessonId);
+                if (lesson == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Không tìm thấy buổi học!";
+                }
+
+                lesson.IsNight = lessonUpdateDto.IsNight;
+                lesson.Date = lessonUpdateDto.Date;
+                lesson.Location = lessonUpdateDto.Location;
+                await _lessonRepository.UpdateAsync(lesson);
+                result.Payload = lesson.LessonId;
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
 
