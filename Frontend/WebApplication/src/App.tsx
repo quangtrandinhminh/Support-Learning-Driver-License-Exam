@@ -1,5 +1,5 @@
 import './App.scss'
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import './general.scss'
@@ -73,12 +73,13 @@ import UpdateCourseAdminPage from './bigcomponents/AdminPage/components/pages/up
 import UpdateNewsAdminPage from './bigcomponents/AdminPage/components/pages/update-news/update-news'
 import InactiveCourseAdminPage from './bigcomponents/AdminPage/components/pages/course-management/inactive-course'
 import ReportAdminPage from './bigcomponents/AdminPage/components/pages/report/report'
-import Home from './bigcomponents/AdminPage/components/templates/Home-templates/Home'
+import Home from './bigcomponents/AdminPage/components/pages/Home/home-page'
 import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages/staff-management/staff-management'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 import MemberDocPage from './bigcomponents/StaffPage/components/pages/member-exam-doc/member-exam-doc'
 import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/mentor-feedbacks-page/mentor-feedbacks-page'
+import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 
 function App() {
 
@@ -124,9 +125,8 @@ function App() {
                   {user.roleId === 1 && (
                     <>
                       <Route index element={<AdminPage />} />
-                      {/* <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} /> */}
                       <Route path='/' element={<AdminPage />}>
-                        <Route index element={<Home />} />
+                        <Route path='bang-dieu-khien' element={<Home />} />
                         <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementAdminPage />} />
@@ -136,7 +136,10 @@ function App() {
                         </Route>
                         <Route path='quan-ly-nhan-vien' element={<StaffManagementAdminPage />} />
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
-                        <Route path='quan-ly-giao-vien' element={<MentorMamagementAdminPage />} />
+                        <Route path='quan-ly-giao-vien'>
+                          <Route index element={<MentorMamagementAdminPage />} />
+                            <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                        </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />

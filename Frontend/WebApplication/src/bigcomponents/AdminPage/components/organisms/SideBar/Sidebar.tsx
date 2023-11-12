@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
         <SidebarItem
           icon={<FontAwesomeIcon icon={faTableColumns} />}
           text="Bảng điều khiển"
-          link="/"
+          link="bang-dieu-khien"
         />
         <li className="list-header">
           <p>Quản lý hệ thống</p>
@@ -55,6 +55,16 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           icon={<FontAwesomeIcon icon={faUser} />}
           text="Quản lý học viên"
           link="/quan-ly-hoc-vien"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faNewspaper} />}
+          text="Quản lý thực hành"
+          link="/quan-li-thuc-hanh"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faNewspaper} />}
+          text="Quản lý lịch thi"
+          link="/quan-ly-lich-thi"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}

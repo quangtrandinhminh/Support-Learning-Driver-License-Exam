@@ -48,7 +48,7 @@ function MemberTable() {
     return (
         <div className='staff-table-container'>
             <div className="staff-table-title text-center text-uppercase">
-                <h1>Danh sách giáo viên</h1>
+                <h1>Danh sách nhân viên</h1>
             </div>
             <div className='staff-table-content'>
                 <form action="">
@@ -58,7 +58,7 @@ function MemberTable() {
                                 <th scope='col'>Mã nhân viên</th>
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
-                                <th scope='col' style={{ width: '200px' }}>Email</th>
+                                <th scope='col' style={{ width: '100px' }}>Email</th>
                                 <th scope='col'>Trạng thái</th>
                             </tr>
                         </thead>

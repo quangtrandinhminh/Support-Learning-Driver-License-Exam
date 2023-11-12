@@ -170,7 +170,7 @@ function RegisteredCourse() {
                             <div className='registered-course-content'>
                                 <ul>
                                     <li>
-                                        <span className='fst-italic tw-text-red-500'>Bạn cần thanh toán học phí để truy cập vào khoá học</span>
+                                        <span className='fst-italic tw-text-realRed-500'>Bạn cần thanh toán học phí để truy cập vào khoá học</span>
                                     </li>
                                     <li>
                                         <label htmlFor="course-name" className='disabled-link'>Khoá học: {course.name}</label>
