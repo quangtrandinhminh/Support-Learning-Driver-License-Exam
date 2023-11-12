@@ -116,7 +116,7 @@ namespace Backend
             CreateMap<DTO.Lesson.LessonCreateDTO, DB.Models.Lesson>();
             CreateMap<DTO.Lesson.LessonTheoryCreateDTO, DB.Models.Lesson>();
             CreateMap<DTO.Lesson.LessonTheory, Lesson>();
-            CreateMap<DTO.Lesson.LessonUpdateDTO, DB.Models.Lesson>();
+            CreateMap<DTO.Lesson.LessonUpdateAttendanceDTO, DB.Models.Lesson>();
 
             // Exam
             CreateMap<DB.Models.Exam, DTO.Exam.ExamDTO>();
