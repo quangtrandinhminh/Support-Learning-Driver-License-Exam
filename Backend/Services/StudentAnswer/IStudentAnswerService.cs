@@ -7,6 +7,6 @@ namespace Backend.Services.StudentAnswer
         ServiceResult<ICollection<StudentAnswerDTO>> GetAllStudentAnswer();
         ServiceResult<ICollection<StudentAnswerDTO>> GetAllStudentAnswerByStudentID(string studentID);
         Task<ServiceResult<int>> CreateRandomQuestion(string studentID);
-
+        Task<ServiceResult<string>> CheckUserAnswer(ICollection<string> UserAnswer);
     }
 }
