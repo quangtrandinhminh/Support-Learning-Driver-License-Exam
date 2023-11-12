@@ -1,4 +1,5 @@
-import NewsTable from '../../molocules/create-new-form/news-create-form'
+
+import NewsTable from "../../molocules/news-management/news-table"
 
 function NewsManagemeneTemplate() {
     return (
