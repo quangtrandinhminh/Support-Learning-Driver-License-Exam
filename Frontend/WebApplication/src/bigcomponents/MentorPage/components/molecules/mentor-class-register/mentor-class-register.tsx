@@ -8,8 +8,8 @@ function MentorClassRegister() {
             </div>
             <div className="class-register-container">
                 <form action="">
-                    <table>
-                        <thead>
+                    <table className='class-register-table'>
+                        <thead className='class-register-table-header'>
                             <tr>
                                 <td>STT</td>
                                 <td>Mã khóa học</td>
