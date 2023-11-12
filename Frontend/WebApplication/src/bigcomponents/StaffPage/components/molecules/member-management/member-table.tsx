@@ -134,7 +134,7 @@ function MemberTable() {
               ) : (
                 <tr>
                   <td colSpan={7}>
-                    <h1 className='text-center text-red-600 p-5 tw-text-red'>
+                    <h1 className='text-center text-red-600 p-5 tw-text-realRed'>
                       Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                     </h1>
                   </td>

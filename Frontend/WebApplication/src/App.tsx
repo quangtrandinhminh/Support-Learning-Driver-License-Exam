@@ -1,5 +1,5 @@
 import './App.scss'
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 import './general.scss'
