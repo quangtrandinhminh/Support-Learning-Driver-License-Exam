@@ -155,7 +155,6 @@ function TeachingSchedule() {
                                                 </option>
                                             ))}
                                         </select>
-
                                     </th>
                                     <th align="center">Thứ hai</th>
                                     <th align="center">Thứ ba</th>
@@ -179,8 +178,8 @@ function TeachingSchedule() {
                                     ) : null}
                                 </tr>
                             </thead>
-                            <tbody className="schedule-body">
-                                    <tr>
+                            <tbody className="schedule-body-container">
+                                    <tr className='study-slot'>
                                         <td>Ca sáng</td>
                                         <td>
                                         <p>
@@ -229,7 +228,7 @@ function TeachingSchedule() {
                                         </p>
                                     </td>
                                     </tr>
-                                <tr>
+                                <tr className='study-slot'>
                                     <td>Ca chiều</td>
                                     <td>-</td>
                                     <td>
@@ -257,7 +256,7 @@ function TeachingSchedule() {
                                     </td>
                                     <td>-</td>
                                 </tr>
-                                <tr>
+                                <tr className='study-slot'>
                                     <td>Ca tối</td>
                                     <td><p>
                                         <a href='lich-day/chi-tiet-lich-day'>Thực hành</a>
