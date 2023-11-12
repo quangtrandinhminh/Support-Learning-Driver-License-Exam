@@ -1,12 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Backend.DTO.Mentor
+﻿namespace Backend.DTO.Mentor
 {
-    public class MentorCreateDTO
+    public class MentorUpdateDTO
     {
-        public string Username { get; set; }
-
-        public string Password { get; set; }
+        public int MentorId { get; set; }
 
         public string FullName { get; set; }
 

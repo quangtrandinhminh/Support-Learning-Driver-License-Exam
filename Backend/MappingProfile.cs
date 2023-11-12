@@ -74,6 +74,8 @@ namespace Backend
                 .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
             CreateMap<DTO.Mentor.MentorCreateDTO, DB.Models.User>();
             CreateMap<DTO.Mentor.MentorCreateDTO, DB.Models.Mentor>();
+            CreateMap<DTO.Mentor.MentorUpdateDTO, DB.Models.User>();
+            CreateMap<DTO.Mentor.MentorUpdateDTO, DB.Models.Mentor>();
 
             // Staff
             CreateMap<DB.Models.Staff, DTO.Staff.StaffDTO>()
