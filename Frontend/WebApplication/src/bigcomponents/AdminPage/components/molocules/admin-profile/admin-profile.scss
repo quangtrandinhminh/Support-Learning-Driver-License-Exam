@@ -1,66 +1,56 @@
-.user-information {
+.body{
     display: flex;
-    flex-direction: column;
-    height: 100vh; 
-    }
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 
-  .header, .footer {
-    background-color: #4292EB; 
-    color: white; 
-    padding: 10px;
-    text-align: center;
-  }
-
-  .body {
-    color: black; 
-    padding: 20px;
-    flex: 1;     
-
-        .profile {
+        .user-information {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #000;  
+            border-radius: 10px; 
+            height: 80%;
+            width: 80%;
+        
+            .profile {
             display: flex;
             align-items: center;
-            border: 1px solid #000;
-            border-radius: 20px;
-            height: 80%;
-            width: 100%;
+            margin-top: 50px;
         
-                .profile-img {
-                    margin-left: 200px;
-                    margin-right: 200px; // Cách nhau 60px
-                    display: flex;
-                    justify-content: center; // Canh giữa biểu tượng
-                    align-items: center; // Canh giữa theo chiều dọc
-                    .icon {
-                        width: 200px;
-                        height: 200px;
+            .profile-img {
+                margin-right: 100px;
+                   
+                    .icon{
+                        width: 150px;
+                        height: 150px;
                     }
-                }
+            }
         
-                .contain {
-                    display: flex;
-                    flex-direction: column; // Hiển thị các line_content dưới nhau
-                    gap: 10px; // Cách nhau 10px
-                
-                    .line_content {
-                        font-size: 30px;
-                        color: #000;
-                        text-align: center;
-                    }
+            .contain {
+                display: flex;
+                flex-direction: column;
+        
+                .line_content {
+                margin: 5px 10px;  
+                font-size: 1.5em; 
                 }
-        }
+                .information_content{
+                    color: black;
+                }
+            }
+            }
+            .Description{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 100px;
 
-        .button{
-            margin-left: 1400px;
-            margin-top: 10px;
-            border-radius: 10px;
-            background-color: #4292EB;
-            width: 100px;
-            height: 30px;
-
-            .link{
-                text-decoration: none;
-                color: white;
+                .line_description{
+                    font-size: 1.5em;
+                }
             }
         }
-  }
-  
+}

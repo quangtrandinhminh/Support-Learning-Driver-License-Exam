@@ -1,4 +1,4 @@
-import CreateCourseForm from "../../molecules/create-course-form/course-create-form"
+import CreateCourseForm from "../../molocules/create-course-form/course-create-form"
 
 
 function CreateCourseTemplate() {
