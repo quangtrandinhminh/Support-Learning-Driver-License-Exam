@@ -30,10 +30,6 @@
                 border-bottom: 1px solid #f0f0f0;
 
                 th {
-                    .mini-title {
-                        padding-right: 10px;
-                    }
-
                     text-align: left;
                     padding: 5px;
                     text-transform: uppercase;
@@ -52,6 +48,12 @@
 
             tr {
                 border-bottom: 1px solid #f0f0f0;
+
+                td {
+                    label {
+                        margin-right: 5px;
+                    }
+                }
             }
         }
     }

@@ -15,11 +15,14 @@
     font-size: 20px;
 
     .register-table-container {
-        form {
+        #teaching-register-form {
             padding: 20px;
-            
-            table {
-                width: 120%;
+            display: grid;
+            position: relative;
+            grid-template-rows: 1fr;
+
+            .register-table {
+                width: 100%;
 
                 td {
                     padding: 20px;
@@ -28,7 +31,6 @@
                 .register-header {
                     tr {
                         border-bottom: 1px solid #f0f0f0;
-
                         th {
                             text-align: left;
                             padding: 5px;
@@ -45,7 +47,6 @@
 
                     tr {
                         border-bottom: 1px solid #f0f0f0;
-
                         td {
                             border-right: 1px solid #f0f0f0;
                             padding: 10px;
@@ -55,11 +56,18 @@
                     }
                 }
             }
-        }
-
-        .subtmit-button {
-            display: flex;
-            justify-content: center ;
-        }}
-
+        }    
+        
+        .submit-button {
+            margin-top: 10px;
+            grid-row: 2;
+            width: 17%;
+            justify-self: last baseline;
+            text-align: center;
+            background-color: rgb(107, 144, 218);
+            padding: 5px;
+            border: #fff;
+          }
+            
     }
+}
