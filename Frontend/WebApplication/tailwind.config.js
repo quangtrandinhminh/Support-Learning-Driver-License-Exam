@@ -1,18 +1,16 @@
-module.exports = {
-  prefix: 'tw-',
+/** @type {import('tailwindcss').Config} */
+export default {
+  prefix: "tw-",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-    colors: {
-      'red' : '#ff0000',
+    extend: {
+      textColor: {
+        realRed: "#ff0000",
+      },
     },
   },
   plugins: [],
-  corePlugins: {
-    // Disable or rename conflicting classes
-    container: false,
-  }
 }

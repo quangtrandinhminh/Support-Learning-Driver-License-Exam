@@ -57,8 +57,22 @@ import MentorClassInformationPage from './bigcomponents/MentorPage/components/pa
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 
+// Admin page
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
+// import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile"
 import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile/admin-profile";
+import CourseManagementAdminPage from './bigcomponents/AdminPage/components/pages/course-management/course-management'
+import MentorMamagementAdminPage from './bigcomponents/AdminPage/components/pages/mentor-management/mentor-management'
+import MemberManagementAdminPage from './bigcomponents/AdminPage/components/pages/member-management/member-management'
+import CreateCourseAdminPage from './bigcomponents/AdminPage/components/pages/create-course/create-course'
+import NewsManagementAdminPage from './bigcomponents/AdminPage/components/pages/news-management/news-management'
+import CreateNewsAdminPage from './bigcomponents/AdminPage/components/pages/create-news/create-news'
+import UpdateCourseAdminPage from './bigcomponents/AdminPage/components/pages/update-course/update-course'
+import UpdateNewsAdminPage from './bigcomponents/AdminPage/components/pages/update-news/update-news'
+import InactiveCourseAdminPage from './bigcomponents/AdminPage/components/pages/course-management/inactive-course'
+import ReportAdminPage from './bigcomponents/AdminPage/components/pages/report/report'
+import Home from './bigcomponents/AdminPage/components/pages/Home/home-page'
+import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages/staff-management/staff-management'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
@@ -79,7 +93,7 @@ function App() {
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        hideProgressBar={false}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -108,7 +122,25 @@ function App() {
                   {user.roleId === 1 && (
                     <>
                       <Route index element={<AdminPage />} />
-                      <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
+                      <Route path='/' element={<AdminPage />}>
+                        <Route path='bang-dieu-khien' element={<Home />} />
+                        <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
+                        <Route path='quan-ly-khoa-hoc'>
+                          <Route index element={<CourseManagementAdminPage />} />
+                          <Route path='chua-mo' element={<InactiveCourseAdminPage />} />
+                          <Route path='tao-khoa-hoc' element={<CreateCourseAdminPage />} />
+                          <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCourseAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-nhan-vien' element={<StaffManagementAdminPage />} />
+                        <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
+                        <Route path='quan-ly-giao-vien' element={<MentorMamagementAdminPage />} />
+                        <Route path='quan-ly-tin-tuc'>
+                          <Route index element={<NewsManagementAdminPage />} />
+                          <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
+                          <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
+                        </Route>
+                        <Route path='bao-cao' element={<ReportAdminPage />} />
+                      </Route>
                     </>
                   )}
                   {user.roleId === 2 && (
@@ -149,11 +181,12 @@ function App() {
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
-                        <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
+                        <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
                           <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
                         </Route>
+                        
                       </Route>
                     </>
                   )}
