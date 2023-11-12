@@ -1,32 +1,35 @@
 import { useState, useEffect } from 'react'
 import './mentor-table.scss'
 import api from '../../../../../config/axios';
+import { Link } from 'react-router-dom';
 
-function MemberTable() {
-    const [mentor, setMentor] = useState<any[]>([])
+function MentorTable() {
+    const [mentors, setMentors] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordPage = 6;
 
     const getAllMentors = async () => {
         try {
             const response = await api.get('Mentor/list');
             const res = response.data;
-            setMentor(res);
+            setMentors(res);
         } catch (error) {
             console.log(error);
         }
     }
 
-    //paganition part
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
-    const lastIndex = currentPage * recordPage;
-    const firsIndex = lastIndex - recordPage;
-    const records = mentor.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(mentor.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
-
     useEffect(() => {
         getAllMentors();
     }, [])
+
+    // Pagination
+    const lastIndex = currentPage * recordPage;
+    const firstIndex = lastIndex - recordPage;
+    const filteredMentors = mentors.filter(mentor => mentor.fullName.toLowerCase().includes(searchValue.toLowerCase()));
+    const records = filteredMentors.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(filteredMentors.length / recordPage);
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     const prePage = () => {
         if (currentPage !== 1) {
@@ -34,15 +37,40 @@ function MemberTable() {
         }
     }
 
-    const changeCPage = (id: number) => {
-        setCurrentPage(id);
+    const changePage = (pageNumber) => {
+        setCurrentPage(pageNumber);
     }
 
     const nextPage = () => {
-        if (currentPage !== npage) {
+        if (currentPage !== totalPages) {
             setCurrentPage(currentPage + 1);
         }
-        console.log(npage);
+    }
+
+    const updateBtn = (mentorId) => {
+        window.location.href = `/update-mentor/${mentorId}`;
+    }
+
+    const handleDelete = async (mentorId) => {
+        try {
+            // Perform the deletion
+            await api.delete(`Mentor/delete/${mentorId}`);
+
+            // Reload the page after successful deletion
+            window.location.reload();
+
+            // Once deletion is successful, fetch the updated data
+            await getAllMentors();
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleSearch = (e) => {
+        const value = e.target.value.toLowerCase();
+        setSearchValue(value);
+        setCurrentPage(1); // Reset to the first page when searching
     }
 
     return (
@@ -52,6 +80,22 @@ function MemberTable() {
             </div>
             <div className='mentor-table-content'>
                 <form action="">
+                    <div className='d-grid mb-2'>
+                        <div className="row">
+                            <div className='search-input col align-self-center'>
+                                <input
+                                    type="text"
+                                    name='fullName'
+                                    placeholder='Họ và tên'
+                                    onChange={handleSearch}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className='d-flex btnCreate col justify-content-end'>
+                                <Link to='tao-giao-vien' className='btn btn-success'>+ Add</Link>
+                            </div>
+                        </div>
+                    </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
@@ -61,11 +105,12 @@ function MemberTable() {
                                 <th scope='col'>Dạy lý thuyết</th>
                                 <th scope='col'>Dạy thực hành</th>
                                 <th scope='col' style={{ width: '200px' }}>Email</th>
+                                <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
-                                records.map((mentor, i: number = 1) => (
+                                records.map((mentor, i) => (
                                     <tr key={i}>
                                         <td>{mentor.mentorId}</td>
                                         <td>{mentor.fullName}</td>
@@ -73,6 +118,10 @@ function MemberTable() {
                                         <td>{mentor.isTeachingTheory ? 'Đang dạy' : 'Không dạy'}</td>
                                         <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
                                         <td>{mentor.email}</td>
+                                        <td className='button text-center'>
+                                            <button className="btn btn-primary" type="button" onClick={() => updateBtn(mentor.mentorId)}>Update</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Delete</button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
@@ -83,27 +132,21 @@ function MemberTable() {
                                         </h1>
                                     </td>
                                 </tr>
-                            )
-                            }
+                            )}
                         </tbody>
                     </table>
                     <nav>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <button type='button' className='page-link'
-                                    onClick={prePage}>Prev</button>
+                                <button type='button' className='page-link' onClick={prePage}>Prev</button>
                             </li>
-                            {
-                                numbers.map((n, i) => (
-                                    <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <button type='button' className='page-link'
-                                            onClick={() => changeCPage(n)}>{n}</button>
-                                    </li>
-                                ))
-                            }
+                            {pageNumbers.map((number) => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <button type='button' className='page-link' onClick={() => changePage(number)}>{number}</button>
+                                </li>
+                            ))}
                             <li className='page-item'>
-                                <button type='button' className='page-link'
-                                    onClick={nextPage}>Next</button>
+                                <button type='button' className='page-link' onClick={nextPage}>Next</button>
                             </li>
                         </ul>
                     </nav>
@@ -113,4 +156,4 @@ function MemberTable() {
     )
 }
 
-export default MemberTable
+export default MentorTable;

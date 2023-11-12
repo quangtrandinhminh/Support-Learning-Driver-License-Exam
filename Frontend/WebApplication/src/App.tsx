@@ -77,6 +77,7 @@ import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-the
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 import MemberDocPage from './bigcomponents/StaffPage/components/pages/member-exam-doc/member-exam-doc'
+import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 
 function App() {
 
@@ -133,7 +134,10 @@ function App() {
                         </Route>
                         <Route path='quan-ly-nhan-vien' element={<StaffManagementAdminPage />} />
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
-                        <Route path='quan-ly-giao-vien' element={<MentorMamagementAdminPage />} />
+                        <Route path='quan-ly-giao-vien'>
+                          <Route index element={<MentorMamagementAdminPage />} />
+                            <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                        </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
