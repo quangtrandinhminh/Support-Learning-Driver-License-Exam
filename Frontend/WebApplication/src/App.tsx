@@ -56,6 +56,8 @@ import StudentsListPage from './bigcomponents/MentorPage/components/pages/studen
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+import MentorTakeAttendancePage from './bigcomponents/MentorPage/components/pages/mentor-take-attendances/mentor-take-attendance-page'
+import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 
 // Admin page
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
@@ -75,8 +77,8 @@ import Home from './bigcomponents/AdminPage/components/pages/Home/home-page'
 import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages/staff-management/staff-management'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
-import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 import MemberDocPage from './bigcomponents/StaffPage/components/pages/member-exam-doc/member-exam-doc'
+import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/mentor-feedbacks-page/mentor-feedbacks-page'
 import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 
 function App() {
@@ -182,15 +184,18 @@ function App() {
                         </Route>
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
-                          <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
-                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
+                          <Route path='chi-tiet-lich-day'>
+                            <Route index element={<MentorClassInformationPage />} />
+                            <Route path='danh-gia' element={<MentorFeedbacksPage />} />
+                          </Route>
+                          <Route path='diem-danh' element={<MentorTakeAttendancePage />} />
                         </Route>
                         <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
                           <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
                         </Route>
-                        
+
                       </Route>
                     </>
                   )}
