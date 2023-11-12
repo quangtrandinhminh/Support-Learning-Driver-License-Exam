@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUsersCog} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUser, faUsersCog} from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
 import { NavLink } from 'react-router-dom';
 
@@ -34,40 +34,33 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
           link="/"
         />
         <li className="list-header">
-          <p>Quản lý và cài đặt</p>
+          <p>Quản lý hệ thống</p>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Tin tức"
-          link="/Tin_tức"
+          text="Quản lý tin tức"
+          link="/Quản_lý_tin_tức"
         />
         <SidebarItem
-          icon={<FontAwesomeIcon icon={faFloppyDisk} />}
-          text="Thay đổi và cập nhật"
-          link="/Thay_đổi_và_cập_nhật"
+          icon={<FontAwesomeIcon icon={faUsersCog} />}
+          text="Quản lý nhân viên"
+          link="/Quản_lý_nhân_viên"
         />
-        <li className={`sidebar-list-item ${databaseOpen ? 'open' : ''}`} onClick={toggleDatabase}>
-            <p><FontAwesomeIcon icon={faDatabase} /> Cơ sở dữ liệu</p>
-          {databaseOpen && (
-            <ul className="sub-items">
-              <SidebarItem
-                icon={<FontAwesomeIcon icon={faUsersCog} />}
-                text="Quản lý nhân viên"
-                link="/Quản_lý_nhân_viên"
-              />
-              <SidebarItem
-                icon={<FontAwesomeIcon icon={faChalkboardUser} />}
-                text="Quản lý giáo viên"
-                link="/Quản_lý_giáo_viên"
-              />
-              <SidebarItem
-                icon={<FontAwesomeIcon icon={faImages} />}
-                text="Quản lý học viên"
-                link="/Quản_lý_học_viên"
-              />
-            </ul>
-          )}
-        </li>
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faChalkboardUser} />}
+          text="Quản lý giáo viên"
+          link="/Quản_lý_giáo_viên"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faUser} />}
+          text="Quản lý học viên"
+          link="/Quản_lý_học_viên"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faCalendarDays} />}
+          text="Quản lý khóa học"
+          link="/Quản_lý_khóa_học"
+        />
       </ul>
     </aside>
   );
