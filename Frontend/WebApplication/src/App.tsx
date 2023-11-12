@@ -61,6 +61,7 @@ import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adm
 import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile/admin-profile";
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
+import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 
 function App() {
 
@@ -145,7 +146,10 @@ function App() {
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
                         <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
-                        <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                        <Route path='danh-sach-khoa-hoc-giao-vien'>
+                          <Route index element={<MentorClassRegisterPage/>} />
+                          <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                        </Route>
                       </Route>
                     </>
                   )}
