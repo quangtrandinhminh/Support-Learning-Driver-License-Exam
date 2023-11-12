@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
         <SidebarItem
           icon={<FontAwesomeIcon icon={faTableColumns} />}
           text="Bảng điều khiển"
-          link="/"
+          link="bang-dieu-khien"
         />
         <li className="list-header">
           <p>Quản lý hệ thống</p>

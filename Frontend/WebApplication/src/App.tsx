@@ -71,7 +71,7 @@ import UpdateCourseAdminPage from './bigcomponents/AdminPage/components/pages/up
 import UpdateNewsAdminPage from './bigcomponents/AdminPage/components/pages/update-news/update-news'
 import InactiveCourseAdminPage from './bigcomponents/AdminPage/components/pages/course-management/inactive-course'
 import ReportAdminPage from './bigcomponents/AdminPage/components/pages/report/report'
-import Home from './bigcomponents/AdminPage/components/templates/Home-templates/Home'
+import Home from './bigcomponents/AdminPage/components/pages/Home/home-page'
 import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages/staff-management/staff-management'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
@@ -122,9 +122,8 @@ function App() {
                   {user.roleId === 1 && (
                     <>
                       <Route index element={<AdminPage />} />
-                      {/* <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} /> */}
                       <Route path='/' element={<AdminPage />}>
-                        <Route index element={<Home />} />
+                        <Route path='bang-dieu-khien' element={<Home />} />
                         <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementAdminPage />} />
