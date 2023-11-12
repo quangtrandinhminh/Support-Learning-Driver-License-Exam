@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink as Forward, useNavigate } from "react-router-dom";
-import AdminFooter from "../atoms/admin-footer/admin-footer";
+import AdminFooter from "../../atoms/admin-footer/admin-footer";
 import "./admin-profile.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
