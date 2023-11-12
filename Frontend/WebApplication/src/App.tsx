@@ -55,7 +55,6 @@ import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/
 import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
-import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
@@ -147,7 +146,6 @@ function App() {
                         </Route>
                         <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
                         <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
-                        <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
                       </Route>
                     </>
                   )}
