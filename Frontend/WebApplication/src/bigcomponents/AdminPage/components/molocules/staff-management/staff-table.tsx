@@ -48,7 +48,7 @@ function MemberTable() {
     return (
         <div className='staff-table-container'>
             <div className="staff-table-title text-center text-uppercase">
-                <h1>Danh sách giáo viên</h1>
+                <h1>Danh sách nhân viên</h1>
             </div>
             <div className='staff-table-content'>
                 <form action="">
