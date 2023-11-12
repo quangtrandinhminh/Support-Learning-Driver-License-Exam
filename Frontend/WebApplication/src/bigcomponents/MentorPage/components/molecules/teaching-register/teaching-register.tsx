@@ -64,7 +64,7 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
   render() {
     return (<>
       <div className="title">
-        <h1>Đăng kí lịch dạy</h1>
+        <h1>Đăng kí lịch dạy thực hành khóa 230B2</h1>
       </div>
       <div className="register-form-container">
         <div className="register-table-container">

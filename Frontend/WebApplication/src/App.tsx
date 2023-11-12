@@ -58,7 +58,7 @@ import MentorClassListPage from './bigcomponents/MentorPage/components/pages/men
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
-import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile/admin-profile";
+// import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile"
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
@@ -78,7 +78,7 @@ function App() {
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        hideProgressBar={false}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -107,7 +107,7 @@ function App() {
                   {user.roleId === 1 && (
                     <>
                       <Route index element={<AdminPage />} />
-                      <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
+                      {/* <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} /> */}
                     </>
                   )}
                   {user.roleId === 2 && (
@@ -145,11 +145,12 @@ function App() {
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
-                        <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
+                        <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage/>} />
                           <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
                         </Route>
+                        
                       </Route>
                     </>
                   )}

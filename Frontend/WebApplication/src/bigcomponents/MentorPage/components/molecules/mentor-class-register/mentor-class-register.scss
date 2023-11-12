@@ -28,6 +28,16 @@
         .class-register-table-header {
             tr {
                 border-bottom: 1px solid #f0f0f0;
+
+                th {
+                    text-align: center;
+                    padding: 5px;
+                    text-transform: uppercase;
+                    height: 20px;
+                    background-color: #6b90da;
+                    font-weight: normal;
+                    border-right: 1px solid #fff;
+                }
             }
         }
 

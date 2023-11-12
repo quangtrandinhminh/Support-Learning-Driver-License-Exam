@@ -11,10 +11,10 @@ function ClassList() {
         <table className='class-table'>
           <thead className='class-table-header'>
             <tr>
-            <td>STT</td>
-            <td>Tên lớp</td>
-            <td>Mã số lớp</td>
-            <td>Ghi chú</td>
+            <th>STT</th>
+            <th>Tên lớp</th>
+            <th>Mã số lớp</th>
+            <th>Ghi chú</th>
             </tr>
           </thead>
           <tbody className='class-table-body'>
