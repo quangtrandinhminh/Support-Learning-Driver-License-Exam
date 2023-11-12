@@ -141,7 +141,7 @@ namespace Backend.Services.StudentAnswer
             try
             {
                 int i = 0;
-                int contt = 0;
+                short contt = 0;
                 int e = 0;
                 string studentId = UserAnswer.ElementAt(UserAnswer.Count - 1);
                 var studentQuestions = _studentAnswerRepository.GetAll()
@@ -163,6 +163,9 @@ namespace Backend.Services.StudentAnswer
                         }
                     }
                 }
+                var test = _testRepository.GetAll()
+                    .Where(p => p.StudentId.Equals(studentId)).SingleOrDefault();
+                test.Score = contt;
                 var resultt = new ResultDTO();
                 resultt.NumberOfCorrectAnswer = contt;
                 resultt.NumberOfWrongKeyQuestion = e;
@@ -170,6 +173,7 @@ namespace Backend.Services.StudentAnswer
                 {
                     if (e == 0)
                     {
+                        test.Pass = true;
                         resultt.result = "Pass";
                         result.IsError = true;
                         result.Payload = resultt;
@@ -177,6 +181,7 @@ namespace Backend.Services.StudentAnswer
                     }
                     else
                     {
+                        test.Pass = false;
                         resultt.result = "Not Pass";
                         result.IsError = true;
                         result.Payload = resultt;
@@ -185,6 +190,7 @@ namespace Backend.Services.StudentAnswer
                 }
                 else
                 {
+                    test.Pass = false;
                     resultt.result = "Not Pass";
                     result.IsError = true;
                     result.Payload = resultt;

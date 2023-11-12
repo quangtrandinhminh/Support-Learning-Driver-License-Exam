@@ -1,4 +1,5 @@
 ﻿using Backend.DTO.Class;
+using Backend.DTO.StudentAnswer;
 using Backend.Services.StudentAnswer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,22 @@ namespace Backend.Controllers
             }
 
             return Ok("Đã thêm câu hỏi bài thi");
+        }
+
+        [HttpPut("/api/CheckStudentAnswer")]
+        public async Task<ActionResult<ResultDTO>> CheclStudentAnswer
+            (ICollection<string> UserAnswer)
+        {
+            var result = await _studentAnswerService.CheckUserAnswer(UserAnswer);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
         }
     }
 }
