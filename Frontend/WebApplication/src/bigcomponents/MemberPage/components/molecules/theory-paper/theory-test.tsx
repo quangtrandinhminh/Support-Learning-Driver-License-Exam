@@ -78,7 +78,6 @@ function TheoryTestPaper() {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     useEffect(() => {
