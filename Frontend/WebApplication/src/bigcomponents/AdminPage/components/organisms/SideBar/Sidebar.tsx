@@ -57,6 +57,16 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           link="/quan-ly-hoc-vien"
         />
         <SidebarItem
+          icon={<FontAwesomeIcon icon={faNewspaper} />}
+          text="Quản lý thực hành"
+          link="/quan-li-thuc-hanh"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faNewspaper} />}
+          text="Quản lý lịch thi"
+          link="/quan-ly-lich-thi"
+        />
+        <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}
           text="Quản lý khóa học"
           link="/quan-ly-khoa-hoc"

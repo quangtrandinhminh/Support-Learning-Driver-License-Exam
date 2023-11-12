@@ -121,7 +121,7 @@ function TeachingSchedule() {
         <>
             <div className="teaching-schedule-container">
                 <div>
-                    <h1>Lịch dạy thực hành lớp XXB2 khóa XXB2</h1>
+                    <h1>Lịch dạy thực hành lớp 236B2 khóa 1101B2</h1>
                 </div>
                 <div className="teaching-schedule">
                     <form action="">
@@ -187,7 +187,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 1
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -198,7 +198,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 1
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -210,7 +210,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 3
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -222,7 +222,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 5
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -237,7 +237,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 2
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -249,7 +249,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 4
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -263,7 +263,7 @@ function TeachingSchedule() {
                                         <br />
                                         Buổi thứ 1
                                         <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p></td>
@@ -273,7 +273,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 2
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -283,7 +283,7 @@ function TeachingSchedule() {
                                         <br />
                                         Buổi thứ 3
                                         <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p></td>
@@ -293,7 +293,7 @@ function TeachingSchedule() {
                                             <br />
                                             Buổi thứ 4
                                             <br />
-                                            <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                            <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                             <br />
                                             Trạng thái: Đã dạy
                                         </p>
@@ -303,7 +303,7 @@ function TeachingSchedule() {
                                         <br />
                                         Buổi thứ 5
                                         <br />
-                                        <a href='lich-day/danh-sach-hoc-vien'>Lớp: XXB2</a>
+                                        <a href='lich-day/diem-danh'>Lớp: 236B2</a>
                                         <br />
                                         Trạng thái: Đã dạy
                                     </p></td>
