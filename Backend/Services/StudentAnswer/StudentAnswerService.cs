@@ -97,7 +97,7 @@ namespace Backend.Services.StudentAnswer
                     if (studentAnswers == null)
                     {
                         var questions = _questionRepository.GetAll().
-                                OrderBy(q => Guid.NewGuid()).Take(32).ToList();
+                                Where(p => p.KeyQuestion == false).Take(32).ToList();
                         var questionss = _questionRepository.GetAll().
                             Where(p => p.KeyQuestion == true).Take(3).ToList();
                         var selectQuestion = questions.Concat(questionss).ToList();
@@ -143,7 +143,7 @@ namespace Backend.Services.StudentAnswer
                 int i = 0;
                 short contt = 0;
                 int e = 0;
-                string studentId = UserAnswer.ElementAt(UserAnswer.Count - 1);
+                string studentId = UserAnswer.Count > 0 ? UserAnswer.ElementAt(UserAnswer.Count - 1) : null;
                 var studentQuestions = _studentAnswerRepository.GetAll()
                     .Include(p => p.Test)
                     .Where(p => p.Test.StudentId.Equals(studentId)).ToList();
@@ -161,41 +161,45 @@ namespace Backend.Services.StudentAnswer
                         {
                             e++;
                         }
+                        i++;
                     }
                 }
                 var test = _testRepository.GetAll()
                     .Where(p => p.StudentId.Equals(studentId)).SingleOrDefault();
-                test.Score = contt;
-                var resultt = new ResultDTO();
-                resultt.NumberOfCorrectAnswer = contt;
-                resultt.NumberOfWrongKeyQuestion = e;
-                if (contt >= 32)
+                if (test != null) 
                 {
-                    if (e == 0)
+                    test.Score = contt;
+                    var resultt = new ResultDTO();
+                    resultt.NumberOfCorrectAnswer = contt;
+                    resultt.NumberOfWrongKeyQuestion = e;
+                    if (contt >= 32)
                     {
-                        test.Pass = true;
-                        resultt.result = "Pass";
-                        result.IsError = true;
-                        result.Payload = resultt;
-                        return result;
+                        if (e == 0)
+                        {
+                            test.Pass = true;
+                            resultt.result = "Pass";
+                            result.IsError = false;
+                            result.Payload = resultt;
+                            return result;
+                        }
+                        else
+                        {
+                            test.Pass = false;
+                            resultt.result = "Not Pass";
+                            result.IsError = false;
+                            result.Payload = resultt;
+                            return result;
+                        }
                     }
                     else
                     {
                         test.Pass = false;
                         resultt.result = "Not Pass";
-                        result.IsError = true;
+                        result.IsError = false;
                         result.Payload = resultt;
                         return result;
-                    }    
-                }
-                else
-                {
-                    test.Pass = false;
-                    resultt.result = "Not Pass";
-                    result.IsError = true;
-                    result.Payload = resultt;
-                    return result;
-                }
+                    }
+                }  
             }
             catch (Exception l)
             {
