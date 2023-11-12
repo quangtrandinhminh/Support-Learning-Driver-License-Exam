@@ -6,6 +6,8 @@
 
         public int ClassStudentId { get; set; }
 
+        public int MentorId { get; set; }
+
         public DateTime Date { get; set; }
 
         public string DayOfWeek { get; set; }

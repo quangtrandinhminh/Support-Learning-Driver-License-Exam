@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink as Forward, useNavigate } from "react-router-dom";
-import AdminFooter from "../../atoms/admin-footer/admin-footer";
 import "./admin-profile.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -31,7 +30,7 @@ const UserInformation: React.FC = () => {
     // Chỉ gửi yêu cầu API nếu người dùng đã đăng nhập và có roleId là 1
     if (user && user.roleId === 1) {
       // Sử dụng API URL của bạn
-      const apiUrl = "https://localhost:7066/api/Users";
+      const apiUrl = "https://fdriving.azurewebsites.net/api/Users";
 
       // Gửi một yêu cầu GET đến API
       fetch(apiUrl)
@@ -56,35 +55,28 @@ const UserInformation: React.FC = () => {
   }, []);
 
   return (
-    <div className="user-information">
-      <div className="header">
-        <h1>Thông tin của quản trị viên</h1>
-      </div>
-      <div className="body">
+    <div className="body">
+      <div className="user-information">
         <div className="profile">
-            <div className="profile-img">
-                <FontAwesomeIcon icon={faUserCircle} className="icon"/>
-            </div>
-            <div className="contain"> 
-                <p className="line_content">
-                <strong>Fullname:</strong> {userData.fullName}
-                </p>
-                <p className="line_content">
-                <strong>Email:</strong> {userData.email}
-                </p>
-                <p className="line_content">
-                <strong>Phone:</strong> {userData.phone}
-                </p>
-            </div>
+          <div className="profile-img">
+            <FontAwesomeIcon icon={faUserCircle} className="icon" />
+          </div>
+          <div className="contain">
+            <p className="line_content">
+              <strong className="information_content">Fullname:</strong>{" "}
+              {userData.fullName}
+            </p>
+            <p className="line_content">
+              <strong>Email:</strong> {userData.email}
+            </p>
+            <p className="line_content">
+              <strong>Phone:</strong> {userData.phone}
+            </p>
+          </div>
         </div>
-        <button className="button">
-          <Forward to="/" className="link" onClick={handleLogout}>
-                về trang chủ
-          </Forward>
-        </button>
-      </div>
-      <div className="footer">
-        <AdminFooter />
+        <div className="Description">
+          <p className="line_description">Một số thông tin quan trọng sẽ được ẩn đi bớt</p>
+        </div>
       </div>
     </div>
   );

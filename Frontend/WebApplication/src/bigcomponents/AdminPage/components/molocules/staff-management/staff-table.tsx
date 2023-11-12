@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
-import './mentor-table.scss'
+import './staff-table.scss'
 import api from '../../../../../config/axios';
 
 function MemberTable() {
-    const [mentor, setMentor] = useState<any[]>([])
+    const [staff, setStaff] = useState<any[]>([])
 
     const getAllMentors = async () => {
         try {
-            const response = await api.get('Mentor/list');
+            const response = await api.get('Staff/list');
             const res = response.data;
-            setMentor(res);
+            setStaff(res);
         } catch (error) {
             console.log(error);
         }
@@ -20,8 +20,8 @@ function MemberTable() {
     const recordPage = 6;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
-    const records = mentor.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(mentor.length / recordPage);
+    const records = staff.slice(firsIndex, lastIndex);
+    const npage = Math.ceil(staff.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1)
 
     useEffect(() => {
@@ -46,33 +46,31 @@ function MemberTable() {
     }
 
     return (
-        <div className='mentor-table-container'>
-            <div className="mentor-table-title text-center text-uppercase">
+        <div className='staff-table-container'>
+            <div className="staff-table-title text-center text-uppercase">
                 <h1>Danh sách giáo viên</h1>
             </div>
-            <div className='mentor-table-content'>
+            <div className='staff-table-content'>
                 <form action="">
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
-                                <th scope='col'>Mã giáo viên</th>
+                                <th scope='col'>Mã nhân viên</th>
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
-                                <th scope='col'>Dạy lý thuyết</th>
-                                <th scope='col'>Dạy thực hành</th>
                                 <th scope='col' style={{ width: '200px' }}>Email</th>
+                                <th scope='col'>Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
-                                records.map((mentor, i: number = 1) => (
+                                records.map((staff, i: number = 1) => (
                                     <tr key={i}>
-                                        <td>{mentor.mentorId}</td>
-                                        <td>{mentor.fullName}</td>
-                                        <td>{mentor.phone}</td>
-                                        <td>{mentor.isTeachingTheory ? 'Đang dạy' : 'Không dạy'}</td>
-                                        <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
-                                        <td>{mentor.email}</td>
+                                        <td>{staff.staffId}</td>
+                                        <td>{staff.fullName}</td>
+                                        <td>{staff.phone}</td>
+                                        <td>{staff.email}</td>
+                                        <td>{staff.status? 'Đang làm' : 'Không làm'}</td>
                                     </tr>
                                 ))
                             ) : (
