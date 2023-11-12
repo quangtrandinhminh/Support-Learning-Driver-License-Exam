@@ -1,4 +1,3 @@
-import React from 'react'
 import CourseTable from '../../molecules/course-management/active-course/courses-table'
 
 function CourseManagementTemplate() {

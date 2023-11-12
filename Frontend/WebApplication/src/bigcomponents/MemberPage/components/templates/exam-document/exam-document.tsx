@@ -1,4 +1,3 @@
-import React from 'react'
 import ExamDocument from '../../molecules/exam-document/exam-document'
 
 function ExamDocumentTemplate() {

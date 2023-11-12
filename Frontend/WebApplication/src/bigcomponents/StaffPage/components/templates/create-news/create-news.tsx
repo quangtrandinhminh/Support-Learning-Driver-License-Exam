@@ -1,4 +1,3 @@
-import React from 'react'
 import CreateNewsForm from '../../molecules/create-new-form/news-create-form'
 
 function CreateNewsTemplate() {

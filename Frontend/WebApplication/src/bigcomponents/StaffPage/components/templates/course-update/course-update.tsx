@@ -1,4 +1,3 @@
-import React from 'react'
 import UpdateCourseForm from '../../molecules/course-update/course-update-form'
 
 function UpdateCourseTemplate() {

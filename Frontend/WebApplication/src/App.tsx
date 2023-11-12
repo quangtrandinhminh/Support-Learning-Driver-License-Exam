@@ -55,18 +55,19 @@ import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/
 import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
 import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
 import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
-import TeachingResourcePage from './bigcomponents/MentorPage/components/pages/mentor-teaching-resource-page/mentor-teaching-resource-page'
 import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
-import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile";
+import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile/admin-profile";
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
+import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 
 function App() {
 
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+  console.log(window.location.href);
 
   console.log(user);
   console.log(member);
@@ -77,7 +78,7 @@ function App() {
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        hideProgressBar
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -102,10 +103,10 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Route path='dang-nhap' element={<LoginPage />} />
+                  <Route path='/dang-nhap' element={<LoginPage />} />
                   {user.roleId === 1 && (
                     <>
-                    <Route index element={<AdminPage />} />
+                      <Route index element={<AdminPage />} />
                       <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
                     </>
                   )}
@@ -135,15 +136,20 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
-                        <Route path='danh-sach-lop-hoc' element={<MentorClassListPage />} />
+                        <Route path='danh-sach-lop-hoc'>
+                          <Route index element={<MentorClassListPage />} />
+                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
+                        </Route>
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day' element={<MentorClassInformationPage />} />
                           <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
                         </Route>
                         <Route path='thong-tin-ca-nhan-giao-vien' element={<InformationPage />} />
-                        <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
-                        <Route path='tai-lieu-day-hoc' element={<TeachingResourcePage />} />
+                        <Route path='danh-sach-khoa-hoc-giao-vien'>
+                          <Route index element={<MentorClassRegisterPage/>} />
+                          <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                        </Route>
                       </Route>
                     </>
                   )}

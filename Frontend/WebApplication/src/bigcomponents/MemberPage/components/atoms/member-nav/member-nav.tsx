@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 function MemberNav() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const username = user.username;
-    
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
 
     const handleScroll = () => {
@@ -64,8 +63,8 @@ function MemberNav() {
                                         </li>
                                     </Forward>
                                 </div>
-                                <div className='nav-items'>
-                                    <Forward to='/kiem-tra' onClick={handleScroll}>
+                                <div onClick={handleScroll} className='nav-items'>
+                                    <Forward to='/kiem-tra'>
                                         <li>
                                             <a href="">Kiểm tra</a>
                                         </li>
@@ -129,8 +128,8 @@ function MemberNav() {
                                         </li>
                                     </Forward>
                                 </div>
-                                <div className='nav-items'>
-                                    <Forward to='/kiem-tra' onClick={handleScroll}>
+                                <div onClick={handleScroll} className='nav-items'>
+                                    <Forward to='kiem-tra'>
                                         <li>
                                             <a href="">Kiểm tra</a>
                                         </li>

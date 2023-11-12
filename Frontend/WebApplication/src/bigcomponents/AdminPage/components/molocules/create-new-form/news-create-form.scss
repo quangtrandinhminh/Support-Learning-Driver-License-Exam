@@ -1,0 +1,23 @@
+.create-news-container {
+
+    .create-news-title {
+        h1 {
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .create-news-form {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        form {
+            display: grid;
+            gap: 26px;
+            width: 60%;
+        }
+
+    }
+}

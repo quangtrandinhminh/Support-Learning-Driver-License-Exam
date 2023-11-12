@@ -2,12 +2,11 @@ import './new.scss'
 import NewsImg from '../../../../../../assets/imgs/news/news-img.jpeg'
 import { useEffect, useState } from 'react';
 import api from '../../../../../config/axios';
-import { Backdrop, CircularProgress } from '@mui/material';
 
 function News() {
 
     const [data, setData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [_isLoading, setIsLoading] = useState(true);
 
     const getAllNews = async () => {
         const response = await api.get('News/list');

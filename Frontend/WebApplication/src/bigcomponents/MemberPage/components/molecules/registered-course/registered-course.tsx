@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './registered-course.scss';
 import api from '../../../../../config/axios';
@@ -7,9 +7,9 @@ import { Backdrop, CircularProgress } from '@mui/material';
 function RegisteredCourse() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
-    const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [member, setMember] = useState(null);
     const [student, setStudent] = useState(null);
     const [theoryStatus, setTheoryStatus] = useState(null);
 
@@ -17,7 +17,7 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Member/' + user.userID);
             setMember(response.data);
-            
+
         } catch (err) {
             console.error(err);
         }
@@ -38,7 +38,6 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Student/' + member.memberID);
             const res = response.data;
-            console.log(res);
             setStudent(res);
         } catch (err) {
             console.error(err);
@@ -56,6 +55,10 @@ function RegisteredCourse() {
     }
 
     useEffect(() => {
+        getStudentById();
+    }, [course])
+
+    useEffect(() => {
         getMemberByUID();
     }, [])
 
@@ -64,13 +67,8 @@ function RegisteredCourse() {
     }, [member]);
 
     useEffect(() => {
-        getStudentById();
-    }, [member]);
-
-    useEffect(() => {
         if (student && student.studentId) {
             getTheoryTestStatus();
-            console.log(member);
         }
     }, [student]);
 
@@ -103,10 +101,14 @@ function RegisteredCourse() {
                                         </label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: {theoryStatus && theoryStatus.pass ? "Hoàn thành" : "Chưa hoàn thành"}</label>
+                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: {theoryStatus == null ? "Chưa hoàn thành" : "Hoàn thành"}</label>
                                     </li>
                                     {theoryStatus && theoryStatus.pass ? (
                                         <>
+                                            <li>
+                                                {/* <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết: {theoryStatus.pass == null
+                                                    || theoryStatus.pass == false ? "Không đạt" : "Đạt"}</label> */}
+                                            </li>
                                             <li>
                                                 <label htmlFor="course-practice">
                                                     <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
@@ -121,9 +123,7 @@ function RegisteredCourse() {
                                     ) : (
                                         <>
                                             <li>
-                                                <label htmlFor="course-practice">
-                                                    <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh' className='disabled-link'>Lịch học thực hành</Link>
-                                                </label>
+                                                <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết: {theoryStatus == null ? "Không đạt" : "Đạt"}</label>
                                             </li>
                                             <li>
                                                 <label htmlFor="course-theory-location">
@@ -166,6 +166,9 @@ function RegisteredCourse() {
                                     </li>
                                     <li>
                                         <label htmlFor="course-practice-location" className='disabled-link'>Trạng thái học lý thuyết:</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết:</label>
                                     </li>
                                     <li>
                                         <label htmlFor="course-practice">

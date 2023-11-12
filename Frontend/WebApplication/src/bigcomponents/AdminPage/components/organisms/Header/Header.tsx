@@ -46,9 +46,8 @@ const Header: React.FC<HeaderProps> = ({ OpenSidebar }) => {
             <BsPersonCircle className="icon"/>
           </MenuButton>
           <MenuList>
-            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleProfile}>Hồ sơ cá nhân</MenuItem>
-            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleSetting}>Cài Đặt</MenuItem>
-            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleLogout}>Đăng xuất</MenuItem>
+            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleProfile}><p>Hồ sơ cá nhân</p></MenuItem>
+            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleLogout}><p>Đăng xuất</p></MenuItem>
           </MenuList>
         </Menu>
       </div>

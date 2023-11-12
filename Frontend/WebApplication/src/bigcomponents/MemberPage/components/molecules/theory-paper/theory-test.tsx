@@ -14,10 +14,12 @@ function TheoryTestPaper() {
     const [question, setQuestion] = useState([]);
     const [student, setStudent] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [answer, setAnswer] = useState(new Array(35).fill(0));
+    const [targetTime, setTargetTime] = useState(0);
     const navigate = useNavigate();
 
     // Random component
-    const Completionist = () => <span>You are good to go!</span>;
+    const Completionist = () => <span className='tw-text-uppercase '></span>;
 
     // Renderer callback with condition
     const renderer = ({ minutes, seconds, completed }) => {
@@ -59,6 +61,7 @@ function TheoryTestPaper() {
             top: 0,
             behavior: "instant"
         })
+        console.log(answer);
     }
 
     const handleStart = () => {
@@ -75,7 +78,6 @@ function TheoryTestPaper() {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     useEffect(() => {
@@ -100,15 +102,16 @@ function TheoryTestPaper() {
         };
     }, []);
 
-    const targetTime = new Date();
-    targetTime.setMinutes(targetTime.getMinutes() + 20);
+    useEffect(() => {
+        let minutes = new Date();
+        setTargetTime(minutes.setMinutes(minutes.getMinutes() + 20));
+    }, [start]);
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
         } else {
             setCurrentQuestionIndex(34);
-
         }
     };
 
@@ -120,7 +123,11 @@ function TheoryTestPaper() {
         }
     };
 
-    console.log(member);
+    const handleAnswerSelection = (selectedOption) => {
+        const updatedAnswer = [...answer];
+        updatedAnswer[currentQuestionIndex] = selectedOption;
+        setAnswer(updatedAnswer);
+    };
 
     return (
         <div className='theory-paper-container'>
@@ -145,7 +152,7 @@ function TheoryTestPaper() {
                                     {
                                         start ? (
                                             <>
-                                                <AiFillClockCircle className='clock-icon' /> Thời gian còn lại:<Countdown date={targetTime} renderer={renderer} />
+                                                <AiFillClockCircle className='clock-icon' /> Thời gian còn lại: <Countdown date={targetTime} renderer={renderer} />
                                             </>
                                         ) : (
                                             <>
@@ -169,7 +176,7 @@ function TheoryTestPaper() {
                     </table>
                     {
                         start && question && question.length > 0 ? (
-                            <div className='question-content-container'>
+                            <div className='question-content-container' key={question[currentQuestionIndex].questionId}>
                                 <div className='content-box'>
                                     <div className='question-title'>
                                         <h4 className='question-num'>Câu hỏi {currentQuestionIndex + 1}:</h4>
@@ -180,16 +187,44 @@ function TheoryTestPaper() {
                                 </div>
                                 <div className='answer-box'>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' value={1} />1
+                                        <input
+                                            type='radio'
+                                            name={`answer-content-${currentQuestionIndex}`}
+                                            value={1}
+                                            checked={answer[currentQuestionIndex] === 1}
+                                            onChange={() => handleAnswerSelection(1)}
+                                        />
+                                        1
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' value={2} />2
+                                        <input
+                                            type='radio'
+                                            name={`answer-content-${currentQuestionIndex}`}
+                                            value={2}
+                                            checked={answer[currentQuestionIndex] === 2}
+                                            onChange={() => handleAnswerSelection(2)}
+                                        />
+                                        2
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' value={3} />3
+                                        <input
+                                            type='radio'
+                                            name={`answer-content-${currentQuestionIndex}`}
+                                            value={3}
+                                            checked={answer[currentQuestionIndex] === 3}
+                                            onChange={() => handleAnswerSelection(3)}
+                                        />
+                                        3
                                     </div>
                                     <div className='answer'>
-                                        <input type='radio' name='answer-content' value={4} />4
+                                        <input
+                                            type='radio'
+                                            name={`answer-content-${currentQuestionIndex}`}
+                                            value={4}
+                                            checked={answer[currentQuestionIndex] === 4}
+                                            onChange={() => handleAnswerSelection(4)}
+                                        />
+                                        4
                                     </div>
                                 </div>
                                 <div className='button-box'>
@@ -200,31 +235,9 @@ function TheoryTestPaper() {
                         ) : (
                             <div className='question-content-container'>
                                 <div className='content-box'>
-                                    <div className='question-title'>
-                                        {/* <h4 className='question-num'>Câu hỏi 1:</h4> */}
-                                    </div>
-                                    <div className='tw-text-center img-container'>
-
-                                    </div>
+                                    <div className='question-title'></div>
+                                    <div className='tw-text-center img-container'></div>
                                 </div>
-                                {/* <div className='answer-box'>
-                                        <div className='answer'>
-                                            <input type='radio' name='answer-content' />1
-                                        </div>
-                                        <div className='answer'>
-                                            <input type='radio' name='answer-content' />2
-                                        </div>
-                                        <div className='answer'>
-                                            <input type='radio' name='answer-content' />3
-                                        </div>
-                                        <div className='answer'>
-                                            <input type='radio' name='answer-content' />4
-                                        </div>
-                                    </div> */}
-                                {/* <div className='button-box'>
-                                        <Button className='previous-btn' onClick={handlePreviousQuestion}>Câu trước</Button>
-                                        <Button className='next-btn' onClick={handleNextQuestion}>Câu tiếp theo</Button>
-                                s    </div> */}
                             </div>
                         )
                     }

@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import './exam-document.scss'
 import { useNavigate } from 'react-router-dom'
-import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function ExamDocument() {
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
 
   const [isLoading, setIsLoading] = useState(true);
-  const [integratedDrivingLicense, setIntegratedDrivingLicense] = useState(null);
-  const [revokedDrivingLicense, setRevokedDrivingLicense] = useState(null);
 
   const navigate = useNavigate();
 
@@ -125,7 +122,7 @@ function ExamDocument() {
                 </li>
                 <li className='integratedDrivingLicense'>
                   <label htmlFor="integratedDrivingLicense">Đăng ký tích hợp giấy phép lái xe: </label>
-                  <input type="checkbox" checked={integratedDrivingLicense} disabled />
+                  <input type="checkbox" checked={member.integratedDrivingLicense} disabled />
                 </li>
                 <li className='inline-block'>
                   <label className='inline-block' htmlFor="">Vi phạm hành chính trong lĩnh vực giao thông đường
@@ -135,11 +132,11 @@ function ExamDocument() {
                   <div className='check-result'>
                     <div className='result-yes'>
                       <label htmlFor="check">Có: </label>
-                      <input type="radio" name='check' defaultChecked={revokedDrivingLicense} disabled />
+                      <input type="radio" name='check' defaultChecked={member.revokedDrivingLicense} disabled />
                     </div>
                     <div className='result-no'>
                       <label htmlFor="check">Không: </label>
-                      <input type="radio" name='check' defaultChecked={!revokedDrivingLicense} disabled />
+                      <input type="radio" name='check' defaultChecked={!member.revokedDrivingLicense} disabled />
                     </div>
                   </div>
                 </li>

@@ -1,4 +1,3 @@
-import React from 'react'
 import NewsTable from '../../molecules/news-management/news-table'
 
 function NewsManagemeneTemplate() {
