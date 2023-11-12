@@ -12,8 +12,6 @@ GO
 USE [DrivingLicense]
 GO
 
-GO
-
 /* Added data */
 CREATE TABLE [dbo].[Role](
   [roleID] INT IDENTITY(1,1) NOT NULL,
@@ -1277,13 +1275,13 @@ BEGIN
         INSERT INTO [dbo].[Lesson] 
         ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
         VALUES (@classStudentID, @title, @date, N'', 0, CASE WHEN @attendance = 1 THEN 4 ELSE 0 END, 
-		CASE WHEN @attendance = 1 THEN 70 ELSE 0 END, @attendance);
+		CASE WHEN @attendance = 1 THEN 90 ELSE 0 END, @attendance);
 
 		IF @date BETWEEN '2024-01-15' AND '2024-01-28'
 		INSERT INTO [dbo].[Lesson] 
         ([classStudentID], [title], [date], [location], [isNight], [hours], [kilometers], [attendance])
         VALUES (@classStudentID, @title, @date, N'', 0, CASE WHEN @attendance = 1 THEN 4 ELSE 0 END, 
-		CASE WHEN @attendance = 1 THEN 70 ELSE 0 END, @attendance);
+		CASE WHEN @attendance = 1 THEN 90 ELSE 0 END, @attendance);
 
         -- Calculate the next date for the same day of the week
         SET @date = DATEADD(DAY, 7, @date);
@@ -1313,7 +1311,7 @@ UPDATE
 SET 
     s.totalKm = lt.TotalKilometers,
     s.totalHour = lt.TotalHours,
-    s.pass = CASE WHEN lt.TotalKilometers >= 810 THEN 1 ELSE 0 END
+    s.pass = CASE WHEN lt.TotalKilometers >= 810  THEN 1 ELSE 0 END
 FROM 
     dbo.Student s
     INNER JOIN LessonTotals lt ON s.studentID = lt.studentID
