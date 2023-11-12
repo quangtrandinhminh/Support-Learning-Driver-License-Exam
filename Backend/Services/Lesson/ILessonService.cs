@@ -26,5 +26,9 @@ namespace Backend.Services.Lesson
         Task<ServiceResult<int>> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto);
 
         Task<ServiceResult<int>> CreatePracticeLessonsAuto(string courseId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetTheoryLessonsByStudentId(string studentId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetPracticeLessonsByStudentId(string studentId);
     }
 }
