@@ -128,6 +128,7 @@ namespace Backend.Services.Test
                     if (cont >= 9)
                     {
                         var newTest = _mapper.Map<DB.Models.Test>(testCreateDTO);
+                        newTest.ExamId = testCreateDTO.ExamId;
                         newTest.StudentId = student.StudentId;
                         newTest.CreateTime = DateTime.Now;
                         await _testRepository.CreateAsync(newTest);

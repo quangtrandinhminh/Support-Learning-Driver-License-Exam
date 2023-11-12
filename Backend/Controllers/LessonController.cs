@@ -46,6 +46,13 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        /// <summary>
+        /// Return list of lessons for student by studentId from startDate to endDate
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
         [HttpGet("student/{studentId}")]
         public async Task<IActionResult> GetLessonsByCourseIdAndStudentId(DateTime startDate
             , DateTime endDate, string studentId)
@@ -62,6 +69,51 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        /// <summary>
+        /// Return list of theory lessons for student by studentId
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        [HttpGet("theory/student/{studentId}")]
+        public async Task<IActionResult> GetTheoryLessonsByStudentId(string studentId)
+        {
+            var result = await _lessonService.GetTheoryLessonsByStudentId(studentId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        /// <summary>
+        /// Return list of practice lessons for student by studentId
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        [HttpGet("practice/student/{studentId}")]
+        public async Task<IActionResult> GetPracticeLessonsByStudentId(string studentId)
+        {
+            var result = await _lessonService.GetPracticeLessonsByStudentId(studentId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        /// <summary>
+        /// Create practice lessons for all students in course by the practice class is created by mentor
+        /// </summary>
+        /// <param name="lessonCreateDto"></param>
+        /// <returns></returns>
         [HttpPost("createPracticeLesson")]
         public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
             var result = await _lessonService.CreatePracticeLessons(lessonCreateDto);
@@ -84,6 +136,11 @@ namespace Backend.Controllers
             return Ok("Thêm buổi học thực hành thành công!");
         }
 
+        /// <summary>
+        /// Create theory lesson with separate title for all students in course
+        /// </summary>
+        /// <param name="lessonCreateDto"></param>
+        /// <returns></returns>
         [HttpPost("createTheoryLesson")]
         public async Task<IActionResult> CreateTheoryLesson(LessonTheoryCreateDTO lessonCreateDto)
         {
@@ -107,6 +164,13 @@ namespace Backend.Controllers
             return Ok("Thêm buổi học lý thuyết thành công!");
         }
 
+        /// <summary>
+        /// Return list of teaching schedule for mentor by mentorId
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="mentorId"></param>
+        /// <returns></returns>
         [HttpGet("teaching-schedule/{mentorId}")]
         public async Task<IActionResult> GetTeachingScheduleByMentorId(DateTime startDate
             , DateTime endDate, int mentorId, string courseId)
@@ -139,7 +203,7 @@ namespace Backend.Controllers
         }
 
         [HttpPatch("attendance")]
-        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons)
+        public async Task<IActionResult> CheckAttendanceForStudents(ICollection<LessonUpdateAttendanceDTO> lessons)
         {
             var result = await _lessonService.CheckAttendanceForStudents(lessons);
             if (result.IsError)
@@ -153,6 +217,11 @@ namespace Backend.Controllers
             return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
 
+        /// <summary>
+        /// Create theory lesson with 1 title for all students in course
+        /// </summary>
+        /// <param name="lessonTheoryCreateDto"></param>
+        /// <returns></returns>
         [HttpPost("createTheoryLessonAuto")]
         public async Task<IActionResult> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto)
         {
@@ -176,6 +245,11 @@ namespace Backend.Controllers
             return Ok("Thêm buổi học lý thuyết thành công!");
         }
 
+        /// <summary>
+        /// Create practice lesson with date data from courseDetails for all students in course
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
         [HttpPost("createPracticeLessonAuto")]
         public async Task<IActionResult> CreatePracticeLessonAuto(string courseId)
         {
@@ -197,6 +271,29 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm buổi học thực hành thành công!");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateLesson(LessonUpdateDTO lessonUpdateDto)
+        {
+            var result = await _lessonService.UpdateLesson(lessonUpdateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật buổi học thành công!");
         }
     }
 }

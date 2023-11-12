@@ -33,14 +33,14 @@ function GuestNavCourse() {
                             </li>
                         </div>
                         <div className='nav-course-items'>
-                            <Link to='dang-nhap'>
+                            <Link to='/dang-nhap'>
                                 <li className='inline-block'>
                                     <a href="">Đăng nhập</a>
                                 </li>
                             </Link>
                         </div>
                         <div className='nav-course-items'>
-                            <Link to='dang-ky'>
+                            <Link to='/dang-ky'>
                                 <li className='inline-block'>
                                     <a href="">Đăng kí</a>
                                 </li>
