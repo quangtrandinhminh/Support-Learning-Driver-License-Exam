@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import './staff-table.scss'
 import api from '../../../../../config/axios';
+import { Link } from 'react-router-dom';
 
 function MemberTable() {
-    const [staff, setStaff] = useState<any[]>([])
+    const [staff, setStaff] = useState<any[]>([]);
 
-    const getAllMentors = async () => {
+    const getAllStaff = async () => {
         try {
             const response = await api.get('Staff/list');
             const res = response.data;
@@ -15,18 +16,18 @@ function MemberTable() {
         }
     }
 
-    //paganition part
+    // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
     const recordPage = 6;
     const lastIndex = currentPage * recordPage;
-    const firsIndex = lastIndex - recordPage;
-    const records = staff.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(staff.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
+    const firstIndex = lastIndex - recordPage;
+    const records = staff.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(staff.length / recordPage);
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     useEffect(() => {
-        getAllMentors();
-    }, [])
+        getAllStaff();
+    }, []);
 
     const prePage = () => {
         if (currentPage !== 1) {
@@ -34,16 +35,36 @@ function MemberTable() {
         }
     }
 
-    const changeCPage = (id: number) => {
-        setCurrentPage(id);
+    const changePage = (pageNumber) => {
+        setCurrentPage(pageNumber);
     }
 
     const nextPage = () => {
-        if (currentPage !== npage) {
+        if (currentPage !== totalPages) {
             setCurrentPage(currentPage + 1);
         }
-        console.log(npage);
     }
+
+    const handleUpdate = (staffId) => {
+        window.location.href = `/update-staff/${staffId}`;
+    }
+
+    const handleDelete = async (staffId) => {
+        try {
+            // Perform the deletion
+            await api.delete(`Staff/delete/${staffId}`);
+
+            // Reload the page after successful deletion
+            window.location.reload();
+
+            // Once deletion is successful, fetch the updated data
+            await getAllStaff();
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 
     return (
         <div className='staff-table-container'>
@@ -52,6 +73,13 @@ function MemberTable() {
             </div>
             <div className='staff-table-content'>
                 <form action="">
+                    <div className='d-grid mb-2'>
+                        <div className="row">
+                            <div className='d-flex btnCreate col justify-content-end'>
+                                <Link to='tao-nhan-vien' className='btn btn-success'>+ Add</Link>
+                            </div>
+                        </div>
+                    </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
@@ -70,7 +98,11 @@ function MemberTable() {
                                         <td>{staff.fullName}</td>
                                         <td>{staff.phone}</td>
                                         <td>{staff.email}</td>
-                                        <td>{staff.status? 'Đang làm' : 'Không làm'}</td>
+                                        <td>{staff.status ? 'Đang làm' : 'Không làm'}</td>
+                                        <td className='button text-center'>
+                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(staff.staffId)}>Update</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(staff.staffId)}>Delete</button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
@@ -91,14 +123,11 @@ function MemberTable() {
                                 <button type='button' className='page-link'
                                     onClick={prePage}>Prev</button>
                             </li>
-                            {
-                                numbers.map((n, i) => (
-                                    <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <button type='button' className='page-link'
-                                            onClick={() => changeCPage(n)}>{n}</button>
-                                    </li>
-                                ))
-                            }
+                            {pageNumbers.map((number) => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <button type='button' className='page-link' onClick={() => changePage(number)}>{number}</button>
+                                </li>
+                                ))}
                             <li className='page-item'>
                                 <button type='button' className='page-link'
                                     onClick={nextPage}>Next</button>
