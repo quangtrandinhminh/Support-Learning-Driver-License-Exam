@@ -121,7 +121,7 @@ function TeachingSchedule() {
         <>
             <div className="teaching-schedule-container">
                 <div>
-                    <h1>Lịch dạy thực hành lớp 236B2 khóa 1101B2</h1>
+                    <h1>Lịch dạy thực hành lớp 236B2 </h1>
                 </div>
                 <div className="teaching-schedule">
                     <form action="">
