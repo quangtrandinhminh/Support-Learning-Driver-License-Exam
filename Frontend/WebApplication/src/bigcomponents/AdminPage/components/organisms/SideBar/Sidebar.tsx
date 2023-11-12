@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUsersCog} from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
+import { NavLink } from 'react-router-dom';
 
 interface SidebarProps {
   openSidebarToggle: boolean;
@@ -74,10 +75,10 @@ const Slidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) =>
 
 const SidebarItem: React.FC<{ icon: React.ReactNode; text: string; link: string }> = ({ icon, text, link }) => {
   return (
-    <li className="sidebar-list-item">
-      <a href={link}>
+      <li className="sidebar-list-item">
+      <NavLink to={link} className="sidebar-link">
         {icon} {text}
-      </a>
+      </NavLink>
     </li>
   );
 }
