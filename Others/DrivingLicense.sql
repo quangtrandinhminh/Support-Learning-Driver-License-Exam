@@ -1926,3 +1926,52 @@ INSERT INTO [dbo].[Question] ([questionId], [content], [image], [correctAnswer],
 GO
 SET IDENTITY_INSERT [dbo].[Question] OFF
 GO
+
+-- add table Test
+SET IDENTITY_INSERT [dbo].[Test] ON
+GO
+INSERT INTO [dbo].[Test] ([testID], [studentID], [examID], [score],[pass], [createTime])
+	VALUES (1, '1101B2.01', 1, null, null, '2023-10-16')
+
+SET IDENTITY_INSERT [dbo].[Test] OFF
+
+-- add table StudentAnswer
+SET IDENTITY_INSERT [dbo].[StudentAnswer] ON
+INSERT INTO [dbo].[StudentAnswer] (studentAnswerID, testID, questionID, optionID, isCorrect)
+VALUES
+(1, 1, 55, NULL, NULL),
+(2, 1, 13, NULL, NULL),
+(3, 1, 43, NULL, NULL),
+(4, 1, 58, NULL, NULL),
+(5, 1, 5, NULL, NULL),
+(6, 1, 18, NULL, NULL),
+(7, 1, 3, NULL, NULL),
+(8, 1, 32, NULL, NULL),
+(9, 1, 6, NULL, NULL),
+(10, 1, 34, NULL, NULL),
+(11, 1, 38, NULL, NULL),
+(12, 1, 8, NULL, NULL),
+(13, 1, 15, NULL, NULL),
+(14, 1, 39, NULL, NULL),
+(15, 1, 10, NULL, NULL),
+(16, 1, 7, NULL, NULL),
+(17, 1, 16, NULL, NULL),
+(18, 1, 12, NULL, NULL),
+(19, 1, 31, NULL, NULL),
+(20, 1, 36, NULL, NULL),
+(21, 1, 42, NULL, NULL),
+(22, 1, 54, NULL, NULL),
+(23, 1, 9, NULL, NULL),
+(24, 1, 37, NULL, NULL),
+(25, 1, 56, NULL, NULL),
+(26, 1, 14, NULL, NULL),
+(27, 1, 17, NULL, NULL),
+(28, 1, 2, NULL, NULL),
+(29, 1, 44, NULL, NULL),
+(30, 1, 4, NULL, NULL),
+(31, 1, 57, NULL, NULL),
+(32, 1, 11, NULL, NULL),
+(33, 1, 1, NULL, NULL),
+(34, 1, 59, NULL, NULL),
+(35, 1, 41, NULL, NULL);
+SET IDENTITY_INSERT [dbo].[StudentAnswer] OFF
