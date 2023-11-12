@@ -20,7 +20,8 @@ function AdminPage() {
           openSidebarToggle={openSidebarToggle}
           OpenSidebar={OpenSidebar}
         />
-         <div className="main-content">
+        <Home />
+         {/* <div className="main-content">
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="Tin_tức" element={<div>Tin tức</div>} />
@@ -31,7 +32,7 @@ function AdminPage() {
                 <Route path="Quản_lý_khóa_học" element={<div>Quản lý khóa học</div>} />
               </Route>
           </Routes>
-        </div>
+        </div> */}
       </div>
     </div>
   );

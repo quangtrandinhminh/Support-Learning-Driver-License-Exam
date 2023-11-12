@@ -1,10 +1,11 @@
 .page-container {
     display: flex;
     flex-direction: row;
+    min-height: 1000px;
 
     .staff-header {
         min-width: 240px;
-        min-height: 900px;
+        min-height: inherit;
         background-color: #4292EB;
     }
 

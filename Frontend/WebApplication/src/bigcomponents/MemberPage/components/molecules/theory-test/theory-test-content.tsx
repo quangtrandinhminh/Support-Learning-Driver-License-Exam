@@ -1,11 +1,62 @@
 // import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react';
 import './theory-test-content.scss'
 import Button from 'react-bootstrap/esm/Button'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import api from '../../../../../config/axios';
 
 function TheoryTestContent() {
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
     const navigate = useNavigate();
+
+    const [member, setMember] = useState(null);
+    const [student, setStudent] = useState(null);
+    const [theoryTest, setTheoryTest] = useState(null);
+
+    const getMemberByUID = async () => {
+        try {
+            const response = await api.get('Member/' + user.userID);
+            setMember(response.data);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getTheoryTestStatus = async () => {
+        try {
+            const response = await api.get('TestByStudentId?studentId=' + student.studentId);
+            console.log(response.data);
+            setTheoryTest(response.data);
+        } catch (err) {
+            console.error(err.response.data.error);
+        }
+    }
+
+    useEffect(() => {
+        getMemberByUID();
+    }, []);
+
+    useEffect(() => {
+        getStudentById();
+    }, [member]);
+
+    useEffect(() => {
+        if (student && student.studentId) {
+            getTheoryTestStatus();
+        }
+    }, [student]);
 
     const handleClick = () => {
         toast.success('Chúc bạn làm bài tốt!', {
@@ -51,10 +102,19 @@ function TheoryTestContent() {
                     </strong>
                 </h5>
             </div>
-            <div className="btn-test">
-                <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
-                <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
-            </div>
+            {
+                theoryTest == null ? (
+                    <div className="btn-test">
+                        <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
+                        <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Bắt đầu làm bài</Button>
+                    </div>
+                ) : (
+                    <div className="btn-test">
+                        <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
+                        <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
+                    </div >
+                )
+            }
         </div>
     )
 }
