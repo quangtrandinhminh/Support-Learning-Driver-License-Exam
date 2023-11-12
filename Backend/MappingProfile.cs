@@ -105,7 +105,8 @@ namespace Backend
             //Lesson
             CreateMap<DB.Models.Lesson, DTO.Lesson.LessonDTO>()
                 .ForMember(dto => dto.Shift, opt => opt.MapFrom(entity => entity.ClassStudent.Class.Shift))
-                .ForMember(dto => dto.IsTheory, opt => opt.MapFrom(entity => entity.ClassStudent.Class.IsTheoryClass));
+                .ForMember(dto => dto.IsTheory, opt => opt.MapFrom(entity => entity.ClassStudent.Class.IsTheoryClass))
+                .ForMember(dto => dto.MentorId, opt => opt.MapFrom(entity => entity.ClassStudent.Class.MentorId));
             CreateMap<Lesson, TeachingScheduleDTO>()
                 .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.ClassStudent.Class.CourseId))
                 .ForMember(dto => dto.Shift, opt => opt.MapFrom(entity => entity.ClassStudent.Class.Shift))
