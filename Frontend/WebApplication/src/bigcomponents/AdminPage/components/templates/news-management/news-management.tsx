@@ -1,3 +1,4 @@
+
 import NewsTable from "../../molocules/news-management/news-table"
 
 function NewsManagemeneTemplate() {

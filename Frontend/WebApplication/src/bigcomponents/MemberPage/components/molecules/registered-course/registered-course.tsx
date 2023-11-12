@@ -7,9 +7,9 @@ import { Backdrop, CircularProgress } from '@mui/material';
 function RegisteredCourse() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
-    const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [member, setMember] = useState(null);
     const [student, setStudent] = useState(null);
     const [theoryStatus, setTheoryStatus] = useState(null);
 
@@ -69,7 +69,6 @@ function RegisteredCourse() {
     useEffect(() => {
         if (student && student.studentId) {
             getTheoryTestStatus();
-            console.log(member);
         }
     }, [student]);
 
@@ -102,17 +101,36 @@ function RegisteredCourse() {
                                         </label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết: {theoryStatus && theoryStatus.pass ? "Hoàn thành" : "Chưa hoàn thành"}</label>
+                                        <label htmlFor="course-practice-location">Trạng thái học lý thuyết:
+                                            <span className={`theory-status ${theoryStatus == null ? 'theory-status-incomplete' : 'theory-status-complete'}`}>
+                                                {theoryStatus == null ? ' Chưa hoàn thành' : ' Hoàn thành'}
+                                            </span>
+                                        </label>
                                     </li>
-                                    {theoryStatus && theoryStatus.pass ? (
+                                    {theoryStatus ? (
                                         <>
+                                            {
+                                                theoryStatus.pass == null ? (
+                                                    <li>
+                                                        <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết: Chưa thi</label>
+                                                    </li>
+                                                ) : (
+                                                    <li>
+                                                        <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết:
+                                                            <span className={`theory-exam ${theoryStatus.pass == null || theoryStatus.pass == false ? " theory-exam-fail" : "theory-exam-pass"}`}>
+                                                                {theoryStatus.pass == false ? " Không đạt" : " Đạt"}
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                )
+                                            }
                                             <li>
                                                 <label htmlFor="course-practice">
                                                     <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
                                                 </label>
                                             </li>
                                             <li>
-                                                <label htmlFor="course-theory-location">
+                                                <label htmlFor="course-theory-register">
                                                     <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
                                                 </label>
                                             </li>
@@ -120,9 +138,7 @@ function RegisteredCourse() {
                                     ) : (
                                         <>
                                             <li>
-                                                <label htmlFor="course-practice">
-                                                    <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh' className='disabled-link'>Lịch học thực hành</Link>
-                                                </label>
+                                                <label htmlFor="theory-exam-status">Trạng thái kiểm tra lý thuyết: Chưa thi</label>
                                             </li>
                                             <li>
                                                 <label htmlFor="course-theory-location">
@@ -135,7 +151,11 @@ function RegisteredCourse() {
                                         <label htmlFor="course-theory-location">Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
+                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán:
+                                            <span className={`payment-status ${member.isPaid ? " payment-finish" : " payment-notyet"}`}>
+                                                {member.isPaid ? " Đã thanh toán" : " Chưa thanh toán"}
+                                            </span>
+                                        </label>
                                     </li>
                                     <li>
                                         <form>
@@ -164,7 +184,10 @@ function RegisteredCourse() {
                                         </label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-location" className='disabled-link'>Trạng thái học lý thuyết:</label>
+                                        <label htmlFor="course-theory-status" className='disabled-link'>Trạng thái học lý thuyết:</label>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="theory-exam-status" className='disabled-link'>Trạng thái kiểm tra lý thuyết:</label>
                                     </li>
                                     <li>
                                         <label htmlFor="course-practice">
@@ -180,7 +203,11 @@ function RegisteredCourse() {
                                         <label htmlFor="course-theory-location" className='disabled-link'>Địa điểm học: Trung tâm dạy lái xe B2 FDriving</label>
                                     </li>
                                     <li>
-                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán: {member.isPaid ? "Đã đóng tiền" : "Chưa đóng tiền"}</label>
+                                        <label htmlFor="course-practice-isPaid">Trạng thái thanh toán:
+                                            <span className={`payment-status ${member.isPaid ? " payment-finish" : " payment-notyet"}`}>
+                                                {member.isPaid ? " Đã thanh toán" : " Chưa thanh toán"}
+                                            </span>
+                                        </label>
                                     </li>
                                     <li>
                                         <form>

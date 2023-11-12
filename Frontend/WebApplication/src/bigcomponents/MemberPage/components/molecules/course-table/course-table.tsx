@@ -121,7 +121,7 @@ function CourseTable() {
                                                         </ol>
                                                     </td>
                                                     <td className='course-register'>
-                                                        <Button className='btnRegister' variant="primary" onClick={handleShow}>
+                                                        <Button className='btnRegister btn btn-primary' onClick={handleShow}>
                                                             Đăng ký
                                                         </Button>
 
