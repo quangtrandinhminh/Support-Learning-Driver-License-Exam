@@ -59,6 +59,7 @@ import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-
 
 // Admin page
 import AdminPage from './bigcomponents/AdminPage/components/pages/admin-page/adminPage'
+// import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile"
 import AdminProfile from "./bigcomponents/AdminPage/components/molocules/admin-profile/admin-profile";
 import CourseManagementAdminPage from './bigcomponents/AdminPage/components/pages/course-management/course-management'
 import MentorMamagementAdminPage from './bigcomponents/AdminPage/components/pages/mentor-management/mentor-management'
@@ -70,7 +71,7 @@ import UpdateCourseAdminPage from './bigcomponents/AdminPage/components/pages/up
 import UpdateNewsAdminPage from './bigcomponents/AdminPage/components/pages/update-news/update-news'
 import InactiveCourseAdminPage from './bigcomponents/AdminPage/components/pages/course-management/inactive-course'
 import ReportAdminPage from './bigcomponents/AdminPage/components/pages/report/report'
-import Home from './bigcomponents/AdminPage/components/pages/Home/home-page'
+import Home from './bigcomponents/AdminPage/components/templates/Home-templates/Home'
 import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages/staff-management/staff-management'
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
@@ -121,8 +122,9 @@ function App() {
                   {user.roleId === 1 && (
                     <>
                       <Route index element={<AdminPage />} />
+                      {/* <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} /> */}
                       <Route path='/' element={<AdminPage />}>
-                        <Route path='bang-dieu-khien' element={<Home />} />
+                        <Route index element={<Home />} />
                         <Route path='Thong-tin-ca-nhan' element={<AdminProfile />} />
                         <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementAdminPage />} />
