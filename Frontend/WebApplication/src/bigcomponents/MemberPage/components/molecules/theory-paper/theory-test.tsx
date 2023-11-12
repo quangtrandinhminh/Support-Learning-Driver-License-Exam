@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './theory-test.scss';
 import Countdown from "react-countdown";
 import { AiFillClockCircle } from 'react-icons/ai';
@@ -14,12 +14,13 @@ function TheoryTestPaper() {
     const [question, setQuestion] = useState([]);
     const [student, setStudent] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answer, setAnswer] = useState(new Array(35).fill(0));
+    const [answer, setAnswer] = useState(new Array(36).fill(0));
+    const [answeredQuestions, setAnsweredQuestions] = useState(new Array(36).fill(false));
     const [targetTime, setTargetTime] = useState(0);
     const navigate = useNavigate();
 
     // Random component
-    const Completionist = () => <span className='tw-text-uppercase '></span>;
+    const Completionist = () => <span className='tw-text-uppercase'></span>;
 
     // Renderer callback with condition
     const renderer = ({ minutes, seconds, completed }) => {
@@ -34,7 +35,7 @@ function TheoryTestPaper() {
                 <span>
                     {formattedMinutes}:{formattedSeconds}
                 </span>
-            )
+            );
         }
     };
 
@@ -61,7 +62,8 @@ function TheoryTestPaper() {
             top: 0,
             behavior: "instant"
         })
-        console.log(answer);
+        const answerStringArray = answer.map(num => num.toString());
+        console.log(answerStringArray);
     }
 
     const handleStart = () => {
@@ -74,7 +76,9 @@ function TheoryTestPaper() {
         try {
             const response = await api.get(`GetStudentQuestion/${student.studentId}`);
             setQuestion(response.data);
-            console.log(response.data);
+            const updatedAnswer = [...answer];
+            updatedAnswer[35] = student.studentId;
+            setAnswer(updatedAnswer);
         } catch (error) {
             console.log(error);
         }
@@ -86,21 +90,7 @@ function TheoryTestPaper() {
 
     useEffect(() => {
         getExam();
-        console.log(question);
     }, [student])
-
-    useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            e.preventDefault();
-            e.returnValue = 'Bạn có muốn tải lại trang?';
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
 
     useEffect(() => {
         let minutes = new Date();
@@ -111,7 +101,7 @@ function TheoryTestPaper() {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
         } else {
-            setCurrentQuestionIndex(34);
+            setCurrentQuestionIndex(35); // Changed this to 35
         }
     };
 
@@ -127,6 +117,10 @@ function TheoryTestPaper() {
         const updatedAnswer = [...answer];
         updatedAnswer[currentQuestionIndex] = selectedOption;
         setAnswer(updatedAnswer);
+
+        const updatedAnsweredQuestions = [...answeredQuestions];
+        updatedAnsweredQuestions[currentQuestionIndex] = true;
+        setAnsweredQuestions(updatedAnsweredQuestions);
     };
 
     return (
@@ -168,7 +162,13 @@ function TheoryTestPaper() {
                             <div className='questions-circle'>
                                 <ul>
                                     {question.map((_, index) => (
-                                        <li key={index}>{index + 1}</li>
+                                        <li
+                                            key={index}
+                                            onClick={() => setCurrentQuestionIndex(index)}
+                                            className={answeredQuestions[index] ? 'answered' : ''}
+                                        >
+                                            {index + 1}
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
