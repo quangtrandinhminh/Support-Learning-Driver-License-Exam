@@ -1,0 +1,392 @@
+.member-doc-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .member-doc-title {
+        margin-top: 50px;
+        text-transform: uppercase;
+        align-self: center;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .member-doc-form {
+        margin-top: 50px;
+        width: 950px;
+
+        table {
+            position: relative;
+            padding: 40px;
+            border: 1px solid black;
+            display: grid;
+            gap: 30px;
+
+            .first-part {
+                display: grid;
+                justify-content: center;
+
+                h3 {
+                    margin-top: 10px;
+                }
+
+                .cross-line {
+                    justify-self: center;
+                    margin-top: 20px;
+                    width: 70%;
+                    height: 1px;
+                    background-color: black;
+                }
+            }
+
+            .line-1 {
+
+                .name-container,
+                .nationality-container {
+                    display: inline-block;
+                }
+
+                .nationality-container {
+                    margin-left: 180px;
+                }
+            }
+
+            .line-2 {
+
+                .dob-container,
+                .gender-container {
+                    display: inline-block;
+                }
+
+                .gender-container {
+                    margin-left: 180px;
+                }
+            }
+
+            .line-3 {
+
+                .cccdDate-container,
+                .cccdLocation-container {
+                    display: inline-block;
+                }
+
+                .cccdLocation-container {
+                    margin-left: 180px;
+                }
+            }
+
+            .line-4 {
+
+                .hasDrivingLicenseNo-container,
+                .hasDrivingLicenseTier-container,
+                .hasDrivingLicenseBy-container,
+                .hasDrivingLicenseDate-container {
+                    display: inline-block;
+                }
+
+                .hasDrivingLicenseTier-container {
+                    margin-left: 20px;
+                }
+
+                .hasDrivingLicenseBy-container {
+                    margin-left: 15px;
+                }
+
+                .hasDrivingLicenseDate-container {
+                    margin-left: 100px;
+                }
+            }
+
+            li {
+                list-style: none;
+
+                label,
+                span {
+                    font-size: 18px;
+                }
+            }
+
+            .enclosed-document {
+                .enclosed-subLi {
+                    li {
+                        line-height: 38px;
+                        margin-left: 20px;
+                        font-size: 18px;
+                        list-style: disc;
+                    }
+                }
+            }
+
+            .member-doc-commitment {
+                font-size: 18px;
+            }
+
+            .second-part {
+                display: flex;
+
+                .member-img-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 200px;
+                    height: 260px;
+                    border: 1px solid black;
+
+                    label {
+                        font-style: italic;
+                    }
+                }
+
+                .exam-demand-title {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    h2 {
+                        text-align: center;
+                        align-self: center;
+                        width: 70%;
+                    }
+
+                    p {
+                        font-size: 18px;
+                        margin-top: 30px;
+                        text-align: center;
+                        align-self: center;
+                    }
+                }
+            }
+
+            .sign-container {
+                line-height: 30px;
+                text-align: center;
+                justify-self: flex-end;
+                margin-bottom: 80px;
+            }
+
+            .check-result {
+                display: inline-block;
+                transform: translateX(-490px);
+
+                .result-yes,
+                .result-no {
+                    display: inline-block;
+                    left: 0;
+                }
+
+                .result-yes {
+                    label {
+                        margin-right: 6px;
+                    }
+                }
+
+                .result-no {
+                    padding-left: 15px;
+
+                    label {
+                        margin-right: 6px;
+                    }
+                }
+            }
+
+            .integratedDrivingLicense {
+                input {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .btn-container {
+            text-align: end;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media print {
+
+    /* Your print-specific CSS styles for the table */
+    table {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 20px;
+        display: grid;
+        gap: 2px;
+
+        .first-part {
+            margin-top: 15px;
+            display: grid;
+            justify-content: center;
+
+            h3 {
+                margin-top: 10px;
+            }
+
+            .cross-line {
+                justify-self: center;
+                margin-top: 20px;
+                width: 70%;
+                height: 1px;
+                background-color: black;
+            }
+        }
+
+        .line-1 {
+            margin-top: 10px;
+            .name-container,
+            .nationality-container {
+                display: inline-block;
+            }
+
+            .nationality-container {
+                margin-left: 180px;
+            }
+        }
+
+        .line-2 {
+
+            .dob-container,
+            .gender-container {
+                display: inline-block;
+            }
+
+            .gender-container {
+                margin-left: 180px;
+            }
+        }
+
+        .line-3 {
+
+            .cccdDate-container,
+            .cccdLocation-container {
+                display: inline-block;
+            }
+
+            .cccdLocation-container {
+                margin-left: 180px;
+            }
+        }
+
+        .line-4 {
+
+            .hasDrivingLicenseNo-container,
+            .hasDrivingLicenseTier-container,
+            .hasDrivingLicenseBy-container,
+            .hasDrivingLicenseDate-container {
+                display: inline-block;
+            }
+
+            .hasDrivingLicenseTier-container {
+                margin-left: 20px;
+            }
+
+            .hasDrivingLicenseBy-container {
+                margin-left: 15px;
+            }
+
+            .hasDrivingLicenseDate-container {
+                margin-left: 100px;
+            }
+        }
+
+        li {
+            list-style: none;
+
+            label,
+            span {
+                font-size: 16px;
+            }
+        }
+
+        .enclosed-document {
+            .enclosed-subLi {
+                li {
+                    line-height: 30px;
+                    margin-left: 20px;
+                    font-size: 16px;
+                    list-style: disc;
+                }
+            }
+        }
+
+        .member-doc-commitment {
+            font-size: 16px;
+        }
+
+        .second-part {
+            display: flex;
+
+            .member-img-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 200px;
+                height: 200px;
+                border: 1px solid black;
+
+                label {
+                    font-style: italic;
+                }
+            }
+
+            .exam-demand-title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                h2 {
+                    text-align: center;
+                    align-self: center;
+                    width: 70%;
+                }
+
+                p {
+                    font-size: 16px;
+                    margin-top: 30px;
+                    text-align: center;
+                    align-self: center;
+                }
+            }
+        }
+
+        .sign-container {
+            line-height: 30px;
+            text-align: center;
+            justify-self: flex-end;
+            margin-bottom: 80px;
+        }
+
+        .check-result {
+            display: inline-block;
+            transform: translateX(-490px);
+
+            .result-yes,
+            .result-no {
+                display: inline-block;
+                left: 0;
+            }
+
+            .result-yes {
+                label {
+                    margin-right: 6px;
+                }
+            }
+
+            .result-no {
+                padding-left: 15px;
+
+                label {
+                    margin-right: 6px;
+                }
+            }
+        }
+
+        .integratedDrivingLicense {
+            input {
+                margin-left: 10px;
+            }
+        }
+    }
+}

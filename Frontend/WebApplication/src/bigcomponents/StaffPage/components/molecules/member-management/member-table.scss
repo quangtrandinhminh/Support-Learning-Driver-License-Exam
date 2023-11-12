@@ -9,6 +9,10 @@
         justify-content: center;
         margin-top: 40px;
 
+        input {
+            padding: 5px;
+        }
+
         form {
             width: 90%;
 
@@ -21,6 +25,10 @@
                     }
                 }
             }
+        }
+
+        .search-input {
+            padding: 5px;
         }
     }
 }

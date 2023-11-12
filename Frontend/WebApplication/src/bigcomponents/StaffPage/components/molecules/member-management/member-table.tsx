@@ -2,10 +2,15 @@ import { useState, useEffect } from 'react'
 import './member-table.scss'
 import api from '../../../../../config/axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function MemberTable() {
   const [member, setMember] = useState<any[]>([])
   const [_, setUpdateSuccess] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
+
+  const filteredData = member.filter(member => member.fullName.toLowerCase().includes(searchValue));
 
   const getAllMembers = async () => {
     const response = await api.get('/Members');
@@ -32,12 +37,22 @@ function MemberTable() {
     }
   }
 
+  const filter = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchValue(value);
+    setCurrentPage(1);
+  }
+
+  const handleApplication = (memberId) => {
+    navigate('don-thi/' + memberId);
+  }
+
   //paganition part
   const [currentPage, setCurrentPage] = useState(1);
   const recordPage = 6;
   const lastIndex = currentPage * recordPage;
   const firsIndex = lastIndex - recordPage;
-  const records = member.slice(firsIndex, lastIndex);
+  const records = filteredData.slice(firsIndex, lastIndex);
   const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
 
@@ -78,6 +93,15 @@ function MemberTable() {
       </div>
       <div className='member-table-content'>
         <form action="">
+          <div className='search-input col align-self-center tw-mb-2'>
+            <input
+              type="text"
+              name='courseId'
+              placeholder='courseId'
+              onChange={filter}
+              autoComplete='off'
+            />
+          </div>
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
               <tr>
@@ -102,14 +126,15 @@ function MemberTable() {
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
                       <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaidAndFetchData(member.memberID)}>Update</button>
+                      <button className="btn btn-info" type="button" onClick={() => handleApplication(member.memberID)}>Appilication</button>
                       <button className="btn btn-danger" type="submit">Delete</button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6}>
-                    <h1 className='text-center text-red-600 p-5'>
+                  <td colSpan={7}>
+                    <h1 className='text-center text-red-600 p-5 tw-text-red'>
                       Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                     </h1>
                   </td>
