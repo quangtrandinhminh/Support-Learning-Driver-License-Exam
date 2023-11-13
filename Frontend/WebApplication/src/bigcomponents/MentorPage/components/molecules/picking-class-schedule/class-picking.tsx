@@ -1,6 +1,6 @@
-import './class-list.scss'
+import './class-picking.scss'
 
-function ClassList() {
+function ClassPicking() {
   return (
     <>
     <div className="class-list-title-container">
@@ -50,4 +50,4 @@ function ClassList() {
   )
 }
 
-export default ClassList
+export default ClassPicking
