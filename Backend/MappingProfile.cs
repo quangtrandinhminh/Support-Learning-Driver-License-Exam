@@ -89,6 +89,8 @@ namespace Backend
                 .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
             CreateMap<DTO.Staff.StaffCreateDTO, DB.Models.User>();
             CreateMap<DTO.Staff.StaffCreateDTO, DB.Models.Staff>();
+            CreateMap<DTO.Staff.StaffUpdateDTO, DB.Models.User>();
+            CreateMap<DTO.Staff.StaffUpdateDTO, DB.Models.Staff>();
 
             //Student 
             CreateMap<DB.Models.Student, DTO.Student.StudentDTO>();
@@ -99,6 +101,7 @@ namespace Backend
             CreateMap<DTO.Class.ClassCreateDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassCreatePracticeDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();
+            CreateMap<DTO.Class.ClassMentorDTO, DB.Models.Class>();
 
             //ClassStudent
             CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDTO>();
