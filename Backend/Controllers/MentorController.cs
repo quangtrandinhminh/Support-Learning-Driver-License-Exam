@@ -48,22 +48,6 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
-        /*[HttpGet]
-        [Route("course/{courseId}")]
-        public Task<IActionResult> GetMentorByCourseId(string courseId)
-        {
-            var result = _mentorService.GetAllMentorsByCourseId(courseId);
-            if (result.IsError)
-            {
-                return NotFound(new
-                {
-                    error = result.ErrorMessage
-                });
-            }
-
-            return Ok(result.Payload);
-        }*/
-
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetMentorByUserId(int userId)
@@ -102,6 +86,54 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm Mentor thành công!");
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> UpdateMentor(MentorUpdateDTO mentorUpdateDto)
+        {
+            var result = await _mentorService.UpdateMentor(mentorUpdateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật Mentor thành công!");
+        }
+
+        [HttpDelete]
+        [Route("delete/{mentorId}")]
+        public async Task<IActionResult> DeleteMentor(int mentorId)
+        {
+            var result = await _mentorService.DeleteMentor(mentorId);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Xóa Mentor thành công!");
         }
     }
 }

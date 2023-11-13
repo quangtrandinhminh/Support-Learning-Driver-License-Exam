@@ -87,5 +87,37 @@ namespace Backend.Controllers
 
             return Ok("Thêm Staff thành công!");
         }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> UpdateStaff(StaffUpdateDTO staffUpdateDto)
+        {
+            var result = await _staffService.UpdateStaff(staffUpdateDto);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật Staff thành công!");
+        }
+
+        [HttpDelete]
+        [Route("delete/{staffId}")]
+        public async Task<IActionResult> DeleteStaff(int staffId)
+        {
+            var result = await _staffService.DeleteStaff(staffId);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Xóa Staff thành công!");
+        }
     }
 }
