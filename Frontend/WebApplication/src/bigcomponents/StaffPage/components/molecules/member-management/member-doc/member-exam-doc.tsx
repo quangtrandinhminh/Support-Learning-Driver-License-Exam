@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import api from '../../../../../../config/axios';
 import ComponentToPrint, { useReactToPrint } from 'react-to-print';
 import './member-exam-doc.scss'
+import { toast } from 'react-toastify';
 
 function MemberDoc() {
     const { memberId } = useParams();
@@ -31,7 +32,7 @@ function MemberDoc() {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: 'Hồ sơ thi',
-        onAfterPrint: () => window.alert('Đã in xong'),
+        onAfterPrint: () => toast.success('Đã in thành công'),
         copyStyles: true,
     })
 
