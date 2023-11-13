@@ -9,6 +9,7 @@ using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Backend.Repository.MentorRepository;
 
 namespace Backend.Services.Class
 {
@@ -17,16 +18,19 @@ namespace Backend.Services.Class
         private readonly IClassRepository _classRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IClassStudentRepository _classStudentRepository;
+        private readonly IMentorRepository _mentorRepository;
         private readonly IMapper _mapper;
 
         public ClassService(IClassRepository classRepository
             , ICourseRepository courseRepository
             , IClassStudentRepository classStudentRepository
+            , IMentorRepository mentorRepository
             , IMapper mapper)
         {
             _classRepository = classRepository;
             _courseRepository = courseRepository;
             _classStudentRepository = classStudentRepository;
+            _mentorRepository = mentorRepository;
             _mapper = mapper;
         }
 
@@ -127,7 +131,9 @@ namespace Backend.Services.Class
                     return result;
                 }
 
+                var theory = classCreateDto.IsTheoryClass;
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
+                if (theory) newClass.DayOfWeek = 0;
                 await _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
@@ -159,6 +165,75 @@ namespace Backend.Services.Class
                     newClass.IsTheoryClass = false;
                     await _classRepository.CreateAsync(newClass);
                 }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        // add mentor id into class
+        public async Task<ServiceResult<int>> AddMentorIntoClass(ClassMentorDTO classMentorDTO)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var mentor = await _mentorRepository.GetByIdAsync(classMentorDTO.MentorId);
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy mentor!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var existingClass = await _classRepository.GetByIdAsync(classMentorDTO.ClassId);
+                if (existingClass == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy lớp học!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                if (existingClass.MentorId != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Lớp học đã có mentor!";
+                    result.Payload = -2;
+                    return result;
+                }
+
+                existingClass.MentorId = classMentorDTO.MentorId;
+                await _classRepository.UpdateAsync(existingClass);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        // get all theory class in course
+        public async Task<ServiceResult<ICollection<ClassDTO>>> GetAllTheoryClassesByCourseId(string courseId)
+        {
+            var result = new ServiceResult<ICollection<ClassDTO>>();
+            try
+            {
+                var course = await _courseRepository.GetByIdAsync(courseId);
+                if (course == null) throw new Exception("Không tìm thấy khóa học!");
+
+                var classes = await _classRepository.GetAll()
+                    .Where(x => x.Status == true && x.CourseId == courseId && x.IsTheoryClass == true)
+                    .ToListAsync();
+
+                if (!classes.Any()) throw new Exception("Không tìm thấy lớp học!");
+
+                result.Payload = _mapper.Map<ICollection<ClassDTO>>(classes);
             }
             catch (Exception e)
             {
