@@ -18,7 +18,7 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Member/' + user.userID);
             setMember(response.data);
-
+            sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
         } catch (err) {
             console.error(err);
         }
