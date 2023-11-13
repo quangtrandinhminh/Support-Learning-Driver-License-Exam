@@ -14,12 +14,16 @@ function UpdateInformationForm() {
         dob: '',
         gender: '',
         nationality: '',
-        naiton: '',
+        nation: '',
         phone: '',
         email: '',
+        residenceAddress: '',
+        identityCardNumber: '',
+        courseId: '',
     });
     const [isLoading, setIsLoading] = useState(true);
     const [member, setMember] = useState(null);
+    const [student, setStudent] = useState(null);
 
     const navigate = useNavigate();
 
@@ -35,9 +39,23 @@ function UpdateInformationForm() {
         }
     }
 
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         getMemberById();
     }, [])
+
+    useEffect(() => {
+        getStudentById();
+    }, [member])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -105,36 +123,49 @@ function UpdateInformationForm() {
                                     <li className='line-2'>
                                         <div className='nationality-container'>
                                             <label htmlFor="nationality">Quốc tịch: </label>
-                                            <input type="text" name="nationality" id="" />
+                                            <input type="text" name="nationality" id=""
+                                                value={inputData.nationality} onChange={e => setInputData({ ...inputData, nationality: e.target.value })} />
                                         </div>
                                         <div className="nation-container">
                                             <label htmlFor="nation">Dân tộc: </label>
-                                            <input type="text" name="nation" id="" />
+                                            <input type="text" name="nation" id=""
+                                                value={inputData.nation} onChange={e => setInputData({ ...inputData, nation: e.target.value })} />
                                         </div>
                                     </li>
                                     <li>
                                         <label htmlFor="phoneNo">Điện thoại di động: </label>
-                                        <input type="tel" name="phoneNo" id="" />
+                                        <input type="tel" name="phoneNo" id=""
+                                            value={inputData.phone} onChange={e => setInputData({ ...inputData, phone: e.target.value })} />
                                     </li>
                                     <li>
                                         <label htmlFor="email">Email: </label>
-                                        <input type="email" name="email" id="" />
+                                        <input type="email" name="email" id=""
+                                            value={inputData.email} onChange={e => setInputData({ ...inputData, email: e.target.value })} />
                                     </li>
                                     <li>
                                         <label htmlFor="residenceAddress"><strong><i>Địa chỉ thường trú: </i></strong></label>
-                                        <span className='text-body-tertiary fst-italic'>{member.residenceAddress}</span>
+                                        <span className='text-body-tertiary fst-italic'>{inputData.residenceAddress}</span>
                                     </li>
                                     <li>
                                         <label htmlFor="cccdNo"><strong><i>Số CCCD/CMND: </i></strong></label>
-                                        <span className='text-body-tertiary fst-italic'>{member.identityCardNumber}</span>
+                                        <span className='text-body-tertiary fst-italic'>{inputData.identityCardNumber}</span>
                                     </li>
-                                    <li>
-                                        <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                                        <span className='text-body-tertiary fst-italic'>{`${member.courseId}.${member.memberID}`}</span>
-                                    </li>
+                                    {
+                                        student != null ? (
+                                            <li>
+                                                <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
+                                                <span className='text-body-tertiary fst-italic'>{student.studentID}</span>
+                                            </li>
+                                        ) : (
+                                            <li>
+                                                <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
+                                                    <span className='text-body-tertiary fst-italic'></span>
+                                            </li>
+                                        )
+                                    }
                                     <li>
                                         <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                                        <span className='text-body-tertiary fst-italic'>{member.courseId}</span>
+                                        <span className='text-body-tertiary fst-italic'>{inputData.courseId}</span>
                                     </li>
                                     <button type='submit' className='confirm-btn'>Xác nhận</button>
                                 </form>
