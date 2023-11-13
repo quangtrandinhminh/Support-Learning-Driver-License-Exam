@@ -12,5 +12,9 @@ namespace Backend.Services.Staff
         Task<ServiceResult<StaffDTO>> GetStaffByUserId(int userId);
 
         Task<ServiceResult<int>> CreateStaff(StaffCreateDTO staffCreateDto);
+
+        Task<ServiceResult<int>> UpdateStaff(StaffUpdateDTO staffUpdateDto);
+
+        Task<ServiceResult<int>> DeleteStaff(int id);
     }
 }
