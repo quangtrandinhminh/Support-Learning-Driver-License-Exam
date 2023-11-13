@@ -9,15 +9,25 @@ import api from '../../../../../config/axios';
 function UpdateInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
 
-    const [member, setMember] = useState(null);
+    const [inputData, setInputData] = useState({
+        fullName: '',
+        dob: '',
+        gender: '',
+        nationality: '',
+        naiton: '',
+        phone: '',
+        email: '',
+    });
     const [isLoading, setIsLoading] = useState(true);
+    const [member, setMember] = useState(null);
 
     const navigate = useNavigate();
 
     const getMemberById = async () => {
         try {
-            const response = await api.post('Member?userID=' + user.userID);
+            const response = await api.get('Member/' + user.userID);
             const res = response.data;
+            setInputData(res);
             setMember(res);
             setIsLoading(false);
         } catch (err) {
@@ -39,12 +49,27 @@ function UpdateInformationForm() {
         navigate(`/thong-tin-ca-nhan/${user.username}`);
     }
 
+    const formatDateToInputValue = (dateString) => {
+        const date = new Date(dateString);
+
+        // Check if the date is valid
+        if (isNaN(date.getTime())) {
+            return ''; // Handle invalid dates by returning an empty string
+        }
+
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
+
     return (
         <div className='update-information-container'>
             <h1 className='update-information-title'>Cập nhật thông tin</h1>
             <div className='update-information-content'>
                 {
-                    member != null ? (
+                    inputData != null ? (
                         !isLoading ? (
                             <>
                                 <div className='member-avatar'>
@@ -53,21 +78,27 @@ function UpdateInformationForm() {
                                 <form onSubmit={handleSubmit}>
                                     <li>
                                         <label htmlFor="name">Họ và tên: </label>
-                                        <input type="text" name="name" id="" />
+                                        <input type="text" name="name" id=""
+                                            value={inputData.fullName} onChange={e => setInputData({ ...inputData, fullName: e.target.value })} />
                                     </li>
                                     <li className='line-1'>
                                         <div className='dob-container'>
                                             <label htmlFor="dob">Ngày sinh: </label>
-                                            <input type="date" name="dob" id="" />
+                                            <input type="date" name="dob" id="" value={formatDateToInputValue(inputData.dob)}
+                                                onChange={e => setInputData({ ...inputData, dob: e.target.value })} />
                                         </div>
                                         <div className="gender-container">
                                             <div className='male'>
                                                 <label htmlFor="gender-male">Nam: </label>
-                                                <input type="radio" name="gender" id="" />
+                                                <input type="radio" name="gender" id=""
+                                                    checked={inputData.gender == "Nam"} onChange={e => setInputData({ ...inputData, gender: e.target.value })}
+                                                    disabled />
                                             </div>
                                             <div className='female'>
                                                 <label htmlFor="gender-female">Nữ: </label>
-                                                <input type="radio" name="gender" id="" />
+                                                <input type="radio" name="gender" id=""
+                                                    checked={inputData.gender == "Nữ"} onChange={e => setInputData({ ...inputData, gender: e.target.value })}
+                                                    disabled />
                                             </div>
                                         </div>
                                     </li>
