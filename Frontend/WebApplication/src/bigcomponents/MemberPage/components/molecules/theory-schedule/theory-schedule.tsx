@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import './theory-schedule.scss'
 import api from '../../../../../config/axios';
-import { get } from 'react-scroll/modules/mixins/scroller';
 
 function TheorySchedule() {
     const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
     const [theorySchedule, setTheorySchedule] = useState([]);
-    const [mentorID, setMentorID] = useState(null); // [mentorID, setMentorID
+    const [mentorID, setMentorID] = useState(null);
     const [mentor, setMentor] = useState(null);
     const [student, setStudent] = useState(null);
 
@@ -22,9 +21,9 @@ function TheorySchedule() {
     const getLessonBySID = async () => {
         try {
             const response = await api.get("Lesson/theory/student/" + student.studentId);
-            let mentorId = Array.from(new Set(response.data.map((item) => item.mentorId)));
             setTheorySchedule(response.data);
-            setMentorID(mentorId[0]);
+            const tempId = Array.from(new Set(response.data.map((item) => item.mentorId)));
+            setMentorID(tempId[0]);
         } catch (error) {
             console.log(error);
         }

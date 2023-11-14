@@ -84,13 +84,9 @@ import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/cr
 import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/create-staff/create-staff'
 
 function App() {
-
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
   console.log(window.location.href);
-
-  console.log(user);
-  console.log(member);
 
   return (
     <>
@@ -199,7 +195,7 @@ function App() {
                         <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
-                          <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                          <Route path='dang-ki-lich-day/:courseId' element={<MentorRegisterSchedule />} />
                         </Route>
 
                       </Route>
