@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './exam-management.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../../../config/axios';
+import { toast } from 'react-toastify';
 
 function ExamTable() {
     const [data, setData] = useState([]);
@@ -66,8 +67,20 @@ function ExamTable() {
         return `${day}/${month}/${year}`;
     }
 
-    const handleCreate = (examId) => {
+    const handleCreate = async (examId) => {
         try {
+            let examIDJson = JSON.stringify(examId);
+            await api.post('Test/add',
+                {
+                    Headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    examId: examIDJson
+                });
+
+            const notificationMessage = "Tạo bài thi thành công!";
+            localStorage.setItem("notificationMessage", notificationMessage);
+            location.reload();
 
         } catch (error) {
             console.log(error);
@@ -76,6 +89,15 @@ function ExamTable() {
 
     useEffect(() => {
         getAllExams();
+    }, []);
+
+    useEffect(() => {
+        const storedNotificationMessage = localStorage.getItem("notificationMessage");
+
+        if (storedNotificationMessage) {
+            toast.success(storedNotificationMessage);
+            localStorage.removeItem("notificationMessage"); // Remove the message from localStorage
+        }
     }, []);
 
     return (

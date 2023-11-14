@@ -6,7 +6,7 @@ import './create-exam.scss'
 
 function CreateExam() {
     const user = JSON.parse(sessionStorage.getItem('loginedUser')) ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    const [courseName, getCourseName] = useState([]);
+    const [courseId, setCourseId] = useState([]);
     const [error, setError] = useState(null);
     const [staff, setStaff] = useState(null);
     const [inputData, setInputData] = useState({
@@ -33,7 +33,7 @@ function CreateExam() {
         }
     }
 
-    const createNewCourse = async () => {
+    const createNewExam = async () => {
         try {
             if (!namePattern.test(inputData.examName)) {
                 setError('Tên kỳ thi không đúng. Vui lòng nhập lại!');
@@ -61,8 +61,8 @@ function CreateExam() {
         try {
             const response = await api.get('Course/list');
             const res = response.data;
-            let courseName = res.map(course => course.name);
-            getCourseName(courseName);
+            let courseId = res.map(course => course.courseId);
+            setCourseId(courseId);
         } catch (error) {
             console.log(error);
         }
@@ -70,12 +70,11 @@ function CreateExam() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        createNewCourse()
+        createNewExam()
     }
 
     useEffect(() => {
         getCourseList();
-        console.log(courseName);
     }, [])
 
     useEffect(() => {
@@ -103,13 +102,18 @@ function CreateExam() {
                     <div className='form-group row'>
                         <label htmlFor="courseId" className="col-sm-3 col-form-label">Mã khoá học: </label>
                         <div className="col-sm-9">
-                            <select className="form-control" id="courseId" placeholder="courseId"
+                            <select
+                                className="form-control"
+                                id="courseId"
+                                placeholder="courseId"
                                 name='courseId'
-                                value={inputData.courseId}
-                                defaultValue={inputData.courseId}>
+                                value={inputData.courseId || ''}  // Ensure that it's not undefined
+                                onChange={e => setInputData({ ...inputData, courseId: e.target.value })}
+                            >
+                                <option value="" disabled>Select a course</option>
                                 {
-                                    courseName.map((course, index) => (
-                                        <option key={index} value={course.courseId}>{course}</option>
+                                    courseId.map((course, index) => (
+                                        <option key={index} value={course}>{course}</option>
                                     ))
                                 }
                             </select>
