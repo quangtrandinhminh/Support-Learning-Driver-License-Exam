@@ -8,6 +8,7 @@ using Backend.DTO.Student;
 using Backend.DTO.Test;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.ClassStudentRepository;
+using Backend.Repository.CourseRepository;
 using Backend.Repository.ExamRepository;
 using Backend.Repository.LessonRepository;
 using Backend.Repository.StudentRepository;
@@ -25,17 +26,23 @@ namespace Backend.Services.Test
         private readonly IStudentRepository _studentRepository;
         private readonly IStudentAnswerService _studentAnswerService;
         private readonly ILessonRepository _lessonRepository;
+        private readonly ICourseRepository _courseRepository;
+        private readonly IExamRepository _examRepository;
         private readonly IMapper _mapper;
 
         public TestService(ITestRepository testRepository,
             IMapper mapper, IStudentRepository studentRepository,
             IStudentAnswerService studentAnswerService, 
+            IExamRepository examRepository,
+            ICourseRepository courseRepository,
             ILessonRepository lessonRepository)
         {
             _testRepository = testRepository;
             _studentRepository = studentRepository;
             _studentAnswerService = studentAnswerService;
             _lessonRepository = lessonRepository;
+            _examRepository = examRepository;
+            _courseRepository = courseRepository;
             _mapper = mapper;
         }
 
@@ -100,7 +107,12 @@ namespace Backend.Services.Test
                     result.ErrorMessage = "Bài thi đã tồn tại";
                     return result;
                 }
-                var students = _studentRepository.GetAll().ToList();
+                var exam = _examRepository.GetAll()
+                    .Where(p => p.ExamId == testCreateDTO.ExamId).FirstOrDefault();
+                var course = _courseRepository.GetAll()
+                    .Where(p => p.CourseId.Equals(exam.CourseId)).FirstOrDefault();
+                var students = _studentRepository.GetAll()
+                    .Where(p => p.CourseId.Equals(course.CourseId)).ToList();
                 var lessons = _lessonRepository.GetAll()
                     .Include(x => x.ClassStudent)
                     .ThenInclude(x => x.Class)
