@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import './create-course-form.scss'
-import api from '../../../../../config/axios';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import "./create-course-form.scss";
+import api from "../../../../../config/axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CreateCourseForm() {
   const [error, setError] = useState(null);
   const [inputData, setInputData] = useState({
-    courseId: '',
-    name: '',
-    startDate: '',
-    endDate: '',
+    courseId: "",
+    name: "",
+    startDate: "",
+    endDate: "",
     numberOfStudents: 0,
     limitStudent: 0,
-    status: false
+    status: false,
   });
 
   const navigate = useNavigate();
@@ -21,18 +21,17 @@ function CreateCourseForm() {
   const createNewCourse = async () => {
     try {
       if (!/^(\d{4})B2$/.test(inputData.courseId)) {
-        setError('Mã khoá học phải có định dạng XXXXB2 với X là số.');
+        setError("Mã khoá học phải có định dạng XXXXB2 với X là số.");
         return;
       } else if (!/^(\d{3})B2$/.test(inputData.name)) {
-        setError('Tên khoá học phải có định dạng XXXB2 với X là số.');
+        setError("Tên khoá học phải có định dạng XXXB2 với X là số.");
         return;
       }
 
-      await api.post('Course/add', inputData);
+      await api.post("Course/add", inputData);
       toast.success("Tạo khoá học thành công");
       setError(null);
-      navigate('/quan-ly-khoa-hoc');
-
+      navigate("/quan-ly-khoa-hoc");
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
@@ -41,73 +40,138 @@ function CreateCourseForm() {
     }
     window.scroll({
       top: 0,
-      behavior: 'instant'
+      behavior: "instant",
     });
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createNewCourse()
-  }
+    createNewCourse();
+  };
 
   return (
-    <div className='create-course-container'>
-      <div className='create-course-title'>
-        <h1 className='text-center text-uppercase'>Tạo khoá học</h1>
+    <div className="create-course-container">
+      <div className="create-course-title">
+        <h1 className="text-center text-uppercase">Tạo khoá học</h1>
       </div>
-      <div className='create-course-form'>
+      <div className="create-course-form">
         {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
         <form onSubmit={handleSubmit}>
-          <div className='form-group row'>
-            <label htmlFor="courseId" className="col-sm-3 col-form-label">Mã khoá học: </label>
+          <div className="form-group row">
+            <label htmlFor="courseId" className="col-sm-3 col-form-label">
+              Mã khoá học:{" "}
+            </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control" id="courseId" placeholder="courseId"
-                name='courseId'
+              <input
+                type="text"
+                className="form-control"
+                id="courseId"
+                placeholder="courseId"
+                name="courseId"
                 value={inputData.courseId}
-                onChange={e => setInputData({ ...inputData, courseId: e.target.value })} />
+                onChange={(e) =>
+                  setInputData({ ...inputData, courseId: e.target.value })
+                }
+              />
             </div>
           </div>
-          <div className='form-group row'>
-            <label htmlFor="name" className="col-sm-3 col-form-label">Tên khoá học: </label>
+          <div className="form-group row">
+            <label htmlFor="name" className="col-sm-3 col-form-label">
+              Tên khoá học:{" "}
+            </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control" id="name" placeholder="name"
-                name='name'
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="name"
+                name="name"
                 value={inputData.name}
-                onChange={e => setInputData({ ...inputData, name: e.target.value })} />
+                onChange={(e) =>
+                  setInputData({ ...inputData, name: e.target.value })
+                }
+              />
             </div>
           </div>
-          <div className='form-group row'>
-            <label htmlFor="startDate" className="col-sm-3 col-form-label">Ngày khai giảng: </label>
+          <div className="form-group row">
+            <label htmlFor="startDate" className="col-sm-3 col-form-label">
+              Ngày khai giảng:{" "}
+            </label>
             <div className="col-sm-9">
-              <input type="date" className="form-control" id="startDate" placeholder="start date"
-                name='startDate'
+              <input
+                type="date"
+                className="form-control"
+                id="startDate"
+                placeholder="start date"
+                name="startDate"
                 value={inputData.startDate}
-                onChange={e => setInputData({ ...inputData, startDate: e.target.value })} />
+                onChange={(e) =>
+                  setInputData({ ...inputData, startDate: e.target.value })
+                }
+              />
             </div>
           </div>
-          <div className='form-group row'>
-            <label htmlFor="endDate" className="col-sm-3 col-form-label">Ngày bế giảng: </label>
+          <div className="form-group row">
+            <label htmlFor="endDate" className="col-sm-3 col-form-label">
+              Ngày bế giảng:{" "}
+            </label>
             <div className="col-sm-9">
-              <input type="date" className="form-control" id="endDate" placeholder="end date"
-                name='endDate'
+              <input
+                type="date"
+                className="form-control"
+                id="endDate"
+                placeholder="end date"
+                name="endDate"
                 value={inputData.endDate}
-                onChange={e => setInputData({ ...inputData, endDate: e.target.value })} />
+                onChange={(e) =>
+                  setInputData({ ...inputData, endDate: e.target.value })
+                }
+              />
             </div>
           </div>
-          <div className='form-group row'>
-            <label htmlFor="limitStudent" className="col-sm-3 col-form-label">Số học viên tối đa: </label>
+          <div className="form-group row">
+            <label htmlFor="limitStudent" className="col-sm-3 col-form-label">
+              Số học viên tối đa:{" "}
+            </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control" id="limitStudent"
-                name='limitStudent'
-                value={0}
-                disabled />
+              <input
+                type="number"
+                className="form-control"
+                id="limitStudent"
+                name="limitStudent"
+                value={
+                  inputData.limitStudent === 0 ? "" : inputData.limitStudent
+                }
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+                  const intValue = inputValue !== "" ? parseInt(inputValue) : 0;
+
+                  if (/^\d*$/.test(inputValue) || inputValue === "") {
+                    if (intValue >= 0 && intValue <= 25) {
+                      setInputData({
+                        ...inputData,
+                        limitStudent: intValue,
+                      });
+                    } else {
+                      toast.error("Giá trị phải nằm trong khoảng từ 0 đến 25");
+                    }
+                  }
+                }}
+                max="25"
+                min="0"
+              />
             </div>
           </div>
-          <button className='btn btn-primary w-20 justify-self-end' type='submit'>Tạo</button>
+          <button
+            className="btn btn-primary w-20 justify-self-end"
+            type="submit"
+          >
+            Tạo
+          </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default CreateCourseForm
+export default CreateCourseForm;

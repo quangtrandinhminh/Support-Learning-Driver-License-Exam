@@ -48,13 +48,13 @@ function MentorTable() {
     }
 
     const updateBtn = (mentorId) => {
-        window.location.href = `/update-mentor/${mentorId}`;
+        window.location.href = `/Mentor/update/${mentorId}`;
     }
 
     const handleDelete = async (mentorId) => {
         try {
             // Perform the deletion
-            await api.delete(`Mentor/delete/${mentorId}`);
+            await api.delete(`/Mentor/delete/${mentorId}`);
 
             // Reload the page after successful deletion
             window.location.reload();
