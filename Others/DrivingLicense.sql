@@ -1199,6 +1199,15 @@ SET IDENTITY_INSERT [dbo].[FeedBack] ON
 GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
 	VALUES ('1', '1', '10 điểm', '2023-11-04', 1)
+GO
+INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
+	VALUES ('2', '2', 'Thầy tuyệt quá', '2023-11-04', 1)
+GO
+INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
+	VALUES ('3', '3', 'Thầy là nhất', '2023-11-04', 1)	
+GO
+INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
+	VALUES ('4', '4', 'Thầy là số 1', '2023-11-04', 1)	
 SET IDENTITY_INSERT [dbo].[FeedBack] OFF
 GO
 
@@ -1206,10 +1215,10 @@ GO
 SET IDENTITY_INSERT [dbo].[Exam] ON
 GO
 INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
-	VALUES (1, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+	VALUES (1, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-05T08:00:00', N'Kì thi này ....', 30, 35, 3, 32, 0)
 GO
 INSERT [dbo].[Exam] ([examID], [courseID], [staffID], [examName], [examTime], [description], [duration], [limitQuestion], [limitKeyQuestion], [minimumCorrectAnswer], [status])
-	VALUES (2, '1101B2', '1', N'Kì thi thử lý thuyết', '2023-11-06T08:00:00', N'Kì thi này ....', 60, 35, 5, 32, 0)
+	VALUES (2, '1102B2', '1', N'Kì thi thử lý thuyết', '2023-11-06T08:00:00', N'Kì thi này ....', 30, 35, 3, 32, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Exam] OFF
 
