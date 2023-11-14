@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faChalkboardUser, faDatabase, faFloppyDisk, faImages, faNewspaper, faTableColumns, faUser, faUsersCog } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faChalkboardUser, faClipboardList, faNewspaper, faTableColumns, faUser, faUserGraduate, faUsersCog,} from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
 import { NavLink } from 'react-router-dom';
 
@@ -57,9 +57,9 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           link="/quan-ly-hoc-vien"
         />
         <SidebarItem
-          icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Quản lý lịch thi"
-          link="/quan-ly-lich-thi"
+          icon={<FontAwesomeIcon icon={faUserGraduate} />}
+          text="quản lý lớp học"
+          link="/quan-ly-lop-hoc"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}

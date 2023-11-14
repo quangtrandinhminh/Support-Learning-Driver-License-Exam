@@ -29,7 +29,6 @@
 
 	<ItemGroup>
 		<Folder Include="Helpers\" />
-		<Folder Include="Repository\FeedBackRepository\" />
 		<Folder Include="Services\Mentor\" />
 		<Folder Include="Services\Member\" />
 		<Folder Include="Services\User\" />
