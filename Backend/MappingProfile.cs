@@ -97,7 +97,8 @@ namespace Backend
             CreateMap<DTO.Student.StudentDTO, DB.Models.Student>();
 
             //Class 
-            CreateMap<DB.Models.Class, DTO.Class.ClassDTO>();
+            CreateMap<DB.Models.Class, DTO.Class.ClassDTO>()
+                .ForMember(dto => dto.MentorName, opt => opt.MapFrom(entity => entity.Mentor.User.FullName));
             CreateMap<DTO.Class.ClassCreateDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassCreatePracticeDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();

@@ -38,7 +38,8 @@ namespace Backend.Services.Class
         {
             try
             {
-                var classes = _classRepository.GetAll();
+                var classes = _classRepository.GetAll()
+                    .Include(c => c.Mentor).ThenInclude(m => m.User);
                 return classes is null ? null : _mapper.Map<ICollection<ClassDTO>>(classes);
             }
             catch (Exception e)
@@ -82,6 +83,14 @@ namespace Backend.Services.Class
             return result;
         }
 
+        private int GetNumberOfStudentInClass(int classId)
+        {
+            var classStudents = _classStudentRepository.GetAll()
+                .Where(x => x.ClassId == classId)
+                .ToList();
+            return classStudents.Count;
+        }
+
         // get all class by mentor id in a course
         public async Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId)
         {
@@ -91,12 +100,10 @@ namespace Backend.Services.Class
                 var course = await _courseRepository.GetByIdAsync(courseId);
                 if (course == null) throw new Exception("Không tìm thấy khóa học!");
 
-                // get all class by mentor id in a course,  
-
-
-
                 var classes = await _classRepository.GetAll() 
-                    .Where(x => x.Status == true && x.CourseId == courseId && x.MentorId == mentorId)
+                    .Where(x => x.Status == true 
+                                && x.CourseId == courseId 
+                                && x.MentorId == mentorId)
                     .ToListAsync();
 
                 if (!classes.Any()) throw new Exception("Không tìm thấy lớp học!");
@@ -105,6 +112,37 @@ namespace Backend.Services.Class
                 var classStudents = await _classStudentRepository.GetAll().ToListAsync();
                 var classIds = classStudents.Select(x => x.ClassId).ToList();
                 classes = classes.Where(x => classIds.Contains(x.ClassId)).ToList();
+
+                result.Payload = _mapper.Map<ICollection<ClassDTO>>(classes);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        // get all practice class by mentor id in a course
+        public async Task<ServiceResult<ICollection<ClassDTO>>> GetAllPracticeClassesByMentorId(int mentorId,
+            string courseId)
+        {
+            var result = new ServiceResult<ICollection<ClassDTO>>();
+            try
+            {
+                var course = await _courseRepository.GetByIdAsync(courseId);
+                if (course == null) throw new Exception("Không tìm thấy khóa học!");
+
+                var classes = await _classRepository.GetAll()
+                    .Include(x => x.Mentor.User)
+                    .Where(x => x.Status == true
+                                && x.CourseId == courseId
+                                && x.MentorId == mentorId
+                                && x.IsTheoryClass == false)
+                    .ToListAsync();
+
+                if (!classes.Any()) throw new Exception("Không tìm thấy lớp học!");
+                classes = classes.Where(x => GetNumberOfStudentInClass(x.ClassId) < 3).ToList();
 
                 result.Payload = _mapper.Map<ICollection<ClassDTO>>(classes);
             }
@@ -150,21 +188,45 @@ namespace Backend.Services.Class
             var result = new ServiceResult<int>();
             try
             {
-                foreach (var classCreatePracticeDTO in classCreatePracticeDTOs)
+                var mentor = await _mentorRepository.GetByIdAsync(classCreatePracticeDTOs.First().MentorId);
+                if (mentor == null)
                 {
-                    var course = _courseRepository.GetAll().
-                        Where(p => p.CourseId.Equals(classCreatePracticeDTO.CourseId)).FirstOrDefault();
-                    if (course == null)
-                    {
-                        result.IsError = true;
-                        result.ErrorMessage = "Không tìm thấy khóa học!";
-                        result.Payload = -1;
-                        return result;
-                    }
-                    var newClass = _mapper.Map<DB.Models.Class>(classCreatePracticeDTO);
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy mentor!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var course = await _courseRepository.GetByIdAsync(classCreatePracticeDTOs.First().CourseId);
+                if (course == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var practiceClassesInCourse = await _classRepository.GetAll()
+                    .Where(x => x.Status == true 
+                                && x.MentorId == mentor.MentorId
+                                && x.CourseId == course.CourseId
+                                && x.IsTheoryClass == false)
+                    .ToListAsync();
+
+                var count = 0;
+                foreach (var classCreatePracticeDto in classCreatePracticeDTOs)
+                {
+                    if (practiceClassesInCourse.Any(x => x.DayOfWeek == classCreatePracticeDto.DayOfWeek 
+                                                         && x.Shift == classCreatePracticeDto.Shift))
+                    continue;
+
+                    var newClass = _mapper.Map<DB.Models.Class>(classCreatePracticeDto);
                     newClass.IsTheoryClass = false;
                     await _classRepository.CreateAsync(newClass);
+                    count++;
                 }
+
+                result.Payload = count;
             }
             catch (Exception e)
             {

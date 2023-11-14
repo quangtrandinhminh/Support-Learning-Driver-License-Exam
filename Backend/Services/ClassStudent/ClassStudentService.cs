@@ -29,7 +29,7 @@ namespace Backend.Services.ClassStudent
             _mapper = mapper;
         }
 
-        public ICollection<ClassStudentDTO> GetAllCllassStudent()
+        public ICollection<ClassStudentDTO> GetAllClassStudent()
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Backend.Services.ClassStudent
         }
 
         // Add all students in course to a class
-        public async Task<ServiceResult<int>> AddAllStudentIntoClass(string courseId, int classId)
+        public async Task<ServiceResult<int>> AddAllStudentsIntoTheoryClass(string courseId)
         {
             var result = new ServiceResult<int>();
             try
@@ -93,8 +93,10 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var existClass = await _classRepository.GetAll().Where(p => p.ClassId == classId).FirstOrDefaultAsync();
-                if (existClass == null)
+                var theoryClass = await _classRepository.GetAll()
+                    .Where(p => p.CourseId == courseId && p.IsTheoryClass == true)
+                    .FirstOrDefaultAsync();
+                if (theoryClass == null)
                 {
                     result.IsError = true;
                     result.Payload = -1;
@@ -111,7 +113,8 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var existClassStudents = await _classStudentRepository.GetAll().Where(p => p.ClassId == classId).ToListAsync();
+                var existClassStudents = await _classStudentRepository.GetAll()
+                    .Where(p => p.ClassId == theoryClass.ClassId).ToListAsync();
 
                 var count = 0;
                 foreach (var student in students)
@@ -120,7 +123,7 @@ namespace Backend.Services.ClassStudent
 
                     var classStudent = new DB.Models.ClassStudent
                     {
-                        ClassId = existClass.ClassId,
+                        ClassId = theoryClass.ClassId,
                         StudentId = student.StudentId
                     };
                     await _classStudentRepository.CreateAsync(classStudent);

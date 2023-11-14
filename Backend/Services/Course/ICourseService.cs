@@ -19,5 +19,7 @@ namespace Backend.Services.Course
         Task<ServiceResult<int>> UpdateCourse(CourseUpdateDTO courseUpdateDto);
 
         Task<ServiceResult> DeactivateCourse(string id);
+
+        Task<ServiceResult> ActivateCourse(string id);
     }
 }

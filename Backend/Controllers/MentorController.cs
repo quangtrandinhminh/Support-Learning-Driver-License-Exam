@@ -64,6 +64,28 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        /// <summary>
+        /// Return all mentors who teach theory
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("theory")]
+        public async Task<IActionResult> GetMentorTheory()
+        {
+            var result = await _mentorService.GetMentorTheory();
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+        
+
+
         [HttpPost]
         [Route("add")]
         public async Task<IActionResult> AddMentor(MentorCreateDTO mentorCreateDto)
