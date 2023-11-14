@@ -90,15 +90,14 @@ import CreateClassAdminPage from './bigcomponents/AdminPage/components/pages/cre
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
-  console.log(window.location.href);
 
   return (
     <>
       <ScrollToTop />
       <ToastContainer
         position="top-right"
-        autoClose={2000}
-        hideProgressBar
+        autoClose={1500}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -233,7 +232,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                        <Route path='khoa-hoc/:courseName' element={<PracticeSpecificPage />} />
+                          <Route path='khoa-hoc/:mentorId/:courseId' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />

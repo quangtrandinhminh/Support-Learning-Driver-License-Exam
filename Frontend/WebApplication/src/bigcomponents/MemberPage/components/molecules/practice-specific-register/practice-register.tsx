@@ -1,33 +1,108 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './practice-register.scss'
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import api from '../../../../../config/axios';
+import { get } from 'react-scroll/modules/mixins/scroller';
 
 function PracticeSpecificRegister() {
-
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    const [member, setMember] = useState(null); // Store member
+    const [student, setStudent] = useState(null); // Store student
+    const { mentorId } = useParams();
+    const { courseId } = useParams();
     const navigate = useNavigate();
+    const [mentor, setMentor] = useState(null); // Store mentor
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        window.scroll( {
-            top: 0,
-            behavior: 'instant'
-        });
-        toast.success("Đăng ký học thực hành thành công");
-        navigate('/khoa-hoc-cua-ban');
+    const [practiceClass, setPracticeClass] = useState([]); // Store practice class
+
+    const getMemberByUID = async () => {
+        try {
+            const response = await api.get('Member/' + user.userID);
+            setMember(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getStudentByUID = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+            sessionStorage.setItem('loginedStudent', JSON.stringify(res));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getClassByCourseId = async () => {
+        try {
+            const response = await api.get('Class/course/mentor/practice?courseId=' + courseId + '&mentorId=' + mentorId);
+            const res = response.data;
+            setPracticeClass(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getMentorById = async () => {
+        try {
+            const response = await api.get('Mentor/' + mentorId);
+            const res = response.data;
+            setMentor(res);
+            return res;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getClassByCourseId();
+        getMentorById();
+        getMemberByUID();
+    }, [])
+
+    useEffect(() => {
+        getStudentByUID();
+    }, [member])
+
+    const handleRegister = async (studentId, classId) => {
+        try {
+            const response = await api.post('ClassStudent', {
+                studentId: studentId,
+                classId: classId
+            });
+            const res = response.data;
+            console.log(res);
+            toast.success('Đăng ký thành công!');
+            navigate('/khoa-hoc-cua-ban');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <div className='practice-register-container'>
             <div className='title-container'>
                 <h1 className='practice-container-title'>Đăng ký lịch học thực hành</h1>
-                <h2 className='practice-container-subtitle'>
-                    Giáo viên: Nguyễn Văn A
-                    <br />
-                    Xe số: 51A-012xx (Hạn TL: dd/mm/yyyy)
-                    <br />
-                    Xe tự động: 51A-267xx (Hạn TL: dd/mm/yyyy)
-                </h2>
+                {
+                    mentor != null ? (
+                        <>
+                            <h2 className='practice-container-subtitle'>
+                                Giáo viên: {mentor.fullName}
+                            </h2>
+                            <h2>
+                                Xe số: 51A-012.72 (Hạn TL: 21/11/2007)
+                            </h2>
+                            <h2>
+                                Xe tự động: 51A-820.11 (Hạn TL: 09/12/2006)
+                            </h2>
+                        </>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             <div className="practice-register-body">
                 <div className='practice-information'>
@@ -43,31 +118,36 @@ function PracticeSpecificRegister() {
                         Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
                     </p>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form>
                     <table>
 
                         <thead>
                             <tr>
-                                <th rowSpan={1} className='practice-day w-25'>Thứ</th>
+                                <th rowSpan={1} className='practice-no'>STT</th>
+                                <th rowSpan={1} className='practice-day'>Thứ</th>
                                 <th rowSpan={1} className='practice-time'>Ca học</th>
                                 <th rowSpan={1} className='practice-time'></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Sáng</td>
-                                <td>Thứ hai hàng tuần</td>
-                                <td>
-                                    <button className='register-btn'>Đăng ký</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Chiều</td>
-                                <td>Thứ hai hàng tuần</td>
-                                <td>
-                                    <button className='register-btn'>Đăng ký</button>
-                                </td>
-                            </tr>
+                            {
+                                practiceClass.length > 0 ? practiceClass.map((lesson, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{lesson.dayOfWeek == 2 ? "Thứ hai" :
+                                            lesson.dayOfWeek == 3 ? "Thứ ba" :
+                                                lesson.dayOfWeek == 4 ? "Thứ tư" :
+                                                    lesson.dayOfWeek == 5 ? "Thứ năm" :
+                                                        lesson.dayOfWeek == 6 ? "Thứ sáu" : ""}</td>
+                                        <td>{lesson.shift}</td>
+                                        <td>
+                                            <button className='btn btn-primary' type='button' onClick={() => handleRegister(student.studentId, lesson.classId)}>Đăng ký</button>
+                                        </td>
+                                    </tr>
+                                )) : (
+                                    <h1>Không có dữ liệu</h1>
+                                )
+                            }
                         </tbody>
                     </table>
                     <div className='practice-register-note'>

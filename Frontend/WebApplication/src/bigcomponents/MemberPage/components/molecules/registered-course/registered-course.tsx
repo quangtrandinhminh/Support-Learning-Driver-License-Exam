@@ -28,6 +28,7 @@ function RegisteredCourse() {
         try {
             const response = await api.get('Course/' + member.courseId);
             const res = response.data;
+
             setCourse(res);
             setIsLoading(false);
         } catch (err) {
