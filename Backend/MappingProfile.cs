@@ -27,6 +27,7 @@ namespace Backend
                 .ForMember(dto => dto.CourseMonth, otp => otp.MapFrom(entity => entity.Course.CourseMonth))
                 .ForMember(dto => dto.LimitStudent, otp => otp.MapFrom(entity => entity.Course.LimitStudent));
             CreateMap<DTO.CourseDetails.CourseDetailsDTO, DB.Models.CourseDetail>();
+            CreateMap<DTO.CourseDetails.CourseDetailsCreateDTO, DB.Models.CourseDetail>();
 
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
