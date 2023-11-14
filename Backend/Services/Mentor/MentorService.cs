@@ -27,6 +27,7 @@ namespace Backend.Services.Mentor
             {
                 var mentors = _mentorRepository.GetAll()
                     .Include(m => m.User)
+                    .Where(m => m.User.Status == true)
                     .ToList();
 
                 if (!mentors.Any())
@@ -53,7 +54,7 @@ namespace Backend.Services.Mentor
             {
                 var mentor = await _mentorRepository.GetAll()
                     .Include(m => m.User)
-                    .FirstOrDefaultAsync(m => m.MentorId == id && m.UserId == m.User.UserId);
+                    .FirstOrDefaultAsync(m => m.MentorId == id);
 
                 if (mentor == null)
                 {
@@ -167,6 +168,69 @@ namespace Backend.Services.Mentor
                 result.ErrorMessage = e.Message;
                 result.Payload = 0;
             }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> UpdateMentor(MentorUpdateDTO mentorUpdateDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var mentor = await _mentorRepository.GetAll()
+                    .Include(m => m.User)
+                    .FirstOrDefaultAsync(m => m.MentorId == mentorUpdateDto.MentorId);
+
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var updateMentor = _mapper.Map(mentorUpdateDto, mentor);
+                await _mentorRepository.UpdateAsync(updateMentor);
+
+                var mentorUser = _mapper.Map(mentorUpdateDto, mentor.User);
+                await _userRepository.UpdateAsync(mentorUser);
+
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+                result.Payload = 0;
+            }
+            
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> DeleteMentor(int id)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var mentor = await _mentorRepository.GetAll()
+                    .Include(m => m.User)
+                    .FirstOrDefaultAsync(m => m.MentorId == id);
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                mentor.User.Status = false;
+                await _userRepository.UpdateAsync(mentor.User);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+                result.Payload = 0;
+            }
+            
             return result;
         }
     }

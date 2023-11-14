@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Backend.DB.Models;
+using Backend.DTO.Mentor;
 using Backend.DTO.Staff;
 using Backend.Repository.StaffRepository;
 using Backend.Repository.UserRepository;
@@ -52,7 +54,7 @@ namespace Backend.Services.Staff
             {
                 var staff = await _staffRepository.GetAll()
                     .Include(s => s.User)
-                    .FirstOrDefaultAsync(s => s.StaffId == id && s.UserId == s.User.UserId);
+                    .FirstOrDefaultAsync(s => s.StaffId == id);
 
                 if (staff == null)
                 {
@@ -167,6 +169,69 @@ namespace Backend.Services.Staff
                 result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> UpdateStaff(StaffUpdateDTO staffUpdateDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var staff = await _staffRepository.GetAll()
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.StaffId == staffUpdateDto.StaffId && s.UserId == s.User.UserId);
+
+                if (staff == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy nhân viên!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                var updateMentor = _mapper.Map(staffUpdateDto, staff);
+                await _staffRepository.UpdateAsync(updateMentor);
+
+                var mentorUser = _mapper.Map(staffUpdateDto, staff.User);
+                await _userRepository.UpdateAsync(mentorUser);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResult<int>> DeleteStaff(int id)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var staff = await _staffRepository.GetAll()
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.StaffId == id);
+
+                if (staff == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy nhân viên!";
+                    result.Payload = -1;
+                    return result;
+                }
+
+                staff.User.Status = false;
+                await _userRepository.UpdateAsync(staff.User);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+
             return result;
         }
     }

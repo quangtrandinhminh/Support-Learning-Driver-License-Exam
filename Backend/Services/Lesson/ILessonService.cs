@@ -21,10 +21,16 @@ namespace Backend.Services.Lesson
 
         Task<ServiceResult<ICollection<AttendanceDTO>>> GetLessonsByClassIdAndDate(int classId, DateTime date);
 
-        Task<ServiceResult<int>> CheckAttendanceForStudents(ICollection<LessonUpdateDTO> lessons);
+        Task<ServiceResult<int>> CheckAttendanceForStudents(ICollection<LessonUpdateAttendanceDTO> lessons);
 
         Task<ServiceResult<int>> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto);
 
         Task<ServiceResult<int>> CreatePracticeLessonsAuto(string courseId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetTheoryLessonsByStudentId(string studentId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetPracticeLessonsByStudentId(string studentId);
+
+        Task<ServiceResult<int>> UpdateLesson(LessonUpdateDTO lessonUpdateDto);
     }
 }

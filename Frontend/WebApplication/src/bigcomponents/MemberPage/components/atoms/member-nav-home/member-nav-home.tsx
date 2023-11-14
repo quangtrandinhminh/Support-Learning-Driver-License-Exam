@@ -29,6 +29,7 @@ function MemberNavHome() {
         try {
             const res = await api.get(`Member/${user.userID}`);
             setMember(res.data);
+            console.log(res.data);
             sessionStorage.setItem('loginedMember', JSON.stringify(res.data));
         } catch (err) {
             console.log(err);

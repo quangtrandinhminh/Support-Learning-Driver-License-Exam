@@ -8,7 +8,7 @@ function MentorClassInformation() {
       </div>
       <div className="class-information-container">
         <p>
-          Thời gian: Thứ hai, ngày xx tháng xx năm 2023
+          Thời gian: Thứ hai, ngày 13 tháng 11 năm 2023
           <br />
           Buổi thứ: 1
           <br />
@@ -16,11 +16,11 @@ function MentorClassInformation() {
           <br />
           Nội dung: Thực tập sa hình
           <br />
-          Lớp phụ trách: XXB2
+          Lớp phụ trách: 236B2
           <br />
           Trạng thái: Đã hoàn thành
           <br />
-          Xem đánh giá (Dư Yến đề xuất: Cân nhắc bỏ)
+          <a href="lich-day/chi-tiet-lich-day">Xem đánh giá</a>
         </p>
       </div>
     </>
