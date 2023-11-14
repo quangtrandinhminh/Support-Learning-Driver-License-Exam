@@ -1,60 +1,105 @@
 import React, { useState } from 'react';
 import './teaching-register.scss';
 import api from '../../../../../config/axios';
+import { useParams } from 'react-router-dom';
 
-const MentorTeachingRegister = () => {
-  const [checkboxes, setCheckboxes] = useState({
-    "sang-monday": false,
-    "sang-tuesday": false,
-    "sang-wednesday": false,
-    "sang-thursday": false,
-    "sang-friday": false,
-    "chieu-monday": false,
-    "chieu-tuesday": false,
-    "chieu-wednesday": false,
-    "chieu-thursday": false,
-    "chieu-friday": false,
+interface CheckboxTableState {
+  checkboxes: {
+    [key: string]: boolean;
+  };
+}
+
+const MentorTeachingRegister: React.FC = () => {
+  const { courseId } = useParams();
+  const [checkboxes, setCheckboxes] = useState<CheckboxTableState['checkboxes']>({
+    "sang-2": false,
+    "sang-3": false,
+    "sang-4": false,
+    "sang-5": false,
+    "sang-6": false,
+    "chieu-2": false,
+    "chieu-3": false,
+    "chieu-4": false,
+    "chieu-5": false,
+    "chieu-6": false,
   });
 
-  const handleCheckboxChange = (key) => {
+  const handleCheckboxChange = (key: string) => {
     setCheckboxes((prevCheckboxes) => ({
       ...prevCheckboxes,
       [key]: !prevCheckboxes[key],
     }));
   };
 
-  const handleSubmit = () => {
+  const getDayOfWeekNumber = (dayOfWeek: string) => {
+    const daysOfWeek = ["2", "3", "4", "5", "6"];
+    return daysOfWeek.indexOf(dayOfWeek.toLowerCase()) + 2; // Monday starts from 2
+  };
+
+  const capitalizeFirstLetter = (word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
+  const handleSubmit = async () => {
+    // Prepare data to send to the server
     const selectedDays = Object.keys(checkboxes).filter(
       (key) => checkboxes[key]
     );
-    const dataToSend = {
-      registeredDays: selectedDays,
-    };
-    fetch('', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const listObjects = selectedDays.map((selectedDay) => {
+      const [shift, dayOfWeek] = selectedDay.split('-');
+      return {
+        mentorId: 1, // Replace with the actual mentor ID
+        courseId: courseId, // Replace with the actual course ID
+        dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
+        shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
+        status: true, // You can set the status based on your requirements
+      };
+    });
+
+    // Convert listObjects to the desired format
+    const formattedListObjects = listObjects.map(({ mentorId, courseId, dayOfWeek, shift, status }) => ({
+      mentorId,
+      courseId,
+      dayOfWeek,
+      shift,
+      status,
+    }));
+
+    // Log the formattedListObjects to the console
+    console.log('Formatted List of Objects:', formattedListObjects);
+
+    try {
+      // Make an API request to the server using Axios
+      const response = await api.post(
+        'Class/addClassPracticeByMentor',
+        formattedListObjects,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return response.json();
-        } else {
-          throw new Error('Response is not in JSON format');
-        }
-      })
-      .then((data) => {
-        console.log('Response from the server:', data);
-        alert('Lịch đã được đặt thành công!');
-       })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      );
+
+      console.log(formattedListObjects)
+
+      // Check if the response status is OK (status code 2xx)
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Handle the response data here
+      console.log('Response from the server:', response.data);
+
+      // Example: Display a success message to the user
+      alert('Lịch đã được đặt thành công!');
+      window.history.back();
+      // You can also update the UI or perform other actions based on the response data
+      // For example, if your response contains additional information, you can use it as needed.
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors here
+    }
   };
 
   return (
@@ -79,7 +124,7 @@ const MentorTeachingRegister = () => {
               <tbody className="register-body">
                 <tr>
                   <td>Ca sáng</td>
-                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                  {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
                         key={`sang-${day}`}
@@ -90,7 +135,7 @@ const MentorTeachingRegister = () => {
                           backgroundColor: checkboxes[`sang-${day}`]
                             ? 'green'
                             : 'white',
-                            border: checkboxes[`chieu-${day}`] 
+                          border: checkboxes[`chieu-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
                         onClick={() => handleCheckboxChange(`sang-${day}`)}
@@ -106,7 +151,7 @@ const MentorTeachingRegister = () => {
                 </tr>
                 <tr>
                   <td>Ca chiều</td>
-                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                  {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
                         key={`chieu-${day}`}
@@ -117,7 +162,7 @@ const MentorTeachingRegister = () => {
                           backgroundColor: checkboxes[`chieu-${day}`]
                             ? 'green'
                             : 'white',
-                            border: checkboxes[`chieu-${day}`] 
+                          border: checkboxes[`chieu-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
                         onClick={() => handleCheckboxChange(`chieu-${day}`)}
@@ -133,7 +178,7 @@ const MentorTeachingRegister = () => {
                 </tr>
               </tbody>
             </table>
-            <button onClick={handleSubmit} className='submit-button' type='submit' form="teaching-register-form">
+            <button onClick={handleSubmit} className='submit-button' type='button'>
               Xác nhận
             </button>
           </form>
@@ -141,6 +186,6 @@ const MentorTeachingRegister = () => {
       </div>
     </>
   );
-}
+};
 
 export default MentorTeachingRegister;

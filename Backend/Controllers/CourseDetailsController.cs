@@ -1,4 +1,5 @@
-﻿using Backend.DTO.CourseDetails;
+﻿using Backend.DTO.Course;
+using Backend.DTO.CourseDetails;
 using Backend.Services.Course;
 using Backend.Services.CourseDetails;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,30 @@ namespace Backend.Controllers
                 Console.WriteLine(a);
                 throw;
             }
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddCourse(CourseDetailsCreateDTO courseDetailsCreateDto)
+        {
+            var result = await _courseDetailsService.CreateCourseDetails(courseDetailsCreateDto);
+
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm chi tiết khóa học thành công!");
         }
     }
 }

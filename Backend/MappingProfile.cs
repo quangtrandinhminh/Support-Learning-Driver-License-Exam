@@ -27,6 +27,7 @@ namespace Backend
                 .ForMember(dto => dto.CourseMonth, otp => otp.MapFrom(entity => entity.Course.CourseMonth))
                 .ForMember(dto => dto.LimitStudent, otp => otp.MapFrom(entity => entity.Course.LimitStudent));
             CreateMap<DTO.CourseDetails.CourseDetailsDTO, DB.Models.CourseDetail>();
+            CreateMap<DTO.CourseDetails.CourseDetailsCreateDTO, DB.Models.CourseDetail>();
 
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
@@ -74,6 +75,8 @@ namespace Backend
                 .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
             CreateMap<DTO.Mentor.MentorCreateDTO, DB.Models.User>();
             CreateMap<DTO.Mentor.MentorCreateDTO, DB.Models.Mentor>();
+            CreateMap<DTO.Mentor.MentorUpdateDTO, DB.Models.User>();
+            CreateMap<DTO.Mentor.MentorUpdateDTO, DB.Models.Mentor>();
 
             // Staff
             CreateMap<DB.Models.Staff, DTO.Staff.StaffDTO>()
@@ -87,6 +90,8 @@ namespace Backend
                 .ForMember(dto => dto.Status, opt => opt.MapFrom(entity => entity.User.Status));
             CreateMap<DTO.Staff.StaffCreateDTO, DB.Models.User>();
             CreateMap<DTO.Staff.StaffCreateDTO, DB.Models.Staff>();
+            CreateMap<DTO.Staff.StaffUpdateDTO, DB.Models.User>();
+            CreateMap<DTO.Staff.StaffUpdateDTO, DB.Models.Staff>();
 
             //Student 
             CreateMap<DB.Models.Student, DTO.Student.StudentDTO>();
@@ -97,6 +102,7 @@ namespace Backend
             CreateMap<DTO.Class.ClassCreateDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassCreatePracticeDTO, DB.Models.Class>();
             CreateMap<DTO.Class.ClassDTO, DB.Models.Class>();
+            CreateMap<DTO.Class.ClassMentorDTO, DB.Models.Class>();
 
             //ClassStudent
             CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDTO>();

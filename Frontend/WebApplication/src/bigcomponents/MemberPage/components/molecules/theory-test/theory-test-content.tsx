@@ -109,10 +109,17 @@ function TheoryTestContent() {
                         <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Bắt đầu làm bài</Button>
                     </div>
                 ) : (
-                    <div className="btn-test">
-                        <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
-                        <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
-                    </div >
+                    theoryTest.pass == true || theoryTest.pass == false ? (
+                        <div className="btn-test">
+                            <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
+                            <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Bắt đầu làm bài</Button>
+                        </div >
+                    ) : (
+                        <div className="btn-test">
+                            <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
+                            <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
+                        </div >
+                    )
                 )
             }
         </div>
