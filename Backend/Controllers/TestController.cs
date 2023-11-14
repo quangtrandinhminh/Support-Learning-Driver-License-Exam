@@ -35,7 +35,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCourse(TestCreateDTO testCreateDTO)
+        public async Task<IActionResult> AddTest(TestCreateDTO testCreateDTO)
         {
             var result = await _testService.CreateTest(testCreateDTO);
 

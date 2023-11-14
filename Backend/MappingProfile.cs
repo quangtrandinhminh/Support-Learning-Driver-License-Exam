@@ -145,6 +145,10 @@ namespace Backend
                 .ForMember(dto => dto.QuestionId, opt => opt.MapFrom(entity => entity.Question.QuestionId))
                 .ForMember(dto => dto.Image, opt => opt.MapFrom(entity => entity.Question.Image));
             CreateMap<DTO.StudentAnswer.StudentAnswerDTO, DB.Models.StudentAnswer>();
+
+            //FeedBack
+            CreateMap<DB.Models.FeedBack, DTO.Feedback.FeedBackDTO>();
+            CreateMap<DTO.Feedback.FeedBackDTO, DB.Models.FeedBack>();
         }
     }
 }

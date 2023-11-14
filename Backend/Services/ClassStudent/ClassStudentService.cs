@@ -33,7 +33,7 @@ namespace Backend.Services.ClassStudent
         {
             try
             {
-                var classStudents = _classStudentRepository.GetAll();
+                var classStudents = _classStudentRepository.GetAll().ToList();
                 return classStudents is null ? null : _mapper.Map<ICollection<ClassStudentDTO>>(classStudents);
             }
             catch (Exception e)
