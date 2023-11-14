@@ -129,26 +129,26 @@ function RegisteredCourse() {
                                                 theoryStatus.pass == null || theoryStatus.pass == false ? (
                                                     <>
                                                         <li>
-                                                            <label htmlFor="course-practice">
-                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh' className='disabled-link'>Lịch học thực hành</Link>
+                                                            <label htmlFor="course-theory-register">
+                                                                <Link to='/danh-sach-khoa-hoc' className='disabled-link'>Đăng ký lịch học thực hành</Link>
                                                             </label>
                                                         </li>
                                                         <li>
-                                                            <label htmlFor="course-theory-register">
-                                                                <Link to='/danh-sach-khoa-hoc' className='disabled-link'>Đăng ký lịch học thực hành</Link>
+                                                            <label htmlFor="course-practice">
+                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh' className='disabled-link'>Lịch học thực hành</Link>
                                                             </label>
                                                         </li>
                                                     </>
                                                 ) : (
                                                     <>
                                                         <li>
-                                                            <label htmlFor="course-practice">
-                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
+                                                            <label htmlFor="course-theory-register">
+                                                                <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
                                                             </label>
                                                         </li>
                                                         <li>
-                                                            <label htmlFor="course-theory-register">
-                                                                <Link to='/danh-sach-khoa-hoc'>Đăng ký lịch học thực hành</Link>
+                                                            <label htmlFor="course-practice">
+                                                                <Link to='/khoa-hoc-cua-ban/lich-hoc-thuc-hanh'>Lịch học thực hành</Link>
                                                             </label>
                                                         </li>
                                                     </>
