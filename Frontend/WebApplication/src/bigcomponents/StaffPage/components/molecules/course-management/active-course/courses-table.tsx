@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function CourseTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    //count number of members have enrolled into course
     const [mapRecord, setMapRecord] = useState(new Map());
     const map = new Map();
 
@@ -152,12 +153,12 @@ function CourseTable() {
                                 <th scope='col'>Mã khoá học</th>
                                 <th scope='col'>Tên</th>
                                 <th scope='col'>Ngày khai giảng</th>
-                                <th scope='col'>Ngày bắt đầu</th>
+                                <th scope='col'>Ngày bế giảng</th>
                                 <th className='text-center' scope='col'>Số học viên</th>
                                 <th className='text-center' scope='col'>Số học viên tối đa</th>
                                 <th scope='col' className='text-center'>Tháng</th>
                                 <th scope='col' className='text-center'>Năm</th>
-                                <th scope='col' className='text-center'>Trvạng thái</th>
+                                <th scope='col' className='text-center'>Trạng thái</th>
                                 <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>

@@ -1,7 +1,80 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './practice-schedule.scss'
+import api from '../../../../../config/axios';
 
 function PracticeSchedule() {
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [member, setMember] = useState(null);
+    const [student, setStudent] = useState(null);
+    const [mentorID, setMentorID] = useState(null); // [1, 2, 3
+    const [practiceSchedule, setPracticeSchedule] = useState([]);
+    const [mentor, setMentor] = useState(null);
+
+    const getMemberByUID = async () => {
+        try {
+            const response = await api.get('Member/' + user.userID);
+            setMember(response.data);
+            sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            setStudent(res);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getPracticeSchedule = async () => {
+        try {
+            const response = await api.get('Lesson/practice/student/' + student.studentId);
+            const tempId = Array.from(new Set(response.data.map(item => item.mentorId)));
+            setMentorID(tempId);
+            setPracticeSchedule(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getMentorById = async () => {
+        try {
+            const response = await api.get('Mentor/' + mentorID);
+            setMentor(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const formatDate = (dbDate) => {
+        const date = new Date(dbDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    useEffect(() => {
+        getMemberByUID();
+    }, [])
+
+    useEffect(() => {
+        getStudentById();
+    }, [member])
+
+    useEffect(() => {
+        getPracticeSchedule();
+    }, [student])
+
+    useEffect(() => {
+        getMentorById();
+    }, [practiceSchedule])
 
     useEffect(() => {
         window.scroll({
@@ -13,19 +86,29 @@ function PracticeSchedule() {
     return (
         <div className='practice-schedule-container'>
             <div className='title-container'>
-                <h1 className='practice-container-title'>Đăng ký lịch học thực hành</h1>
-                <h2 className='practice-container-subtitle'>
-                    Giáo viên: Nguyễn Văn A
-                    <br />
-                    Xe số: 51A-012xx (Hạn TL: dd/mm/yyyy)
-                    <br />
-                    Xe tự động: 51A-267xx (Hạn TL: dd/mm/yyyy)
-                </h2>
+                <h1 className='practice-container-title'>Lịch học thực hành</h1>
+                {
+                    mentor != null ? (
+                        <>
+                            <h2 className='practice-container-subtitle'>
+                                Giáo viên: {mentor.fullName}
+                            </h2>
+                            <h2>
+                                Xe số: 51A-012.72 (Hạn TL: 21/11/2007)
+                            </h2>
+                            <h2>
+                                Xe tự động: 51A-820.11 (Hạn TL: 09/12/2006)
+                            </h2>
+                        </>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             <div className="practice-schedule-body">
                 <div className='practice-information'>
                     <div className='practice-date-expected'>
-                        Thời gian từ ... đến ...:
+                        Các ca học:
                         <div className='practice-session'>
                             <p className='morning-schedule'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
@@ -33,27 +116,42 @@ function PracticeSchedule() {
                         </div>
                     </div>
                     <p className='practice-street-verify'>
-                        Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
+                        Học thực hành trên tuyến đường của xe 51A-012.72 và 51A-820.11 được cấp phép
                     </p>
                 </div>
                 <form>
                     <table>
-
                         <thead>
                             <tr>
-                                <th rowSpan={1} className='practice-day w-25'>Thứ</th>
+                                <th rowSpan={1} className='practice-no'>STT</th>
+                                <th rowSpan={1} className='practice-day'>Thứ</th>
                                 <th rowSpan={1} className='practice-time'>Ca học</th>
+                                <th rowSpan={1} className='practice-time'>Nội dung</th>
+                                <th rowSpan={1} className='practice-time'>Ngày</th>
+                                <th rowSpan={1} className='practice-time'>Thời gian</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Sáng</td>
-                                <td>Thứ hai hàng tuần</td>
-                            </tr>
-                            <tr>
-                                <td>Chiều</td>
-                                <td>Thứ hai hàng tuần</td>
-                            </tr>
+                            {
+                                practiceSchedule.length > 0 ? (
+                                    practiceSchedule.map((lesson, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{lesson.dayOfWeek == "Monday" ? "Thứ hai" :
+                                                lesson.dayOfWeek == "Tuesday" ? "Thứ ba" :
+                                                    lesson.dayOfWeek == "Wednesday" ? "Thứ tư" :
+                                                        lesson.dayOfWeek == "Thursday" ? "Thứ năm" :
+                                                            lesson.dayOfWeek == "Friday" ? "Thứ sáu" : ""}</td>
+                                            <td>{lesson.shift}</td>
+                                            <td>{lesson.title}</td>
+                                            <td>{formatDate(lesson.date)}</td>
+                                            <td>{lesson.hours} tiếng</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <h1>No data</h1>
+                                )
+                            }
                         </tbody>
                     </table>
                     <div className='practice-schedule-note'>

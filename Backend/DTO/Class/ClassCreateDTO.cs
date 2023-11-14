@@ -4,6 +4,8 @@
     {
         public string CourseId { get; set; } = null!;
 
+        public int MentorId { get; set; }
+
         public bool IsTheoryClass { get; set; }
 
         public string Shift { get; set; }

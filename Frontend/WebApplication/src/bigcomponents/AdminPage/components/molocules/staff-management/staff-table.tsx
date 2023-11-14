@@ -88,6 +88,7 @@ function MemberTable() {
                                 <th scope='col'>Điện thoại</th>
                                 <th scope='col' style={{ width: '100px' }}>Email</th>
                                 <th scope='col'>Trạng thái</th>
+                                <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>

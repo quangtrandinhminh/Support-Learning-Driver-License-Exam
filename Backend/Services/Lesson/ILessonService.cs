@@ -32,5 +32,7 @@ namespace Backend.Services.Lesson
         Task<ServiceResult<ICollection<LessonDTO>>> GetPracticeLessonsByStudentId(string studentId);
 
         Task<ServiceResult<int>> UpdateLesson(LessonUpdateDTO lessonUpdateDto);
+
+        Task<ServiceResult<int>> CheckAttendanceForStudent(string studentId);
     }
 }

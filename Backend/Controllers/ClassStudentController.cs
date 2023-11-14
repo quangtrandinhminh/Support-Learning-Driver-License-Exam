@@ -19,7 +19,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var classes = _classStudentService.GetAllCllassStudent();
+                var classes = _classStudentService.GetAllClassStudent();
                 if (classes == null)
                 {
                     return NotFound();
@@ -48,10 +48,10 @@ namespace Backend.Controllers
             return Ok("Đã thêm lớp học");
         }
 
-        [HttpPost("/api/ClassStudent/{courseId}/{classId}")]
-        public async Task<ActionResult<int>> CreateAllClassStudent(string courseId, int classId)
+        [HttpPost("/api/ClassStudent/{courseId}")]
+        public async Task<ActionResult<int>> CreateAllClassStudent(string courseId)
         {
-            var result = await _classStudentService.AddAllStudentIntoClass(courseId, classId);
+            var result = await _classStudentService.AddAllStudentsIntoTheoryClass(courseId);
             if (result.IsError)
             {
                 return BadRequest(new

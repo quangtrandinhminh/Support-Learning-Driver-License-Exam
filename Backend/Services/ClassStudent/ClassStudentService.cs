@@ -29,11 +29,11 @@ namespace Backend.Services.ClassStudent
             _mapper = mapper;
         }
 
-        public ICollection<ClassStudentDTO> GetAllCllassStudent()
+        public ICollection<ClassStudentDTO> GetAllClassStudent()
         {
             try
             {
-                var classStudents = _classStudentRepository.GetAll();
+                var classStudents = _classStudentRepository.GetAll().ToList();
                 return classStudents is null ? null : _mapper.Map<ICollection<ClassStudentDTO>>(classStudents);
             }
             catch (Exception e)
@@ -48,26 +48,37 @@ namespace Backend.Services.ClassStudent
             var result = new ServiceResult<int>();
             try
             {
-                var classStudents = _classStudentRepository.GetAll().
+                var student = _studentRepository.GetAll()
+                    .Where(p => p.StudentId == classStudentDTO.StudentId).FirstOrDefault();
+                if (student != null) 
+                {
+                    var classStudents = _classStudentRepository.GetAll().
                     Where(p => p.StudentId == classStudentDTO.StudentId && p.ClassId == classStudentDTO.ClassId).
                     FirstOrDefault();
-                if (classStudents is null) 
-                {
-                    var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
-                    await _classStudentRepository.CreateAsync(classStudent);
-                }
-                else if (classStudents.Class.IsTheoryClass == true) 
-                {
-                    result.IsError = true;
-                    result.Payload = -1;
-                    result.ErrorMessage = "Học viên này đã đăng ký lớp học lý thuyết!";
+                    if (classStudents == null)
+                    {
+                        var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
+                        await _classStudentRepository.CreateAsync(classStudent);
+                    }
+                    else if (classStudents.Class.IsTheoryClass == true)
+                    {
+                        result.IsError = true;
+                        result.Payload = -1;
+                        result.ErrorMessage = "Học viên này đã đăng ký lớp học lý thuyết!";
+                    }
+                    else
+                    {
+                        result.IsError = true;
+                        result.Payload = -2;
+                        result.ErrorMessage = "Học viên này đã đăng ký lớp học thực hành";
+                    }
                 }
                 else
                 {
                     result.IsError = true;
-                    result.Payload = -2;
-                    result.ErrorMessage = "Học viên này đã đăng ký lớp học thực hành";
-                }    
+                    result.Payload = -3;
+                    result.ErrorMessage = "Học viên không tồn tại";
+                }
             }
             catch (Exception e)
             {
@@ -79,7 +90,7 @@ namespace Backend.Services.ClassStudent
         }
 
         // Add all students in course to a class
-        public async Task<ServiceResult<int>> AddAllStudentIntoClass(string courseId, int classId)
+        public async Task<ServiceResult<int>> AddAllStudentsIntoTheoryClass(string courseId)
         {
             var result = new ServiceResult<int>();
             try
@@ -93,8 +104,10 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var existClass = await _classRepository.GetAll().Where(p => p.ClassId == classId).FirstOrDefaultAsync();
-                if (existClass == null)
+                var theoryClass = await _classRepository.GetAll()
+                    .Where(p => p.CourseId == courseId && p.IsTheoryClass == true)
+                    .FirstOrDefaultAsync();
+                if (theoryClass == null)
                 {
                     result.IsError = true;
                     result.Payload = -1;
@@ -111,7 +124,8 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var existClassStudents = await _classStudentRepository.GetAll().Where(p => p.ClassId == classId).ToListAsync();
+                var existClassStudents = await _classStudentRepository.GetAll()
+                    .Where(p => p.ClassId == theoryClass.ClassId).ToListAsync();
 
                 var count = 0;
                 foreach (var student in students)
@@ -120,7 +134,7 @@ namespace Backend.Services.ClassStudent
 
                     var classStudent = new DB.Models.ClassStudent
                     {
-                        ClassId = existClass.ClassId,
+                        ClassId = theoryClass.ClassId,
                         StudentId = student.StudentId
                     };
                     await _classStudentRepository.CreateAsync(classStudent);

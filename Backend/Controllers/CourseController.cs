@@ -125,6 +125,20 @@ namespace Backend.Controllers
             return Ok("Cập nhật khóa học thành công!");
         }
 
+        [HttpPatch("activate/{id}")]
+        public async Task<IActionResult> ActivateCourse(string id)
+        {
+            var result = await _courseService.ActivateCourse(id);
+
+            if (result.IsError)
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+
+            return Ok("Đã kích hoạt khóa học!");
+        }
+
         [HttpDelete("deactivate/{id}")]
         public async Task<IActionResult> DeactivateCourse(string id)
         {
