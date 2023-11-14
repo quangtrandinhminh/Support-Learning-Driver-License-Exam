@@ -82,6 +82,8 @@ import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/men
 import ClassPickingPage from './bigcomponents/MentorPage/components/pages/mentor-picking-class-page/class-picking-page'
 import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/create-staff/create-staff'
+import ClassMamagementAdminPage from './bigcomponents/AdminPage/components/pages/class-management/class-management'
+import CreateClassAdminPage from './bigcomponents/AdminPage/components/pages/create-class/create-class'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -138,13 +140,20 @@ function App() {
                         </Route>
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
                         <Route path='quan-ly-giao-vien'>
-                          <Route index element={<MentorMamagementAdminPage />} />
+                        <Route index element={<MentorMamagementAdminPage />} />
                             <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-lop-hoc'>
+                          <Route index element={<ClassMamagementAdminPage />} />
+                          <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
                         </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-lop-hoc'>
+                            <Route index element={<MemberManagementPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportAdminPage />} />
                       </Route>
