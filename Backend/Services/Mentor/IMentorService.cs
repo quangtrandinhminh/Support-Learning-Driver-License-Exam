@@ -19,5 +19,7 @@ namespace Backend.Services.Mentor
         Task<ServiceResult<int>> UpdateMentor(MentorUpdateDTO mentorUpdateDto);
 
         Task<ServiceResult<int>> DeleteMentor(int id);
+
+        Task<ServiceResult<ICollection<MentorDTO>>> GetMentorTheory();
     }
 }

@@ -101,6 +101,24 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        // get all practice class by mentor id
+        [HttpGet("course/mentor/practice")]
+        public async Task<ActionResult<ICollection<ClassDTO>>> GetAllPracticeClassesByMentorId(string courseId,
+            int mentorId)
+        {
+            var result = await _classService.GetAllPracticeClassesByMentorId(mentorId, courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+
         [HttpPost]
         [Route("add")]
         public async Task<ActionResult<int>> CreateClass(ClassCreateDTO classCreateDto)
@@ -130,7 +148,7 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Đã đăng kí lịch thành công");
+            return Ok("Đã đăng kí lịch thành công" + " ( " + result.Payload + " )");
         }
 
         [HttpPut]

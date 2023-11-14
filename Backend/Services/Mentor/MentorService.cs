@@ -233,5 +233,33 @@ namespace Backend.Services.Mentor
             
             return result;
         }
+
+        // get mentor who teach theory
+        public async Task<ServiceResult<ICollection<MentorDTO>>> GetMentorTheory()
+        {
+            var result = new ServiceResult<ICollection<MentorDTO>>();
+            try
+            {
+                var mentors = await _mentorRepository.GetAll()
+                    .Include(m => m.User)
+                    .Where(m => m.User.Status == true && m.IsTeachingTheory == true)
+                    .ToListAsync();
+
+                if (!mentors.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
+                    return result;
+                }
+
+                result.Payload = _mapper.Map<ICollection<MentorDTO>>(mentors);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
     }
 }
