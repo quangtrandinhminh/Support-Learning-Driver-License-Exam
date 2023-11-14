@@ -187,6 +187,12 @@ namespace Backend.Controllers
             return Ok(result.Payload);
         }
 
+        /// <summary>
+        /// Return list of lessons of class by date
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         [HttpGet("attendance/{classId}/{date}")]
         public async Task<IActionResult> GetLessonsByClassIdAndDate(int classId, DateTime date)
         {
@@ -294,6 +300,26 @@ namespace Backend.Controllers
             }
 
             return Ok("Cập nhật buổi học thành công!");
+        }
+
+        /// <summary>
+        /// Check attendance for student by studentId
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        [HttpPatch("attendance/{studentId}")]
+        public async Task<IActionResult> CheckAttendanceForStudent(string studentId)
+        {
+            var result = await _lessonService.CheckAttendanceForStudent(studentId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
     }
 }

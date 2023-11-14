@@ -101,6 +101,7 @@ namespace Backend.Services.Class
                 if (course == null) throw new Exception("Không tìm thấy khóa học!");
 
                 var classes = await _classRepository.GetAll() 
+                    .Include(x => x.Mentor.User)
                     .Where(x => x.Status == true 
                                 && x.CourseId == courseId 
                                 && x.MentorId == mentorId)
