@@ -53,6 +53,18 @@ function Course() {
         getCourseData();
     }, []);
 
+    // Filter courses based on the startDate condition
+    const filteredCourses = records.filter((course) => {
+        const startDate = new Date(course.startDate);
+        const currentDate = new Date();
+        
+        // Set hours, minutes, seconds, and milliseconds to 0 for accurate date comparison
+        startDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+        return startDate > currentDate;
+    });
+
+
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
         const day = date.getDate().toString().padStart(2, '0');
@@ -82,8 +94,8 @@ function Course() {
             <h1>Các khoá học</h1>
             <div className='course-list'>
                 {!isLoading ? (
-                    records.length > 0 ? (
-                        records.map((course, i) => (
+                    filteredCourses.length > 0 ? (
+                        filteredCourses.map((course, i) => (
                             <form action="" key={i}>
                                 <div className={`course-section-1`}>
                                     <div className='upperbox'>
@@ -115,21 +127,18 @@ function Course() {
                     >
                         <CircularProgress color="inherit" />
                     </Backdrop>
-                )
-                }
+                )}
             </div>
             <nav>
                 <ul className='pagination'>
                     <li className='page-item'>
                         <button type='button' className='page-link' onClick={prePage}>Prev</button>
                     </li>
-                    {
-                        numbers.map((n, i) => (
-                            <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
-                            </li>
-                        ))
-                    }
+                    {numbers.map((n, i) => (
+                        <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                            <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
+                        </li>
+                    ))}
                     <li className='page-item'>
                         <button type='button' className='page-link' onClick={nextPage}>Next</button>
                     </li>

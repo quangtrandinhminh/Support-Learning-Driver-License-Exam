@@ -82,6 +82,8 @@ import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/men
 import ClassPickingPage from './bigcomponents/MentorPage/components/pages/mentor-picking-class-page/class-picking-page'
 import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/create-staff/create-staff'
+import CreateExamPage from './bigcomponents/StaffPage/components/pages/create-exam/create-exam-page'
+import ExamManagementPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -134,12 +136,12 @@ function App() {
                         </Route>
                         <Route path='quan-ly-nhan-vien'>
                           <Route index element={<StaffManagementAdminPage />} />
-                            <Route path='tao-nhan-vien' element={<CreateStaffAdminPage />} />
+                          <Route path='tao-nhan-vien' element={<CreateStaffAdminPage />} />
                         </Route>
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
                         <Route path='quan-ly-giao-vien'>
                           <Route index element={<MentorMamagementAdminPage />} />
-                            <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                          <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
                         </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
@@ -172,6 +174,10 @@ function App() {
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportPage />} />
+                        <Route path='quan-ly-ky-thi'>
+                          <Route index element={<ExamManagementPage />} />
+                          <Route path='tao-ky-thi' element={<CreateExamPage />} />
+                        </Route>
                       </Route>
                     </>
                   )}
@@ -185,7 +191,7 @@ function App() {
                         </Route>
                         <Route path='tong-quan-lich-day'>
                           <Route index element={<ClassPickingPage />} />
-                          <Route path='lich-day' element={<MentorSchedulePage />}/>
+                          <Route path='lich-day' element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
                             <Route path='danh-gia' element={<MentorFeedbacksPage />} />
