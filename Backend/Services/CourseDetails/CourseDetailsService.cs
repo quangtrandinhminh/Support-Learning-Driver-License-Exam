@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.DTO.Course;
 using Backend.DTO.CourseDetails;
 using Backend.Repository.CourseDetailsRepository;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,32 @@ namespace Backend.Services.CourseDetails
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public async Task<ServiceResult<int>> CreateCourseDetails(CourseDetailsCreateDTO courseDetailsCreateDto)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                if (courseDetailsCreateDto.CourseTimeEnd < courseDetailsCreateDto.CourseTimeStart)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
+                    result.Payload = -2;
+                    return result;
+                }
+
+                var courseDeatils = _mapper.Map<DB.Models.CourseDetail>(courseDetailsCreateDto);
+
+                await _courseDetailsRepository.CreateAsync(courseDeatils);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
         }
     }
 }
