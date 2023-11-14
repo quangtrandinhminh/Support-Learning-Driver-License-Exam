@@ -86,6 +86,13 @@ function StaffSidebar() {
           </div>
         </li>
         <li className='sidebar-component'>
+          <div className="news-container">
+            <NavLink style={styleSidebarCom} to='/quan-ly-ky-thi'>
+              Quản lý kỳ thi
+            </NavLink>
+          </div>
+        </li>
+        <li className='sidebar-component'>
           <div className="report-list">
             <NavLink style={styleSidebarCom} to='/bao-cao'>
               Báo cáo
