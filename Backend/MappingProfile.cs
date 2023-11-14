@@ -27,6 +27,7 @@ namespace Backend
                 .ForMember(dto => dto.CourseMonth, otp => otp.MapFrom(entity => entity.Course.CourseMonth))
                 .ForMember(dto => dto.LimitStudent, otp => otp.MapFrom(entity => entity.Course.LimitStudent));
             CreateMap<DTO.CourseDetails.CourseDetailsDTO, DB.Models.CourseDetail>();
+            CreateMap<DTO.CourseDetails.CourseDetailsCreateDTO, DB.Models.CourseDetail>();
 
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
@@ -145,6 +146,10 @@ namespace Backend
                 .ForMember(dto => dto.QuestionId, opt => opt.MapFrom(entity => entity.Question.QuestionId))
                 .ForMember(dto => dto.Image, opt => opt.MapFrom(entity => entity.Question.Image));
             CreateMap<DTO.StudentAnswer.StudentAnswerDTO, DB.Models.StudentAnswer>();
+
+            //FeedBack
+            CreateMap<DB.Models.FeedBack, DTO.Feedback.FeedBackDTO>();
+            CreateMap<DTO.Feedback.FeedBackDTO, DB.Models.FeedBack>();
         }
     }
 }

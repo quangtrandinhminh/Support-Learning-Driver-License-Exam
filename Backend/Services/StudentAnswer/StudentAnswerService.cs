@@ -153,15 +153,23 @@ namespace Backend.Services.StudentAnswer
                     {
                         var question = _questionRepository.GetAll()
                             .Where(y => y.QuestionId == studentquestion.QuestionId).FirstOrDefault();
+                        studentquestion.OptionId = byte.Parse(UserAnswer.ElementAt(i));
                         if (question.CorrectAnswer.Equals(int.Parse(UserAnswer.ElementAt(i))))
                         {
                             contt++;
+                            studentquestion.IsCorrect = true;
                         }
                         else if (question.KeyQuestion == true)
                         {
                             e++;
+                            studentquestion.IsCorrect = false;
+                        }
+                        else
+                        {
+                            studentquestion.IsCorrect = false;
                         }
                         i++;
+                        _studentAnswerRepository.UpdateAsync(studentquestion);
                     }
                 }
                 var test = _testRepository.GetAll()

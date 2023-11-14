@@ -15,7 +15,7 @@ function TheoryTestPaper() {
     const [student, setStudent] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answer, setAnswer] = useState(new Array(36).fill(0));
-    const [answeredQuestions, setAnsweredQuestions] = useState(new Array(36).fill(false));
+    const [answeredQuestions, setAnsweredQuestions] = useState(new Array(36).fill(false));[1, 2, 3, 4, 1, 4, 2,]
     const [targetTime, setTargetTime] = useState(0);
     const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ function TheoryTestPaper() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let answerStrings = answer.map(num => num.toString());
+            let answerStrings = answer.map(num => num.toString()); // return array of integer to string
             let answerJSON = JSON.stringify(answerStrings);
 
             const response = await api.put('CheckStudentAnswer', answerJSON, {
