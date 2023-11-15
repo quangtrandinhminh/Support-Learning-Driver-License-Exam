@@ -113,13 +113,13 @@ function ExamTable() {
                                 <input
                                     type="text"
                                     name='courseId'
-                                    placeholder='courseId'
+                                    placeholder='mã khoá học'
                                     onChange={filter}
                                     autoComplete='off'
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-ky-thi' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-ky-thi' className='btn btn-success'>+ Tạo kỳ thi</Link>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@ function ExamTable() {
                                 <th scope='col' className='text-center'>Số câu liệt</th>
                                 <th scope='col' className='text-center'>Số câu đúng tối thiểu</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Action</th>
+                                <th scope='col'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -156,7 +156,7 @@ function ExamTable() {
                                             <td className='text-center'>{exam.minimumCorrectAnswer}</td>
                                             <td className='text-center'>{exam.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                             <td className='button text-center'>
-                                                <button className="btn btn-info" type="button" onClick={() => handleCreate(exam.examId)}>Create test</button>
+                                                <button className="btn btn-info" type="button" onClick={() => handleCreate(exam.examId)}>Tạo bài thi</button>
                                             </td>
                                         </tr>
                                     )

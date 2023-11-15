@@ -16,6 +16,7 @@ import {
   LineChart,
   Line,
 } from 'recharts';
+import api from '../../../../../config/axios';
 
 function Home() {
   const [userCounts, setUserCounts] = useState({
@@ -28,7 +29,7 @@ function Home() {
   const [courseData, setCourseData] = useState([]);
 
   useEffect(() => {
-    const apiUrl = 'https://fdriving.azurewebsites.net/api/Users';
+    const apiUrl = api + 'Users';
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -53,7 +54,7 @@ function Home() {
         console.error('Error fetching data from the API:', error);
       });
 
-    const apiUrl2 = 'https://fdriving.azurewebsites.net/api/Course/list';
+    const apiUrl2 = api + 'Course/list';
     fetch(apiUrl2)
       .then((response) => response.json())
       .then((courseData) => {

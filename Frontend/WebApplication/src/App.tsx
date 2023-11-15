@@ -153,7 +153,7 @@ function App() {
                           <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
                           <Route path='cap-nhat-giao-vien' element={<UpdateMentorAdminPage />} />
                         </Route>
-                        <Route path='quan-ly-lop-hoc'>
+                        <Route path='quan-ly-lich-hoc'>
                           <Route index element={<ClassMamagementAdminPage />} />
                           <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
                         </Route>
@@ -180,12 +180,12 @@ function App() {
                       <Route element={<StaffLayout />}>
                         <Route index element={<HomePage />} />
                         <Route path='quan-ly-nguoi-dung' element={<UserManagementPage />} />
-                        <Route path='quan-ly-khoa-hoc'>
+                        {/* <Route path='quan-ly-khoa-hoc'>
                           <Route index element={<CourseManagementPage />} />
                           <Route path='chua-mo' element={<InactiveCoursePage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCoursePage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCoursePage />} />
-                        </Route>
+                        </Route> */}
                         <Route path='quan-ly-hoc-vien'>
                           <Route index element={<MemberManagementPage />} />
                           <Route path='don-thi/:memberId' element={<MemberDocPage />} />
@@ -200,6 +200,7 @@ function App() {
                         <Route path='quan-ly-ky-thi'>
                           <Route index element={<ExamManagementPage />} />
                           <Route path='tao-ky-thi' element={<CreateExamPage />} />
+                          {/* <Route path='bai-thi' element={ }/> */}
                         </Route>
                       </Route>
                     </>

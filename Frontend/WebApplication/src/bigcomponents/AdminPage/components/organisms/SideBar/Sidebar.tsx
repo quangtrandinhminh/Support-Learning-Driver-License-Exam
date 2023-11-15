@@ -26,15 +26,17 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
       </div>
       <ul className="sidebar-list">
         <li className="list-header">
-          <p>Điều hướng</p>
+          <p className='tw-pl-3'>Điều hướng</p>
         </li>
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faTableColumns} />}
-          text="Bảng điều khiển"
-          link="bang-dieu-khien"
-        />
+        <div>
+          <SidebarItem
+            icon={<FontAwesomeIcon icon={faTableColumns} />}
+            text="Bảng điều khiển"
+            link="bang-dieu-khien"
+          />
+        </div>
         <li className="list-header">
-          <p>Quản lý hệ thống</p>
+          <p className='tw-pl-3'>Quản lý hệ thống</p>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
@@ -52,19 +54,14 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           link="/quan-ly-giao-vien"
         />
         <SidebarItem
-          icon={<FontAwesomeIcon icon={faUser} />}
-          text="Quản lý học viên"
-          link="/quan-ly-hoc-vien"
-        />
-        <SidebarItem
           icon={<FontAwesomeIcon icon={faFileLines} />}
           text="Quản lý kỳ thi"
           link="/quan-ly-thi-cu"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="Quản lý lớp học"
-          link="/quan-ly-lop-hoc"
+          text="Quản lý lịch học"
+          link="/quan-ly-lich-hoc"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
@@ -91,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           )}
         </SidebarItem>
       </ul>
-    </aside>
+    </aside >
   );
 }
 

@@ -8,14 +8,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 function MemberInformationForm() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
-    console.log(user);
+
     const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
     const [student, setStudent] = useState(null);
 
     const handleScroll = () => {
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
@@ -25,7 +25,7 @@ function MemberInformationForm() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
@@ -36,8 +36,8 @@ function MemberInformationForm() {
         try {
             const response = await api.get('Member/' + user.userID);
             const res = response.data;
-            console.log(res);
             setMember(res);
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -49,7 +49,6 @@ function MemberInformationForm() {
             const res = response.data;
             console.log(res);
             setStudent(res);
-            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -92,7 +91,7 @@ function MemberInformationForm() {
                 <h1 className='member-information-title'>Thông tin thành viên</h1>
                 <div className='member-information-content'>
                     {
-                        member != null ? (
+                        member !== null && course !== null ? (
                             isLoading == false ? (
                                 <>
                                     <div className='member-avatar'>
@@ -139,14 +138,29 @@ function MemberInformationForm() {
                                             <label htmlFor="cccdNo"><strong><i>Số CCCD/CMND: </i></strong></label>
                                             <span>{member.identityCardNumber}</span>
                                         </li>
-                                        <li>
-                                            <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                                            <span>{`${student.studentId}`}</span>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
-                                            <span>{course.name}</span>
-                                        </li>
+                                        {
+                                            student !== null ? (
+                                                <>
+                                                    <li>
+                                                        <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
+                                                        <span>{`${student.studentId}`}</span>
+                                                    </li>
+                                                    <li>
+                                                        <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
+                                                        <span>{course.name}</span>
+                                                    </li>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <li>
+                                                        <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
+                                                    </li>
+                                                    <li>
+                                                        <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>
+                                                    </li>
+                                                </>
+                                            )
+                                        }
                                         <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button>
                                     </form>
                                 </>

@@ -41,27 +41,28 @@
             }
         }
 
-        .course-manage {
+        .exam-container {
             position: relative;
+
+            a {
+                padding-left: 20px;
+            }
 
             &:hover {
                 transition: transform 0.3s ease-out, position 0.3s ease-out;
 
-                .course-manage-subnav {
+                .exam-container-subnav {
                     position: relative;
                     display: block;
 
                     &:hover {
-                        font-weight: 600;
-                        padding-left: 12px;
                         background-color: #3572B8;
-                        border-left: 4px solid gray;
                         transition: padding-left 0.3s ease-out;
                     }
                 }
             }
 
-            .course-manage-subnav {
+            .exam-container-subnav {
                 position: absolute;
                 width: 220px;
                 background-color: #4292eb;

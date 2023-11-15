@@ -45,14 +45,16 @@ function StaffSidebar() {
             </NavLink>
           </div>
         </li>
-        <li className='sidebar-component'>
+        {/* Unnecessary features */}
+        {/* <li className='sidebar-component'>
           <div className="user-manage">
             <NavLink style={styleSidebarCom} to='/quan-ly-nguoi-dung'>
               Quản lý người dùng
             </NavLink>
           </div>
-        </li>
-        <li className='sidebar-component'>
+        </li> */}
+        {/* This is admin features */}
+        {/* <li className='sidebar-component'>
           <div className="course-manage">
             <NavLink style={styleSidebarCom} to='/quan-ly-khoa-hoc'>
               Quản lý khoá học
@@ -63,18 +65,11 @@ function StaffSidebar() {
               </NavLink>
             </div>
           </div>
-        </li>
+        </li> */}
         <li className='sidebar-component'>
           <div className="member-manage">
             <NavLink style={styleSidebarCom} to='/quan-ly-hoc-vien'>
               Quản lý học viên
-            </NavLink>
-          </div>
-        </li>
-        <li className='sidebar-component'>
-          <div className="mentor-container">
-            <NavLink style={styleSidebarCom} to='/quan-ly-giao-vien'>
-              Quản lý giáo viên
             </NavLink>
           </div>
         </li>
@@ -86,14 +81,19 @@ function StaffSidebar() {
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="news-container">
+          <div className="exam-container">
             <NavLink style={styleSidebarCom} to='/quan-ly-ky-thi'>
               Quản lý kỳ thi
             </NavLink>
+            {/* <div className='exam-container-subnav'>
+              <NavLink to='quan-ly-ky-thi/bai-thi'>
+                Quản lý bài thi
+              </NavLink>
+            </div> */}
           </div>
         </li>
         <li className='sidebar-component'>
-          <div className="report-list">
+          <div className="report-manage">
             <NavLink style={styleSidebarCom} to='/bao-cao'>
               Báo cáo
             </NavLink>

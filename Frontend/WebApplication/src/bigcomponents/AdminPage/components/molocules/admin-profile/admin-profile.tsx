@@ -3,6 +3,7 @@ import { NavLink as Forward, useNavigate } from "react-router-dom";
 import "./admin-profile.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import api from "../../../../../config/axios";
 
 const UserInformation: React.FC = () => {
   const user = sessionStorage.getItem("loginedUser")
@@ -30,7 +31,7 @@ const UserInformation: React.FC = () => {
     // Chỉ gửi yêu cầu API nếu người dùng đã đăng nhập và có roleId là 1
     if (user && user.roleId === 1) {
       // Sử dụng API URL của bạn
-      const apiUrl = "https://fdriving.azurewebsites.net/api/Users";
+      const apiUrl = api + "Users";
 
       // Gửi một yêu cầu GET đến API
       fetch(apiUrl)
