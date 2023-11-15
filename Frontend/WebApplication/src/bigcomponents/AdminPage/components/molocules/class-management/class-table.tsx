@@ -64,7 +64,7 @@ function ClassTable() {
     try {
       // Make an API request to add a class student
       const response = await api.post(
-        `https://localhost:7066/api/ClassStudent/${courseId}`
+        `ClassStudent/${courseId}`
       );
       const addedClassStudent = response.data;
 
@@ -131,13 +131,23 @@ function ClassTable() {
                     <td>{classs.shift}</td>
                     <td className="button text-center">
                       {classs.isTheoryClass && (
-                        <button
-                          className="btn btn-success"
-                          type="button"
-                          onClick={() => handleAdd(classs.courseId)}
-                        >
-                          Add
-                        </button>
+                        <>
+                          <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={() => handleAdd(classs.courseId)}
+                          >
+                            Add
+                          </button>
+
+                          <button
+                            className="btn btn-info"
+                            type="button"
+                            onClick={() => handleAdd(classs.courseId)}
+                          >
+                            Add lessons
+                          </button>
+                        </>
                       )}
                     </td>
                   </tr>
@@ -163,9 +173,8 @@ function ClassTable() {
               {pageNumbers.map((number) => (
                 <li
                   key={number}
-                  className={`page-item ${
-                    currentPage === number ? "active" : ""
-                  }`}
+                  className={`page-item ${currentPage === number ? "active" : ""
+                    }`}
                 >
                   <button
                     type="button"
