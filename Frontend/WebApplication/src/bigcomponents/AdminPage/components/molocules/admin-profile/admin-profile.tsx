@@ -30,7 +30,7 @@ const UserInformation: React.FC = () => {
     // Chỉ gửi yêu cầu API nếu người dùng đã đăng nhập và có roleId là 1
     if (user && user.roleId === 1) {
       // Sử dụng API URL của bạn
-      const apiUrl = "https://fdriving.azurewebsites.net/api/Users";
+      const apiUrl = "https://localhost:7066/api/Users";
 
       // Gửi một yêu cầu GET đến API
       fetch(apiUrl)

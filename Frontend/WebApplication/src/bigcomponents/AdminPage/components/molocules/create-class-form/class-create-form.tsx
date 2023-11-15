@@ -47,7 +47,7 @@ function CreateClassForm() {
 
   const fetchAllCourseId = async () => {
     try {
-      const response = await api.get("https://localhost:7066/api/Class");
+      const response = await api.get("Class");
       const classes = response.data;
 
       // Extract unique courseId values from the array of classes

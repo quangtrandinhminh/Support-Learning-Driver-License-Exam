@@ -53,15 +53,20 @@ function Course() {
         getCourseData();
     }, []);
 
+    const currentDate = new Date();
+
     // Filter courses based on the startDate condition
-    const filteredCourses = records.filter((course) => {
-        const startDate = new Date(course.startDate);
-        const currentDate = new Date();
-        
-        // Set hours, minutes, seconds, and milliseconds to 0 for accurate date comparison
-        startDate.setHours(0, 0, 0, 0);
-        currentDate.setHours(0, 0, 0, 0);
-        return startDate > currentDate;
+    const filteredCourses = courses.filter(course => {
+        // const courseStartDate = new Date(course.startDate);
+
+        const currentMonth = currentDate.getMonth() + 1; // Adding 1 because months are zero-indexed
+        const currentYear = currentDate.getFullYear();
+
+        // Compare courseMonth and courseYear (greater than or equal)
+        return (
+            course.courseYear > currentYear ||
+            (course.courseYear === currentYear && course.courseMonth >= currentMonth)
+        );
     });
 
 
@@ -95,6 +100,7 @@ function Course() {
             <div className='course-list'>
                 {!isLoading ? (
                     filteredCourses.length > 0 ? (
+                        console.log('Filtered Courses:', filteredCourses),
                         filteredCourses.map((course, i) => (
                             <form action="" key={i}>
                                 <div className={`course-section-1`}>

@@ -12,7 +12,7 @@ function ClassTable() {
 
   const getAllClasss = async () => {
     try {
-      const response = await api.get("https://localhost:7066/api/Class");
+      const response = await api.get("Class");
       const res = response.data;
       setClasss(res);
     } catch (error) {
