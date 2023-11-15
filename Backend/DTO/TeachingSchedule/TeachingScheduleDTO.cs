@@ -4,6 +4,8 @@
     {
         public string CourseId { get; set; }
 
+        public int ClassId { get; set; }
+
         public string DayOfWeek { get; set; }
 
         public bool IsTheory { get; set; }
