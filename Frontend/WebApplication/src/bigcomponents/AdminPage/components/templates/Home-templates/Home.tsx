@@ -28,7 +28,7 @@ function Home() {
   const [courseData, setCourseData] = useState([]);
 
   useEffect(() => {
-    const apiUrl = 'https://localhost:7066/api/Users';
+    const apiUrl = 'https://fdriving.azurewebsites.net/api/Users';
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
