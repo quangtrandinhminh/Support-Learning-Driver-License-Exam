@@ -128,7 +128,6 @@ function PracticeSchedule() {
                                 <th rowSpan={1} className='practice-time'>Ca học</th>
                                 <th rowSpan={1} className='practice-time'>Nội dung</th>
                                 <th rowSpan={1} className='practice-time'>Ngày</th>
-                                <th rowSpan={1} className='practice-time'>Thời gian</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -145,11 +144,12 @@ function PracticeSchedule() {
                                             <td>{lesson.shift}</td>
                                             <td>{lesson.title}</td>
                                             <td>{formatDate(lesson.date)}</td>
-                                            <td>{lesson.hours} tiếng</td>
                                         </tr>
                                     ))
                                 ) : (
-                                    <h1>No data</h1>
+                                    <td colSpan={6}>
+                                        <h1 className='tw-text-realRed'>Bạn chưa đăng ký khoá học nào!</h1>
+                                    </td>
                                 )
                             }
                         </tbody>

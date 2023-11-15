@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faChalkboardUser, faClipboardList, faFileLines, faNewspaper, faTableColumns, faUser, faUserGraduate, faUsersCog,} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faChalkboardUser, faClipboardList, faFileLines, faNewspaper, faTableColumns, faUser, faUserGraduate, faUsersCog, } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
 import { NavLink } from 'react-router-dom';
 
@@ -34,41 +34,51 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           link="bang-dieu-khien"
         />
         <li className="list-header">
-          <p>Quản lý hệ thống</p>
+          <p>Quảng lý hệ thống</p>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Quản lý tin tức"
+          text="Quảng lý tin tức"
           link="/quan-ly-tin-tuc"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUsersCog} />}
-          text="Quản lý nhân viên"
+          text="Quảng lý nhân viên"
           link="/quan-ly-nhan-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faChalkboardUser} />}
-          text="Quản lý giáo viên"
+          text="Quảng lý giáo viên"
           link="/quan-ly-giao-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUser} />}
-          text="Quản lý học viên"
+          text="Quảng lý học viên"
           link="/quan-ly-hoc-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faFileLines} />}
-          text="quản lý thi cử"
+          text="Quảng lý kỳ thi"
           link="/quan-ly-thi-cu"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="quản lý lớp học"
+          text="Quảng lý lớp học"
           link="/quan-ly-lop-hoc"
         />
         <SidebarItem
+          icon={<FontAwesomeIcon icon={faUserGraduate} />}
+          text="Quảng lý học sinh"
+          link="/quan-ly-hoc-sinh"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faNewspaper} />}
+          text="Quảng lý kết quả"
+          link="/quan-ly-ket-qua"
+        />
+        <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}
-          text="Quản lý khóa học"
+          text="Quảng lý khóa học"
           link="/quan-ly-khoa-hoc"
           onClick={toggleKhoaHoc}
         >

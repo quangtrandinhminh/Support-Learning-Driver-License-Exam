@@ -145,7 +145,9 @@ function PracticeSpecificRegister() {
                                         </td>
                                     </tr>
                                 )) : (
-                                    <h1>Không có dữ liệu</h1>
+                                    <td colSpan={4}>
+                                        <h1 className='tw-text-realRed'>Gió viên chưa đăng ký lịch</h1>
+                                    </td>
                                 )
                             }
                         </tbody>
