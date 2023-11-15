@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./class-table.scss";
 import api from "../../../../../config/axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ClassTable() {
   const [classs, setClasss] = useState([]);
@@ -59,11 +60,25 @@ function ClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  function handleAdd(isTheoryClass: any): void {
-    // // Logic xử lý khi nhấn nút "Add"
-    // console.log("Add button clicked for isTheoryClass:", isTheoryClass);
-    // // Thêm logic tương ứng với việc thêm vào danh sách
-  }
+  const handleAdd = async (courseId: number) => {
+    try {
+      // Make an API request to add a class student
+      const response = await api.post(
+        `https://localhost:7066/api/ClassStudent/${courseId}`
+      );
+      const addedClassStudent = response.data;
+
+      // Handle success, e.g., show a success message or update the UI
+      console.log("Class student added successfully:", addedClassStudent);
+      toast.success(
+        `Thêm lớp học thành công. Số lượng: ${addedClassStudent.length}`
+      );
+    } catch (error) {
+      // Handle errors, e.g., show an error message or log the error
+      console.error("Error adding class student:", error);
+      toast.error("Thêm lớp học thất bại:", error);
+    }
+  };
 
   return (
     <div className="mentor-table-container">
@@ -116,7 +131,11 @@ function ClassTable() {
                     <td>{classs.shift}</td>
                     <td className="button text-center">
                       {classs.isTheoryClass && (
-                        <button className="btn btn-success" type="button" onClick={() => handleAdd(classs.isTheoryClass)}>
+                        <button
+                          className="btn btn-success"
+                          type="button"
+                          onClick={() => handleAdd(classs.courseId)}
+                        >
                           Add
                         </button>
                       )}
