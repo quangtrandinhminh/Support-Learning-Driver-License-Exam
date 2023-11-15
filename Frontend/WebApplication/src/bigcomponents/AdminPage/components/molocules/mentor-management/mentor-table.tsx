@@ -98,7 +98,7 @@ function MentorTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-giao-vien' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-giao-vien' className='btn btn-success'>+ Tạo giáo viên</Link>
                             </div>
                         </div>
                     </div>
@@ -125,8 +125,8 @@ function MentorTable() {
                                         <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
                                         <td>{mentor.email}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(mentor.mentorId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(mentor.mentorId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))

@@ -142,7 +142,7 @@ function CourseTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Tạo khoá học</Link>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@ function CourseTable() {
                                 <th scope='col' className='text-center'>Tháng</th>
                                 <th scope='col' className='text-center'>Năm</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Hành động</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -171,7 +171,9 @@ function CourseTable() {
                                     return (
                                         <tr key={i}>
                                             <td>{overallIndex + i + 1}</td>
-                                            <td>{course.courseId}</td>
+                                            <td>
+                                                <Link to='#'> {course.courseId}</Link>
+                                            </td>
                                             <td>{course.name}</td>
                                             <td>{formatDate(course.startDate)}</td>
                                             <td>{formatDate(course.endDate)}</td>
@@ -181,8 +183,8 @@ function CourseTable() {
                                             <td className='text-center'>{course.courseYear}</td>
                                             <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                             <td className='button text-center'>
-                                                <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
-                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Delete</button>
+                                                <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Cập nhật</button>
+                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Xoá</button>
                                             </td>
                                         </tr>
                                     )

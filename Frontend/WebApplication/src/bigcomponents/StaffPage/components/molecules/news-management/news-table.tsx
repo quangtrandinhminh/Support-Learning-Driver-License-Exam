@@ -71,7 +71,7 @@ function NewsTable() {
 
     const updateBtn = (newsId) => {
         navigate(`cap-nhat-tin-tuc/${newsId}`);
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
@@ -85,7 +85,7 @@ function NewsTable() {
             <div className='news-table-content'>
                 <form action="">
                     <div className='d-flex justify-content-end'>
-                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Add</Link>
+                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Tạo tin tức</Link>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
@@ -95,7 +95,7 @@ function NewsTable() {
                                 <th scope='col'>Mô tả</th>
                                 <th scope='col'>Nội dung</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Cài đặt</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -106,10 +106,10 @@ function NewsTable() {
                                         <td>{truncateText(news.title, 12)}</td>
                                         <td>{truncateText(news.description, 15)}</td>
                                         <td>{truncateText(news.content, 30)}</td> {/* Truncate content here */}
-                                        <td className='text-center'>{news.status.toString().toUpperCase()}</td>
+                                        <td className='text-center'>{news.status == true ? "Kích hoạt" : "Chưa kích hoạt"}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Delete</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))

@@ -49,7 +49,7 @@ function MemberTable() {
 
     const handleUpdate = (newsId) => {
         navigate(`cap-nhat-nhan-vien`);
-        window.scroll( {
+        window.scroll({
             top: 0,
             behavior: 'instant'
         });
@@ -71,7 +71,6 @@ function MemberTable() {
         }
     }
 
-
     return (
         <div className='staff-table-container'>
             <div className="staff-table-title text-center text-uppercase">
@@ -82,7 +81,7 @@ function MemberTable() {
                     <div className='d-grid mb-2'>
                         <div className="row">
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-nhan-vien' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-nhan-vien' className='btn btn-success'>+ Tạo nhân viên</Link>
                             </div>
                         </div>
                     </div>
@@ -93,7 +92,7 @@ function MemberTable() {
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
                                 <th scope='col' style={{ width: '100px' }}>Email</th>
-                                <th scope='col'>Trạng thái</th>
+                                <th scope='col' className='tw-text-center'>Trạng thái</th>
                                 <th scope='col' className='text-center'>Hành động</th>
                             </tr>
                         </thead>
@@ -105,10 +104,10 @@ function MemberTable() {
                                         <td>{staff.fullName}</td>
                                         <td>{staff.phone}</td>
                                         <td>{staff.email}</td>
-                                        <td>{staff.status ? 'Đang làm' : 'Không làm'}</td>
+                                        <td className='tw-text-center'>{staff.status ? 'Đang làm' : 'Không làm'}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(staff.staffId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(staff.staffId)}>Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(staff.staffId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(staff.staffId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))
@@ -134,7 +133,7 @@ function MemberTable() {
                                 <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
                                     <button type='button' className='page-link' onClick={() => changePage(number)}>{number}</button>
                                 </li>
-                                ))}
+                            ))}
                             <li className='page-item'>
                                 <button type='button' className='page-link'
                                     onClick={nextPage}>Next</button>

@@ -39,6 +39,11 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           <p className='tw-pl-3'>Quản lý hệ thống</p>
         </li>
         <SidebarItem
+          icon={<FontAwesomeIcon icon={faUserGraduate} />}
+          text="Quản lý lịch học"
+          link="/quan-ly-lich-hoc"
+        />
+        <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
           text="Quản lý tin tức"
           link="/quan-ly-tin-tuc"
@@ -56,12 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
         <SidebarItem
           icon={<FontAwesomeIcon icon={faFileLines} />}
           text="Quản lý kỳ thi"
-          link="/quan-ly-thi-cu"
-        />
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="Quản lý lịch học"
-          link="/quan-ly-lich-hoc"
+          link="/quan-ly-ky-thi"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}

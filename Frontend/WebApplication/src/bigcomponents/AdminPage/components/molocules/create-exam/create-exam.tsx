@@ -110,7 +110,7 @@ function CreateExam() {
                                 value={inputData.courseId || ''}  // Ensure that it's not undefined
                                 onChange={e => setInputData({ ...inputData, courseId: e.target.value })}
                             >
-                                <option value="" disabled>Select a course</option>
+                                <option value="" disabled>Chọn khoá học</option>
                                 {
                                     courseId.map((course, index) => (
                                         <option key={index} value={course}>{course}</option>

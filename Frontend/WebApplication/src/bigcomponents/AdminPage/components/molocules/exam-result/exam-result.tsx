@@ -81,7 +81,7 @@ function ExamResultTable() {
                                 <th scope='col' className='tw-text-center'>Mã bài thi</th>
                                 <th scope='col' className='tw-text-center'>Điểm</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Action</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -94,8 +94,8 @@ function ExamResultTable() {
                                         <td className='tw-text-center'>{exam.score}</td>
                                         <td className='text-center'>{exam.pass ? "Đạt" : "Không đạt"}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => updatePassStatus(exam.studentId)}>Update</button>
-                                            <button className="btn btn-danger" type="submit">Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => updatePassStatus(exam.studentId)}>Cập nhật</button>
+                                            {/* <button className="btn btn-danger" type="submit">Xoá</button> */}
                                         </td>
                                     </tr>
                                 ))
