@@ -36,7 +36,8 @@ namespace Backend.Services.Course
             var result = new ServiceResult<ICollection<CourseDTO>>();
             try
             {
-                var courses = _courseRepository.GetAll();
+                var courses = _courseRepository.GetAll()
+                    .Where(x => x.Status == true);
 
                 if (!courses.Any())
                 {
@@ -219,6 +220,31 @@ namespace Backend.Services.Course
                 course.Status = false;  
                 await _courseRepository.UpdateAsync(course);
                 
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        public async Task<ServiceResult> ActivateCourse(string id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var course = await _courseRepository.GetByIdAsync(id);
+                if (course == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "CourseID này không tồn tại!";
+                    return result;
+                }
+
+                course.Status = true;
+                await _courseRepository.UpdateAsync(course);
+
             }
             catch (Exception e)
             {

@@ -4,10 +4,10 @@ namespace Backend.Services.ClassStudent
 {
     public interface IClassStudentService
     {
-        ICollection<ClassStudentDTO> GetAllCllassStudent();
+        ICollection<ClassStudentDTO> GetAllClassStudent();
 
         Task<ServiceResult<int>> AddStudentIntoClass(ClassStudentDTO classStudentDTO);
 
-        Task<ServiceResult<int>> AddAllStudentIntoClass(string courseId, int classId);
+        Task<ServiceResult<int>> AddAllStudentsIntoTheoryClass(string courseId);
     }
 }

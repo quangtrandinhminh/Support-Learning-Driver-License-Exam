@@ -1,0 +1,34 @@
+.class-table-container {
+
+    .class-table-title {
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .class-table-content {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        input {
+            padding: 4px;
+
+            &::placeholder {
+                font-style: italic;
+            }
+        }
+
+        form {
+            width: 80%;
+
+            table {
+                .button {
+                    width: auto;
+
+                    button {
+                        margin: 2px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -602,7 +602,7 @@ namespace Backend.Services.Lesson
                             newLesson.ClassStudentId = student.ClassStudentId;
                             newLesson.Date = date;
                             newLesson.Title = title;
-                            newLesson.Attendance = true;
+                            newLesson.Attendance = false;
 
                             await _lessonRepository.CreateAsync(newLesson);
                         }
@@ -741,5 +741,42 @@ namespace Backend.Services.Lesson
 
             return result;
         }
+
+        // check attendance for all lessons of a student
+        public async Task<ServiceResult<int>> CheckAttendanceForStudent(string studentId)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                // get all lessons of student
+                var lessons = await _lessonRepository.GetAll()
+                    .Include(l => l.ClassStudent)
+                    .ThenInclude(cs => cs.Student)
+                    .ThenInclude(s => s.Member)
+                    .ThenInclude(m => m.User)
+                    .Where(x => x.ClassStudent.StudentId == studentId)
+                    .ToListAsync();
+                if (!lessons.Any()) throw new Exception("Không tìm thấy buổi học!");
+
+                // check attendance for each lesson
+                foreach (var lesson in lessons)
+                {
+                    lesson.Attendance = true;
+                    await _lessonRepository.UpdateAsync(lesson);
+                }
+
+                result.Payload = lessons.Count;
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
     }
+
+    
 }

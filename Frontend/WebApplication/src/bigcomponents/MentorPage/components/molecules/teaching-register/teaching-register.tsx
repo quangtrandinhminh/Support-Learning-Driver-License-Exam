@@ -1,95 +1,109 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import './teaching-register.scss';
 import api from '../../../../../config/axios';
+import { useParams } from 'react-router-dom';
 
 interface CheckboxTableState {
   checkboxes: {
     [key: string]: boolean;
   };
 }
-class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkboxes: {
-        "sang-monday": false,
-        "sang-tuesday": false,
-        "sang-wednesday": false,
-        "sang-thursday": false,
-        "sang-friday": false,
-        "chieu-monday": false,
-        "chieu-tuesday": false,
-        "chieu-wednesday": false,
-        "chieu-thursday": false,
-        "chieu-friday": false,
-      },
-    };
-  }
 
-  handleCheckboxChange = (key) => {
-    this.setState((prevState) => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [key]: !prevState.checkboxes[key],
-      },
+const MentorTeachingRegister: React.FC = () => {
+  const { courseId } = useParams();
+  const [checkboxes, setCheckboxes] = useState<CheckboxTableState['checkboxes']>({
+    "sang-2": false,
+    "sang-3": false,
+    "sang-4": false,
+    "sang-5": false,
+    "sang-6": false,
+    "chieu-2": false,
+    "chieu-3": false,
+    "chieu-4": false,
+    "chieu-5": false,
+    "chieu-6": false,
+  });
+
+  const handleCheckboxChange = (key: string) => {
+    setCheckboxes((prevCheckboxes) => ({
+      ...prevCheckboxes,
+      [key]: !prevCheckboxes[key],
     }));
   };
-  state = {
-    checkboxes: {},
+
+  const getDayOfWeekNumber = (dayOfWeek: string) => {
+    const daysOfWeek = ["2", "3", "4", "5", "6"];
+    return daysOfWeek.indexOf(dayOfWeek.toLowerCase()) + 2; // Monday starts from 2
   };
 
-  handleSubmit = () => {
+  const capitalizeFirstLetter = (word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
+  const handleSubmit = async () => {
     // Prepare data to send to the server
-    const selectedDays = Object.keys(this.state.checkboxes).filter(
-      (key) => this.state.checkboxes[key]
+    const selectedDays = Object.keys(checkboxes).filter(
+      (key) => checkboxes[key]
     );
-    const dataToSend = {
-      registeredDays: selectedDays,
-    };
 
-    // Make an API request to the server
-    fetch('https://localhost:7066/swagger/index.html/api/Class/addClassPracticeByMentor', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // You may need to include additional headers based on your API requirements
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => {
-        // Check if the response status is OK (status code 2xx)
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    const listObjects = selectedDays.map((selectedDay) => {
+      const [shift, dayOfWeek] = selectedDay.split('-');
+      return {
+        mentorId: 1, // Replace with the actual mentor ID
+        courseId: courseId, // Replace with the actual course ID
+        dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
+        shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
+        status: true, // You can set the status based on your requirements
+      };
+    });
+
+    // Convert listObjects to the desired format
+    const formattedListObjects = listObjects.map(({ mentorId, courseId, dayOfWeek, shift, status }) => ({
+      mentorId,
+      courseId,
+      dayOfWeek,
+      shift,
+      status,
+    }));
+
+    // Log the formattedListObjects to the console
+    console.log('Formatted List of Objects:', formattedListObjects);
+
+    try {
+      // Make an API request to the server using Axios
+      const response = await api.post(
+        'Class/addClassPracticeByMentor',
+        formattedListObjects,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
+      );
 
-        // Check if the response has a Content-Type of application/json
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return response.json(); // Parse the JSON response
-        } else {
-          throw new Error('Response is not in JSON format');
-        }
-      })
-      .then((data) => {
-        // Handle the response data here
-        console.log('Response from the server:', data);
+      console.log(formattedListObjects)
 
-        // Example: Display a success message to the user
-        alert('Lịch đã được đặt thành công!');
+      // Check if the response status is OK (status code 2xx)
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-        // You can also update the UI or perform other actions based on the response data
-        // For example, if your response contains additional information, you can use it as needed.
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        // Handle errors here
-      });
+      // Handle the response data here
+      console.log('Response from the server:', response.data);
+
+      // Example: Display a success message to the user
+      alert('Lịch đã được đặt thành công!');
+      window.history.back();
+      // You can also update the UI or perform other actions based on the response data
+      // For example, if your response contains additional information, you can use it as needed.
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors here
+    }
   };
 
-
-
-  render() {
-    return (<>
+  return (
+    <>
       <div className="title">
         <h1>Đăng kí lịch dạy thực hành khóa 230B2</h1>
       </div>
@@ -110,24 +124,24 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
               <tbody className="register-body">
                 <tr>
                   <td>Ca sáng</td>
-                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                  {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
                         key={`sang-${day}`}
                         align="center"
-                        className={`custom-checkbox ${this.state.checkboxes[`sang-${day}`] ? "checked" : ""
+                        className={`custom-checkbox ${checkboxes[`sang-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: this.state.checkboxes[`sang-${day}`]
+                          backgroundColor: checkboxes[`sang-${day}`]
                             ? 'green'
                             : 'white',
-                            border: this.state.checkboxes[`chieu-${day}`] 
+                          border: checkboxes[`chieu-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
-                        onClick={() => this.handleCheckboxChange(`sang-${day}`)}
+                        onClick={() => handleCheckboxChange(`sang-${day}`)}
                       >
                         <div className="custom-checkbox-inner">
-                          {this.state.checkboxes[`sang-${day}`] && (
+                          {checkboxes[`sang-${day}`] && (
                             <span className="checkmark">Đăng kí</span>
                           )}
                         </div>
@@ -137,24 +151,24 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
                 </tr>
                 <tr>
                   <td>Ca chiều</td>
-                  {["monday", "tuesday", "wednesday", "thursday", "friday"].map(
+                  {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
                         key={`chieu-${day}`}
                         align="center"
-                        className={`custom-checkbox ${this.state.checkboxes[`chieu-${day}`] ? "checked" : ""
+                        className={`custom-checkbox ${checkboxes[`chieu-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: this.state.checkboxes[`chieu-${day}`]
+                          backgroundColor: checkboxes[`chieu-${day}`]
                             ? 'green'
                             : 'white',
-                            border: this.state.checkboxes[`chieu-${day}`] 
+                          border: checkboxes[`chieu-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
-                        onClick={() => this.handleCheckboxChange(`chieu-${day}`)}
+                        onClick={() => handleCheckboxChange(`chieu-${day}`)}
                       >
                         <div className="custom-checkbox-inner">
-                          {this.state.checkboxes[`chieu-${day}`] && (
+                          {checkboxes[`chieu-${day}`] && (
                             <span className="checkmark">Đăng kí</span>
                           )}
                         </div>
@@ -164,15 +178,14 @@ class MentorTeachingRegister extends Component<{}, CheckboxTableState> {
                 </tr>
               </tbody>
             </table>
-            <button onClick={this.handleSubmit} className='submit-button' type='submit' form="teaching-register-form">
-            Xác nhận
-          </button>
+            <button onClick={handleSubmit} className='submit-button' type='button'>
+              Xác nhận
+            </button>
           </form>
         </div>
       </div>
     </>
-    );
-  }
-}
+  );
+};
 
 export default MentorTeachingRegister;

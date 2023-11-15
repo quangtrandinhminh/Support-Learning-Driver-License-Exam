@@ -82,15 +82,15 @@ import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/men
 import ClassPickingPage from './bigcomponents/MentorPage/components/pages/mentor-picking-class-page/class-picking-page'
 import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/create-staff/create-staff'
+import CreateExamPage from './bigcomponents/StaffPage/components/pages/create-exam/create-exam-page'
+import ExamManagementPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
+import ClassMamagementAdminPage from './bigcomponents/AdminPage/components/pages/class-management/class-management'
+import CreateClassAdminPage from './bigcomponents/AdminPage/components/pages/create-class/create-class'
 
 function App() {
-
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
   const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
   console.log(window.location.href);
-
-  console.log(user);
-  console.log(member);
 
   return (
     <>
@@ -138,17 +138,26 @@ function App() {
                         </Route>
                         <Route path='quan-ly-nhan-vien'>
                           <Route index element={<StaffManagementAdminPage />} />
-                            <Route path='tao-nhan-vien' element={<CreateStaffAdminPage />} />
+                          <Route path='tao-nhan-vien' element={<CreateStaffAdminPage />} />
                         </Route>
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
                         <Route path='quan-ly-giao-vien'>
                           <Route index element={<MentorMamagementAdminPage />} />
+                          <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                        <Route index element={<MentorMamagementAdminPage />} />
                             <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-lop-hoc'>
+                          <Route index element={<ClassMamagementAdminPage />} />
+                          <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
                         </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-lop-hoc'>
+                            <Route index element={<MemberManagementPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportAdminPage />} />
                       </Route>
@@ -176,6 +185,10 @@ function App() {
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportPage />} />
+                        <Route path='quan-ly-ky-thi'>
+                          <Route index element={<ExamManagementPage />} />
+                          <Route path='tao-ky-thi' element={<CreateExamPage />} />
+                        </Route>
                       </Route>
                     </>
                   )}
@@ -189,7 +202,7 @@ function App() {
                         </Route>
                         <Route path='tong-quan-lich-day'>
                           <Route index element={<ClassPickingPage />} />
-                          <Route path='lich-day' element={<MentorSchedulePage />}/>
+                          <Route path='lich-day' element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
                             <Route path='danh-gia' element={<MentorFeedbacksPage />} />
@@ -199,7 +212,7 @@ function App() {
                         <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
-                          <Route path='dang-ki-lich-day' element={<MentorRegisterSchedule />} />
+                          <Route path='dang-ki-lich-day/:courseId' element={<MentorRegisterSchedule />} />
                         </Route>
 
                       </Route>
