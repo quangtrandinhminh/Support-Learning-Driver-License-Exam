@@ -7,10 +7,12 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function MemberInformationForm() {
-    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null
-
+    const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    console.log(user);
+    const [member, setMember] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState(null);
+    const [student, setStudent] = useState(null);
 
     const handleScroll = () => {
         window.scroll( {
@@ -30,21 +32,51 @@ function MemberInformationForm() {
         navigate('/thong-tin-ca-nhan/cap-nhat')
     }
 
-    const getCourseById = async () => {
+    const getMemberByUID = async () => {
         try {
-            const response = await api.get('Course/' + member.courseId);
+            const response = await api.get('Member/' + user.userID);
             const res = response.data;
             console.log(res);
-            setCourse(res);
+            setMember(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const getStudentById = async () => {
+        try {
+            const response = await api.get('Student/' + member.memberID);
+            const res = response.data;
+            console.log(res);
+            setStudent(res);
             setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
     }
 
+    const getCourseById = async () => {
+        try {
+            const response = await api.get('Course/' + member.courseId);
+            const res = response.data;
+            console.log(res);
+            setCourse(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        getMemberByUID();
+    }, [])
+
     useEffect(() => {
         getCourseById();
-    }, [])
+    }, [member])
+
+    useEffect(() => {
+        getStudentById();
+    }, [course])
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -109,7 +141,7 @@ function MemberInformationForm() {
                                         </li>
                                         <li>
                                             <label htmlFor="studentID"><strong><i>Mã số học viên: </i></strong></label>
-                                            <span>{`${member.courseId}.${member.memberID}`}</span>
+                                            <span>{`${student.studentId}`}</span>
                                         </li>
                                         <li>
                                             <label htmlFor="courseID"><strong><i>Khoá học: </i></strong></label>

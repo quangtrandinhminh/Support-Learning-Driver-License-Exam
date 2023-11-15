@@ -70,15 +70,25 @@ function ClassTable() {
 
       // Handle success, e.g., show a success message or update the UI
       console.log("Class student added successfully:", addedClassStudent);
-      toast.success(
-        `Thêm lớp học thành công. Số lượng: ${addedClassStudent.length}`
-      );
+      toast.success('Thêm lớp học thành công!');
     } catch (error) {
       // Handle errors, e.g., show an error message or log the error
       console.error("Error adding class student:", error);
       toast.error("Thêm lớp học thất bại:", error);
     }
   };
+
+  const handleAddLesson = async (courseId: string) => {
+    try {
+      await api.post('Lesson/createTheoryLessonAuto', {
+        courseId,
+        location: "P.12",
+        numberOfLessons: 13
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="mentor-table-container">
@@ -142,7 +152,7 @@ function ClassTable() {
                           <button
                             className="btn btn-info"
                             type="button"
-                            onClick={() => handleAdd(classs.courseId)}
+                            onClick={() => handleAddLesson(classs.courseId)}
                           >
                             Add lessons
                           </button>
