@@ -83,7 +83,7 @@ function ClassTable() {
   return (
     <div className="mentor-table-container">
       <div className="mentor-table-title text-center text-uppercase">
-        <h1>Danh sách lớp học</h1>
+        <h1>Danh sách lớp học lý thuyết</h1>
       </div>
       <div className="mentor-table-content">
         <form action="">
@@ -112,7 +112,7 @@ function ClassTable() {
                 <th scope="col">Mã giáo viên</th>
                 <th scope="col">Mã khóa học</th>
                 <th scope="col">Học phần</th>
-                <th scope="col">Số ngày học</th>
+                <th scope="col">Thứ</th>
                 <th scope="col">Ca học</th>
                 <th scope="col" className="text-center">
                   Hành động
@@ -130,7 +130,7 @@ function ClassTable() {
                     <td>{classs.dayOfWeek}</td>
                     <td>{classs.shift}</td>
                     <td className="button text-center">
-                      {classs.isTheoryClass && (
+                      {classs.isTheoryClass ? (
                         <>
                           <button
                             className="btn btn-primary"
@@ -139,7 +139,6 @@ function ClassTable() {
                           >
                             Add
                           </button>
-
                           <button
                             className="btn btn-info"
                             type="button"
@@ -148,6 +147,8 @@ function ClassTable() {
                             Add lessons
                           </button>
                         </>
+                      ) : (
+                        null
                       )}
                     </td>
                   </tr>
