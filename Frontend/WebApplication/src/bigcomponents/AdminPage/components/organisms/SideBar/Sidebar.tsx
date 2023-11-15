@@ -34,51 +34,51 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           link="bang-dieu-khien"
         />
         <li className="list-header">
-          <p>Quảng lý hệ thống</p>
+          <p>Quản lý hệ thống</p>
         </li>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Quảng lý tin tức"
+          text="Quản lý tin tức"
           link="/quan-ly-tin-tuc"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUsersCog} />}
-          text="Quảng lý nhân viên"
+          text="Quản lý nhân viên"
           link="/quan-ly-nhan-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faChalkboardUser} />}
-          text="Quảng lý giáo viên"
+          text="Quản lý giáo viên"
           link="/quan-ly-giao-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUser} />}
-          text="Quảng lý học viên"
+          text="Quản lý học viên"
           link="/quan-ly-hoc-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faFileLines} />}
-          text="Quảng lý kỳ thi"
+          text="Quản lý kỳ thi"
           link="/quan-ly-thi-cu"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="Quảng lý lớp học"
+          text="Quản lý lớp học"
           link="/quan-ly-lop-hoc"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="Quảng lý học sinh"
+          text="Quản lý học sinh"
           link="/quan-ly-hoc-sinh"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Quảng lý kết quả"
+          text="Quản lý kết quả"
           link="/quan-ly-ket-qua"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faCalendarDays} />}
-          text="Quảng lý khóa học"
+          text="Quản lý khóa học"
           link="/quan-ly-khoa-hoc"
           onClick={toggleKhoaHoc}
         >
