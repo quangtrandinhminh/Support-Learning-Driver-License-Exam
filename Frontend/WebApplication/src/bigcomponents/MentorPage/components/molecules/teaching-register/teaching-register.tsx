@@ -12,16 +12,16 @@ interface CheckboxTableState {
 const MentorTeachingRegister: React.FC = () => {
   const { courseId } = useParams();
   const [checkboxes, setCheckboxes] = useState<CheckboxTableState['checkboxes']>({
-    "sang-2": false,
-    "sang-3": false,
-    "sang-4": false,
-    "sang-5": false,
-    "sang-6": false,
-    "chieu-2": false,
-    "chieu-3": false,
-    "chieu-4": false,
-    "chieu-5": false,
-    "chieu-6": false,
+    "sáng-2": false,
+    "sáng-3": false,
+    "sáng-4": false,
+    "sáng-5": false,
+    "sáng-6": false,
+    "chiều-2": false,
+    "chiều-3": false,
+    "chiều-4": false,
+    "chiều-5": false,
+    "chiều-6": false,
   });
 
   const handleCheckboxChange = (key: string) => {
@@ -127,21 +127,21 @@ const MentorTeachingRegister: React.FC = () => {
                   {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
-                        key={`sang-${day}`}
+                        key={`sáng-${day}`}
                         align="center"
-                        className={`custom-checkbox ${checkboxes[`sang-${day}`] ? "checked" : ""
+                        className={`custom-checkbox ${checkboxes[`sáng-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: checkboxes[`sang-${day}`]
+                          backgroundColor: checkboxes[`sáng-${day}`]
                             ? 'green'
                             : 'white',
                           border: checkboxes[`chieu-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
-                        onClick={() => handleCheckboxChange(`sang-${day}`)}
+                        onClick={() => handleCheckboxChange(`sáng-${day}`)}
                       >
                         <div className="custom-checkbox-inner">
-                          {checkboxes[`sang-${day}`] && (
+                          {checkboxes[`sáng-${day}`] && (
                             <span className="checkmark">Đăng kí</span>
                           )}
                         </div>
@@ -154,21 +154,21 @@ const MentorTeachingRegister: React.FC = () => {
                   {[2, 3, 4, 5, 6].map(
                     (day) => (
                       <td
-                        key={`chieu-${day}`}
+                        key={`chiều-${day}`}
                         align="center"
-                        className={`custom-checkbox ${checkboxes[`chieu-${day}`] ? "checked" : ""
+                        className={`custom-checkbox ${checkboxes[`chiều-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: checkboxes[`chieu-${day}`]
+                          backgroundColor: checkboxes[`chiều-${day}`]
                             ? 'green'
                             : 'white',
-                          border: checkboxes[`chieu-${day}`]
+                          border: checkboxes[`chiều-${day}`]
                             ? '1px solid #ffffff' : '1px solid #ffffff'
                         }}
-                        onClick={() => handleCheckboxChange(`chieu-${day}`)}
+                        onClick={() => handleCheckboxChange(`chiều-${day}`)}
                       >
                         <div className="custom-checkbox-inner">
-                          {checkboxes[`chieu-${day}`] && (
+                          {checkboxes[`chiều-${day}`] && (
                             <span className="checkmark">Đăng kí</span>
                           )}
                         </div>

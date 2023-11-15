@@ -6,12 +6,26 @@ import { toast } from "react-toastify";
 
 function CreateClassForm() {
   const [error, setError] = useState(null);
+  const [courseId, setCourseId] = useState([]);
+  const [mentor, setMentor] = useState([]);
   const [inputData, setInputData] = useState({
     courseId: "",
     isTheoryClass: true,
-    shift: "sáng",
+    mentorId: "",
+    shift: "Sáng",
     status: true,
   });
+
+  const getMentorTheory = async () => {
+    try {
+      const response = await api.get('Mentor/theory');
+      const res = response.data;
+      let mentorId = res.map(mentor => mentor.mentorId);
+      setMentor(mentorId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const [courseOptions, setCourseOptions] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +33,19 @@ function CreateClassForm() {
   useEffect(() => {
     // Fetch all courseId options
     fetchAllCourseId();
+    getMentorTheory();
   }, []);
+
+  const getCourseList = async () => {
+    try {
+      const response = await api.get('Course/list');
+      const res = response.data;
+      let courseId = res.map(course => course.courseId);
+      setCourseId(courseId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const createNewClass = async () => {
     try {
@@ -47,7 +73,7 @@ function CreateClassForm() {
 
   const fetchAllCourseId = async () => {
     try {
-      const response = await api.get("https://localhost:7066/api/Class");
+      const response = await api.get("Class");
       const classes = response.data;
 
       // Extract unique courseId values from the array of classes
@@ -71,6 +97,10 @@ function CreateClassForm() {
     createNewClass();
   };
 
+  useEffect(() => {
+    getCourseList();
+  }, [])
+
   return (
     <div className="create-class-container">
       <div className="create-class-title">
@@ -87,17 +117,42 @@ function CreateClassForm() {
             <div className="col-sm-9">
               <select
                 className="form-control"
-                name="courseId"
-                value={inputData.courseId}
-                onChange={(e) =>
-                  setInputData({ ...inputData, courseId: e.target.value })
-                }
+                id="courseId"
+                placeholder="courseId"
+                name='courseId'
+                value={inputData.courseId || ''}  // Ensure that it's not undefined
+                onChange={e => setInputData({ ...inputData, courseId: e.target.value })}
               >
-                {courseOptions.map((courseId) => (
-                  <option key={courseId} value={courseId}>
-                    {courseId}
-                  </option>
-                ))}
+                <option value="" disabled>Select a course</option>
+                {
+                  courseId.map((course, index) => (
+                    <option key={index} value={course}>{course}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+
+          {/* MentorID */}
+          <div className="form-group row">
+            <label htmlFor="mentorId" className="col-sm-3 col-form-label">
+              Mã giáo viên:{" "}
+            </label>
+            <div className="col-sm-9">
+              <select
+                className="form-control"
+                id="mentorId"
+                placeholder="mentorId"
+                name='mentorId'
+                value={inputData.mentorId || ''}  // Ensure that it's not undefined
+                onChange={e => setInputData({ ...inputData, mentorId: e.target.value })}
+              >
+                <option value="" disabled>Select a mentor</option>
+                {
+                  mentor.map((mentor, index) => (
+                    <option key={index} value={mentor}>{mentor}</option>
+                  ))
+                }
               </select>
             </div>
           </div>

@@ -28,7 +28,7 @@ function Home() {
   const [courseData, setCourseData] = useState([]);
 
   useEffect(() => {
-    const apiUrl = 'https://localhost:7066/api/Users';
+    const apiUrl = 'https://fdriving.azurewebsites.net/api/Users';
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -53,20 +53,20 @@ function Home() {
         console.error('Error fetching data from the API:', error);
       });
 
-      const apiUrl2 = 'https://localhost:7066/api/Course/list';
-      fetch(apiUrl2)
-        .then((response) => response.json())
-        .then((courseData) => {
-          const formattedData = courseData.map((course: { name: any; numberOfStudents: any; limitStudent: any; }) => ({
-            name: course.name,
-            numberOfStudents: course.numberOfStudents,
-            limitStudent: course.limitStudent,
-          }));
-          setCourseData(formattedData);
-        })
-        .catch((error) => {
-          console.error('Error fetching course data from the API:', error);
-        });
+    const apiUrl2 = 'https://fdriving.azurewebsites.net/api/Course/list';
+    fetch(apiUrl2)
+      .then((response) => response.json())
+      .then((courseData) => {
+        const formattedData = courseData.map((course: { name: any; numberOfStudents: any; limitStudent: any; }) => ({
+          name: course.name,
+          numberOfStudents: course.numberOfStudents,
+          limitStudent: course.limitStudent,
+        }));
+        setCourseData(formattedData);
+      })
+      .catch((error) => {
+        console.error('Error fetching course data from the API:', error);
+      });
   }, []);
 
   return (
@@ -124,11 +124,11 @@ function Home() {
             <XAxis dataKey='name' />
             <YAxis />
             <Legend />
-             <Bar dataKey='numberOfStudents' name='Số học viên' fill='#8884d8' />
+            <Bar dataKey='numberOfStudents' name='Số học viên' fill='#8884d8' />
             <Bar dataKey='limitStudent' name='Số học viên tối đa' fill='#82ca9d' />
           </BarChart>
         </ResponsiveContainer>
-        
+
         <ResponsiveContainer width='100%' height={300}>
           <LineChart
             width={500}

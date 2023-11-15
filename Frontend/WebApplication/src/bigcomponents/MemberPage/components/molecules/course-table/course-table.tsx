@@ -25,6 +25,14 @@ function CourseTable() {
 
     const navigate = useNavigate();
 
+    const filteredCourses = course.filter(course => {
+        const courseStartDate = new Date(course.startDate);
+        const currentDate = new Date();
+
+        // Compare day, month, and year components
+        return courseStartDate > currentDate;
+    });
+
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
         const day = date.getDate().toString().padStart(2, '0');
@@ -86,7 +94,7 @@ function CourseTable() {
                             {
                                 member != null ? (
                                     !isLoading ? (
-                                        course.length > 0 ? (
+                                        filteredCourses.length > 0 ? (
                                             course.map((course, i) => (
                                                 <tr key={i} >
                                                     <td className='course-no'>

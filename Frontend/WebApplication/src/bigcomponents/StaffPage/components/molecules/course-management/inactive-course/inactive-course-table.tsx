@@ -13,15 +13,12 @@ function InactiveCourseTable() {
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
-    const navigate = useNavigate();
-
     // Fetch all courses
     const getAllCourse = async () => {
         try {
-            const response = await api.get('Course/list');
+            const response = await api.get('Course/inactive-courses');
             const res = response.data;
-            const filterList = res.filter(course => course.status === false);
-            setData(filterList);
+            setData(res);
         } catch (err) {
             console.log(err);
         }
@@ -48,12 +45,17 @@ function InactiveCourseTable() {
         getAllCourse();
     }, []);
 
-    const updateBtn = (courseId) => {
-        navigate(`cap-nhat-khoa-hoc/${courseId}`);
-        window.scroll({
-            top: 0,
-            behavior: 'instant'
-        });
+    const updateBtn = async (courseId) => {
+        try {
+            window.scroll({
+                top: 0,
+                behavior: 'instant'
+            });
+            await api.patch('Course/activate/' + courseId);
+            location.reload();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     // Filtering function
@@ -150,7 +152,7 @@ function InactiveCourseTable() {
                                         <td className='text-center'>{course.courseYear}</td>
                                         <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => updateBtn(course.courseId)}>Update</button>
                                         </td>
                                     </tr>
                                 ))

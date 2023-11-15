@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./class-table.scss";
 import api from "../../../../../config/axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ClassTable() {
   const [classs, setClasss] = useState([]);
@@ -11,7 +12,7 @@ function ClassTable() {
 
   const getAllClasss = async () => {
     try {
-      const response = await api.get("https://localhost:7066/api/Class");
+      const response = await api.get("Class");
       const res = response.data;
       setClasss(res);
     } catch (error) {
@@ -59,16 +60,40 @@ function ClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  function handleAdd(isTheoryClass: any): void {
-    // // Logic xử lý khi nhấn nút "Add"
-    // console.log("Add button clicked for isTheoryClass:", isTheoryClass);
-    // // Thêm logic tương ứng với việc thêm vào danh sách
+  const handleAdd = async (courseId: number) => {
+    try {
+      // Make an API request to add a class student
+      const response = await api.post(
+        `ClassStudent/${courseId}`
+      );
+      const addedClassStudent = response.data;
+
+      // Handle success, e.g., show a success message or update the UI
+      console.log("Class student added successfully:", addedClassStudent);
+      toast.success('Thêm lớp học thành công!');
+    } catch (error) {
+      // Handle errors, e.g., show an error message or log the error
+      console.error("Error adding class student:", error);
+      toast.error("Thêm lớp học thất bại:", error);
+    }
+  };
+
+  const handleAddLesson = async (courseId: string) => {
+    try {
+      await api.post('Lesson/createTheoryLessonAuto', {
+        courseId,
+        location: "P.12",
+        numberOfLessons: 13
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <div className="mentor-table-container">
       <div className="mentor-table-title text-center text-uppercase">
-        <h1>Danh sách lớp học</h1>
+        <h1>Danh sách lớp học lý thuyết</h1>
       </div>
       <div className="mentor-table-content">
         <form action="">
@@ -97,7 +122,7 @@ function ClassTable() {
                 <th scope="col">Mã giáo viên</th>
                 <th scope="col">Mã khóa học</th>
                 <th scope="col">Học phần</th>
-                <th scope="col">Số ngày học</th>
+                <th scope="col">Thứ</th>
                 <th scope="col">Ca học</th>
                 <th scope="col" className="text-center">
                   Hành động
@@ -115,10 +140,25 @@ function ClassTable() {
                     <td>{classs.dayOfWeek}</td>
                     <td>{classs.shift}</td>
                     <td className="button text-center">
-                      {classs.isTheoryClass && (
-                        <button className="btn btn-success" type="button" onClick={() => handleAdd(classs.isTheoryClass)}>
-                          Add
-                        </button>
+                      {classs.isTheoryClass ? (
+                        <>
+                          <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={() => handleAdd(classs.courseId)}
+                          >
+                            Add
+                          </button>
+                          <button
+                            className="btn btn-info"
+                            type="button"
+                            onClick={() => handleAddLesson(classs.courseId)}
+                          >
+                            Add lessons
+                          </button>
+                        </>
+                      ) : (
+                        null
                       )}
                     </td>
                   </tr>
@@ -144,9 +184,8 @@ function ClassTable() {
               {pageNumbers.map((number) => (
                 <li
                   key={number}
-                  className={`page-item ${
-                    currentPage === number ? "active" : ""
-                  }`}
+                  className={`page-item ${currentPage === number ? "active" : ""
+                    }`}
                 >
                   <button
                     type="button"
