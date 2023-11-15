@@ -67,14 +67,7 @@ function MentorSidebar() {
             </li>
             <li className='sidebar-component'>
               <div className="mentor-list">
-                <NavLink style={styleSidebarCom} to='/danh-sach-lop-hoc'>
-                  Danh sách lớp học
-                </NavLink>
-              </div>
-            </li>
-            <li className='sidebar-component'>
-              <div className="mentor-list">
-                <NavLink style={styleSidebarCom} to='/tong-quan-lich-day'>
+                <NavLink style={styleSidebarCom} to='/lich-day'>
                   Lịch dạy
                 </NavLink>
               </div>
@@ -86,9 +79,7 @@ function MentorSidebar() {
                 </NavLink>
               </div>
             </li>
-            <NavLink style={styleSidebarCom} to='/thong-tin-ca-nhan-giao-vien'>
-              <h3 className='mini-title'>Tài khoản: <a href="">{mentor.fullName}</a></h3>
-            </NavLink>
+            <h3 className='mini-title'>Tài khoản: {mentor.fullName}</h3>
             <li className='sidebar-component'>
               <div className="mentor-list">
                 <NavLink className='logout-btn' to='/' onClick={handleLogout}>
