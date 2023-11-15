@@ -90,6 +90,9 @@ import CreateExamAdminPage from './bigcomponents/AdminPage/components/pages/crea
 import ExamManagementAdminPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
 import UpdateStaffAdminPage from './bigcomponents/AdminPage/components/pages/update-staff/update-staff'
 import UpdateMentorAdminPage from './bigcomponents/AdminPage/components/pages/update-mentor/update-mentor'
+import ExamResultTable from './bigcomponents/AdminPage/components/molocules/exam-result/exam-result'
+import ExamResultManagementPage from './bigcomponents/AdminPage/components/pages/exam-result-management/exam-result-management'
+import StudentManagementPage from './bigcomponents/AdminPage/components/pages/student-management/student-management'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -164,9 +167,11 @@ function App() {
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
                         </Route>
                         <Route path='quan-ly-lop-hoc'>
-                            <Route index element={<MemberManagementPage />} />
+                          <Route index element={<MemberManagementPage />} />
                         </Route>
                         <Route path='bao-cao' element={<ReportAdminPage />} />
+                        <Route path='quan-ly-ket-qua' element={<ExamResultManagementPage />} />
+                        <Route path='quan-ly-hoc-sinh' element={<StudentManagementPage />} />
                       </Route>
                     </>
                   )}
@@ -240,7 +245,7 @@ function App() {
                       </Route>
                       <Route path='danh-sach-khoa-hoc'>
                         <Route index element={<PracticeRegisterPage />} />
-                          <Route path='khoa-hoc/:mentorId/:courseId' element={<PracticeSpecificPage />} />
+                        <Route path='khoa-hoc/:mentorId/:courseId' element={<PracticeSpecificPage />} />
                       </Route>
                       <Route path='ho-so-thi'>
                         <Route index element={<ExamDocumentPage />} />

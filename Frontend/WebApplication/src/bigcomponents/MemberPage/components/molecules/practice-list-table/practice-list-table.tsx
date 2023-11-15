@@ -58,9 +58,15 @@ function PracticeList() {
 
     return (
         <div className='practice-list-container'>
-            <h1 className='practice-list-title'>
-                Đăng ký lịch học thực hành khoá học XXB2
-            </h1>
+            {
+                course != null ? (
+                    <h1 className='practice-list-title'>
+                        Đăng ký lịch học thực hành khoá học {course.name}
+                    </h1>
+                ) : (
+                    null
+                )
+            }
             <table>
                 <thead>
                     <tr>

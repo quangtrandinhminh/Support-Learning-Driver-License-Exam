@@ -109,6 +109,17 @@ function CourseTable() {
         }
     }
 
+    const handleCreateLesson = async (courseId) => {
+        try {
+            await api.post('Lesson/createPracticeLessonAuto?courseId=' +  courseId);
+            // setTimeout(() => {
+            //     location.reload();
+            // }, 0.1);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         // Create and populate the map when data and member are available
         const uniqueCourseIds = new Set(data.map(data => data.courseId));
@@ -183,6 +194,7 @@ function CourseTable() {
                                             <td className='button text-center'>
                                                 <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
                                                 <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Delete</button>
+                                                <button className="btn btn-info" type="button" onClick={() => handleCreateLesson(course.courseId)}>Tạo lịch thực hành</button>
                                             </td>
                                         </tr>
                                     )
