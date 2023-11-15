@@ -85,7 +85,7 @@ function NewsTable() {
             <div className='news-table-content'>
                 <form action="">
                     <div className='d-flex justify-content-end'>
-                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Add</Link>
+                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Tạo tin tức</Link>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
@@ -108,8 +108,8 @@ function NewsTable() {
                                         <td>{truncateText(news.content, 30)}</td> {/* Truncate content here */}
                                         <td className='text-center'>{news.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Delete</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))

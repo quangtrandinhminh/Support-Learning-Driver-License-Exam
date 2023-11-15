@@ -157,9 +157,9 @@ function App() {
                           <Route index element={<ClassMamagementAdminPage />} />
                           <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
                         </Route>
-                        <Route path='quan-ly-thi-cu'>
+                        <Route path='quan-ly-ky-thi'>
                           <Route index element={<ExamManagementAdminPage />} />
-                          <Route path='tao-lop-hoc' element={<CreateExamAdminPage />} />
+                          <Route path='tao-ky-thi' element={<CreateExamAdminPage />} />
                         </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />

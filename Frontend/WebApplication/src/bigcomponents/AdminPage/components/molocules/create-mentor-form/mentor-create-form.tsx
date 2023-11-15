@@ -13,8 +13,8 @@ function CreateMentorForm() {
     email: "",
     phone: "",
     residenceAddress: "",
-    isTeachingTheory: true,
-    isTeachingPractice: true,
+    isTeachingTheory: false,
+    isTeachingPractice: false,
   });
 
   const navigate = useNavigate();

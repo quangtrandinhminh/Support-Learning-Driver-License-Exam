@@ -97,7 +97,7 @@ function MemberTable() {
             <input
               type="text"
               name='courseId'
-              placeholder='courseId'
+              placeholder='tên học viên'
               onChange={filter}
               autoComplete='off'
             />
@@ -108,10 +108,10 @@ function MemberTable() {
                 <th scope='col'>Mã học viên</th>
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
-                <th scope='col' style={{ width: '200px' }}>Email</th>
-                <th scope='col'>Khoá học đang học</th>
+                <th scope='col'>Email</th>
+                <th scope='col' className='tw-text-center'>Khoá học đang học</th>
                 <th scope='col' className='text-center'>Trạng thái thanh toán</th>
-                <th scope='col' className='text-center'>Action</th>
+                <th scope='col' className='text-center tw-w-72'></th>
               </tr>
             </thead>
             <tbody className='table-group-divider align-middle'>
@@ -125,9 +125,9 @@ function MemberTable() {
                     <td className='tw-text-center'>{member.courseId}</td>
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaidAndFetchData(member.memberID)}>Update</button>
-                      <button className="btn btn-info" type="button" onClick={() => handleApplication(member.memberID)}>Appilication</button>
-                      <button className="btn btn-danger" type="submit">Delete</button>
+                      <button className="btn btn-primary" type="button" onClick={() => updateMemberIsPaidAndFetchData(member.memberID)}>Cập nhật</button>
+                      <button className="btn btn-info" type="button" onClick={() => handleApplication(member.memberID)}>Đơn thi</button>
+                      <button className="btn btn-danger" type="submit">Xoá</button>
                     </td>
                   </tr>
                 ))
