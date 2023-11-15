@@ -1,0 +1,31 @@
+.create-exam-container {
+
+    .create-exam-title {
+        h1 {
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .create-exam-form {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        form {
+            display: grid;
+            gap: 26px;
+            width: 60%;
+
+            input::placeholder {
+                font-style: italic;
+            }
+
+            textarea::placeholder {
+                font-style: italic;
+            }
+        }
+
+    }
+}

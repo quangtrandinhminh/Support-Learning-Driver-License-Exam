@@ -86,6 +86,10 @@ import CreateExamPage from './bigcomponents/StaffPage/components/pages/create-ex
 import ExamManagementPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
 import ClassMamagementAdminPage from './bigcomponents/AdminPage/components/pages/class-management/class-management'
 import CreateClassAdminPage from './bigcomponents/AdminPage/components/pages/create-class/create-class'
+import CreateExamAdminPage from './bigcomponents/AdminPage/components/pages/create-exam/create-exam'
+import ExamManagementAdminPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
+import UpdateStaffAdminPage from './bigcomponents/AdminPage/components/pages/update-staff/update-staff'
+import UpdateMentorAdminPage from './bigcomponents/AdminPage/components/pages/update-mentor/update-mentor'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -139,17 +143,21 @@ function App() {
                         <Route path='quan-ly-nhan-vien'>
                           <Route index element={<StaffManagementAdminPage />} />
                           <Route path='tao-nhan-vien' element={<CreateStaffAdminPage />} />
+                          <Route path='cap-nhat-nhan-vien' element={<UpdateStaffAdminPage />} />
                         </Route>
                         <Route path='quan-ly-hoc-vien' element={<MemberManagementAdminPage />} />
                         <Route path='quan-ly-giao-vien'>
                           <Route index element={<MentorMamagementAdminPage />} />
                           <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
-                        <Route index element={<MentorMamagementAdminPage />} />
-                            <Route path='tao-giao-vien' element={<CreateMentorAdminPage />} />
+                          <Route path='cap-nhat-giao-vien' element={<UpdateMentorAdminPage />} />
                         </Route>
                         <Route path='quan-ly-lop-hoc'>
                           <Route index element={<ClassMamagementAdminPage />} />
                           <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-thi-cu'>
+                          <Route index element={<ExamManagementAdminPage />} />
+                          <Route path='tao-lop-hoc' element={<CreateExamAdminPage />} />
                         </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />

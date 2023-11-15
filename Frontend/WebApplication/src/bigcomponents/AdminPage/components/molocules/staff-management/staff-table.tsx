@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './staff-table.scss'
 import api from '../../../../../config/axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MemberTable() {
     const [staff, setStaff] = useState<any[]>([]);
@@ -15,6 +15,8 @@ function MemberTable() {
             console.log(error);
         }
     }
+
+    const navigate = useNavigate();
 
     // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
@@ -45,8 +47,12 @@ function MemberTable() {
         }
     }
 
-    const handleUpdate = (staffId) => {
-        window.location.href = `/update-staff/${staffId}`;
+    const handleUpdate = (newsId) => {
+        navigate(`cap-nhat-nhan-vien`);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     const handleDelete = async (staffId) => {

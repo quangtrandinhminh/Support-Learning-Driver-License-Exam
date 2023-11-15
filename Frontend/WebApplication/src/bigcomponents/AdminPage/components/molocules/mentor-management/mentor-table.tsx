@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './mentor-table.scss'
 import api from '../../../../../config/axios';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 function MentorTable() {
     const [mentors, setMentors] = useState([]);
@@ -22,6 +22,8 @@ function MentorTable() {
     useEffect(() => {
         getAllMentors();
     }, [])
+
+    const navigate = useNavigate();
 
     // Pagination
     const lastIndex = currentPage * recordPage;
@@ -47,8 +49,12 @@ function MentorTable() {
         }
     }
 
-    const updateBtn = (mentorId) => {
-        window.location.href = `/Mentor/update/${mentorId}`;
+    const handleUpdate = (mentorId) => {
+        navigate(`cap-nhat-giao-vien`);
+        window.scroll( {
+            top: 0,
+            behavior: 'instant'
+        });
     }
 
     const handleDelete = async (mentorId) => {
@@ -119,7 +125,7 @@ function MentorTable() {
                                         <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
                                         <td>{mentor.email}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => updateBtn(mentor.mentorId)}>Update</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(mentor.mentorId)}>Update</button>
                                             <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Delete</button>
                                         </td>
                                     </tr>

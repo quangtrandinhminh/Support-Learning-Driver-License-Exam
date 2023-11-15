@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import api from '../../../../../../config/axios';
-import './courses-table.scss';
+import './exam-management.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../../../../../config/axios';
+import { toast } from 'react-toastify';
 
-function CourseTable() {
+function ExamTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    //count number of members have enrolled into course
-    const [mapRecord, setMapRecord] = useState(new Map());
-    const map = new Map();
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,33 +21,19 @@ function CourseTable() {
     const records = filteredData.slice(firsIndex, lastIndex);
     const npage = Math.ceil(filteredData.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
-    const overallIndex = (currentPage - 1) * recordPage;
 
     const navigate = useNavigate();
 
-    const [member, setMember] = useState([]);
-
     // Fetch all courses
-    const getAllCourse = async () => {
+    const getAllExams = async () => {
         try {
-            const response = await api.get('Course/list');
+            const response = await api.get('Exam/list');
             const res = response.data;
-            const getActiveCourse = res.filter(course => course.status === true);
-            setData(getActiveCourse);
+            setData(res);
         } catch (err) {
             console.log(err);
         }
     };
-
-    const getMember = async () => {
-        try {
-            const response = await api.get('/Members');
-            const res = response.data;
-            setMember(res);
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     // Handle page navigation
     const prePage = () => {
@@ -68,14 +52,6 @@ function CourseTable() {
         }
     }
 
-    const updateBtn = (courseId) => {
-        navigate(`cap-nhat-khoa-hoc/${courseId}`);
-        window.scroll({
-            top: 0,
-            behavior: 'instant'
-        });
-    }
-
     // Filtering function
     const filter = (e) => {
         const value = e.target.value.toLowerCase();
@@ -91,44 +67,45 @@ function CourseTable() {
         return `${day}/${month}/${year}`;
     }
 
-    const handleDelete = async (courseId) => {
+    const handleCreate = async (examId) => {
         try {
-            // Perform the deletion
-            await api.delete('Course/deactivate/' + courseId);
+            let examIDJson = JSON.stringify(examId);
+            await api.post('Test/add',
+                {
+                    Headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    examId: examIDJson
+                });
 
-            // Reload the page after successful deletion
-            setTimeout(() => {
-                location.reload();
-            }, 0.1);
+            const notificationMessage = "Tạo bài thi thành công!";
+            localStorage.setItem("notificationMessage", notificationMessage);
+            location.reload();
 
-            // Once deletion is successful, fetch the updated data
-            await getAllCourse();
-
-        } catch (err) {
-            console.log(err);
+        } catch (error) {
+            console.log(error);
         }
     }
 
     useEffect(() => {
-        // Create and populate the map when data and member are available
-        const uniqueCourseIds = new Set(data.map(data => data.courseId));
-        for (const courseId of uniqueCourseIds) {
-            map.set(String(courseId), member.filter(member => member.courseId === courseId));
-        }
-        setMapRecord(map);
-    }, [data, member]);
+        getAllExams();
+    }, []);
 
     useEffect(() => {
-        getAllCourse();
-        getMember();
+        const storedNotificationMessage = localStorage.getItem("notificationMessage");
+
+        if (storedNotificationMessage) {
+            toast.success(storedNotificationMessage);
+            localStorage.removeItem("notificationMessage"); // Remove the message from localStorage
+        }
     }, []);
 
     return (
-        <div className='courses-table-container'>
-            <div className="courses-table-title text-center text-uppercase">
-                <h1>Danh sách khoá học</h1>
+        <div className='exams-table-container'>
+            <div className="exams-table-title text-center text-uppercase">
+                <h1>Danh sách kỳ thi</h1>
             </div>
-            <div className='courses-table-content'>
+            <div className='exams-table-content'>
                 <form action="">
                     <div className='d-grid mb-2'>
                         <div className="row">
@@ -142,47 +119,44 @@ function CourseTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-ky-thi' className='btn btn-success'>+ Add</Link>
                             </div>
                         </div>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
-                                <th scope='col'>#</th>
+                                <th scope='col'>Mã kỳ thi</th>
                                 <th scope='col'>Mã khoá học</th>
                                 <th scope='col'>Tên</th>
-                                <th scope='col'>Ngày khai giảng</th>
-                                <th scope='col'>Ngày bế giảng</th>
-                                <th className='text-center' scope='col'>Số học viên</th>
-                                <th className='text-center' scope='col'>Số học viên tối đa</th>
-                                <th scope='col' className='text-center'>Tháng</th>
-                                <th scope='col' className='text-center'>Năm</th>
+                                <th scope='col'>Ngày</th>
+                                <th scope='col' className='text-center'>Mô tả</th>
+                                <th scope='col' className='text-center'>Thời gian</th>
+                                <th scope='col' className='text-center'>Số câu hỏi</th>
+                                <th scope='col' className='text-center'>Số câu liệt</th>
+                                <th scope='col' className='text-center'>Số câu đúng tối thiểu</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Hành động</th>
+                                <th scope='col' className='text-center'>Action</th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
-                                records.map((course, i) => {
-                                    const mapKey = mapRecord.get(course.courseId);
-                                    const mapValue = mapKey ? mapKey.length : 0;
-                                    console.log(mapValue);
+                                records.map((exam, i) => {
+                                    ;
                                     return (
                                         <tr key={i}>
-                                            <td>{overallIndex + i + 1}</td>
-                                            <td>{course.courseId}</td>
-                                            <td>{course.name}</td>
-                                            <td>{formatDate(course.startDate)}</td>
-                                            <td>{formatDate(course.endDate)}</td>
-                                            <td className='text-center'>{mapValue}</td>
-                                            <td className='text-center'>{course.limitStudent}</td>
-                                            <td className='text-center'>{course.courseMonth}</td>
-                                            <td className='text-center'>{course.courseYear}</td>
-                                            <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
+                                            <td>{exam.examId}</td>
+                                            <td>{exam.courseId}</td>
+                                            <td>{exam.examName}</td>
+                                            <td>{formatDate(exam.examTime)}</td>
+                                            <td>{exam.description}</td>
+                                            <td className='text-center'>{exam.duration}</td>
+                                            <td className='text-center'>{exam.limitQuestion}</td>
+                                            <td className='text-center'>{exam.limitKeyQuestion}</td>
+                                            <td className='text-center'>{exam.minimumCorrectAnswer}</td>
+                                            <td className='text-center'>{exam.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                             <td className='button text-center'>
-                                                <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
-                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Delete</button>
+                                                <button className="btn btn-info" type="button" onClick={() => handleCreate(exam.examId)}>Create test</button>
                                             </td>
                                         </tr>
                                     )
@@ -221,4 +195,4 @@ function CourseTable() {
     );
 }
 
-export default CourseTable;
+export default ExamTable;
