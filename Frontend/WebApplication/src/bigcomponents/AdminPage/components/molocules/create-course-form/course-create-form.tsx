@@ -31,7 +31,7 @@ function CreateCourseForm() {
       await api.post("Course/add", inputData);
       toast.success("Tạo khoá học thành công");
       setError(null);
-      navigate("/quan-ly-khoa-hoc");
+      // navigate("/quan-ly-khoa-hoc");
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
@@ -139,26 +139,10 @@ function CreateCourseForm() {
                 className="form-control"
                 id="limitStudent"
                 name="limitStudent"
-                value={
-                  inputData.limitStudent === 0 ? "" : inputData.limitStudent
-                }
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  const intValue = inputValue !== "" ? parseInt(inputValue) : 0;
-
-                  if (/^\d*$/.test(inputValue) || inputValue === "") {
-                    if (intValue >= 0 && intValue <= 25) {
-                      setInputData({
-                        ...inputData,
-                        limitStudent: intValue,
-                      });
-                    } else {
-                      toast.error("Giá trị phải nằm trong khoảng từ 0 đến 25");
-                    }
-                  }
-                }}
-                max="25"
-                min="0"
+                value={inputData.limitStudent}
+                min={0}
+                max={70}
+                onChange={(e) => { (inputData.limitStudent = parseInt(e.target.value)); setInputData({ ...inputData, limitStudent: inputData.limitStudent }) }}
               />
             </div>
           </div>
