@@ -64,7 +64,7 @@ function ClassTable() {
     try {
       // Make an API request to add a class student
       const response = await api.post(
-        `https://localhost:7066/api/ClassStudent/${courseId}`
+        `ClassStudent/${courseId}`
       );
       const addedClassStudent = response.data;
 
@@ -83,7 +83,7 @@ function ClassTable() {
   return (
     <div className="mentor-table-container">
       <div className="mentor-table-title text-center text-uppercase">
-        <h1>Danh sách lớp học</h1>
+        <h1>Danh sách lớp học lý thuyết</h1>
       </div>
       <div className="mentor-table-content">
         <form action="">
@@ -112,7 +112,7 @@ function ClassTable() {
                 <th scope="col">Mã giáo viên</th>
                 <th scope="col">Mã khóa học</th>
                 <th scope="col">Học phần</th>
-                <th scope="col">Số ngày học</th>
+                <th scope="col">Thứ</th>
                 <th scope="col">Ca học</th>
                 <th scope="col" className="text-center">
                   Hành động
@@ -130,14 +130,25 @@ function ClassTable() {
                     <td>{classs.dayOfWeek}</td>
                     <td>{classs.shift}</td>
                     <td className="button text-center">
-                      {classs.isTheoryClass && (
-                        <button
-                          className="btn btn-success"
-                          type="button"
-                          onClick={() => handleAdd(classs.courseId)}
-                        >
-                          Add
-                        </button>
+                      {classs.isTheoryClass ? (
+                        <>
+                          <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={() => handleAdd(classs.courseId)}
+                          >
+                            Add
+                          </button>
+                          <button
+                            className="btn btn-info"
+                            type="button"
+                            onClick={() => handleAdd(classs.courseId)}
+                          >
+                            Add lessons
+                          </button>
+                        </>
+                      ) : (
+                        null
                       )}
                     </td>
                   </tr>
@@ -163,9 +174,8 @@ function ClassTable() {
               {pageNumbers.map((number) => (
                 <li
                   key={number}
-                  className={`page-item ${
-                    currentPage === number ? "active" : ""
-                  }`}
+                  className={`page-item ${currentPage === number ? "active" : ""
+                    }`}
                 >
                   <button
                     type="button"
