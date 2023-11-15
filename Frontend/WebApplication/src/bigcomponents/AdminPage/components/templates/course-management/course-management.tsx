@@ -1,4 +1,4 @@
-import CourseTable from "../../molocules/course-management/active-course/courses-table"
+import CourseTable, { CourseDetailInformation } from "../../molocules/course-management/active-course/courses-table"
 
 function CourseManagementTemplate() {
     return (

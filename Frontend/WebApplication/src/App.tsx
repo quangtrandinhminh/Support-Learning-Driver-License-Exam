@@ -93,6 +93,7 @@ import UpdateMentorAdminPage from './bigcomponents/AdminPage/components/pages/up
 import ExamResultTable from './bigcomponents/AdminPage/components/molocules/exam-result/exam-result'
 import ExamResultManagementPage from './bigcomponents/AdminPage/components/pages/exam-result-management/exam-result-management'
 import StudentManagementPage from './bigcomponents/AdminPage/components/pages/student-management/student-management'
+// import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -141,6 +142,7 @@ function App() {
                           <Route path='chua-mo' element={<InactiveCourseAdminPage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCourseAdminPage />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCourseAdminPage />} />
+                          {/* <Route path='chi-tiet/:courseId' element={<CourseDetailInformation />} /> */}
                         </Route>
                         <Route path='quan-ly-nhan-vien'>
                           <Route index element={<StaffManagementAdminPage />} />

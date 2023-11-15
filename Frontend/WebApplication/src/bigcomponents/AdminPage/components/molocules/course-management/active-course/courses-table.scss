@@ -1,3 +1,4 @@
+//--------------------------Course list--------------------------
 .courses-table-container {
 
     .courses-table-title {
@@ -28,7 +29,44 @@
                         margin: 2px;
                     }
                 }
+
+                tbody {
+                    a {
+                        text-decoration: none;
+                    }
+                }
             }
         }
     }
 }
+
+// --------------------------------------------------------------------------------------------
+
+//---------------------Course detail information---------------------
+.course-information-container {
+    margin-left: 10px;
+
+    .information-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        list-style: disc;
+
+        .list-inf-items {
+            .list-inf-items-title {
+                font-weight: 600;
+            }
+        }
+
+        .list-inf-items .list-inf-items-content .member-items-container {
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            list-style-type: decimal;
+        }
+    }
+}
+
+
+//---------------------------------------------------------------------------------------------
