@@ -208,25 +208,17 @@ function App() {
                     <>
                       <Route element={<MentorLayout />}>
                         <Route index element={<MentorHomePage />} />
-                        <Route path='danh-sach-lop-hoc'>
-                          <Route index element={<MentorClassListPage />} />
-                          <Route path='danh-sach-hoc-vien' element={<StudentsListPage />} />
-                        </Route>
-                        <Route path='tong-quan-lich-day'>
-                          <Route index element={<ClassPickingPage />} />
-                          <Route path='lich-day' element={<MentorSchedulePage />} />
+                        <Route path='lich-day'>
+                          <Route index element={<MentorSchedulePage />} />
                           <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
-                            <Route path='danh-gia' element={<MentorFeedbacksPage />} />
                           </Route>
                           <Route path='diem-danh' element={<MentorTakeAttendancePage />} />
                         </Route>
-                        <Route path='thong-tin-ca-nhan-giao-vien/:username' element={<InformationPage />} />
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
                           <Route path='dang-ki-lich-day/:courseId' element={<MentorRegisterSchedule />} />
                         </Route>
-
                       </Route>
                     </>
                   )}
