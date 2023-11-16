@@ -49,18 +49,18 @@ function TeachingSchedule() {
             const classDate = new Date(classInfo.date);
             return classDate >= weekStartDate && classDate <= weekEndDate;
         });
-
-        // Organize the data based on day
+    
+        // Organize the data based on day and shift
         const dailySchedule = [...Array(7)].map(() => ({ morning: [], afternoon: [] }));
-
+    
         // Organize the data based on day and shift
         filteredClasses.forEach((classInfo) => {
             const dayIndex = new Date(classInfo.date).getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
             const slot = classInfo.isNight ? 'afternoon' : 'morning';
-
+    
             dailySchedule[dayIndex][slot].push(classInfo);
         });
-
+    
         // Render the table rows based on the organized schedule
         return dailySchedule.map((daySchedule, dayIndex) => (
             <th key={dayIndex} className='study-slot'>
@@ -75,18 +75,21 @@ function TeachingSchedule() {
                     ))}
                 </td>
                 {/* Render afternoon classes */}
-                {/* <th>
+                {/* <td>
                     {daySchedule.afternoon.map((classInfo, index) => (
-                        <p key={index}> 
+                        <p key={index}>
                             {classInfo.title}
                             <br />
                             <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
                         </p>
                     ))}
-                </th> */}
+                </td> */}
             </th>
         ));
     };
+    
+    
+    
 
 
 
@@ -251,6 +254,7 @@ function TeachingSchedule() {
                                 </tr>
                             </thead>
                             <tbody className="schedule-body-container">
+                                <td></td>
                                 {scheduleData.length > 0 ? (
                                     renderScheduleData()
                                 ) : (
