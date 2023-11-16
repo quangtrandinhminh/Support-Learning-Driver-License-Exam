@@ -18,7 +18,7 @@ function CourseTable() {
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
@@ -164,7 +164,7 @@ function CourseTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Tạo khoá học</Link>
+                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Thêm khoá học</Link>
                             </div>
                         </div>
                     </div>
@@ -225,7 +225,7 @@ function CourseTable() {
                     <nav>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <button type='button' className='page-link' onClick={prePage}>Prev</button>
+                                <button type='button' className='page-link' onClick={prePage}>Trước</button>
                             </li>
                             {
                                 numbers.map((n, i) => (
@@ -235,7 +235,7 @@ function CourseTable() {
                                 ))
                             }
                             <li className='page-item'>
-                                <button type='button' className='page-link' onClick={nextPage}>Next</button>
+                                <button type='button' className='page-link' onClick={nextPage}>Sau</button>
                             </li>
                         </ul>
                     </nav>
@@ -243,7 +243,7 @@ function CourseTable() {
                         show={show}
                         onHide={handleClose}
                         backdrop="static"
-                        keyboard={false}
+                        keyboard={true}
                         backdropClassName='backdrop'
                         centered
                         size='xl'
@@ -258,32 +258,39 @@ function CourseTable() {
                                 <div className='course-information-title'>
                                     <h3>Thông tin khoá học</h3>
                                 </div>
-                                <ul className="information-list-container">
-                                    <li className="list-inf-items">
-                                        <span className="list-inf-items-title">Tên khoá học: </span>
-                                        <span className="list-inf-items-content">{specificCourse.name}</span>
-                                    </li>
-                                    <li className="list-inf-items">
-                                        <span className="list-inf-items-title">Ngày khai giảng: </span>
-                                        <span className="list-inf-items-content">{formatDate(specificCourse.startDate)}</span>
-                                    </li>
-                                    <li className="list-inf-items">
-                                        <span className="list-inf-items-title">Ngày bế giảng: </span>
-                                        <span className="list-inf-items-content">{formatDate(specificCourse.endDate)}</span>
-                                    </li>
-                                    <li className="list-inf-items">
-                                        <span className="list-inf-items-title">Học viên trong khoá: </span>
-                                        <span className="list-inf-items-content">
-                                            <ul className='member-items-container'>
-                                                {
-                                                    memberList.length > 0 && memberList.map((member, i) => (
-                                                        <li className='member-items' key={i}>{member.fullName}</li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </span>
-                                    </li>
-                                </ul>
+                                {
+                                    specificCourse !== null ? (
+
+                                        <ul className="information-list-container">
+                                            <li className="list-inf-items">
+                                                <span className="list-inf-items-title">Tên khoá học: </span>
+                                                <span className="list-inf-items-content">{specificCourse.name}</span>
+                                            </li>
+                                            <li className="list-inf-items">
+                                                <span className="list-inf-items-title">Ngày khai giảng: </span>
+                                                <span className="list-inf-items-content">{formatDate(specificCourse.startDate)}</span>
+                                            </li>
+                                            <li className="list-inf-items">
+                                                <span className="list-inf-items-title">Ngày bế giảng: </span>
+                                                <span className="list-inf-items-content">{formatDate(specificCourse.endDate)}</span>
+                                            </li>
+                                            <li className="list-inf-items">
+                                                <span className="list-inf-items-title">Học viên trong khoá: </span>
+                                                <span className="list-inf-items-content">
+                                                    <ul className='member-items-container'>
+                                                        {
+                                                            memberList.length > 0 && memberList.map((member, i) => (
+                                                                <li className='member-items' key={i}>{member.fullName}</li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                         </Modal.Body>
                         <Modal.Footer>

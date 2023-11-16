@@ -106,16 +106,16 @@ function CourseTable() {
                                                         <p>BG: {formatDate(course.endDate)}</p>
                                                     </td>
                                                     <td className='course-mem'>
-                                                        <p>20</p>
+                                                        <p>{course.limitStudent}</p>
                                                     </td>
                                                     <td className="course-training-content">
                                                         <ol>
-                                                            <li className='border-receive'>Đào tạo lí thuyết</li>
-                                                            <li className='border-receive'>Thực hành trong hình</li>
-                                                            <li className='border-receive'>Thực hành trên cabin</li>
-                                                            <li className='border-receive'>Thực hành trên đường</li>
-                                                            <li className='border-receive'>Thực hành trên xe tự động</li>
-                                                            <li>Thực hành tổng hợp trong hình</li>
+                                                            <li className='border-receive'>{data[1].courseContent}</li>
+                                                            <li className='border-receive'>{data[2].courseContent}</li>
+                                                            <li className='border-receive'>{data[3].courseContent}</li>
+                                                            <li className='border-receive'>{data[4].courseContent}</li>
+                                                            <li className='border-receive'>{data[5].courseContent}</li>
+                                                            <li>{data[6].courseContent}</li>
                                                         </ol>
                                                     </td>
                                                     <td className="course-training-time">
@@ -185,16 +185,16 @@ function CourseTable() {
                                                         <p>BG: {formatDate(course.endDate)}</p>
                                                     </td>
                                                     <td className='course-mem'>
-                                                        <p>20</p>
+                                                        <p>{course.limitStudent}</p>
                                                     </td>
                                                     <td className="course-training-content">
                                                         <ol>
-                                                            <li className='border-receive'>Đào tạo lí thuyết</li>
-                                                            <li className='border-receive'>Thực hành trong hình</li>
-                                                            <li className='border-receive'>Thực hành trên cabin</li>
-                                                            <li className='border-receive'>Thực hành trên đường</li>
-                                                            <li className='border-receive'>Thực hành trên xe tự động</li>
-                                                            <li>Thực hành tổng hợp trong hình</li>
+                                                            <li className='border-receive'>{data[0].courseContent}</li>
+                                                            <li className='border-receive'>{data[1].courseContent}</li>
+                                                            <li className='border-receive'>{data[2].courseContent}</li>
+                                                            <li className='border-receive'>{data[3].courseContent}</li>
+                                                            <li className='border-receive'>{data[4].courseContent}</li>
+                                                            <li>{data[5].courseContent}</li>
                                                         </ol>
                                                     </td>
                                                     <td className="course-training-time">

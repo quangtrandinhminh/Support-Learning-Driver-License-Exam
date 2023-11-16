@@ -10,7 +10,7 @@ function InactiveCourseTable() {
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
@@ -55,7 +55,8 @@ function InactiveCourseTable() {
                 toast.error("Kích hoạt khoá học thất bại");
                 return;
             }
-            toast.success("Kích hoạt khoá học thành công");
+            localStorage.setItem('notification', "Kích hoạt khoá học thành công");
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }
@@ -84,6 +85,11 @@ function InactiveCourseTable() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
+
+    useEffect(() => {
+        localStorage.getItem('notification') && toast.success(localStorage.getItem('notification'));
+        localStorage.removeItem('notification');
+    }, []);
 
     // const handleDelete = async (courseId) => {
     //     try {

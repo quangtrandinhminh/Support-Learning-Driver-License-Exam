@@ -7,7 +7,7 @@ function MentorTable() {
     const [mentors, setMentors] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
 
     const getAllMentors = async () => {
         try {
@@ -98,7 +98,7 @@ function MentorTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-giao-vien' className='btn btn-success'>+ Tạo giáo viên</Link>
+                                <Link to='tao-giao-vien' className='btn btn-success'>+ Thêm giáo viên</Link>
                             </div>
                         </div>
                     </div>

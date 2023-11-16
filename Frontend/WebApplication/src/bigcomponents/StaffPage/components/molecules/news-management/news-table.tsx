@@ -29,7 +29,7 @@ function NewsTable() {
 
     // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
     const records = data.slice(firsIndex, lastIndex);
@@ -85,7 +85,7 @@ function NewsTable() {
             <div className='news-table-content'>
                 <form action="">
                     <div className='d-flex justify-content-end'>
-                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Tạo tin tức</Link>
+                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Thêm tin tức</Link>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>

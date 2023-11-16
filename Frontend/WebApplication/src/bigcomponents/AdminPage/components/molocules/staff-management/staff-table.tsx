@@ -20,7 +20,7 @@ function MemberTable() {
 
     // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firstIndex = lastIndex - recordPage;
     const records = staff.slice(firstIndex, lastIndex);
@@ -81,7 +81,7 @@ function MemberTable() {
                     <div className='d-grid mb-2'>
                         <div className="row">
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-nhan-vien' className='btn btn-success'>+ Tạo nhân viên</Link>
+                                <Link to='tao-nhan-vien' className='btn btn-success'>+ Thêm nhân viên</Link>
                             </div>
                         </div>
                     </div>
