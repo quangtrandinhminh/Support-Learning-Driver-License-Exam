@@ -8,7 +8,7 @@ function ClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const recordPage = 6;
+  const recordPage = 10;
 
   const getAllClasss = async () => {
     try {
@@ -110,7 +110,7 @@ function ClassTable() {
               </div>
               <div className="d-flex btnCreate col justify-content-end">
                 <Link to="tao-lop-hoc" className="btn btn-success">
-                  + Add
+                  + Thêm lớp
                 </Link>
               </div>
             </div>

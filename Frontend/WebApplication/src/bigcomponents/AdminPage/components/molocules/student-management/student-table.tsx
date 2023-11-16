@@ -30,7 +30,7 @@ function StudentTable() {
 
     //paganition part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
     const records = student.slice(firsIndex, lastIndex);

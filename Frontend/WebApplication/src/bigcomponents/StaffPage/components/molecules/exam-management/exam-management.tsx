@@ -10,7 +10,7 @@ function ExamTable() {
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
@@ -119,7 +119,7 @@ function ExamTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-ky-thi' className='btn btn-success'>+ Tạo kỳ thi</Link>
+                                <Link to='tao-ky-thi' className='btn btn-success'>+ Thêm kỳ thi</Link>
                             </div>
                         </div>
                     </div>

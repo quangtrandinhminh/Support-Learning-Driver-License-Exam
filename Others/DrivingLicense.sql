@@ -493,20 +493,20 @@ INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate],
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0101B2', '236B2', '2023-01-06', '2024-04-06', '0', '25', 
-				'2023-10-06', '01', '2024', 1)
+		VALUES('0101B2', '236B2', '2024-01-06', '2024-04-06', '0', '25', 
+				'2024-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0102B2', '237B2', '2023-01-16', '2024-04-16', '0', '25', 
-				'2023-10-06', '01', '2024', 1)
+		VALUES('0102B2', '237B2', '2024-01-16', '2024-04-16', '0', '25', 
+				'2024-10-06', '01', '2024', 1)
 				
 GO
 INSERT [dbo].[Course] ([courseID], [name], [startDate], [endDate], 
 			[numberOfStudents], [limitStudent],[createTime], [courseMonth], [courseYear], [status])
-		VALUES('0103B2', '238B2', '2023-01-26', '2024-04-26', '0', '25', 
-				'2023-10-06', '01', '2024', 1)
+		VALUES('0103B2', '238B2', '2024-01-26', '2024-04-26', '0', '25', 
+				'2024-10-06', '01', '2024', 1)
 GO
 
 /*-- Add data: CourseDetails --*/
@@ -701,7 +701,7 @@ INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent],
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('38', N'Thực Hành Sa Hình', '2023-01-21', '2024-02-25', '0101B2' , 1)
+		VALUES('38', N'Thực Hành Sa Hình', '2024-01-21', '2024-02-25', '0101B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
@@ -766,7 +766,7 @@ INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent],
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('51', NN'Thực Hành Trên Cabin', '2024-04-12', '2024-04-22', '0103B2' , 1)
+		VALUES('51', N'Thực Hành Trên Cabin', '2024-04-12', '2024-04-22', '0103B2' , 1)
 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
