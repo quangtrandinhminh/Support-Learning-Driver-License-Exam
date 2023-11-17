@@ -50,6 +50,7 @@ CREATE TABLE [dbo].[Course](
   [endDate] DATE NULL,
   [numberOfStudents] INT NULL,
   [limitStudent] INT NULL,
+  [courseFee] DECIMAL(10,2) NULL,
   [createTime] DATETIME NULL,
   [courseMonth] INT NULL,
   [courseYear] INT NULL,
@@ -318,6 +319,36 @@ CREATE TABLE [dbo].[StudentAnswer](
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_StudentAnswer_Test] FOREIGN KEY ([testID]) REFERENCES [dbo].[Test] ([testID]),
   CONSTRAINT [FK_StudentAnswer_Question] FOREIGN KEY ([questionID]) REFERENCES [dbo].[Question] ([questionID])
+)ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Invoice](
+  [invoiceID] INT IDENTITY(1,1) NOT NULL,
+  [staffID] INT NOT NULL,
+  [memberID] INT NOT NULL,
+  [feeName] NVARCHAR(255) NULL,
+  [invoiceTime] DATETIME NULL,
+  [amountPaid] DECIMAL(10,2) NULL,
+  [amountInWords] NVARCHAR(255) NULL
+  CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
+  (
+    [invoiceID] ASC
+  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+  CONSTRAINT [FK_Invoice_Staff] FOREIGN KEY ([staffID]) REFERENCES [dbo].[Staff] ([staffID]),
+  CONSTRAINT [FK_Invoice_Member] FOREIGN KEY ([memberID]) REFERENCES [dbo].[Member] ([memberID])
+)ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Curriculum](
+  [curriculumID] INT IDENTITY(1,1) NOT NULL,
+  [content] NVARCHAR(MAX) NULL,
+  [createTime] DATE NULL,
+  /*Type: Theory/Practice/Course/....*/
+  [type] NVARCHAR(50) NULL
+  CONSTRAINT [PK_CurriculumID] PRIMARY KEY CLUSTERED 
+  (
+    [curriculumID] ASC
+  )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
 )ON [PRIMARY]
 GO
 
@@ -692,7 +723,7 @@ GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
 		VALUES('36', N'Thực Hành Tổng Hợp Sa Hình', '2024-03-22', '2024-03-26', '1203B2' , 1)
-                                 /*T: 1*/
+                                 
 GO
 INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
