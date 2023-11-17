@@ -1,10 +1,72 @@
+// .sidebar-list-item {
+//   cursor: pointer;
+//   margin: 0;
+//   padding: 0;
+//   height: 45px;
+//   padding-left: 12px;
+
+//   a {
+//     font-size: 17px;
+//     display: block;
+//     text-decoration: none;
+//     padding: 5px;
+//     padding-left: 15px;
+//     line-height: 35px;
+//     display: inline-block; 
+//     width: 100%; 
+//   }
+
+//   &:before {
+//     content: "";
+//     left: 0;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     background-color: #fff;
+//     opacity: 0;
+//     transition: opacity 0.3s, height 0.3s;
+//   }
+
+//   &:hover:before,
+//   &.active:before {
+//     margin-bottom: 20px;
+//     opacity: 1;
+//     height: 100%;
+//     width: 5px;
+//   }
+
+//   .sub-items {
+//     display: none;
+//     padding: 0;
+//     margin: 10px;
+//     list-style: none;
+//   }
+
+//   &.open .sub-items {
+//     display: block;
+//     margin-bottom: 20px;
+//   }
+// }
+
+// .list-header {
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+// }
+
+// .list-header p {
+//   margin: 0;
+// }
+
+// .sidebar-list {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+// }
+
 .sidebar-list-item {
-  position: relative;
   cursor: pointer;
   margin: 0;
   padding: 0;
-  height: 45px;
-  padding-left: 12px;
+  position: relative;
 
   a {
     font-size: 17px;
@@ -13,11 +75,12 @@
     padding: 5px;
     padding-left: 15px;
     line-height: 35px;
+    display: inline-block;
+    width: 100%;
   }
 
   &:before {
     content: "";
-    position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -32,30 +95,23 @@
     height: 100%;
     width: 5px;
   }
+
+  .sub-items {
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  &.open .sub-items {
+    display: block;
+  }
 }
 
-.list-header {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.list-header p {
-  margin: 0;
-}
-
-.sub-items {
-  display: none;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.sidebar-list-item.open .sub-items {
-  display: block;
-}
-
-.sidebar-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.sidebar-sublist {
+  list-style-type: none;
+  padding-left: 15px;
 }
