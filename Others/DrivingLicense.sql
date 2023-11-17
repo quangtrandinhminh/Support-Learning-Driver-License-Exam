@@ -326,7 +326,7 @@ CREATE TABLE [dbo].[Invoice](
   [invoiceID] INT IDENTITY(1,1) NOT NULL,
   [staffID] INT NOT NULL,
   [memberID] INT NOT NULL,
-  [feeName] NVARCHAR(255) NULL,
+  [courseID] NVARCHAR(10) NOT NULL,
   [invoiceTime] DATETIME NULL,
   [amountPaid] DECIMAL(10,2) NULL,
   [amountInWords] NVARCHAR(255) NULL
@@ -335,7 +335,8 @@ CREATE TABLE [dbo].[Invoice](
     [invoiceID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
   CONSTRAINT [FK_Invoice_Staff] FOREIGN KEY ([staffID]) REFERENCES [dbo].[Staff] ([staffID]),
-  CONSTRAINT [FK_Invoice_Member] FOREIGN KEY ([memberID]) REFERENCES [dbo].[Member] ([memberID])
+  CONSTRAINT [FK_Invoice_Member] FOREIGN KEY ([memberID]) REFERENCES [dbo].[Member] ([memberID]),
+  CONSTRAINT [FK_Invoice_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID]),
 )ON [PRIMARY]
 GO
 
