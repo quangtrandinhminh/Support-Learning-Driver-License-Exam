@@ -118,6 +118,7 @@ function TeachingSchedule() {
     useEffect(() => {
         fetchScheduleData(); // Invoke the function to fetch schedule data
     }, [weekStartDate, weekEndDate, mentor.mentorId]);
+    
     // const getStartDay = (year) => {
     //     // Zeller's Congruence algorithm to calculate the start day of the year
     //     if (year < 0) {

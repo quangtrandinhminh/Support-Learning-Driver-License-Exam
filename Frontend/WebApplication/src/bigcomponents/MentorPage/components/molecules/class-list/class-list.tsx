@@ -19,27 +19,27 @@ function ClassList() {
           <tbody className='class-table-body'>
            <tr>
               <td>1</td>
-              <td><a href="danh-sach-lop-hoc/danh-sach-hoc-vien">236B2</a></td>
+              <td><a href="danh-sach-lop-hoc/danh-sach-thanh-vienen">236B2</a></td>
               <td>Không có</td>
            </tr>
            <tr>
               <td>2</td>
-              <td><a href="danh-sach-lop-hoc/danh-sach-hoc-vien">237B2</a></td>
+              <td><a href="danh-sach-lop-hoc/danh-sach-thanh-vienen">237B2</a></td>
               <td>Không có</td>
            </tr>
            <tr>
               <td>3</td>
-              <td><a href="danh-sach-lop-hoc/danh-sach-hoc-vien">238B2</a></td>
+              <td><a href="danh-sach-lop-hoc/danh-sach-thanh-vienen">238B2</a></td>
               <td>Không có</td>
            </tr>
            <tr>
               <td>4</td>
-              <td><a href="danh-sach-lop-hoc/danh-sach-hoc-vien">230B2</a></td>
+              <td><a href="danh-sach-lop-hoc/danh-sach-thanh-vienen">230B2</a></td>
               <td>Không có</td>
            </tr>
            <tr>
               <td>5</td>
-              <td><a href="danh-sach-lop-hoc/danh-sach-hoc-vien">231B2</a></td>
+              <td><a href="danh-sach-lop-hoc/danh-sach-thanh-vienen">231B2</a></td>
               <td>Không có</td>
            </tr>
           </tbody>

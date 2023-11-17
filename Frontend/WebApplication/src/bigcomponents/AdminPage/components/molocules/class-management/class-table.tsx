@@ -147,14 +147,14 @@ function ClassTable() {
                             type="button"
                             onClick={() => handleAdd(classs.courseId)}
                           >
-                            Add
+                            Thêm học viên
                           </button>
                           <button
                             className="btn btn-info"
                             type="button"
                             onClick={() => handleAddLesson(classs.courseId)}
                           >
-                            Add lessons
+                            Tạo lịch học
                           </button>
                         </>
                       ) : (

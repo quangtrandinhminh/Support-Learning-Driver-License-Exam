@@ -68,8 +68,8 @@ function StaffSidebar() {
         </li> */}
         <li className='sidebar-component'>
           <div className="member-manage">
-            <NavLink style={styleSidebarCom} to='/quan-ly-hoc-vien'>
-              Quản lý học viên
+            <NavLink style={styleSidebarCom} to='/quan-ly-thanh-vien'>
+              Quản lý thành viên
             </NavLink>
           </div>
         </li>

@@ -4,7 +4,7 @@ function StudentsList() {
   return (
     <>
       <div className="student-list-title-container">
-        <h1>Danh sách học sinh khóa 236B2</h1>
+        <h1>Danh sách học viên khóa 236B2</h1>
       </div>
       <div className="students-list-container">
         <form action="">

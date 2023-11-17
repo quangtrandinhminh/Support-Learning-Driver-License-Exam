@@ -158,7 +158,7 @@ function ExamDocument() {
                   <p>NGƯỜI LÀM ĐƠN</p>
                   <p>(Ký và ghi rõ họ, tên)</p>
                 </div>
-                <button className='update-btn btn btn-primary' type='submit'>Cập nhật</button>
+                {/* <button className='update-btn btn btn-primary' type='submit'>Cập nhật</button> */}
               </form>
             </div>
           ) : (

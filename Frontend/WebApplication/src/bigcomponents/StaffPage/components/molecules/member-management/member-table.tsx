@@ -89,7 +89,7 @@ function MemberTable() {
   return (
     <div className='member-table-container'>
       <div className="member-table-title text-center text-uppercase">
-        <h1>Danh sách học viên</h1>
+        <h1>Danh sách thành viên</h1>
       </div>
       <div className='member-table-content'>
         <form action="">
@@ -97,7 +97,7 @@ function MemberTable() {
             <input
               type="text"
               name='courseId'
-              placeholder='tên học viên'
+              placeholder='tên thành viên'
               onChange={filter}
               autoComplete='off'
             />
@@ -105,7 +105,7 @@ function MemberTable() {
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
               <tr>
-                <th scope='col'>Mã học viên</th>
+                <th scope='col'>Mã thành viên</th>
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
                 <th scope='col'>Email</th>

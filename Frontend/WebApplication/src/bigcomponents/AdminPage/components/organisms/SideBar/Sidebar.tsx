@@ -65,12 +65,12 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
-          text="Quản lý học sinh"
-          link="/quan-ly-hoc-sinh"
+          text="Quản lý học viên"
+          link="/quan-ly-hoc-vien"
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faNewspaper} />}
-          text="Quản lý kết quả"
+          text="Quản lý kết quả thi"
           link="/quan-ly-ket-qua"
         />
         <SidebarItem
