@@ -83,8 +83,27 @@ namespace Backend.Controllers
 
             return Ok(result.Payload);
         }
-        
 
+        /// <summary>
+        /// Return all mentors who registered to teach a course
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("course/{courseId}")]
+        public async Task<IActionResult> GetMentorByCourseId(string courseId)
+        {
+            var result = await _mentorService.GetMentorByCourseId(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
 
         [HttpPost]
         [Route("add")]

@@ -21,5 +21,7 @@ namespace Backend.Services.Mentor
         Task<ServiceResult<int>> DeleteMentor(int id);
 
         Task<ServiceResult<ICollection<MentorDTO>>> GetMentorTheory();
+
+        Task<ServiceResult<ICollection<MentorDTO>>> GetMentorByCourseId(string courseId);
     }
 }
