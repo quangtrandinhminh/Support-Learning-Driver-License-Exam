@@ -20,8 +20,7 @@ function CreateClassForm() {
     try {
       const response = await api.get('Mentor/theory');
       const res = response.data;
-      let mentorId = res.map(mentor => mentor.mentorId);
-      setMentor(mentorId);
+      setMentor(res);
     } catch (error) {
       console.log(error);
     }
@@ -150,7 +149,7 @@ function CreateClassForm() {
                 <option value="" disabled>Select a mentor</option>
                 {
                   mentor.map((mentor, index) => (
-                    <option key={index} value={mentor}>{mentor}</option>
+                    <option key={index} value={mentor.mentorId}>{mentor.fullName}</option>
                   ))
                 }
               </select>

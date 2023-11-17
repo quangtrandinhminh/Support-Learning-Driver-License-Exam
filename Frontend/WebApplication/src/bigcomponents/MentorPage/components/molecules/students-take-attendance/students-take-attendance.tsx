@@ -6,7 +6,7 @@ function StudentsAttendances() {
   return (
     <>
     <div className="student-attendance-title-container">
-      <h1>Danh sách học sinh lớp 236B2 khóa 1101B2</h1>
+      <h1>Danh sách học viên lớp 236B2 khóa 1101B2</h1>
     </div>
     <div className="students-attendance-container">
       <form action="" id='take-attendance-form'>
@@ -14,7 +14,7 @@ function StudentsAttendances() {
           <thead className='attendance-table-header'>
             <tr>
               <th>STT</th>
-              <th>Mã số học sinh</th>
+              <th>Mã số học viên</th>
               <th>Họ và tên</th>
               <th>Khóa học hiện tại</th>
               <th>Điểm danh</th>

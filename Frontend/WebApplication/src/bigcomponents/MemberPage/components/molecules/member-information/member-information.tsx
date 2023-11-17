@@ -161,7 +161,7 @@ function MemberInformationForm() {
                                                 </>
                                             )
                                         }
-                                        <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button>
+                                        {/* <button className='update-btn' type='submit' onClick={handleScroll}>Cập nhật</button> */}
                                     </form>
                                 </>
                             ) : (
