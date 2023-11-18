@@ -151,6 +151,12 @@ namespace Backend
             //FeedBack
             CreateMap<DB.Models.FeedBack, DTO.Feedback.FeedBackDTO>();
             CreateMap<DTO.Feedback.FeedBackDTO, DB.Models.FeedBack>();
+
+            //Invoice
+            CreateMap<DB.Models.Invoice, DTO.Invoice.InvoiceDTO>()
+                .ForMember(dto => dto.StaffName, opt => opt.MapFrom(entity => entity.Staff.User.FullName))
+                .ForMember(dto => dto.MemberName, opt => opt.MapFrom(entity => entity.Member.User.FullName));
+            CreateMap<DTO.Invoice.InvoiceCreateDTO, DB.Models.Invoice>();
         }
     }
 }
