@@ -13,6 +13,7 @@ using Backend.Repository.MemberRepository;
 using Backend.Services.Member;
 using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.ExamRepository;
+using Backend.Repository.InvoiceRepository;
 using Backend.Repository.LessonRepository;
 using Backend.Repository.MentorRepository;
 using Backend.Repository.QuestionRepository;
@@ -27,6 +28,7 @@ using Backend.Services.Student;
 using Backend.Services.Class;
 using Backend.Services.ClassStudent;
 using Backend.Services.Exam;
+using Backend.Services.Invoice;
 using Backend.Services.Lesson;
 using Backend.Services.Test;
 using Backend.Services.Question;
@@ -58,19 +60,17 @@ builder.Services.AddScoped<IClassStudentRepository, ClassStudentRepository>();
 builder.Services.AddScoped<IClassStudentService, ClassStudentService>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddScoped<ILessonService, LessonService>();
-/*builder.Services.AddScoped<IFeedbackService, FeedbackService>();*/
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
 builder.Services.AddScoped<ITestService, TestService>();
-/*builder.Services.AddScoped<ITestService, TestService>();*/
 builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
-/*builder.Services.AddScoped<IStudentAnswerService, IStudentAnswerService>();*/
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 builder.Services.AddScoped<IStudentAnswerService, StudentAnswerService>();
-
+builder.Services.AddScoped<IInvoiceRepository,  InvoiceRepository>();
+builder.Services.AddScoped<IInvoiceService,  InvoiceService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
