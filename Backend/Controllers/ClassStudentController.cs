@@ -33,22 +33,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("/api/ClassStudent")]
-        public async Task<ActionResult<int>> CreateClassStudent(ClassStudentDTO classStudentDTO)
-        {
-            var result = await _classStudentService.AddStudentIntoClass(classStudentDTO);
-            if (result.IsError)
-            {
-                return BadRequest(new
-                {
-                    error = result.ErrorMessage
-                });
-            }
-
-            return Ok("Đã thêm lớp học");
-        }
-
-        [HttpPost("/api/ClassStudent/{courseId}")]
+        [HttpPost("/api/ClassStudentTheory/{courseId}")]
         public async Task<ActionResult<int>> CreateAllClassStudent(string courseId)
         {
             var result = await _classStudentService.AddAllStudentsIntoTheoryClass(courseId);
