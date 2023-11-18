@@ -601,7 +601,7 @@ namespace Backend.Services.Lesson
                             var newLesson = new DB.Models.Lesson();
                             newLesson.ClassStudentId = student.ClassStudentId;
                             newLesson.Date = date;
-                            newLesson.Title = title;
+                            newLesson.LessonContent = title;
                             newLesson.Attendance = false;
 
                             await _lessonRepository.CreateAsync(newLesson);

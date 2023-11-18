@@ -53,6 +53,8 @@ public partial class Member
 
     public virtual Course? Course { get; set; }
 
+    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
     public virtual User User { get; set; } = null!;

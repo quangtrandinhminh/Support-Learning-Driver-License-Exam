@@ -9,7 +9,7 @@ public partial class Lesson
 
     public int ClassStudentId { get; set; }
 
-    public string? Title { get; set; }
+    public string? LessonContent { get; set; }
 
     public DateTime? Date { get; set; }
 
