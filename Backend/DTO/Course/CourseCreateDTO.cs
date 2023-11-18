@@ -12,6 +12,12 @@
 
         public int LimitStudent { get; set; }
 
+        public decimal CourseFee { get; set; }
+
+        public decimal PassTheoryLs { get; set; }
+
+        public int PassKm { get; set; }
+
         public bool Status { get; set; }
     }
 }

@@ -50,7 +50,9 @@ CREATE TABLE [dbo].[Course](
   [endDate] DATE NULL,
   [numberOfStudents] INT NULL,
   [limitStudent] INT NULL,
-  [courseFee] DECIMAL(10,2) NULL,
+  [courseFee] DECIMAL(10,2) DEFAULT 22500000.00 NULL,
+  [PassTheoryLs] DECIMAL(5,2) DEFAULT 80.00 NULL,
+  [PassKm] INT DEFAULT 810 NULL,
   [createTime] DATETIME NULL,
   [courseMonth] INT NULL,
   [courseYear] INT NULL,
@@ -77,7 +79,7 @@ GO
 /* Added data */
 CREATE TABLE [dbo].[CourseDetails](
 	[courseDetailsID] INT IDENTITY(1,1) NOT NULL,
-	[courseContentId] INT NULL, 
+	[courseContent] NVARCHAR(500) NULL, 
 	[courseTimeStart] DATETIME NULL,
 	[courseTimeEnd] DATETIME NULL,
 	[courseID] NVARCHAR(10) NOT NULL,
@@ -86,8 +88,7 @@ CREATE TABLE [dbo].[CourseDetails](
   (
     [courseDetailsID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-		CONSTRAINT [FK_CourseDetails_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID]),
-		CONSTRAINT [FK_CourseDetails_CourseContent] FOREIGN KEY ([courseContentId]) REFERENCES [dbo].[CourseContent] ([courseContentId])
+		CONSTRAINT [FK_CourseDetails_Course] FOREIGN KEY ([courseID]) REFERENCES [dbo].[Course] ([courseID])
 )ON [PRIMARY]
 GO
 
@@ -302,9 +303,9 @@ GO
 CREATE TABLE [dbo].[Lesson](
   [lessonID] INT IDENTITY(1,1) NOT NULL,
   [classStudentID] INT NOT NULL,
-  [curriculumID] INT NOT NULL,
+  [lessonContent] NVARCHAR(500) NULL,
   [date] DATE NULL,
-  [location] NVARCHAR(500) NULL,
+  [location] NVARCHAR(255) NULL,
   [isNight] BIT NULL,
   [hours] FLOAT NULL,
   [kilometers] FLOAT NULL,
@@ -313,8 +314,7 @@ CREATE TABLE [dbo].[Lesson](
   (
     [lessonID] ASC
   )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
-  CONSTRAINT [FK_Lesson_ClassStudent] FOREIGN KEY ([classStudentID]) REFERENCES [dbo].[ClassStudent] ([classStudentID]),
-  CONSTRAINT [FK_Lesson_Curriculum] FOREIGN KEY ([CurriculumID]) REFERENCES [dbo].[Curriculum] ([curriculumID]),
+  CONSTRAINT [FK_Lesson_ClassStudent] FOREIGN KEY ([classStudentID]) REFERENCES [dbo].[ClassStudent] ([classStudentID])
 )ON [PRIMARY]
 GO
 
@@ -355,7 +355,7 @@ CREATE TABLE [dbo].[Invoice](
   [memberID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
   [invoiceTime] DATETIME NULL,
-  [amountPaid] DECIMAL(10,2) NULL,
+  [amountPaid] DECIMAL(10,2) DEFAULT 22500000.00 NULL,
   [amountInWords] NVARCHAR(255) NULL
   CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
   (
@@ -588,275 +588,224 @@ SET IDENTITY_INSERT [dbo].[CourseContent] OFF
 SET IDENTITY_INSERT [dbo].[CourseDetails] ON
                                 /*T: 11*/
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('1',1, '2023-11-06', '2023-11-20', '1101B2', 1)
-
+		VALUES('1', N'Đào Tạo Lý Thuyết', '2023-11-06', '2023-11-20', '1101B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('2', 2, '2023-11-21', '2023-12-25', '1101B2' , 1)
-
+		VALUES('2', N'Thực Hành Sa Hình', '2023-11-21', '2023-12-25', '1101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('3', 3, '2023-12-25', '2024-01-01', '1101B2' , 1)
-
+		VALUES('3', N'Thực Hành Trên Cabin', '2023-12-25', '2024-01-01', '1101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('4', 4, '2024-01-02', '2024-02-01', '1101B2' , 1)
-
+		VALUES('4', N'Thực Hành Trên Đường', '2024-01-02', '2024-02-01', '1101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('5', 5, '2024-01-02', '2024-02-01', '1101B2' , 1)		
-
+		VALUES('5', N'Thực Hành Trên Xe Tự Động ', '2024-01-02', '2024-02-01', '1101B2' , 1)		
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('6', 6, '2024-02-01', '2024-02-06', '1101B2' , 1)
-
+		VALUES('6', N'Thực Hành Tổng Hợp Sa Hình', '2024-02-01', '2024-02-06', '1101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('7',1, '2023-11-16', '2023-11-30', '1102B2', 1)
-
+		VALUES('7', N'Đào Tạo Lý Thuyết', '2023-11-16', '2023-11-30', '1102B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('8', 2, '2023-12-01', '2024-01-01', '1102B2' , 1)
-
+		VALUES('8', N'Thực Hành Sa Hình', '2023-12-01', '2024-01-01', '1102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('9', 3, '2024-01-02', '2024-01-12', '1102B2' , 1)
-
+		VALUES('9', N'Thực Hành Trên Cabin', '2024-01-02', '2024-01-12', '1102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('10', 4, '2024-01-13', '2024-02-11', '1102B2' , 1)
-
+		VALUES('10', N'Thực Hành Trên Đường', '2024-01-13', '2024-02-11', '1102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('11', 5, '2024-01-13', '2024-02-11', '1102B2' , 1)	
-
+		VALUES('11', N'Thực Hành Trên Xe Tự Động ', '2024-01-13', '2024-02-11', '1102B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('12', 6, '2024-02-12', '2024-02-16', '1102B2' , 1)
-
+		VALUES('12', N'Thực Hành Tổng Hợp Sa Hình', '2024-02-12', '2024-02-16', '1102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('13',1, '2023-11-26', '2023-12-05', '1103B2', 1)
-
+		VALUES('13', N'Đào Tạo Lý Thuyết', '2023-11-26', '2023-12-05', '1103B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('14', 2, '2023-12-06', '2024-01-11', '1103B2' , 1)
-
+		VALUES('14', N'Thực Hành Sa Hình', '2023-12-06', '2024-01-11', '1103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('15', 3, '2024-01-12', '2024-01-22', '1103B2' , 1)
-
+		VALUES('15', N'Thực Hành Trên Cabin', '2024-01-12', '2024-01-22', '1103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('16', 4, '2024-01-23', '2024-02-21', '1103B2' , 1)
-
+		VALUES('16', N'Thực Hành Trên Đường', '2024-01-23', '2024-02-21', '1103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('17', 5, '2024-01-23', '2024-02-21', '1103B2' , 1)	
-
+		VALUES('17', N'Thực Hành Trên Xe Tự Động ', '2024-01-23', '2024-02-21', '1103B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('18', 6, '2024-02-22', '2024-02-26', '1103B2' , 1)
-
+		VALUES('18', N'Thực Hành Tổng Hợp Sa Hình', '2024-02-22', '2024-02-26', '1103B2' , 1)
                                  /*T: 12*/
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('19',1, '2023-12-06', '2023-12-20', '1201B2', 1)
-
+		VALUES('19', N'Đào Tạo Lý Thuyết', '2023-12-06', '2023-12-20', '1201B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('20', 2, '2023-12-21', '2024-01-25', '1201B2' , 1)
-
+		VALUES('20', N'Thực Hành Sa Hình', '2023-12-21', '2024-01-25', '1201B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('21', 3, '2024-01-25', '2024-02-01', '1201B2' , 1)
-
+		VALUES('21', N'Thực Hành Trên Cabin', '2024-01-25', '2024-02-01', '1201B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('22', 4, '2024-02-02', '2024-03-01', '1201B2' , 1)
-
+		VALUES('22', N'Thực Hành Trên Đường', '2024-02-02', '2024-03-01', '1201B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('23', 5, '2024-02-02', '2024-03-01', '1201B2' , 1)		
-
+		VALUES('23', N'Thực Hành Trên Xe Tự Động ', '2024-02-02', '2024-03-01', '1201B2' , 1)		
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('24', 6, '2024-03-01', '2024-03-06', '1201B2' , 1)
-
+		VALUES('24', N'Thực Hành Tổng Hợp Sa Hình', '2024-03-01', '2024-03-06', '1201B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('25',1, '2023-12-16', '2023-12-30', '1202B2', 1)
-
+		VALUES('25', N'Đào Tạo Lý Thuyết', '2023-12-16', '2023-12-30', '1202B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('26', 2, '2024-01-01', '2024-02-01', '1202B2' , 1)
-
+		VALUES('26', N'Thực Hành Sa Hình', '2024-01-01', '2024-02-01', '1202B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('27', 3, '2024-02-02', '2024-02-12', '1202B2' , 1)
-
+		VALUES('27', N'Thực Hành Trên Cabin', '2024-02-02', '2024-02-12', '1202B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('28', 4, '2024-02-13', '2024-03-11', '1202B2' , 1)
-
+		VALUES('28', N'Thực Hành Trên Đường', '2024-02-13', '2024-03-11', '1202B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('29', 5, '2024-02-13', '2024-03-11', '1202B2' , 1)	
-
+		VALUES('29', N'Thực Hành Trên Xe Tự Động ', '2024-02-13', '2024-03-11', '1202B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('30', 6, '2024-03-12', '2024-03-16', '1202B2' , 1)
-
+		VALUES('30', N'Thực Hành Tổng Hợp Sa Hình', '2024-03-12', '2024-03-16', '1202B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('31',1, '2023-12-26', '2024-02-05', '1203B2', 1)
-
+		VALUES('31', N'Đào Tạo Lý Thuyết', '2023-12-26', '2024-02-05', '1203B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('32', 2, '2024-02-06', '2024-02-11', '1203B2' , 1)
-
+		VALUES('32', N'Thực Hành Sa Hình', '2024-02-06', '2024-02-11', '1203B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('33', 3, '2024-02-12', '2024-02-22', '1203B2' , 1)
-
+		VALUES('33', N'Thực Hành Trên Cabin', '2024-02-12', '2024-02-22', '1203B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('34', 4, '2024-02-23', '2024-03-21', '1203B2' , 1)
-
+		VALUES('34', N'Thực Hành Trên Đường', '2024-02-23', '2024-03-21', '1203B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('35', 5, '2024-02-23', '2024-03-21', '1203B2' , 1)	
-
+		VALUES('35', N'Thực Hành Trên Xe Tự Động ', '2024-02-23', '2024-03-21', '1203B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('36', 6, '2024-03-22', '2024-03-26', '1203B2' , 1)
+		VALUES('36', N'Thực Hành Tổng Hợp Sa Hình', '2024-03-22', '2024-03-26', '1203B2' , 1)
+                                 /*T: 1*/
                                  
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('37',1, '2024-01-06', '2024-01-20', '0101B2', 1)
-
+		VALUES('37', N'Đào Tạo Lý Thuyết', '2024-01-06', '2024-01-20', '0101B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('38', 2, '2024-01-21', '2024-02-25', '0101B2' , 1)
-
+		VALUES('38', N'Thực Hành Sa Hình', '2024-01-21', '2024-02-25', '0101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('39', 3, '2024-02-25', '2024-03-01', '0101B2' , 1)
-
+		VALUES('39', N'Thực Hành Trên Cabin', '2024-02-25', '2024-03-01', '0101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('40', 4, '2024-03-02', '2024-04-01', '0101B2' , 1)
-
+		VALUES('40', N'Thực Hành Trên Đường', '2024-03-02', '2024-04-01', '0101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('41', 5, '2024-03-02', '2024-04-01', '0101B2' , 1)		
-
+		VALUES('41', N'Thực Hành Trên Xe Tự Động ', '2024-03-02', '2024-04-01', '0101B2' , 1)		
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('42', 6, '2024-04-01', '2024-04-06', '0101B2' , 1)
-
+		VALUES('42', N'Thực Hành Tổng Hợp Sa Hình', '2024-04-01', '2024-04-06', '0101B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('43',1, '2024-01-16', '2024-01-30', '0102B2', 1)
-
+		VALUES('43', N'Đào Tạo Lý Thuyết', '2024-01-16', '2024-01-30', '0102B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('44', 2, '2024-02-01', '2024-03-01', '0102B2' , 1)
-
+		VALUES('44', N'Thực Hành Sa Hình', '2024-02-01', '2024-03-01', '0102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('45', 3, '2024-03-02', '2024-03-12', '0102B2' , 1)
-
+		VALUES('45', N'Thực Hành Trên Cabin', '2024-03-02', '2024-03-12', '0102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('46', 4, '2024-03-13', '2024-04-11', '0102B2' , 1)
-
+		VALUES('46', N'Thực Hành Trên Đường', '2024-03-13', '2024-04-11', '0102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('47', 5, '2024-03-13', '2024-04-11', '0102B2' , 1)	
-
+		VALUES('47', N'Thực Hành Trên Xe Tự Động ', '2024-03-13', '2024-04-11', '0102B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('48', 6, '2024-04-12', '2024-04-16', '0102B2' , 1)
-
+		VALUES('48', N'Thực Hành Tổng Hợp Sa Hình', '2024-04-12', '2024-04-16', '0102B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('49',1, '2024-01-26', '2024-03-05', '0103B2', 1)
-
+		VALUES('49', N'Đào Tạo Lý Thuyết', '2024-01-26', '2024-03-05', '0103B2', 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('50', 2, '2024-03-06', '2024-04-11', '0103B2' , 1)
-
+		VALUES('50', N'Thực Hành Sa Hình', '2024-03-06', '2024-04-11', '0103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('51', 3, '2024-04-12', '2024-04-22', '0103B2' , 1)
-
+		VALUES('51', N'Thực Hành Trên Cabin', '2024-04-12', '2024-04-22', '0103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('52', 4, '2024-04-23', '2024-05-21', '0103B2' , 1)
-
+		VALUES('52', N'Thực Hành Trên Đường', '2024-04-23', '2024-05-21', '0103B2' , 1)
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('53', 5, '2024-04-23', '2024-05-21', '0103B2' , 1)	
-
+		VALUES('53', N'Thực Hành Trên Xe Tự Động ', '2024-04-23', '2024-05-21', '0103B2' , 1)	
 GO
-INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContentId], 
+INSERT [dbo].[CourseDetails]([courseDetailsID], [courseContent], 
 		[courseTimeStart], [courseTimeEnd], [courseID], [status])
-		VALUES('54', 6, '2024-05-22', '2024-05-26', '0103B2' , 1)
+		VALUES('54', N'Thực Hành Tổng Hợp Sa Hình', '2024-05-22', '2024-05-26', '0103B2' , 1)
 GO 
 SET IDENTITY_INSERT [dbo].[CourseDetails] OFF
 

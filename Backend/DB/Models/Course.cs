@@ -17,6 +17,12 @@ public partial class Course
 
     public int? LimitStudent { get; set; }
 
+    public decimal? CourseFee { get; set; }
+
+    public decimal? PassTheoryLs { get; set; }
+
+    public int? PassKm { get; set; }
+
     public DateTime? CreateTime { get; set; }
 
     public int? CourseMonth { get; set; }
@@ -30,6 +36,8 @@ public partial class Course
     public virtual ICollection<CourseDetail> CourseDetails { get; set; } = new List<CourseDetail>();
 
     public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
+
+    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 
     public virtual ICollection<Member> Members { get; set; } = new List<Member>();
 

@@ -16,7 +16,7 @@
 
         public string Shift { get; set; }
 
-        public string Title { get; set; }
+        public string LessonContent { get; set; }
 
         public string Location { get; set; }
 
