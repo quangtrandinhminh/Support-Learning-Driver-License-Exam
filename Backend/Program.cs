@@ -33,6 +33,10 @@ using Backend.Services.Lesson;
 using Backend.Services.Test;
 using Backend.Services.Question;
 using Backend.Services.StudentAnswer;
+using Backend.Repository.CourseContentRepository;
+using Backend.Services.CourseContent;
+using Backend.Repository.CurriculumRepository;
+using Backend.Services.Curriculum;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +73,10 @@ builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
 builder.Services.AddScoped<IStudentAnswerService, StudentAnswerService>();
+builder.Services.AddScoped<ICourseContentRepository, CourseContentRepository>();
+builder.Services.AddScoped<ICourseContentService, CourseContentService>();
+builder.Services.AddScoped<ICurriculumRepository, CurriculumRepository>();
+builder.Services.AddScoped<ICurriculumService, CurriculumService>();
 builder.Services.AddScoped<IInvoiceRepository,  InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceService,  InvoiceService>();
 

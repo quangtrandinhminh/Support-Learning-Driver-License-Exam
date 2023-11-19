@@ -4,7 +4,9 @@ using Backend.DTO.Lesson;
 using Backend.DTO.TeachingSchedule;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.ClassStudentRepository;
+using Backend.Repository.CourseDetailsRepository;
 using Backend.Repository.CourseRepository;
+using Backend.Repository.CurriculumRepository;
 using Backend.Repository.LessonRepository;
 using Backend.Repository.MentorRepository;
 using Backend.Repository.StudentRepository;
@@ -20,6 +22,8 @@ namespace Backend.Services.Lesson
         private readonly IStudentRepository _studentRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IMentorRepository _mentorRepository;
+        private readonly ICurriculumRepository _curriculumRepository;
+        private readonly ICourseDetailsRepository _courseDetailsRepository;
         private readonly IMapper _mapper;
 
         public LessonService(ILessonRepository lessonRepository
@@ -28,6 +32,8 @@ namespace Backend.Services.Lesson
             , IStudentRepository studentRepository
             , ICourseRepository courseRepository
             , IMentorRepository mentorRepository
+            , ICurriculumRepository curriculumRepository
+            , ICourseDetailsRepository courseDetailsRepository
             , IMapper mapper)
         {
             _lessonRepository = lessonRepository;
@@ -36,6 +42,8 @@ namespace Backend.Services.Lesson
             _studentRepository = studentRepository;
             _courseRepository = courseRepository;
             _mentorRepository = mentorRepository;
+            _curriculumRepository = curriculumRepository;
+            _courseDetailsRepository = courseDetailsRepository;
             _mapper = mapper;
         }
 
@@ -205,7 +213,7 @@ namespace Backend.Services.Lesson
                             continue;
                         }
 
-                        if(count == lessonCreateDto.numberOfLessons) break;
+                        if (count == lessonCreateDto.numberOfLessons) break;
 
                         var newLesson = _mapper.Map<DB.Models.Lesson>(lessonCreateDto);
                         newLesson.ClassStudentId = student.ClassStudentId;
@@ -352,7 +360,7 @@ namespace Backend.Services.Lesson
                     .ThenInclude(c => c.Class)
                     .Where(l => l.ClassStudent.Class.Status == true &&
                                 l.ClassStudent.Class.MentorId == mentorId &&
-                                l.ClassStudent.Class.CourseId == courseId && 
+                                l.ClassStudent.Class.CourseId == courseId &&
                                 l.Date >= startDate && l.Date <= endDate)
                     .GroupBy(l => l.Date).Select(l => l.FirstOrDefault())
                     .ToListAsync();
@@ -501,7 +509,7 @@ namespace Backend.Services.Lesson
                 foreach (var student in students)
                 {
                     var count = 0;
-                    for (var date = (DateTime) course.CourseDetails.First().CourseTimeStart;
+                    for (var date = (DateTime)course.CourseDetails.First().CourseTimeStart;
                          date <= course.CourseDetails.First().CourseTimeEnd;
                          date = date.AddDays(1))
                     {
@@ -526,7 +534,7 @@ namespace Backend.Services.Lesson
 
                     if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
                 }
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 result.IsError = true;
                 result.Payload = -1;
@@ -776,7 +784,48 @@ namespace Backend.Services.Lesson
 
             return result;
         }
-    }
 
-    
+        public async Task<ServiceResult<int>> CreateTheoryLessonAutoByStudentId(string studentId)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var lesson = new DB.Models.Lesson();
+                var classStudent = _classStudentRepository.GetAll()
+                    .Where(p => p.StudentId == studentId && p.Class.IsTheoryClass == true).FirstOrDefault();
+                var curriculum = _curriculumRepository.GetAll().Select(c => c.Content).ToList();
+                var courseDetails = _courseDetailsRepository.GetAll()
+                    .Where(p => p.Course.CourseId.Equals(classStudent.Class.CourseId))
+                    .SingleOrDefault();
+                int x = 0;
+                for (int i = 0; i < 6; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        lesson.LessonContent = curriculum.ElementAt(i);
+                        lesson.ClassStudentId = classStudent.ClassStudentId;
+                        lesson.Date = courseDetails.CourseTimeStart.Value.AddDays(x);
+                        lesson.Location = "P.12";
+
+                        await _lessonRepository.CreateAsync(lesson);
+                        x++;
+                    }    
+                }
+
+                lesson.LessonContent = curriculum.ElementAt(6);
+                lesson.ClassStudentId = classStudent.ClassStudentId;
+                lesson.Date = courseDetails.CourseTimeStart.Value.AddDays(x);
+                lesson.Location = "P.12";
+
+                await _lessonRepository.CreateAsync(lesson);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+    }
 }
