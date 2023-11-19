@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './staff-table.scss'
 import api from '../../../../../config/axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function MemberTable() {
     const [staff, setStaff] = useState<any[]>([]);
@@ -60,6 +61,9 @@ function MemberTable() {
             // Perform the deletion
             await api.delete(`Staff/delete/${staffId}`);
 
+            // Save the deletion message in a variable
+            localStorage.setItem('notification', 'Xoá nhân viên thành công');
+
             // Reload the page after successful deletion
             window.location.reload();
 
@@ -70,6 +74,14 @@ function MemberTable() {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        let notification = localStorage.getItem('notification');
+        if (notification != null) {
+            toast.success(notification);
+            localStorage.removeItem('notification');
+        }
+    }, [])
 
     return (
         <div className='staff-table-container'>
@@ -88,7 +100,7 @@ function MemberTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
-                                <th scope='col'>Mã nhân viên</th>
+                                <th scope='col' className='tw-w-44'>Mã nhân viên</th>
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
                                 <th scope='col' style={{ width: '100px' }}>Email</th>

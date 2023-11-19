@@ -59,6 +59,20 @@ const Sidebar: React.FC<SidebarProps> = ({
           <p className="tw-pl-3">Quản lý hệ thống</p>
         </li>
         <SidebarItem
+          icon={<FontAwesomeIcon icon={faCalendarDays} />}
+          text="Quản lý khóa học"
+          link="/quan-ly-khoa-hoc"
+          onClick={() => toggleMenu("khoaHoc")}
+        >
+          {menuOpen.khoaHoc && (
+            <SidebarItem
+              icon={<FontAwesomeIcon icon={faCalendarDays} />}
+              text="Các khóa học chưa mở"
+              link="/quan-ly-khoa-hoc/chua-mo"
+            />
+          )}
+        </SidebarItem>
+        <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
           text="Quản lý lịch học"
           link="/quan-ly-lich-hoc"
@@ -109,20 +123,6 @@ const Sidebar: React.FC<SidebarProps> = ({
           text="Quản lý kết quả thi"
           link="/quan-ly-ket-qua"
         />
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faCalendarDays} />}
-          text="Quản lý khóa học"
-          link="/quan-ly-khoa-hoc"
-          onClick={() => toggleMenu("khoaHoc")}
-        >
-          {menuOpen.khoaHoc && (
-            <SidebarItem
-              icon={<FontAwesomeIcon icon={faCalendarDays} />}
-              text="Các khóa học chưa mở"
-              link="/quan-ly-khoa-hoc/chua-mo"
-            />
-          )}
-        </SidebarItem>
       </ul>
     </aside>
   );
