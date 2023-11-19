@@ -1191,11 +1191,11 @@ INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],
 GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
-	VALUES ('4', '1', '1101B2.28', 1)
+	VALUES ('4', '1', '1101B2.04', 1)
 GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
-	VALUES ('5', '1', '1101B2.29', 1)
+	VALUES ('5', '1', '1101B2.05', 1)
 GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
@@ -1211,27 +1211,27 @@ INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],
 GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
-	VALUES ('9', '7', '1101B2.28', 1)
+	VALUES ('9', '7', '1101B2.04', 1)
 GO
 INSERT [dbo].[ClassStudent]([classStudentID], [classID], [studentID],  
 	 [status])
-	VALUES ('10', '9', '1101B2.29', 1)
+	VALUES ('10', '9', '1101B2.05', 1)
 
 SET IDENTITY_INSERT [dbo].[ClassStudent] OFF 
 
 SET IDENTITY_INSERT [dbo].[FeedBack] ON
 GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
-	VALUES ('1', '1', '10 điểm', '2023-11-04', 1)
+	VALUES ('1', '1', N'10 điểm', '2023-11-04', 1)
 GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
-	VALUES ('2', '2', 'Thầy tuyệt quá', '2023-11-04', 1)
+	VALUES ('2', '2', N'Thầy tuyệt quá', '2023-11-04', 1)
 GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
-	VALUES ('3', '3', 'Thầy là nhất', '2023-11-04', 1)	
+	VALUES ('3', '3', N'Thầy là nhất', '2023-11-04', 1)	
 GO
 INSERT [dbo].[FeedBack] ([feedBackId], [classStudentID], [comment], [feedBackTime], [status])
-	VALUES ('4', '4', 'Thầy là số 1', '2023-11-04', 1)	
+	VALUES ('4', '4', N'Thầy là số 1', '2023-11-04', 1)	
 SET IDENTITY_INSERT [dbo].[FeedBack] OFF
 GO
 
