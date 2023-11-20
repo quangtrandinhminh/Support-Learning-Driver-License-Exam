@@ -5,6 +5,7 @@ import api from '../../../../../config/axios';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 function CourseTable() {
+
     const { month } = useParams();
     const { year } = useParams();
     const [data, setData] = useState<any[]>([]);
@@ -14,6 +15,14 @@ function CourseTable() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
+
+    const filteredCourses = course.filter(course => {
+        const courseStartDate = new Date(course.startDate);
+        const currentDate = new Date();
+
+        // Compare day, month, and year components
+        return courseStartDate > currentDate;
+    });
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -71,8 +80,8 @@ function CourseTable() {
                             </tr>
                             {
                                 !isLoading ? (
-                                    course.length > 0 ? (
-                                        course.map((course, i) => (
+                                    filteredCourses.length > 0 ? (
+                                        filteredCourses.map((course, i) => (
                                             <tr key={i} >
                                                 <td className='course-no'>
                                                     <p>{i + 1}</p>
