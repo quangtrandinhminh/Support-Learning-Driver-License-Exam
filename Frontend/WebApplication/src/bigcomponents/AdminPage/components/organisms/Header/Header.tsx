@@ -24,10 +24,6 @@ const Header: React.FC<HeaderProps> = ({ OpenSidebar }) => {
     navigate('Thong-tin-ca-nhan');
   };
 
-  const handleSetting = () => {
-    navigate('/setting');
-  };
-
   const handleLogout = () => {
     sessionStorage.removeItem('loginedUser');
     console.log('user:', user);
