@@ -15,7 +15,7 @@ function CreateCourseForm() {
     courseFee: 0,
     passTheoryLs: 0,
     passKm: 0,
-    status: true
+    status: false
   });
 
   const navigate = useNavigate();
@@ -243,10 +243,12 @@ export function CreateCourseDetail() {
     event.preventDefault();
     try {
       // Use Promise.all to run both API calls concurrently
-      await Promise.all([
-        api.post("Course/add", course),
-        api.post("CourseDetails/add", inputData),
-      ]);
+      await api.post("Course/add", course);
+
+      const response = await api.get("Course/" + course.courseId);
+      if (response.data != null) {
+        await api.post("CourseDetails/add", inputData);
+      }
 
       // Handle success or navigate to another page if needed
     } catch (err) {
