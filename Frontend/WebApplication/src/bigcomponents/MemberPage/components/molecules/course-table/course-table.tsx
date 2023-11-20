@@ -110,12 +110,12 @@ function CourseTable() {
                                                     </td>
                                                     <td className="course-training-content">
                                                         <ol>
-                                                            <li className='border-receive'>{data[1].courseContent}</li>
-                                                            <li className='border-receive'>{data[2].courseContent}</li>
-                                                            <li className='border-receive'>{data[3].courseContent}</li>
-                                                            <li className='border-receive'>{data[4].courseContent}</li>
-                                                            <li className='border-receive'>{data[5].courseContent}</li>
-                                                            <li>{data[6].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 1].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 2].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 3].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 4].courseContent}</li>
+                                                            <li>{data[i * 6 + 5].courseContent}</li>
                                                         </ol>
                                                     </td>
                                                     <td className="course-training-time">
@@ -189,12 +189,12 @@ function CourseTable() {
                                                     </td>
                                                     <td className="course-training-content">
                                                         <ol>
-                                                            <li className='border-receive'>{data[0].courseContent}</li>
-                                                            <li className='border-receive'>{data[1].courseContent}</li>
-                                                            <li className='border-receive'>{data[2].courseContent}</li>
-                                                            <li className='border-receive'>{data[3].courseContent}</li>
-                                                            <li className='border-receive'>{data[4].courseContent}</li>
-                                                            <li>{data[5].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 1].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 2].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 3].courseContent}</li>
+                                                            <li className='border-receive'>{data[i * 6 + 4].courseContent}</li>
+                                                            <li>{data[i * 6 + 5].courseContent}</li>
                                                         </ol>
                                                     </td>
                                                     <td className="course-training-time">
