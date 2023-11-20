@@ -12,9 +12,25 @@ function Course() {
     const recordPage = 3;
     const lastIndex = currentPage * recordPage;
     const firstIndex = lastIndex - recordPage;
-    const records = courses.slice(firstIndex, lastIndex);
-    const npage = Math.ceil(courses.length / recordPage);
+    const npage = Math.floor(courses.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
+    const currentDate = new Date();
+
+    // Filter courses based on the startDate condition
+    const filteredCourses = courses.filter(course => {
+        // const courseStartDate = new Date(course.startDate);
+
+        const currentMonth = currentDate.getMonth() + 1; // Adding 1 because months are zero-indexed
+        const currentYear = currentDate.getFullYear();
+
+        // Compare courseMonth and courseYear (greater than or equal)
+        return (
+            course.courseYear > currentYear ||
+            (course.courseYear === currentYear && course.courseMonth >= currentMonth)
+        );
+    });
+
+    const records = filteredCourses.slice(firstIndex, lastIndex);
 
     useEffect(() => {
         const getCourseData = async () => {

@@ -69,6 +69,7 @@ function CreateCourseForm() {
                 placeholder="courseId"
                 name="courseId"
                 value={inputData.courseId}
+                required
                 onChange={(e) =>
                   setInputData({ ...inputData, courseId: e.target.value })
                 }
@@ -87,6 +88,7 @@ function CreateCourseForm() {
                 placeholder="name"
                 name="name"
                 value={inputData.name}
+                required
                 onChange={(e) =>
                   setInputData({ ...inputData, name: e.target.value })
                 }
@@ -105,6 +107,7 @@ function CreateCourseForm() {
                 placeholder="start date"
                 name="startDate"
                 value={inputData.startDate}
+                required
                 onChange={(e) =>
                   setInputData({ ...inputData, startDate: e.target.value })
                 }
@@ -123,6 +126,7 @@ function CreateCourseForm() {
                 placeholder="end date"
                 name="endDate"
                 value={inputData.endDate}
+                required
                 onChange={(e) =>
                   setInputData({ ...inputData, endDate: e.target.value })
                 }
@@ -142,6 +146,7 @@ function CreateCourseForm() {
                 value={inputData.limitStudent}
                 min={0}
                 max={70}
+                required
                 onChange={(e) => { (inputData.limitStudent = parseInt(e.target.value)); setInputData({ ...inputData, limitStudent: inputData.limitStudent }) }}
               />
             </div>
@@ -158,7 +163,8 @@ function CreateCourseForm() {
                 name="courseFee"
                 value={inputData.courseFee}
                 min={0}
-                max={1000}
+                max={1000000000}
+                required
                 onChange={(e) => { (inputData.courseFee = parseInt(e.target.value)); setInputData({ ...inputData, courseFee: inputData.courseFee }) }}
               />
             </div>
@@ -176,6 +182,7 @@ function CreateCourseForm() {
                 value={inputData.passTheoryLs}
                 min={0}
                 max={70}
+                required
                 onChange={(e) => { (inputData.passTheoryLs = parseInt(e.target.value)); setInputData({ ...inputData, passTheoryLs: inputData.passTheoryLs }) }}
               />
             </div>
@@ -194,6 +201,7 @@ function CreateCourseForm() {
                 min={0}
                 max={100000000}
                 placeholder="km"
+                required
                 onChange={(e) => { (inputData.passKm = parseInt(e.target.value)); setInputData({ ...inputData, passKm: inputData.passKm }) }}
               />
             </div>
@@ -301,6 +309,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 1"
                   name="courseContent1"
                   value={inputData.courseContent1}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent1: e.target.value })
                   }
@@ -319,6 +328,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart1}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart1: e.target.value })
                   }
@@ -335,6 +345,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd1}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd1: e.target.value })
                   }
@@ -355,6 +366,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 2"
                   name="courseContent2"
                   value={inputData.courseContent2}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent2: e.target.value })
                   }
@@ -373,6 +385,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart2}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart2: e.target.value })
                   }
@@ -389,6 +402,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd2}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd2: e.target.value })
                   }
@@ -409,6 +423,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 3"
                   name="courseContent3"
                   value={inputData.courseContent3}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent3: e.target.value })
                   }
@@ -427,6 +442,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart3}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart3: e.target.value })
                   }
@@ -443,6 +459,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd3}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd3: e.target.value })
                   }
@@ -463,6 +480,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 4"
                   name="courseContent4"
                   value={inputData.courseContent4}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent4: e.target.value })
                   }
@@ -481,6 +499,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart4}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart4: e.target.value })
                   }
@@ -497,6 +516,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd4}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd4: e.target.value })
                   }
@@ -517,6 +537,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 5"
                   name="courseContent5"
                   value={inputData.courseContent5}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent5: e.target.value })
                   }
@@ -535,6 +556,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart5}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart5: e.target.value })
                   }
@@ -551,6 +573,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd5}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd5: e.target.value })
                   }
@@ -571,6 +594,7 @@ export function CreateCourseDetail() {
                   placeholder="nội dung số 6"
                   name="courseContent6"
                   value={inputData.courseContent6}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent6: e.target.value })
                   }
@@ -589,6 +613,7 @@ export function CreateCourseDetail() {
                   placeholder="start date"
                   name="startDate"
                   value={inputData.courseTimeStart6}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeStart6: e.target.value })
                   }
@@ -605,6 +630,7 @@ export function CreateCourseDetail() {
                   placeholder="end date"
                   name="endDate"
                   value={inputData.courseTimeEnd6}
+                  required
                   onChange={(e) =>
                     setInputData({ ...inputData, courseTimeEnd6: e.target.value })
                   }

@@ -95,7 +95,7 @@ function CourseTable() {
                                 member != null ? (
                                     !isLoading ? (
                                         filteredCourses.length > 0 ? (
-                                            course.map((course, i) => (
+                                            filteredCourses.map((course, i) => (
                                                 <tr key={i} >
                                                     <td className='course-no'>
                                                         <p>{i + 1}</p>
@@ -173,8 +173,8 @@ function CourseTable() {
                                     )
                                 ) : (
                                     !isLoading ? (
-                                        course.length > 0 ? (
-                                            course.map((course, i) => (
+                                        filteredCourses.length > 0 ? (
+                                            filteredCourses.map((course, i) => (
                                                 <tr key={i} >
                                                     <td className='course-no'>
                                                         <p>{i + 1}</p>

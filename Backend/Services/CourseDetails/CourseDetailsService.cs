@@ -56,36 +56,42 @@ namespace Backend.Services.CourseDetails
                 courseDetails1.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart1;
                 courseDetails1.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd1;
                 courseDetails1.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails1.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails1);
 
                 courseDetails2.CourseContent = courseDetailsCreateDto.CourseContent2;
                 courseDetails2.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart2;
                 courseDetails2.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd2;
                 courseDetails2.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails2.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails2);
 
                 courseDetails3.CourseContent = courseDetailsCreateDto.CourseContent3;
                 courseDetails3.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart3;
                 courseDetails3.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd3;
                 courseDetails3.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails3.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails3);
 
                 courseDetails4.CourseContent = courseDetailsCreateDto.CourseContent4;
                 courseDetails4.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart4;
                 courseDetails4.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd4;
                 courseDetails4.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails4.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails4);
 
                 courseDetails5.CourseContent = courseDetailsCreateDto.CourseContent5;
                 courseDetails5.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart5;
                 courseDetails5.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd5;
                 courseDetails5.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails5.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails5);
 
                 courseDetails6.CourseContent = courseDetailsCreateDto.CourseContent6;
                 courseDetails6.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart6;
                 courseDetails6.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd6;
                 courseDetails6.CourseId = courseDetailsCreateDto.CourseId;
+                courseDetails6.Status = true;
                 await _courseDetailsRepository.CreateAsync(courseDetails6);
             }
             catch (Exception e)
