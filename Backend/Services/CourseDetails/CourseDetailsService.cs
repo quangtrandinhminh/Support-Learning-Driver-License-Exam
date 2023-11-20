@@ -86,7 +86,7 @@ namespace Backend.Services.CourseDetails
                 courseDetails6.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart6;
                 courseDetails6.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd6;
                 courseDetails6.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails1);
+                await _courseDetailsRepository.CreateAsync(courseDetails6);
             }
             catch (Exception e)
             {

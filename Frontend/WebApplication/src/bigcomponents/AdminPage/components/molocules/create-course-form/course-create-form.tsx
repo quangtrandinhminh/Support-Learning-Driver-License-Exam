@@ -239,13 +239,25 @@ export function CreateCourseDetail() {
     courseId: "",
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  }
+    try {
+      // Use Promise.all to run both API calls concurrently
+      await Promise.all([
+        api.post("Course/add", course),
+        api.post("CourseDetails/add", inputData),
+      ]);
+
+      // Handle success or navigate to another page if needed
+    } catch (err) {
+      console.log(err);
+      // Handle errors
+    }
+  };
 
   useEffect(() => {
     setInputData({ ...inputData, courseId: course.courseId });
-  }, [inputData.courseContent1]);
+  }, [inputData.courseContent1, inputData.courseContent2, inputData.courseContent3, inputData.courseContent4, inputData.courseContent5, inputData.courseContent6]);
 
   return (
     <div className="template-container">
@@ -274,17 +286,18 @@ export function CreateCourseDetail() {
                 />
               </div>
             </div> */}
+            {/* 1st detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
+              <label htmlFor="courseContent1" className="col-sm-2 col-form-label">
                 Nội dung 1:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
+                  id="courseContent1"
+                  placeholder="nội dung số 1"
+                  name="courseContent1"
                   value={inputData.courseContent1}
                   onChange={(e) =>
                     setInputData({ ...inputData, courseContent1: e.target.value })
@@ -326,20 +339,22 @@ export function CreateCourseDetail() {
                 />
               </div>
             </div>
+
+            {/* 2nd detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
+              <label htmlFor="courseContent2" className="col-sm-2 col-form-label">
+                Nội dung 2:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
+                  id="courseContent2"
+                  placeholder="nội dung số 2"
+                  name="courseContent2"
+                  value={inputData.courseContent2}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
+                    setInputData({ ...inputData, courseContent2: e.target.value })
                   }
                 />
               </div>
@@ -355,9 +370,9 @@ export function CreateCourseDetail() {
                   id="startDate"
                   placeholder="start date"
                   name="startDate"
-                  value={inputData.courseTimeStart1}
+                  value={inputData.courseTimeStart2}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
+                    setInputData({ ...inputData, courseTimeStart2: e.target.value })
                   }
                 />
               </div>
@@ -371,27 +386,29 @@ export function CreateCourseDetail() {
                   id="endDate"
                   placeholder="end date"
                   name="endDate"
-                  value={inputData.courseTimeEnd1}
+                  value={inputData.courseTimeEnd2}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
+                    setInputData({ ...inputData, courseTimeEnd2: e.target.value })
                   }
                 />
               </div>
             </div>
+
+            {/* 3rd detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
+              <label htmlFor="courseContent3" className="col-sm-2 col-form-label">
+                Nội dung 3:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
+                  id="courseContent3"
+                  placeholder="nội dung số 3"
+                  name="courseContent3"
+                  value={inputData.courseContent3}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
+                    setInputData({ ...inputData, courseContent3: e.target.value })
                   }
                 />
               </div>
@@ -407,9 +424,9 @@ export function CreateCourseDetail() {
                   id="startDate"
                   placeholder="start date"
                   name="startDate"
-                  value={inputData.courseTimeStart1}
+                  value={inputData.courseTimeStart3}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
+                    setInputData({ ...inputData, courseTimeStart3: e.target.value })
                   }
                 />
               </div>
@@ -423,27 +440,29 @@ export function CreateCourseDetail() {
                   id="endDate"
                   placeholder="end date"
                   name="endDate"
-                  value={inputData.courseTimeEnd1}
+                  value={inputData.courseTimeEnd3}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
+                    setInputData({ ...inputData, courseTimeEnd3: e.target.value })
                   }
                 />
               </div>
             </div>
+
+            {/* 4th detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
+              <label htmlFor="courseContent4" className="col-sm-2 col-form-label">
+                Nội dung 4:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
+                  id="courseContent4"
+                  placeholder="nội dung số 4"
+                  name="courseContent4"
+                  value={inputData.courseContent4}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
+                    setInputData({ ...inputData, courseContent4: e.target.value })
                   }
                 />
               </div>
@@ -459,9 +478,9 @@ export function CreateCourseDetail() {
                   id="startDate"
                   placeholder="start date"
                   name="startDate"
-                  value={inputData.courseTimeStart1}
+                  value={inputData.courseTimeStart4}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
+                    setInputData({ ...inputData, courseTimeStart4: e.target.value })
                   }
                 />
               </div>
@@ -475,27 +494,29 @@ export function CreateCourseDetail() {
                   id="endDate"
                   placeholder="end date"
                   name="endDate"
-                  value={inputData.courseTimeEnd1}
+                  value={inputData.courseTimeEnd4}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
+                    setInputData({ ...inputData, courseTimeEnd4: e.target.value })
                   }
                 />
               </div>
             </div>
+
+            {/* 5th detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
+              <label htmlFor="courseContent5" className="col-sm-2 col-form-label">
+                Nội dung 5:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
+                  id="courseContent5"
+                  placeholder="nội dung số 5"
+                  name="courseContent5"
+                  value={inputData.courseContent5}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
+                    setInputData({ ...inputData, courseContent5: e.target.value })
                   }
                 />
               </div>
@@ -511,9 +532,9 @@ export function CreateCourseDetail() {
                   id="startDate"
                   placeholder="start date"
                   name="startDate"
-                  value={inputData.courseTimeStart1}
+                  value={inputData.courseTimeStart5}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
+                    setInputData({ ...inputData, courseTimeStart5: e.target.value })
                   }
                 />
               </div>
@@ -527,27 +548,29 @@ export function CreateCourseDetail() {
                   id="endDate"
                   placeholder="end date"
                   name="endDate"
-                  value={inputData.courseTimeEnd1}
+                  value={inputData.courseTimeEnd5}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
+                    setInputData({ ...inputData, courseTimeEnd5: e.target.value })
                   }
                 />
               </div>
             </div>
+
+            {/* 6th detail */}
             <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
+              <label htmlFor="courseContent6" className="col-sm-2 col-form-label">
+                Nội dung 6:{" "}
               </label>
               <div className="col-sm-10">
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
+                  id="courseContent6"
+                  placeholder="nội dung số 6"
+                  name="courseContent6"
+                  value={inputData.courseContent6}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
+                    setInputData({ ...inputData, courseContent6: e.target.value })
                   }
                 />
               </div>
@@ -563,9 +586,9 @@ export function CreateCourseDetail() {
                   id="startDate"
                   placeholder="start date"
                   name="startDate"
-                  value={inputData.courseTimeStart1}
+                  value={inputData.courseTimeStart6}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
+                    setInputData({ ...inputData, courseTimeStart6: e.target.value })
                   }
                 />
               </div>
@@ -579,61 +602,9 @@ export function CreateCourseDetail() {
                   id="endDate"
                   placeholder="end date"
                   name="endDate"
-                  value={inputData.courseTimeEnd1}
+                  value={inputData.courseTimeEnd6}
                   onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
-                  }
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">
-                Nội dung 1:{" "}
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  placeholder="name"
-                  name="name"
-                  value={inputData.courseContent1}
-                  onChange={(e) =>
-                    setInputData({ ...inputData, courseContent1: e.target.value })
-                  }
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="startDate" className="col-sm-2 col-form-label">
-                Ngày bắt đầu:{" "}
-              </label>
-              <div className="col-sm-4">
-                <input
-                  type="date"
-                  className="form-control"
-                  id="startDate"
-                  placeholder="start date"
-                  name="startDate"
-                  value={inputData.courseTimeStart1}
-                  onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeStart1: e.target.value })
-                  }
-                />
-              </div>
-              <label htmlFor="endDate" className="col-sm-2 col-form-label">
-                Ngày kết thúc:{" "}
-              </label>
-              <div className="col-sm-4">
-                <input
-                  type="date"
-                  className="form-control"
-                  id="endDate"
-                  placeholder="end date"
-                  name="endDate"
-                  value={inputData.courseTimeEnd1}
-                  onChange={(e) =>
-                    setInputData({ ...inputData, courseTimeEnd1: e.target.value })
+                    setInputData({ ...inputData, courseTimeEnd6: e.target.value })
                   }
                 />
               </div>
@@ -642,7 +613,7 @@ export function CreateCourseDetail() {
               className="btn btn-primary tw-mb-5 justify-self-end"
               type="submit"
             >
-              Tiếp tục
+              Tạo khoá học
             </button>
           </form>
         </div>
