@@ -15,6 +15,7 @@ function CourseTable() {
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState<any[]>([]);
     const [show, setShow] = useState(false);
+    var courseContentMap = new Map();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,46 +34,38 @@ function CourseTable() {
         return `${day}/${month}/${year}`;
     }
 
-    const getCourseDetailByMonth = async (month) => {
+    const getCourseData = async (month) => {
         try {
-            const response = await api.get(`/CourseDetail?courseMonth=${month}`);
-            const tempCourseDetails = response.data.filter(detail =>
-                course.some(c => c.courseId === detail.courseId)
-            );
-            setData(tempCourseDetails);
-            setIsLoading(false);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
-    const getCourseByMonth = async (month) => {
-        try {
-            const response = await api.get('Course/courseMonth?month=' + month + '&year=' + year);
-            const validCourse = response.data.filter(course => {
+            const courseResponse = await api.get('Course/courseMonth?month=' + month + '&year=' + year);
+            const courseDetailsResponse = await api.get(`/CourseDetail?courseMonth=${month}`);
+            const validCourse = courseResponse.data.filter(course => {
                 const courseStartDate = new Date(course.startDate);
                 const currentDate = new Date();
 
                 // Compare day, month, and year components
                 return courseStartDate >= currentDate;
             });
-            setCourse(validCourse);
+
+            const tempCourseData = validCourse.map(course => {
+                const detailsForCourse = courseDetailsResponse.data.filter(detail => detail.courseId === course.courseId);
+                return { ...course, details: detailsForCourse };
+            });
+
+            setData(tempCourseData);
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
-    }
+    };
+
 
     const handleNavigate = () => {
         navigate('/khoa-hoc-cua-ban')
     }
 
     useEffect(() => {
-        getCourseDetailByMonth(month);
-    }, [course])
-
-    useEffect(() => {
-        getCourseByMonth(month);
-    }, []);
+        getCourseData(month);
+    }, [month, year]);
 
     return (
         <>
@@ -95,8 +88,8 @@ function CourseTable() {
                             {
                                 member != null ? (
                                     !isLoading ? (
-                                        course.length > 0 ? (
-                                            course.map((course, i) => (
+                                        data.length > 0 ? (
+                                            data.map((course, i) => (
                                                 <tr key={i} >
                                                     <td className='course-no'>
                                                         <p>{i + 1}</p>
@@ -110,32 +103,44 @@ function CourseTable() {
                                                         <p>{course.limitStudent}</p>
                                                     </td>
                                                     {
-                                                        data.length > 0 ? (
+                                                        course.details.length < 5 ? (
                                                             <>
-
                                                                 <td className="course-training-content">
                                                                     <ol>
-                                                                        <li className='border-receive'>{data[i * 6].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 1].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 2].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 3].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 4].courseContent}</li>
-                                                                        <li>{data[i * 6 + 5].courseContent}</li>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>{detail.courseContent}</li>
+                                                                        ))}
                                                                     </ol>
                                                                 </td>
                                                                 <td className="course-training-time">
                                                                     <ol>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
-                                                                        <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>
+                                                                                {formatDate(detail.courseTimeStart)} - {formatDate(detail.courseTimeEnd)}
+                                                                            </li>
+                                                                        ))}
                                                                     </ol>
                                                                 </td>
                                                             </>
                                                         ) : (
-                                                            null
+                                                            <>
+                                                                <td className="course-training-content">
+                                                                    <ol>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>{detail.courseContent}</li>
+                                                                        ))}
+                                                                    </ol>
+                                                                </td>
+                                                                <td className="course-training-time">
+                                                                    <ol>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>
+                                                                                {formatDate(detail.courseTimeStart)} - {formatDate(detail.courseTimeEnd)}
+                                                                            </li>
+                                                                        ))}
+                                                                    </ol>
+                                                                </td>
+                                                            </>
                                                         )
                                                     }
                                                     <td className='course-register'>
@@ -183,8 +188,8 @@ function CourseTable() {
                                     )
                                 ) : (
                                     !isLoading ? (
-                                        course.length > 0 ? (
-                                            course.map((course, i) => (
+                                        data.length > 0 ? (
+                                            data.map((course, i) => (
                                                 <tr key={i} >
                                                     <td className='course-no'>
                                                         <p>{i + 1}</p>
@@ -198,31 +203,44 @@ function CourseTable() {
                                                         <p>{course.limitStudent}</p>
                                                     </td>
                                                     {
-                                                        data.length > 0 ? (
+                                                        course.details.length < 5 ? (
                                                             <>
                                                                 <td className="course-training-content">
                                                                     <ol>
-                                                                        <li className='border-receive'>{data[i * 6].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 1].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 2].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 3].courseContent}</li>
-                                                                        <li className='border-receive'>{data[i * 6 + 4].courseContent}</li>
-                                                                        <li>{data[i * 6 + 5].courseContent}</li>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>{detail.courseContent}</li>
+                                                                        ))}
                                                                     </ol>
                                                                 </td>
                                                                 <td className="course-training-time">
                                                                     <ol>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
-                                                                        <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
-                                                                        <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>
+                                                                                {formatDate(detail.courseTimeStart)} - {formatDate(detail.courseTimeEnd)}
+                                                                            </li>
+                                                                        ))}
                                                                     </ol>
                                                                 </td>
                                                             </>
                                                         ) : (
-                                                            null
+                                                            <>
+                                                                <td className="course-training-content">
+                                                                    <ol>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>{detail.courseContent}</li>
+                                                                        ))}
+                                                                    </ol>
+                                                                </td>
+                                                                <td className="course-training-time">
+                                                                    <ol>
+                                                                        {course.details.map((detail, j) => (
+                                                                            <li key={j} className=''>
+                                                                                {formatDate(detail.courseTimeStart)} - {formatDate(detail.courseTimeEnd)}
+                                                                            </li>
+                                                                        ))}
+                                                                    </ol>
+                                                                </td>
+                                                            </>
                                                         )
                                                     }
                                                     <td className='course-register'>
