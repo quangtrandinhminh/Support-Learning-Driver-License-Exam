@@ -224,6 +224,7 @@ export function CreateCourseDetail() {
   const course = JSON.parse(localStorage.getItem("course") || "{}");
 
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const [inputData, setInputData] = useState({
     courseContent1: "",
@@ -257,6 +258,9 @@ export function CreateCourseDetail() {
       if (response.data != null) {
         await api.post("CourseDetails/add", inputData);
       }
+
+      navigate("/quan-ly-khoa-hoc/chua-mo");
+      toast.success("Tạo khoá học thành công");
 
       // Handle success or navigate to another page if needed
     } catch (err) {
