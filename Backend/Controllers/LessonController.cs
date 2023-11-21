@@ -139,12 +139,13 @@ namespace Backend.Controllers
         /// <summary>
         /// Create theory lesson with separate title for all students in course
         /// </summary>
-        /// <param name="lessonCreateDto"></param>
+        /// <param name="courseId"></param>
+        /// <param name="lessonCreateDtos"></param>
         /// <returns></returns>
         [HttpPost("createTheoryLesson")]
-        public async Task<IActionResult> CreateTheoryLesson(LessonTheoryCreateDTO lessonCreateDto)
+        public async Task<IActionResult> CreateTheoryLesson(string courseId, ICollection<LessonTheoryCreateDTO> lessonCreateDtos)
         {
-            var result = await _lessonService.CreateTheoryLessons(lessonCreateDto);
+            var result = await _lessonService.CreateTheoryLessons(courseId, lessonCreateDtos);
             if (result.IsError)
             {
                 if (result.Payload == -1)
