@@ -127,6 +127,17 @@ function VerificationForm() {
     });
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      setInputData(prevInputData => ({
+        ...prevInputData,
+        fullName: user.fullName,
+        phone: user.phone,
+        email: user.email
+      }))
+    }
+  }, [])
+
   return (
     <>
       {
@@ -140,6 +151,7 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="name">Họ và tên:</label>
                     <input type="text" name='name' id=''
+                      value={inputData.fullName}
                       onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input'
                     />
                   </li>
@@ -165,11 +177,13 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="phone">Điện thoại di động:</label>
                     <input type="tel" name="phone" className='phone-input'
+                      value={inputData.phone}
                       onChange={e => setInputData({ ...inputData, phone: e.target.value })} />
                   </li>
                   <li>
                     <label htmlFor="email">Email:</label>
                     <input type="email" name="email" className='email-input'
+                      value={inputData.email}
                       onChange={e => setInputData({ ...inputData, email: e.target.value })} />
                   </li>
                   <li className='line-2'>
