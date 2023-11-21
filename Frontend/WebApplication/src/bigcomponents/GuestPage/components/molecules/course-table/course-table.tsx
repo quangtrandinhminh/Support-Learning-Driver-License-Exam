@@ -6,6 +6,8 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 function CourseTable() {
 
+    const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+
     const { month } = useParams();
     const { year } = useParams();
     const [data, setData] = useState<any[]>([]);
@@ -15,14 +17,6 @@ function CourseTable() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
-
-    const filteredCourses = course.filter(course => {
-        const courseStartDate = new Date(course.startDate);
-        const currentDate = new Date();
-
-        // Compare day, month, and year components
-        return courseStartDate > currentDate;
-    });
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -35,18 +29,27 @@ function CourseTable() {
     const getCourseDetailByMonth = async (month) => {
         try {
             const response = await api.get(`/CourseDetail?courseMonth=${month}`);
-            setData(response.data);
-            setIsLoading(false);
+            const tempCourseDetails = response.data.filter(detail =>
+                course.some(c => c.courseId === detail.courseId)
+            );
+            setData(tempCourseDetails);
         } catch (error) {
             console.error('Error fetching data:', error);
-            setIsLoading(false);
         }
     }
 
     const getCourseByMonth = async (month) => {
         try {
             const response = await api.get('Course/courseMonth?month=' + month + '&year=' + year);
-            setCourse(response.data);
+            const validCourse = response.data.filter(course => {
+                const courseStartDate = new Date(course.startDate);
+                const currentDate = new Date();
+
+                // Compare day, month, and year components
+                return courseStartDate >= currentDate;
+            });
+            setCourse(validCourse);
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -54,11 +57,11 @@ function CourseTable() {
 
     useEffect(() => {
         getCourseDetailByMonth(month);
-    }, [month])
+    }, [course])
 
     useEffect(() => {
         getCourseByMonth(month);
-    }, [data]);
+    }, []);
 
     return (
         <>
@@ -80,8 +83,8 @@ function CourseTable() {
                             </tr>
                             {
                                 !isLoading ? (
-                                    filteredCourses.length > 0 ? (
-                                        filteredCourses.map((course, i) => (
+                                    course.length > 0 ? (
+                                        course.map((course, i) => (
                                             <tr key={i} >
                                                 <td className='course-no'>
                                                     <p>{i + 1}</p>
@@ -94,26 +97,35 @@ function CourseTable() {
                                                 <td className='course-mem'>
                                                     <p>20</p>
                                                 </td>
-                                                <td className="course-training-content">
-                                                    <ol>
-                                                        <li className='border-receive'>Đào tạo lí thuyết</li>
-                                                        <li className='border-receive'>Thực hành trong hình</li>
-                                                        <li className='border-receive'>Thực hành trên cabin</li>
-                                                        <li className='border-receive'>Thực hành trên đường</li>
-                                                        <li className='border-receive'>Thực hành trên xe tự động</li>
-                                                        <li>Thực hành tổng hợp trong hình</li>
-                                                    </ol>
-                                                </td>
-                                                <td className="course-training-time">
-                                                    <ol>
-                                                        <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
-                                                        <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
-                                                        <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
-                                                    </ol>
-                                                </td>
+                                                {
+                                                    data.length > 0 ? (
+                                                        <>
+
+                                                            <td className="course-training-content">
+                                                                <ol>
+                                                                    <li className='border-receive'>Đào tạo lí thuyết</li>
+                                                                    <li className='border-receive'>Thực hành trong hình</li>
+                                                                    <li className='border-receive'>Thực hành trên cabin</li>
+                                                                    <li className='border-receive'>Thực hành trên đường</li>
+                                                                    <li className='border-receive'>Thực hành trên xe tự động</li>
+                                                                    <li>Thực hành tổng hợp trong hình</li>
+                                                                </ol>
+                                                            </td>
+                                                            <td className="course-training-time">
+                                                                <ol>
+                                                                    <li className='border-receive'>{formatDate(data[i * 6].courseTimeStart)} - {formatDate(data[i * 6].courseTimeEnd)}</li>
+                                                                    <li className='border-receive'>{formatDate(data[i * 6 + 1].courseTimeStart)} - {formatDate(data[i * 6 + 1].courseTimeEnd)}</li>
+                                                                    <li className='border-receive'>{formatDate(data[i * 6 + 2].courseTimeStart)} - {formatDate(data[i * 6 + 2].courseTimeEnd)}</li>
+                                                                    <li className='border-receive'>{formatDate(data[i * 6 + 3].courseTimeStart)} - {formatDate(data[i * 6 + 3].courseTimeEnd)}</li>
+                                                                    <li className='border-receive'>{formatDate(data[i * 6 + 4].courseTimeStart)} - {formatDate(data[i * 6 + 4].courseTimeEnd)}</li>
+                                                                    <li>{formatDate(data[i * 6 + 5].courseTimeStart)} - {formatDate(data[i * 6 + 5].courseTimeEnd)}</li>
+                                                                </ol>
+                                                            </td>
+                                                        </>
+                                                    ) : (
+                                                        null
+                                                    )
+                                                }
                                                 <td className='course-register'>
                                                     <Link to='/dang-nhap'>
                                                         <button className='btnRegister btn btn-primary'>Đăng ký</button>
