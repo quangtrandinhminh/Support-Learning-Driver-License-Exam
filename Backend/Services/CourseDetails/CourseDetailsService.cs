@@ -33,60 +33,48 @@ namespace Backend.Services.CourseDetails
             }
         }
 
-        public async Task<ServiceResult<int>> CreateCourseDetails(CourseDetailsCreateDTO courseDetailsCreateDto)
+        public async Task<ServiceResult<int>> CreateCourseDetails
+            (ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto)
         {
             var result = new ServiceResult<int>();
+            int i = 0;
+            var courseDetail = courseDetailsCreateDto.ElementAt(0);
+            var m = courseDetail.CourseTimeEnd;
             try
             {
-                if (courseDetailsCreateDto.CourseTimeEnd6 < courseDetailsCreateDto.CourseTimeStart1)
-                {
-                    result.IsError = true;
-                    result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
-                    result.Payload = -2;
-                    return result;
+                foreach (var c in courseDetailsCreateDto) 
+                { 
+                    if (c.CourseTimeEnd < c.CourseTimeStart)
+                    {
+                        result.IsError = true;
+                        result.Payload = 0;
+                        result.ErrorMessage = "Ngày kết thúc phải lớn hơn ngày bắt đầu";
+                        return result;
+                    }
+                    if (i != 0)
+                    {
+                        if (c.CourseTimeStart < m)
+                        {
+                            result.IsError = true;
+                            result.Payload = -1;
+                            result.ErrorMessage = "Ngày bắt đầu phải lớn hơn ngày kết thúc của kỳ trước";
+                            return result;
+                        }
+                        var courseDetaill = _mapper.Map<DB.Models.CourseDetail>(c);
+                        courseDetaill.Status = true;
+
+                        await _courseDetailsRepository.CreateAsync(courseDetaill);
+                        m = courseDetail.CourseTimeEnd;
+                    }
+                    else
+                    {
+                        var courseDetaill = _mapper.Map<DB.Models.CourseDetail>(c);
+                        courseDetaill.Status = true;
+
+                        await _courseDetailsRepository.CreateAsync(courseDetaill);
+                    }
+                    i++;
                 }
-                var courseDetails1 = new CourseDetail();
-                var courseDetails2 = new CourseDetail();
-                var courseDetails3 = new CourseDetail();
-                var courseDetails4 = new CourseDetail();
-                var courseDetails5 = new CourseDetail();
-                var courseDetails6 = new CourseDetail();
-
-                courseDetails1.CourseContent = courseDetailsCreateDto.CourseContent1;
-                courseDetails1.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart1;
-                courseDetails1.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd1;
-                courseDetails1.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails1);
-
-                courseDetails2.CourseContent = courseDetailsCreateDto.CourseContent2;
-                courseDetails2.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart2;
-                courseDetails2.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd2;
-                courseDetails2.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails2);
-
-                courseDetails3.CourseContent = courseDetailsCreateDto.CourseContent3;
-                courseDetails3.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart3;
-                courseDetails3.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd3;
-                courseDetails3.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails3);
-
-                courseDetails4.CourseContent = courseDetailsCreateDto.CourseContent4;
-                courseDetails4.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart4;
-                courseDetails4.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd4;
-                courseDetails4.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails4);
-
-                courseDetails5.CourseContent = courseDetailsCreateDto.CourseContent5;
-                courseDetails5.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart5;
-                courseDetails5.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd5;
-                courseDetails5.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails5);
-
-                courseDetails6.CourseContent = courseDetailsCreateDto.CourseContent6;
-                courseDetails6.CourseTimeStart = courseDetailsCreateDto.CourseTimeStart6;
-                courseDetails6.CourseTimeEnd = courseDetailsCreateDto.CourseTimeEnd6;
-                courseDetails6.CourseId = courseDetailsCreateDto.CourseId;
-                await _courseDetailsRepository.CreateAsync(courseDetails1);
             }
             catch (Exception e)
             {
