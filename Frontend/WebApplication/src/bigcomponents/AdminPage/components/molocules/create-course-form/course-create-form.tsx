@@ -163,7 +163,7 @@ function CreateCourseForm() {
                 name="courseFee"
                 value={inputData.courseFee}
                 min={0}
-                max={1000000000}
+                max={30000000}
                 required
                 onChange={(e) => { (inputData.courseFee = parseInt(e.target.value)); setInputData({ ...inputData, courseFee: inputData.courseFee }) }}
               />
@@ -265,9 +265,10 @@ export function CreateCourseDetail() {
       // Prepare data to send to the server
       const formattedListObjects = inputData.map((data) => ({ ...data }));
 
-      // Log the formattedListObjects to the console
+      // Create course first
       const response = await api.post("Course/add", course);
 
+      // If success then adding course details
       if (response.status === 200) {
         // Make an API request to the server using Axios
         await api.post(
@@ -282,6 +283,8 @@ export function CreateCourseDetail() {
       }
 
       toast.success('Tạo khoá học thành công');
+      navigate('/quan-ly-khoa-hoc/chua-mo')
+      ;
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       console.error('Error:', error);
