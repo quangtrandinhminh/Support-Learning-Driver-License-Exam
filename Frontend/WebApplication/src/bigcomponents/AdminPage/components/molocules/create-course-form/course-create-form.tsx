@@ -144,7 +144,7 @@ function CreateCourseForm() {
                 id="limitStudent"
                 name="limitStudent"
                 value={inputData.limitStudent}
-                min={0}
+                min={25}
                 max={70}
                 required
                 onChange={(e) => { (inputData.limitStudent = parseInt(e.target.value)); setInputData({ ...inputData, limitStudent: inputData.limitStudent }) }}
@@ -207,7 +207,7 @@ function CreateCourseForm() {
             </div>
           </div>
           <button
-            className="btn btn-primary tw-mb-5 justify-self-end"
+            className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
             type="submit"
           >
             Tiếp tục
@@ -226,7 +226,7 @@ export function CreateCourseDetail() {
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];
-  const [inputData, setInputData] = useState(Array(6).fill({}));
+  const [inputData, setInputData] = useState(Array(1).fill({}));
 
   useEffect(() => {
     setInputData((prevInputData) => (
@@ -248,6 +248,16 @@ export function CreateCourseDetail() {
     });
   };
 
+  const handleAddInput = () => {
+    setInputData((prevInputData) => [
+      ...prevInputData,
+      initialData.reduce((acc, field) => {
+        acc[field] = field === 'courseId' ? course.courseId : '';
+        return acc;
+      }, {}),
+    ]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -256,18 +266,20 @@ export function CreateCourseDetail() {
       const formattedListObjects = inputData.map((data) => ({ ...data }));
 
       // Log the formattedListObjects to the console
-      console.log('Formatted List of Objects:', formattedListObjects);
+      const response = await api.post("Course/add", course);
 
-      // Make an API request to the server using Axios
-      const response = await api.post(
-        'CourseDetails/add',
-        formattedListObjects,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      if (response.status === 200) {
+        // Make an API request to the server using Axios
+        await api.post(
+          'CourseDetails/add',
+          formattedListObjects,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
 
       toast.success('Tạo khoá học thành công');
       // For example, if your response contains additional information, you can use it as needed.
@@ -341,7 +353,14 @@ export function CreateCourseDetail() {
               </div>
             ))}
             <button
-              className="btn btn-primary tw-mb-5 justify-self-end"
+              className="btn btn-info tw-mb-2 tw-justify-self-end tw-w-1/6"
+              type="button" // Change to "button" to prevent form submission
+              onClick={handleAddInput}
+            >
+              Thêm nội dung
+            </button>
+            <button
+              className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
               type="submit"
             >
               Tạo khoá học

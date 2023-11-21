@@ -12,7 +12,7 @@ function Course() {
     const recordPage = 3;
     const lastIndex = currentPage * recordPage;
     const firstIndex = lastIndex - recordPage;
-    const npage = Math.floor(courses.length / recordPage);
+    const npage = Math.ceil(courses.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
     const currentDate = new Date();
 
