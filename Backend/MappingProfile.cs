@@ -157,6 +157,11 @@ namespace Backend
                 .ForMember(dto => dto.StaffName, opt => opt.MapFrom(entity => entity.Staff.User.FullName))
                 .ForMember(dto => dto.MemberName, opt => opt.MapFrom(entity => entity.Member.User.FullName));
             CreateMap<DTO.Invoice.InvoiceCreateDTO, DB.Models.Invoice>();
+
+            //Curriculum
+            CreateMap<DB.Models.Curriculum, DTO.Curriculum.CurriculumDTO>();
+            CreateMap<DTO.Curriculum.CurriculumCreateDTO, DB.Models.Curriculum>();
+            CreateMap<DTO.Curriculum.CurriculumUpdateDTO, DB.Models.Curriculum>();
         }
     }
 }

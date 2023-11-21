@@ -26,5 +26,64 @@ namespace Backend.Repository.CurriculumRepository
                 throw;
             }
         }
+
+        public async Task<Curriculum?> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> AddAsync(Curriculum? curriculum)
+        {
+            try
+            {
+                await _dbSet.AddAsync(curriculum);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(Curriculum? curriculum)
+        {
+            try
+            {
+                _dbSet.Update(curriculum);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                var curriculum = await _dbSet.FindAsync(id);
+                _dbSet.Remove(curriculum);
+                var result = await _context.SaveChangesAsync() > 0 ? true : false;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
