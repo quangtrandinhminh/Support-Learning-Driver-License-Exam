@@ -60,7 +60,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCourse(CourseDetailsCreateDTO courseDetailsCreateDto)
+        public async Task<IActionResult> AddCourse(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto)
         {
             var result = await _courseDetailsService.CreateCourseDetails(courseDetailsCreateDto);
 
