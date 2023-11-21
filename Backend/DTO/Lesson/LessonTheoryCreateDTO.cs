@@ -2,8 +2,6 @@
 {
     public class LessonTheoryCreateDTO
     {
-        public string CourseId { get; set; }
-
         public string LessonContent { get; set; }
 
         public string Location { get; set; }

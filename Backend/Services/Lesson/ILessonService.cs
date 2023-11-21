@@ -14,7 +14,8 @@ namespace Backend.Services.Lesson
 
         Task<ServiceResult<int>> CreatePracticeLessons(LessonCreateDTO lessonCreateDto);
 
-        Task<ServiceResult<int>> CreateTheoryLessons(LessonTheoryCreateDTO lessonTheoryCreateDto);
+        Task<ServiceResult<int>> CreateTheoryLessons(
+            string courseId, ICollection<LessonTheoryCreateDTO> lessonTheoryCreateDtos);
 
         Task<ServiceResult<ICollection<TeachingScheduleDTO>>> GetTeachingScheduleByMentorId(DateTime startDate
             , DateTime endDate, int mentorId, string courseId);

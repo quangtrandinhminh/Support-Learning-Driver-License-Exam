@@ -59,7 +59,14 @@ namespace Backend.Services.Lesson
                 if (!lessons.Any()) throw new Exception("Không tìm thấy buổi học!");
 
                 var resultLessons = _mapper.Map<ICollection<LessonDTO>>(lessons);
-                foreach (var lesson in resultLessons) { lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString(); }
+                foreach (var lesson in resultLessons)
+                {
+                    lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString();
+                    if (lesson.IsNight)
+                    {
+                        lesson.Shift = "Tối";
+                    }
+                }
 
                 result.Payload = resultLessons;
             }
@@ -238,31 +245,38 @@ namespace Backend.Services.Lesson
         /// <summary>
         /// Return list of theory lessons for all students in course by the theory class is created by admin
         /// </summary>
-        /// <param name="lessonTheoryCreateDto"></param>
+        /// <param name="lessonTheoryCreateDtos"></param>
         /// <returns></returns>
-        public async Task<ServiceResult<int>> CreateTheoryLessons(LessonTheoryCreateDTO lessonTheoryCreateDto)
+        public async Task<ServiceResult<int>> CreateTheoryLessons(
+            string courseId, ICollection<LessonTheoryCreateDTO> lessonTheoryCreateDtos)
         {
             var result = new ServiceResult<int>();
             try
             {
                 // check if course exist
-                var course = await _courseRepository.GetByIdAsync(lessonTheoryCreateDto.CourseId);
+                var course = await _courseRepository.GetByIdAsync(courseId);
                 if (course == null)
                 {
                     result.IsError = true;
                     result.Payload = -1;
+                    // result.ErrorMessage = "Không tìm thấy khóa học! + which lesson is error"
                     result.ErrorMessage = "Không tìm thấy khóa học!";
                     return result;
                 }
 
-                // check if startime >= course.month
-                if (lessonTheoryCreateDto.Date < course.StartDate) throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học!");
+                foreach (var lesson in lessonTheoryCreateDtos)
+                {
+                    // check if startime >= course.month
+                    if (lesson.Date < course.StartDate) 
+                        throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học! " 
+                                            + lessonTheoryCreateDtos.ToList().IndexOf(lesson));
+                }
 
                 // get all students in course where class is theory class
                 var students = await _classStudentRepository.GetAll()
                     .Include(x => x.Class)
-                        .ThenInclude(x => x.Course)
-                    .Where(x => x.Class.Course.CourseId == lessonTheoryCreateDto.CourseId
+                    .ThenInclude(x => x.Course)
+                    .Where(x => x.Class.Course.CourseId == courseId
                                 && x.Class.IsTheoryClass == true)
                     .ToListAsync();
 
@@ -278,26 +292,29 @@ namespace Backend.Services.Lesson
                 var existLesson = await _lessonRepository.GetAll()
                     .Include(x => x.ClassStudent)
                     .ThenInclude(x => x.Class)
-                    .Where(x => x.ClassStudent.Class.Course.CourseId == lessonTheoryCreateDto.CourseId
+                    .Where(x => x.ClassStudent.Class.Course.CourseId == courseId
                                                    && x.ClassStudent.Class.IsTheoryClass == true)
                     .ToListAsync();
 
                 // create lesson for each student
                 var count = 0;
-                foreach (var student in students)
+                foreach (var lesson in lessonTheoryCreateDtos)
                 {
-                    if (existLesson.Any(x => x.Date == lessonTheoryCreateDto.Date.Date
-                                             && x.ClassStudentId == student.ClassStudentId))
+                    foreach (var student in students)
                     {
-                        continue;
+                        if (existLesson.Any(x => x.Date == lesson.Date.Date
+                                                 && x.ClassStudentId == student.ClassStudentId))
+                        {
+                            continue;
+                        }
+
+                        var newLesson = _mapper.Map<DB.Models.Lesson>(lesson);
+                        newLesson.ClassStudentId = student.ClassStudentId;
+                        await _lessonRepository.CreateAsync(newLesson);
+                        count++;
                     }
-
-                    var newLesson = _mapper.Map<DB.Models.Lesson>(lessonTheoryCreateDto);
-                    newLesson.ClassStudentId = student.ClassStudentId;
-                    await _lessonRepository.CreateAsync(newLesson);
-                    count++;
                 }
-
+                
                 if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
 
             }
@@ -610,7 +627,7 @@ namespace Backend.Services.Lesson
                             newLesson.ClassStudentId = student.ClassStudentId;
                             newLesson.Date = date;
                             newLesson.LessonContent = title;
-                            newLesson.Attendance = false;
+                            newLesson.Attendance = null;
 
                             await _lessonRepository.CreateAsync(newLesson);
                         }
@@ -707,6 +724,10 @@ namespace Backend.Services.Lesson
                 foreach (var lesson in resultLessons)
                 {
                     lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString();
+                    if (lesson.IsNight)
+                    {
+                        lesson.Shift = "Tối";
+                    }
                 }
 
                 result.Payload = resultLessons;
@@ -734,9 +755,7 @@ namespace Backend.Services.Lesson
                     result.ErrorMessage = "Không tìm thấy buổi học!";
                 }
 
-                lesson.IsNight = lessonUpdateDto.IsNight;
-                lesson.Date = lessonUpdateDto.Date;
-                lesson.Location = lessonUpdateDto.Location;
+                _mapper.Map(lessonUpdateDto, lesson);
                 await _lessonRepository.UpdateAsync(lesson);
                 result.Payload = lesson.LessonId;
             }
