@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function CreateTheoryLesson() {
+  const courseId = localStorage.getItem('courseId');
   const [error, setError] = useState(null);
-  const [courseId, setCourseId] = useState([]);
+  const [courseIdList, setCourseIdList] = useState([]);
   // Initial data for input fields
   const initialData = ['lessonContent', 'location', 'date']
 
-  const [courseIdSelected, setCourseIdSelected] = useState('')
+  // const [courseIdSelected, setCourseIdSelected] = useState('')
 
   // Fill the inputData with 1 element which is empty
   const [inputData, setInputData] = useState(Array(1).fill({}));
@@ -18,17 +19,17 @@ function CreateTheoryLesson() {
   const [courseOptions, setCourseOptions] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch all courseId options
-    fetchAllCourseId();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch all courseId options
+  //   fetchAllCourseId();
+  // }, []);
 
   const getCourseList = async () => {
     try {
       const response = await api.get('Course/list');
       const res = response.data;
       let courseId = res.map(course => course.courseId);
-      setCourseId(courseId);
+      setCourseIdList(courseId);
     } catch (error) {
       console.log(error);
     }
@@ -40,40 +41,21 @@ function CreateTheoryLesson() {
     setInputData(newInputData);
   };
 
-  const createNewClass = async () => {
-    try {
-      await api.post("Class/add", inputData);
-      toast.success("Tạo lớp học thành công");
-      setError(null);
-      navigate("/quan-ly-lop-hoc"); // Replace with the desired redirect path
-    } catch (err) {
-      if (err.response?.data?.error) {
-        setError(err.response.data.error);
-      } else {
-        console.log(err); // Log other errors
-      }
-    }
-    window.scroll({
-      top: 0,
-      behavior: "instant",
-    });
-  };
+  // const fetchAllCourseId = async () => {
+  //   try {
+  //     const response = await api.get("Class");
+  //     const classes = response.data;
 
-  const fetchAllCourseId = async () => {
-    try {
-      const response = await api.get("Class");
-      const classes = response.data;
+  //     // Extract unique courseId values from the array of classes
+  //     const uniqueCourseIds = [...new Set(classes.map((cls) => cls.courseId))];
 
-      // Extract unique courseId values from the array of classes
-      const uniqueCourseIds = [...new Set(classes.map((cls) => cls.courseId))];
+  //     // Set course options for the combo box
+  //     setCourseOptions(uniqueCourseIds);
 
-      // Set course options for the combo box
-      setCourseOptions(uniqueCourseIds);
-
-    } catch (error) {
-      console.error("Error fetching course IDs:", error);
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Error fetching course IDs:", error);
+  //   }
+  // };
 
   const handleAddInput = () => {
     setInputData((prevInputData) => [
@@ -84,14 +66,18 @@ function CreateTheoryLesson() {
     ]);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputData);
-    // createNewClass();
+    try {
+      await api.post("Lesson/createTheoryLesson?courseId=" + courseId, inputData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getCourseList();
+    console.log(courseId);
   }, [])
 
   return (
@@ -104,37 +90,40 @@ function CreateTheoryLesson() {
           {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
           <form onSubmit={handleSubmit}>
             {/* Course ID */}
-            <div className="form-group row">
-              <label htmlFor="courseId" className="col-sm-3 col-form-label">
-                Mã khóa học:{" "}
-              </label>
-              <div className="col-sm-9">
-                <select
-                  className="form-control"
-                  id="courseId"
-                  placeholder="courseId"
-                  name='courseId'
-                  value={courseIdSelected}  // Ensure that it's not undefined
-                  onChange={e => setCourseIdSelected(e.target.value)}
-                >
-                  <option value="" disabled>Select a course</option>
-                  {
-                    courseId.map((course, index) => (
-                      <option key={index} value={course}>{course}</option>
-                    ))
-                  }
-                </select>
-              </div>
-            </div>
-
+            {
+              courseId ? (
+                <div className="form-group row">
+                  <label htmlFor="courseId" className="col-sm-2 col-form-label">
+                    Mã khóa học:{" "}
+                  </label>
+                  <div className="col-sm-10">
+                    <select
+                      className="form-control"
+                      id="courseId"
+                      placeholder="courseId"
+                      name='courseId'
+                      value={courseId}  // Ensure that it's not undefined
+                      disabled
+                    >
+                      {/* <option value="" disabled className="tw-italic">Chọn khoá học</option> */}
+                      {
+                        <option value={courseId}>{courseId}</option>
+                      }
+                    </select>
+                  </div>
+                </div>
+              ) : (
+                null
+              )
+            }
             {
               inputData.map((value, idx) => (
                 <div key={idx}>
 
-                  {/* Is Theory Class */}
+                  {/* Content */}
                   <div className="form-group row">
-                    <label className="col-sm-3 col-form-label">Nội dung: {idx + 1}</label>
-                    <div className="col-sm-9">
+                    <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
+                    <div className="col-sm-10">
                       <input
                         className="form-control"
                         type="text"
@@ -148,12 +137,13 @@ function CreateTheoryLesson() {
                     </div>
                   </div>
 
-                  {/* Shift */}
-                  <div className="form-group row">
-                    <label htmlFor="shift" className="col-sm-3 col-form-label">
+                  {/* Locaion and Date*/}
+                  {/* Location */}
+                  <div className="form-group row tw-mt-3">
+                    <label htmlFor="shift" className="col-sm-2 col-form-label">
                       Địa điểm:{" "}
                     </label>
-                    <div className="col-sm-9">
+                    <div className="col-sm-4">
                       <input
                         type="text"
                         className="form-control"
@@ -165,14 +155,12 @@ function CreateTheoryLesson() {
                       >
                       </input>
                     </div>
-                  </div>
 
-                  {/* Status */}
-                  <div className="form-group row">
-                    <label htmlFor="status" className="col-sm-3 col-form-label">
+                    {/* Date */}
+                    <label htmlFor="status" className="col-sm-2 col-form-label">
                       Ngày:{" "}
                     </label>
-                    <div className="col-sm-9">
+                    <div className="col-sm-4">
                       <input
                         type="date"
                         className="form-control"
@@ -183,7 +171,6 @@ function CreateTheoryLesson() {
                       </input>
                     </div>
                   </div>
-
                 </div>
               ))}
             <button
@@ -199,6 +186,13 @@ function CreateTheoryLesson() {
             >
               Tạo
             </button>
+            <button
+              className="btn btn-primary w-20 justify-self-end"
+              type="button"
+              onClick={() => console.log(inputData)}
+            >
+              Show info
+            </button>
           </form>
         </div>
       </div>
@@ -208,6 +202,9 @@ function CreateTheoryLesson() {
 
 export default CreateTheoryLesson;
 
+
+
+// ------------------------------ CreatePracticeLesson ------------------------------
 export function CreatePracticeLesson() {
   const [error, setError] = useState(null);
   const [courseId, setCourseId] = useState([]);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./class-table.scss";
 import api from "../../../../../config/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function ClassTable() {
@@ -59,36 +59,6 @@ function ClassTable() {
     setSearchValue(value);
     setCurrentPage(1); // Reset to the first page when searching
   };
-
-  const handleAdd = async (courseId: number) => {
-    try {
-      // Make an API request to add a class student
-      const response = await api.post(
-        `ClassStudent/${courseId}`
-      );
-      const addedClassStudent = response.data;
-
-      // Handle success, e.g., show a success message or update the UI
-      console.log("Class student added successfully:", addedClassStudent);
-      toast.success('Thêm lớp học thành công!');
-    } catch (error) {
-      // Handle errors, e.g., show an error message or log the error
-      console.error("Error adding class student:", error);
-      toast.error("Thêm lớp học thất bại:", error);
-    }
-  };
-
-  const handleAddLesson = async (courseId: string) => {
-    try {
-      await api.post('Lesson/createTheoryLessonAuto', {
-        courseId,
-        location: "P.12",
-        numberOfLessons: 13
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <div className="class-table-container">
@@ -187,6 +157,7 @@ export function TheoryClassTable() {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const recordPage = 10;
+  const navigate = useNavigate();
 
   const getAllClasss = async () => {
     try {
@@ -239,35 +210,10 @@ export function TheoryClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  const handleAdd = async (courseId: number) => {
-    try {
-      // Make an API request to add a class student
-      const response = await api.post(
-        `ClassStudent/${courseId}`
-      );
-      const addedClassStudent = response.data;
-
-      // Handle success, e.g., show a success message or update the UI
-      console.log("Class student added successfully:", addedClassStudent);
-      toast.success('Thêm lớp học thành công!');
-    } catch (error) {
-      // Handle errors, e.g., show an error message or log the error
-      console.error("Error adding class student:", error);
-      toast.error("Thêm lớp học thất bại:", error);
-    }
+  const handleCreateButton = async (courseId) => {
+    localStorage.setItem('courseId', courseId);
+    navigate('tao-lop-hoc');
   };
-
-  const handleAddLesson = async (courseId: string) => {
-    try {
-      await api.post('Lesson/createTheoryLessonAuto', {
-        courseId,
-        location: "P.12",
-        numberOfLessons: 13
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <div className="template-container">
@@ -287,11 +233,6 @@ export function TheoryClassTable() {
                     onChange={handleSearch}
                     autoComplete="off"
                   />
-                </div>
-                <div className="d-flex btnCreate col justify-content-end">
-                  <Link to="tao-lop-hoc" className="btn btn-success">
-                    + Thêm lớp
-                  </Link>
                 </div>
               </div>
             </div>
@@ -320,26 +261,13 @@ export function TheoryClassTable() {
                       <td>{classs.dayOfWeek}</td>
                       <td>{classs.shift}</td>
                       <td className="button text-center">
-                        {classs.isTheoryClass ? (
-                          <>
-                            <button
-                              className="btn btn-primary"
-                              type="button"
-                              onClick={() => handleAdd(classs.courseId)}
-                            >
-                              Thêm học viên
-                            </button>
-                            <button
-                              className="btn btn-info"
-                              type="button"
-                              onClick={() => handleAddLesson(classs.courseId)}
-                            >
-                              Tạo lịch học
-                            </button>
-                          </>
-                        ) : (
-                          null
-                        )}
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          onClick={() => handleCreateButton(classs.courseId)}
+                        >
+                          Tạo nội dung khoá học
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -448,36 +376,6 @@ export function PracticeClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  const handleAdd = async (courseId: number) => {
-    try {
-      // Make an API request to add a class student
-      const response = await api.post(
-        `ClassStudent/${courseId}`
-      );
-      const addedClassStudent = response.data;
-
-      // Handle success, e.g., show a success message or update the UI
-      console.log("Class student added successfully:", addedClassStudent);
-      toast.success('Thêm lớp học thành công!');
-    } catch (error) {
-      // Handle errors, e.g., show an error message or log the error
-      console.error("Error adding class student:", error);
-      toast.error("Thêm lớp học thất bại:", error);
-    }
-  };
-
-  const handleAddLesson = async (courseId: string) => {
-    try {
-      await api.post('Lesson/createTheoryLessonAuto', {
-        courseId,
-        location: "P.12",
-        numberOfLessons: 13
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <div className="template-container">
       <div className="class-table-container">
@@ -496,11 +394,6 @@ export function PracticeClassTable() {
                     onChange={handleSearch}
                     autoComplete="off"
                   />
-                </div>
-                <div className="d-flex btnCreate col justify-content-end">
-                  <Link to="tao-lop-hoc" className="btn btn-success">
-                    + Thêm lớp
-                  </Link>
                 </div>
               </div>
             </div>
@@ -529,26 +422,12 @@ export function PracticeClassTable() {
                       <td>{classs.dayOfWeek}</td>
                       <td>{classs.shift}</td>
                       <td className="button text-center">
-                        {classs.isTheoryClass ? (
-                          <>
-                            <button
-                              className="btn btn-primary"
-                              type="button"
-                              onClick={() => handleAdd(classs.courseId)}
-                            >
-                              Thêm học viên
-                            </button>
-                            <button
-                              className="btn btn-info"
-                              type="button"
-                              onClick={() => handleAddLesson(classs.courseId)}
-                            >
-                              Tạo lịch học
-                            </button>
-                          </>
-                        ) : (
-                          null
-                        )}
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                        >
+                          Test button
+                        </button>
                       </td>
                     </tr>
                   ))
