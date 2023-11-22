@@ -84,5 +84,30 @@ namespace Backend.Services.CourseDetails
             }
             return result;
         }
+
+        public async Task<ServiceResult<CourseDetailsDTO>> GetCourseDetailsByCourse(string courseId)
+        {
+            var result = new ServiceResult<CourseDetailsDTO>();
+            try
+            {
+                var courseDetails = await _courseDetailsRepository.GetAll()
+                    .Include(c => c.Course)
+                    .Where(p => p.CourseId == courseId).ToListAsync();
+                if (!courseDetails.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "CourseDetails is not exist";
+                    return result;
+                }
+
+                result.Payload = _mapper.Map<CourseDetailsDTO>(courseDetails);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
     }
 }
