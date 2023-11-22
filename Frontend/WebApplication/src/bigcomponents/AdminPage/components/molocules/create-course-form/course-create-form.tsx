@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function CreateCourseForm() {
+  const [mentorName, setMentorName] = useState([]);
   const [error, setError] = useState(null);
   const [inputData, setInputData] = useState({
     courseId: "",
@@ -15,10 +16,23 @@ function CreateCourseForm() {
     courseFee: 0,
     passTheoryLs: 0,
     passKm: 0,
+    theoryTeacherId: "",
     status: false
   });
 
   const navigate = useNavigate();
+
+  const getListMentorId = async () => {
+    try {
+      const response = await api.get("Mentor/theory");
+      setMentorName(response.data);
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
 
   const createNewCourse = async () => {
     try {
@@ -50,6 +64,17 @@ function CreateCourseForm() {
     createNewCourse();
   };
 
+  useEffect(() => {
+    getListMentorId();
+  }, []);
+
+  // useEffect(() => {
+  //   setInputData(prevInputData => ({
+  //     ...prevInputData,
+  //     theoryTeacherId: mentorName[0]?.mentorId
+  //   }))
+  // }, [mentorName]);
+
   return (
     <div className="create-course-container">
       <div className="create-course-title">
@@ -75,6 +100,32 @@ function CreateCourseForm() {
                   setInputData({ ...inputData, courseId: e.target.value })
                 }
               />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="theoryTeacherId" className="col-sm-3 col-form-label">
+              Giáo viên phụ trách:{" "}
+            </label>
+            <div className="col-sm-9">
+              <select
+                className="form-control"
+                id="theoryTeacherId"
+                placeholder="theoryTeacherId"
+                name="theoryTeacherId"
+                value={inputData.theoryTeacherId}
+                required
+                onChange={(e) =>
+                  setInputData({ ...inputData, theoryTeacherId: e.target.value })
+                }
+              >
+                <option value="" disabled className="tw-italic">Chọn giáo viên</option>
+                {
+                  mentorName.map((mentor) => (
+                    <option value={mentor.mentorId}
+                      key={mentor.mentorId}>{mentor.fullName}</option>
+                  ))
+                }
+              </select>
             </div>
           </div>
           <div className="form-group row">
@@ -212,6 +263,13 @@ function CreateCourseForm() {
             type="submit"
           >
             Tiếp tục
+          </button>
+          <button
+            className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
+            type="button"
+            onClick={() => console.log(inputData)}
+          >
+            Show input
           </button>
         </form>
       </div>
