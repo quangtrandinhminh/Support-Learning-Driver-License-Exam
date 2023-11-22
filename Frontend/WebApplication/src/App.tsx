@@ -95,6 +95,7 @@ import ExamResultManagementPage from './bigcomponents/AdminPage/components/pages
 import StudentManagementPage from './bigcomponents/AdminPage/components/pages/student-management/student-management'
 import InactiveCourseTable from './bigcomponents/AdminPage/components/molocules/course-management/inactive-course/inactive-course-table'
 import { InactiveNewsTable } from './bigcomponents/StaffPage/components/molecules/news-management/news-table'
+import { CreateCourseDetail } from './bigcomponents/AdminPage/components/molocules/create-course-form/course-create-form'
 // import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
@@ -143,6 +144,7 @@ function App() {
                           <Route index element={<CourseManagementAdminPage />} />
                           <Route path='chua-mo' element={<InactiveCourseAdminPage />} />
                           <Route path='tao-khoa-hoc' element={<CreateCourseAdminPage />} />
+                          <Route path='chi-tiet' element={<CreateCourseDetail />} />
                           <Route path='cap-nhat-khoa-hoc/:courseId' element={<UpdateCourseAdminPage />} />
                           {/* <Route path='chi-tiet/:courseId' element={<CourseDetailInformation />} /> */}
                         </Route>
