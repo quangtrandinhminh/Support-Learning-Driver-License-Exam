@@ -16,7 +16,11 @@ namespace Backend
         public MappingProfile()
         {
             // Course
-            CreateMap<DB.Models.Course, DTO.Course.CourseDTO>();
+            CreateMap<DB.Models.Course, DTO.Course.CourseDTO>()
+                .ForMember(dto => dto.TheoryTeacher,
+                    opt 
+                        => opt.MapFrom(entity => entity.Classes
+                            .Where(c => c.IsTheoryClass == true).FirstOrDefault().Mentor.User.FullName));
             CreateMap<DTO.Course.CourseDTO, DB.Models.Course>();
             CreateMap<DTO.Course.CourseCreateDTO, DB.Models.Course>();
             CreateMap<DTO.Course.CourseUpdateDTO, DB.Models.Course>();
