@@ -3,17 +3,27 @@ using Backend.DTO.Course;
 using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using Backend.DTO.Class;
+using Backend.Repository.ClassRepository;
+using Backend.Repository.MentorRepository;
 
 namespace Backend.Services.Course
 {
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly IClassRepository _classRepository;
+        private readonly IMentorRepository _mentorRepository;
         private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository courseRepository, IMapper mapper)
+        public CourseService(ICourseRepository courseRepository
+            , IClassRepository classRepository
+            , IMentorRepository mentorRepository
+            ,IMapper mapper)
         {
             _courseRepository = courseRepository;
+            _classRepository = classRepository;
+            _mentorRepository = mentorRepository;
             _mapper = mapper;
         }
 
@@ -149,6 +159,15 @@ namespace Backend.Services.Course
                     result.Payload = -1;
                     return result;
                 } ;
+
+                var mentor = await _mentorRepository.GetByIdAsync(courseCreateDto.TheoryTeacherId);
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "MentorID này không tồn tại!";
+                    result.Payload = -3;
+                    return result;
+                }
                 ;
                 var course = _mapper.Map<DB.Models.Course>(courseCreateDto);
                 course.NumberOfStudents = 0;
@@ -157,6 +176,9 @@ namespace Backend.Services.Course
                 course.CourseYear = course.StartDate?.Year;
 
                 await _courseRepository.AddAsync(course);
+
+                // create theory class
+                CreateTheoryClassByCourse(mentor.MentorId, course.CourseId);
             }
             catch (Exception e)
             {
@@ -165,6 +187,38 @@ namespace Backend.Services.Course
                 result.ErrorMessage = e.Message;
             }
             return result;
+        }
+
+        // add new class with mentorId
+        private async void CreateTheoryClassByCourse(int mentorId, string courseId)
+        {
+            try
+            {
+                var existClass = await _classRepository.GetAll()
+                    .Where(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true)
+                    .FirstOrDefaultAsync();
+                if (existClass != null)
+                {
+                    throw new Exception("Lớp học lý thuyết của khóa đã tồn tại!");
+                }
+
+                var newClass = new DB.Models.Class()
+                {
+                    MentorId = mentorId,
+                    CourseId = courseId,
+                    IsTheoryClass = true,
+                    LimitStudent = null,
+                    Shift = null,
+                    Status = true
+                };
+
+                await _classRepository.CreateAsync(newClass);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<ServiceResult<int>> UpdateCourse(CourseUpdateDTO courseUpdateDto)
