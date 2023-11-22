@@ -18,6 +18,8 @@
 
         public decimal PassTheoryLs { get; set; }
 
+        public string TheoryTeacher { get; set; }
+
         public int PassKm { get; set; }
 
         public DateTime? CreateTime { get; set; }

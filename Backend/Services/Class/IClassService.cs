@@ -6,7 +6,7 @@ namespace Backend.Services.Class
     {
         ICollection<ClassDTO> GetAllClass();
 
-        ServiceResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId);
+        Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByCourseId(string courseId);
 
         Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByMentorId(int mentorId, string courseId);
 

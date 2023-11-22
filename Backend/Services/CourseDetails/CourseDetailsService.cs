@@ -85,9 +85,9 @@ namespace Backend.Services.CourseDetails
             return result;
         }
 
-        public async Task<ServiceResult<CourseDetailsDTO>> GetCourseDetailsByCourse(string courseId)
+        public async Task<ServiceResult<ICollection<CourseDetailsDTO>>> GetCourseDetailsByCourse(string courseId)
         {
-            var result = new ServiceResult<CourseDetailsDTO>();
+            var result = new ServiceResult<ICollection<CourseDetailsDTO>>();
             try
             {
                 var courseDetails = await _courseDetailsRepository.GetAll()
@@ -96,11 +96,11 @@ namespace Backend.Services.CourseDetails
                 if (!courseDetails.Any())
                 {
                     result.IsError = true;
-                    result.ErrorMessage = "CourseDetails is not exist";
+                    result.ErrorMessage = "Không tìm thấy nội dung khóa học";
                     return result;
                 }
-
-                result.Payload = _mapper.Map<CourseDetailsDTO>(courseDetails);
+                
+                result.Payload = _mapper.Map<ICollection<CourseDetailsDTO>>(courseDetails);
             }
             catch (Exception e)
             {

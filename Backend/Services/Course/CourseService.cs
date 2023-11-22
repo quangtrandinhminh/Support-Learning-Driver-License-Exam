@@ -48,6 +48,9 @@ namespace Backend.Services.Course
             try
             {
                 var courses = _courseRepository.GetAll()
+                    .Include(x => x.Classes)
+                    .ThenInclude(x => x.Mentor)
+                    .ThenInclude(x => x.User)
                     .Where(x => x.Status == true);
 
                 if (!courses.Any())
@@ -56,7 +59,8 @@ namespace Backend.Services.Course
                     result.ErrorMessage = "Không tìm thấy khóa học!";
                 }
 
-                result.Payload = _mapper.Map<ICollection<CourseDTO>>(courses);
+                var coursesResult = _mapper.Map<ICollection<CourseDTO>>(courses);
+                result.Payload = coursesResult;
             }
             catch (Exception e)
             {
@@ -72,7 +76,11 @@ namespace Backend.Services.Course
 
             try
             {
-                var courses = _courseRepository.GetAll().Where(x => x.Status == false);
+                var courses = _courseRepository.GetAll()
+                    .Include(x => x.Classes)
+                    .ThenInclude(x => x.Mentor)
+                    .ThenInclude(x => x.User)
+                    .Where(x => x.Status == false);
                 if (!courses.Any())
                 {
                     result.IsError = true;
@@ -97,7 +105,10 @@ namespace Backend.Services.Course
             try
             {
                 var courses = _courseRepository.GetAll()
-                    .Where(c => c.Status == true && c.CourseMonth == month).Where(b => b.CourseYear == year);
+                        .Include(x => x.Classes)
+                        .ThenInclude(x => x.Mentor)
+                        .ThenInclude(x => x.User)
+                        .Where(c => c.Status == true && c.CourseMonth == month).Where(b => b.CourseYear == year);
 
                 if (!courses.Any())
                 {
@@ -121,7 +132,11 @@ namespace Backend.Services.Course
             var result = new ServiceResult<CourseDTO>();
             try
             {
-                var course = await _courseRepository.GetByIdAsync(id);
+                var course = await _courseRepository.GetAll()
+                    .Include(x => x.Classes)
+                    .ThenInclude(x => x.Mentor)
+                    .ThenInclude(x => x.User)
+                    .FirstOrDefaultAsync(x => x.CourseId == id);
                 if (course == null)
                 {
                     result.IsError = true;
@@ -249,6 +264,18 @@ namespace Backend.Services.Course
                 course.CourseYear = course.StartDate?.Year;
 
                 await _courseRepository.UpdateAsync(course);
+
+                var mentor = await _mentorRepository.GetByIdAsync(courseUpdateDto.TheoryTeacherId);
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "MentorID này không tồn tại!";
+                    result.Payload = -3;
+                    return result;
+                }
+
+                // update theory class
+                UpdateTheoryClassByCourse(mentor.MentorId, course.CourseId);
             }
             catch (Exception e)
             {
@@ -257,6 +284,29 @@ namespace Backend.Services.Course
                 result.ErrorMessage = e.Message;
             }
             return result;
+        }
+
+        // update class with mentorId
+        private void UpdateTheoryClassByCourse(int mentorId, string courseId)
+        {
+            try
+            {
+                var existClass = _classRepository.GetAll()
+                    .Where(x => x.CourseId == courseId && x.IsTheoryClass == true)
+                    .FirstOrDefault();
+                if (existClass == null)
+                {
+                    throw new Exception("Lớp học lý thuyết của khóa không tồn tại!");
+                }
+
+                existClass.MentorId = mentorId;
+                _classRepository.UpdateAsync(existClass);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<ServiceResult> DeactivateCourse(string id)
