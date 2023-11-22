@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Backend.DTO.Invoice;
+using Backend.Repository.ClassRepository;
+using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.CourseRepository;
 using Backend.Repository.InvoiceRepository;
 using Backend.Repository.MemberRepository;
@@ -16,6 +18,8 @@ namespace Backend.Services.Invoice
         private readonly IMemberRepository _memberRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IStaffRepository _staffRepository;
+        private readonly IClassRepository _classRepository;
+        private readonly IClassStudentRepository _classStudentRepository;
         private readonly IMapper _mapper;
 
         public InvoiceService(IInvoiceRepository invoiceRepository
@@ -23,6 +27,8 @@ namespace Backend.Services.Invoice
             , IMemberRepository memberRepository
             , ICourseRepository courseRepository
             , IStaffRepository staffRepository
+            , IClassRepository classRepository
+            , IClassStudentRepository classStudentRepository
             , IMapper mapper)
         {
             _invoiceRepository = invoiceRepository;
@@ -30,6 +36,8 @@ namespace Backend.Services.Invoice
             _memberRepository = memberRepository;
             _courseRepository = courseRepository;
             _staffRepository = staffRepository;
+            _classRepository = classRepository;
+            _classStudentRepository = classStudentRepository;
             _mapper = mapper;
         }
 
@@ -184,6 +192,10 @@ namespace Backend.Services.Invoice
             var existStudent = _studentRepository
                 .GetAll()
                 .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
+
+            var theoryClass = _classRepository
+                .GetAll()
+                .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
             if (existStudent == null)
             {
                 var student = new DB.Models.Student
@@ -198,6 +210,14 @@ namespace Backend.Services.Invoice
 
                 course.NumberOfStudents++;
                 _courseRepository.UpdateAsync(course);
+
+                var classStudent = new DB.Models.ClassStudent
+                {
+                    ClassId = theoryClass.ClassId,
+                    StudentId = student.StudentId
+                };
+
+                _classStudentRepository.CreateAsync(classStudent);
             }
         }
     }

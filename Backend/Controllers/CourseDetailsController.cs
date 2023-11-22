@@ -59,6 +59,21 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpGet("/api/CourseDetail/{courseId}")]
+        public async Task<IActionResult> GetCourseDetailsByCourse(string courseId)
+        {
+                var result = await _courseDetailsService.GetCourseDetailsByCourse(courseId);
+                if (result.IsError)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return Ok(result);
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddCourse(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto)
         {
@@ -82,5 +97,7 @@ namespace Backend.Controllers
 
             return Ok("Thêm chi tiết khóa học thành công!");
         }
+
+
     }
 }

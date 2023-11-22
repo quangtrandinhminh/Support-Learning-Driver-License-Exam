@@ -173,10 +173,12 @@ namespace Backend.Services.Lesson
                 }
 
                 // check start time > end time
-                if (lessonCreateDto.StartDate >= lessonCreateDto.EndDate) throw new Exception("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!");
+                if (lessonCreateDto.StartDate >= lessonCreateDto.EndDate)
+                    throw new Exception("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!");
 
                 // check if startime >= course.month
-                if (lessonCreateDto.StartDate < course.StartDate) throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học!");
+                if (lessonCreateDto.StartDate < course.StartDate)
+                    throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học!");
 
                 // get all students in course where class is practice class
                 var students = await _classStudentRepository.GetAll()
@@ -259,17 +261,36 @@ namespace Backend.Services.Lesson
                 {
                     result.IsError = true;
                     result.Payload = -1;
-                    // result.ErrorMessage = "Không tìm thấy khóa học! + which lesson is error"
                     result.ErrorMessage = "Không tìm thấy khóa học!";
                     return result;
                 }
 
+                var theoryCourseDetail = await _courseDetailsRepository.GetAll()
+                    .Where(x => x.CourseId == courseId)
+                    .FirstOrDefaultAsync();
+
                 foreach (var lesson in lessonTheoryCreateDtos)
                 {
+                    var index = lessonTheoryCreateDtos.ToList().IndexOf(lesson) + 1;
+                    var days = ((DateTime)theoryCourseDetail.CourseTimeEnd - (DateTime)theoryCourseDetail.CourseTimeStart).Days;
+                    // check if index of lesson is <= CourseTimeEnd - CourseTimeStart
+                    if (index > days)
+                        throw new Exception("Số buổi học vượt quá khoảng thời gian của nội dung khóa học! "
+                                                                       + "(" + index + ")");
+
                     // check if startime >= course.month
-                    if (lesson.Date < course.StartDate) 
-                        throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học! " 
-                                            + lessonTheoryCreateDtos.ToList().IndexOf(lesson));
+                    if (lesson.Date < theoryCourseDetail.CourseTimeStart)
+                        throw new Exception("Ngày học phải lớn hơn ngày bắt đầu của nội dung khóa học! "
+                                            + "(" + index + ")");
+
+                    // check if date > courseDetails.courseTimeEnd
+                    if (lesson.Date > theoryCourseDetail.CourseTimeEnd)
+                        throw new Exception("Ngày học phải nhỏ hơn ngày kết thúc của nội dung khóa học! "
+                                            + "(" + index + ")");
+
+                    // check if date is exist in dto list
+                    if (lessonTheoryCreateDtos.Any(x => x.Date == lesson.Date && x.Date != lesson.Date))
+                        throw new Exception("Ngày học đã tồn tại! " + "(" + index + ")");
                 }
 
                 // get all students in course where class is theory class
@@ -314,9 +335,9 @@ namespace Backend.Services.Lesson
                         count++;
                     }
                 }
-                
-                if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
 
+                if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
+                result.Payload = count;
             }
             catch (Exception e)
             {
@@ -551,7 +572,8 @@ namespace Backend.Services.Lesson
 
                     if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 result.IsError = true;
                 result.Payload = -1;
@@ -567,14 +589,25 @@ namespace Backend.Services.Lesson
             try
             {
                 // Check if course exists and get course details
-                var course = await _courseRepository.GetAll()
-                                .Include(c => c.CourseDetails)
-                                .FirstOrDefaultAsync(c => c.CourseId == courseId);
+                var course = await _courseRepository.GetByIdAsync(courseId);
                 if (course == null)
                 {
                     result.IsError = true;
                     result.Payload = -1;
-                    result.ErrorMessage = "Không tìm thấy lớp học!";
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
+                    return result;
+                }
+
+                // Get all coursedetails of course, skip the first one because it's the theory class
+                var courseDetails = _courseDetailsRepository.GetAll()
+                    .Where(x => x.CourseId == courseId)
+                    .Skip(1)
+                    .ToList();
+                if (!courseDetails.Any())
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Không tìm thấy nội dung khóa học!";
                     return result;
                 }
 
@@ -593,17 +626,15 @@ namespace Backend.Services.Lesson
                     return result;
                 }
 
+                var count = 0;
                 // Loop through each CourseDetail to create lessons for the appropriate date ranges and titles
-                foreach (var courseDetail in course.CourseDetails)
+                foreach (var courseDetail in courseDetails)
                 {
-                    if (courseDetail == course.CourseDetails.First())
-                    {
-                        continue;
-                    }
-
                     var startDate = (DateTime)courseDetail.CourseTimeStart;
                     var endDate = (DateTime)courseDetail.CourseTimeEnd;
                     var title = courseDetail.CourseContent;
+                    var courseDetailIndex = courseDetails.IndexOf(courseDetail);
+                    var numberOfWeeks = (int)((endDate - startDate).Days / 7);
 
                     // Create lessons for each student
                     foreach (var student in students)
@@ -618,8 +649,17 @@ namespace Backend.Services.Lesson
                                             .ToListAsync();
 
                         var dates = GetAllDatesForDayOfWeek(startDate, endDate, (int)student.Class.DayOfWeek);
+
+                        // Limit the number of lessons created based on the number of weeks
+                        var lessonsCreatedCount = 0;
                         foreach (var date in dates)
                         {
+                            if (lessonsCreatedCount >= numberOfWeeks)
+                            {
+                                // Limit reached, break out of the loop
+                                break;
+                            }
+
                             if (existingLessons.Any(x => x.Date == date && x.ClassStudentId == student.ClassStudentId))
                                 continue;
 
@@ -627,12 +667,35 @@ namespace Backend.Services.Lesson
                             newLesson.ClassStudentId = student.ClassStudentId;
                             newLesson.Date = date;
                             newLesson.LessonContent = title;
+                            newLesson.IsNight = false;
+                            newLesson.Location = "P.12";
                             newLesson.Attendance = null;
 
                             await _lessonRepository.CreateAsync(newLesson);
+                            lessonsCreatedCount++;
+                            count++;
+
+                            // Create 2 lessons for night classes in courseDetail.courseContent == "Thực Hành Trên Đường"
+                            var countIsNight = 0;
+                            if (courseDetailIndex == 2 && countIsNight < 2)
+                            {
+                                var newLesson2 = new DB.Models.Lesson();
+                                newLesson2.ClassStudentId = student.ClassStudentId;
+                                newLesson2.Date = date;
+                                newLesson2.LessonContent = title;
+                                newLesson2.IsNight = true;
+                                newLesson2.Location = "P.12";
+                                newLesson2.Attendance = null;
+
+                                await _lessonRepository.CreateAsync(newLesson2);
+                                countIsNight++;
+                                count++;
+                            }
                         }
                     }
                 }
+
+                result.Payload = count;
             }
             catch (Exception e)
             {
@@ -828,7 +891,7 @@ namespace Backend.Services.Lesson
 
                         await _lessonRepository.CreateAsync(lesson);
                         x++;
-                    }    
+                    }
                 }
 
                 lesson.LessonContent = curriculum.ElementAt(6);
