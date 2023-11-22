@@ -172,12 +172,17 @@ namespace Backend.Services.Class
 
                 var theory = classCreateDto.IsTheoryClass;
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
-                if (theory) newClass.DayOfWeek = 0;
+                if (theory)
+                {
+                    newClass.DayOfWeek = 0;
+                    newClass.LimitStudent = null;
+                }
                 await _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
             {
                 result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

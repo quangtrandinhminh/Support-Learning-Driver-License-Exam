@@ -6,6 +6,7 @@ using System.Numerics;
 using Backend.DTO.Class;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.MentorRepository;
+using Backend.Services.Class;
 
 namespace Backend.Services.Course
 {
@@ -190,13 +191,13 @@ namespace Backend.Services.Course
         }
 
         // add new class with mentorId
-        private async void CreateTheoryClassByCourse(int mentorId, string courseId)
+        private void CreateTheoryClassByCourse(int mentorId, string courseId)
         {
             try
             {
-                var existClass = await _classRepository.GetAll()
+                var existClass = _classRepository.GetAll()
                     .Where(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefault();
                 if (existClass != null)
                 {
                     throw new Exception("Lớp học lý thuyết của khóa đã tồn tại!");
@@ -204,15 +205,15 @@ namespace Backend.Services.Course
 
                 var newClass = new DB.Models.Class()
                 {
-                    MentorId = mentorId,
                     CourseId = courseId,
+                    MentorId = mentorId,
                     IsTheoryClass = true,
-                    LimitStudent = null,
+                    DayOfWeek = 0,
                     Shift = null,
                     Status = true
                 };
 
-                await _classRepository.CreateAsync(newClass);
+                _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
             {
