@@ -29,6 +29,7 @@ function CreateCourseForm() {
         setError("Tên khoá học phải có định dạng XXXB2 với X là số.");
         return;
       }
+
       localStorage.setItem("course", JSON.stringify(inputData));
       navigate("/quan-ly-khoa-hoc/chi-tiet");
 
@@ -153,7 +154,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="courseFee" className="col-sm-3 col-form-label">
-              Học phí :{" "}
+              Học phí (VNĐ):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -171,7 +172,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="passTheoryLs" className="col-sm-3 col-form-label">
-              Số buổi học lý thuyết:{" "}
+              Số giờ học lý thuyết (%):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -181,7 +182,7 @@ function CreateCourseForm() {
                 name="passTheoryLs"
                 value={inputData.passTheoryLs}
                 min={0}
-                max={70}
+                max={100}
                 required
                 onChange={(e) => { (inputData.passTheoryLs = parseInt(e.target.value)); setInputData({ ...inputData, passTheoryLs: inputData.passTheoryLs }) }}
               />
@@ -189,7 +190,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="passKm" className="col-sm-3 col-form-label">
-              Quãng đường cần thiết:{" "}
+              Quãng đường cần thiết (km):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -198,8 +199,8 @@ function CreateCourseForm() {
                 id="passKm"
                 name="passKm"
                 value={inputData.passKm}
-                min={0}
-                max={100000000}
+                min={60}
+                max={1000}
                 placeholder="km"
                 required
                 onChange={(e) => { (inputData.passKm = parseInt(e.target.value)); setInputData({ ...inputData, passKm: inputData.passKm }) }}
@@ -284,7 +285,7 @@ export function CreateCourseDetail() {
 
       toast.success('Tạo khoá học thành công');
       navigate('/quan-ly-khoa-hoc/chua-mo')
-      ;
+        ;
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       console.error('Error:', error);

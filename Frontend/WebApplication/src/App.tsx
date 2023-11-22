@@ -78,8 +78,6 @@ import StaffManagementAdminPage from './bigcomponents/AdminPage/components/pages
 import DoTheoryTestPage from './bigcomponents/MemberPage/components/pages/do-theory-test/theory-test'
 import TheoryResultPage from './bigcomponents/MemberPage/components/pages/theory-result/theory-result'
 import MemberDocPage from './bigcomponents/StaffPage/components/pages/member-exam-doc/member-exam-doc'
-import MentorFeedbacksPage from './bigcomponents/MentorPage/components/pages/mentor-feedbacks-page/mentor-feedbacks-page'
-import ClassPickingPage from './bigcomponents/MentorPage/components/pages/mentor-picking-class-page/class-picking-page'
 import CreateMentorAdminPage from './bigcomponents/AdminPage/components/pages/create-mentor/create-mentor'
 import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/create-staff/create-staff'
 import CreateExamPage from './bigcomponents/StaffPage/components/pages/create-exam/create-exam-page'
@@ -96,6 +94,8 @@ import StudentManagementPage from './bigcomponents/AdminPage/components/pages/st
 import InactiveCourseTable from './bigcomponents/AdminPage/components/molocules/course-management/inactive-course/inactive-course-table'
 import { InactiveNewsTable } from './bigcomponents/StaffPage/components/molecules/news-management/news-table'
 import { CreateCourseDetail } from './bigcomponents/AdminPage/components/molocules/create-course-form/course-create-form'
+import { PracticeClassTable, TheoryClassTable } from './bigcomponents/AdminPage/components/molocules/class-management/class-table'
+import CreateTheoryLesson, { CreatePracticeLesson } from './bigcomponents/AdminPage/components/molocules/create-class-form/class-create-form'
 // import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
@@ -161,7 +161,14 @@ function App() {
                         </Route>
                         <Route path='quan-ly-lich-hoc'>
                           <Route index element={<ClassMamagementAdminPage />} />
-                          <Route path='tao-lop-hoc' element={<CreateClassAdminPage />} />
+                          <Route path='lop-ly-thuyet'>
+                            <Route index element={<TheoryClassTable />} />
+                            <Route path='tao-lop-hoc' element={<CreateTheoryLesson />} />
+                          </Route>
+                          <Route path='lop-thuc-hanh'>
+                            <Route index element={<PracticeClassTable />} />
+                            <Route path='tao-lop-hoc' element={<CreatePracticeLesson />} />
+                          </Route>
                         </Route>
                         <Route path='quan-ly-ky-thi'>
                           <Route index element={<ExamManagementAdminPage />} />
@@ -172,9 +179,9 @@ function App() {
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
                         </Route>
-                        <Route path='quan-ly-lop-hoc'>
+                        {/* <Route path='quan-ly-lop-hoc'>
                           <Route index element={<MemberManagementPage />} />
-                        </Route>
+                        </Route> */}
                         <Route path='bao-cao' element={<ReportAdminPage />} />
                         <Route path='quan-ly-ket-qua' element={<ExamResultManagementPage />} />
                         <Route path='quan-ly-hoc-vien' element={<StudentManagementPage />} />
