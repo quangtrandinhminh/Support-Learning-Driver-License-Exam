@@ -114,7 +114,7 @@ namespace Backend.Controllers
         /// </summary>
         /// <param name="lessonCreateDto"></param>
         /// <returns></returns>
-        [HttpPost("createPracticeLesson")]
+        /*[HttpPost("createPracticeLesson")]
         public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
             var result = await _lessonService.CreatePracticeLessons(lessonCreateDto);
             if (result.IsError)
@@ -134,7 +134,7 @@ namespace Backend.Controllers
             }
 
             return Ok("Thêm buổi học thực hành thành công!");
-        }
+        }*/
 
         /// <summary>
         /// Create theory lesson with separate title for all students in course
@@ -162,7 +162,63 @@ namespace Backend.Controllers
                 });
             }
 
+            return Ok("Thêm buổi học lý thuyết thành công! " + "("+result.Payload+")");
+        }
+
+        /// <summary>
+        /// Create theory lesson with 1 title for all students in course
+        /// </summary>
+        /// <param name="lessonTheoryCreateDto"></param>
+        /// <returns></returns>
+        /*[HttpPost("createTheoryLessonAuto")]
+        public async Task<IActionResult> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto)
+        {
+            var result = await _lessonService.CreateTheoryLessonAuto(lessonTheoryCreateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
             return Ok("Thêm buổi học lý thuyết thành công!");
+        }*/
+
+        /// <summary>
+        /// Create practice lesson with date data from courseDetails for all students in course
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        [HttpPost("createPracticeLessonAuto")]
+        public async Task<IActionResult> CreatePracticeLessonAuto(string courseId)
+        {
+            var result = await _lessonService.CreatePracticeLessonsAuto(courseId);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Thêm buổi học thực hành thành công! " + "(" + result.Payload + ")");
         }
 
         /// <summary>
@@ -225,59 +281,23 @@ namespace Backend.Controllers
         }
 
         /// <summary>
-        /// Create theory lesson with 1 title for all students in course
+        /// Check attendance for student by studentId
         /// </summary>
-        /// <param name="lessonTheoryCreateDto"></param>
+        /// <param name="studentId"></param>
         /// <returns></returns>
-        [HttpPost("createTheoryLessonAuto")]
-        public async Task<IActionResult> CreateTheoryLessonAuto(LessonTheory lessonTheoryCreateDto)
+        [HttpPatch("attendance/{studentId}")]
+        public async Task<IActionResult> CheckAttendanceForStudent(string studentId)
         {
-            var result = await _lessonService.CreateTheoryLessonAuto(lessonTheoryCreateDto);
+            var result = await _lessonService.CheckAttendanceForStudent(studentId);
             if (result.IsError)
             {
-                if (result.Payload == -1)
-                {
-                    return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
-                }
-
-                return BadRequest(new
+                return NotFound(new
                 {
                     error = result.ErrorMessage
                 });
             }
 
-            return Ok("Thêm buổi học lý thuyết thành công!");
-        }
-
-        /// <summary>
-        /// Create practice lesson with date data from courseDetails for all students in course
-        /// </summary>
-        /// <param name="courseId"></param>
-        /// <returns></returns>
-        [HttpPost("createPracticeLessonAuto")]
-        public async Task<IActionResult> CreatePracticeLessonAuto(string courseId)
-        {
-            var result = await _lessonService.CreatePracticeLessonsAuto(courseId);
-            if (result.IsError)
-            {
-                if (result.Payload == -1)
-                {
-                    return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
-                }
-
-                return BadRequest(new
-                {
-                    error = result.ErrorMessage
-                });
-            }
-
-            return Ok("Thêm buổi học thực hành thành công!");
+            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
 
         [HttpPut("update")]
@@ -301,26 +321,6 @@ namespace Backend.Controllers
             }
 
             return Ok("Cập nhật buổi học thành công!");
-        }
-
-        /// <summary>
-        /// Check attendance for student by studentId
-        /// </summary>
-        /// <param name="studentId"></param>
-        /// <returns></returns>
-        [HttpPatch("attendance/{studentId}")]
-        public async Task<IActionResult> CheckAttendanceForStudent(string studentId)
-        {
-            var result = await _lessonService.CheckAttendanceForStudent(studentId);
-            if (result.IsError)
-            {
-                return NotFound(new
-                {
-                    error = result.ErrorMessage
-                });
-            }
-
-            return Ok("Điểm danh thành công!" + " (" + result.Payload + ")");
         }
     }
 }
