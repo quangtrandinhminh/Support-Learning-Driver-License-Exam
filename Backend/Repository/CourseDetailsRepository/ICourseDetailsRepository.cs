@@ -1,4 +1,6 @@
 ﻿using Backend.DB.Models;
+using Backend.DTO.CourseDetails;
+using Backend.Services;
 
 namespace Backend.Repository.CourseDetailsRepository
 {
