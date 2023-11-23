@@ -40,7 +40,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("/api/CourseDetail")]
-        public IActionResult GetCourseDetailsByCourseMonth(int courseMonth) 
+        public IActionResult GetCourseDetailsByCourseMonth(int courseMonth)
         {
             try
             {
@@ -62,16 +62,16 @@ namespace Backend.Controllers
         [HttpGet("/api/CourseDetail/{courseId}")]
         public async Task<IActionResult> GetCourseDetailsByCourse(string courseId)
         {
-                var result = await _courseDetailsService.GetCourseDetailsByCourse(courseId);
-                if (result.IsError)
+            var result = await _courseDetailsService.GetCourseDetailsByCourse(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
                 {
-                    return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
-                }
+                    error = result.ErrorMessage
+                });
+            }
 
-                return Ok(result);
+            return Ok(result.Payload);
         }
 
         [HttpPost("add")]

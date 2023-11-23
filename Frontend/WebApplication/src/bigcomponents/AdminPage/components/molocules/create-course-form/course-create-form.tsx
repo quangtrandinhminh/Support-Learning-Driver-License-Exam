@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function CreateCourseForm() {
+  const [mentorName, setMentorName] = useState([]);
   const [error, setError] = useState(null);
   const [inputData, setInputData] = useState({
     courseId: "",
@@ -15,10 +16,23 @@ function CreateCourseForm() {
     courseFee: 0,
     passTheoryLs: 0,
     passKm: 0,
+    theoryTeacherId: "",
     status: false
   });
 
   const navigate = useNavigate();
+
+  const getListMentorId = async () => {
+    try {
+      const response = await api.get("Mentor/theory");
+      setMentorName(response.data);
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
 
   const createNewCourse = async () => {
     try {
@@ -29,6 +43,7 @@ function CreateCourseForm() {
         setError("Tên khoá học phải có định dạng XXXB2 với X là số.");
         return;
       }
+
       localStorage.setItem("course", JSON.stringify(inputData));
       navigate("/quan-ly-khoa-hoc/chi-tiet");
 
@@ -48,6 +63,17 @@ function CreateCourseForm() {
     event.preventDefault();
     createNewCourse();
   };
+
+  useEffect(() => {
+    getListMentorId();
+  }, []);
+
+  // useEffect(() => {
+  //   setInputData(prevInputData => ({
+  //     ...prevInputData,
+  //     theoryTeacherId: mentorName[0]?.mentorId
+  //   }))
+  // }, [mentorName]);
 
   return (
     <div className="create-course-container">
@@ -74,6 +100,32 @@ function CreateCourseForm() {
                   setInputData({ ...inputData, courseId: e.target.value })
                 }
               />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="theoryTeacherId" className="col-sm-3 col-form-label">
+              Giáo viên phụ trách:{" "}
+            </label>
+            <div className="col-sm-9">
+              <select
+                className="form-control"
+                id="theoryTeacherId"
+                placeholder="theoryTeacherId"
+                name="theoryTeacherId"
+                value={inputData.theoryTeacherId}
+                required
+                onChange={(e) =>
+                  setInputData({ ...inputData, theoryTeacherId: e.target.value })
+                }
+              >
+                <option value="" disabled className="tw-italic">Chọn giáo viên</option>
+                {
+                  mentorName.map((mentor) => (
+                    <option value={mentor.mentorId}
+                      key={mentor.mentorId}>{mentor.fullName}</option>
+                  ))
+                }
+              </select>
             </div>
           </div>
           <div className="form-group row">
@@ -153,7 +205,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="courseFee" className="col-sm-3 col-form-label">
-              Học phí :{" "}
+              Học phí (VNĐ):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -171,7 +223,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="passTheoryLs" className="col-sm-3 col-form-label">
-              Số buổi học lý thuyết:{" "}
+              Số giờ học lý thuyết (%):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -181,7 +233,7 @@ function CreateCourseForm() {
                 name="passTheoryLs"
                 value={inputData.passTheoryLs}
                 min={0}
-                max={70}
+                max={100}
                 required
                 onChange={(e) => { (inputData.passTheoryLs = parseInt(e.target.value)); setInputData({ ...inputData, passTheoryLs: inputData.passTheoryLs }) }}
               />
@@ -189,7 +241,7 @@ function CreateCourseForm() {
           </div>
           <div className="form-group row">
             <label htmlFor="passKm" className="col-sm-3 col-form-label">
-              Quãng đường cần thiết:{" "}
+              Quãng đường cần thiết (km):{" "}
             </label>
             <div className="col-sm-9">
               <input
@@ -198,8 +250,8 @@ function CreateCourseForm() {
                 id="passKm"
                 name="passKm"
                 value={inputData.passKm}
-                min={0}
-                max={100000000}
+                min={60}
+                max={1000}
                 placeholder="km"
                 required
                 onChange={(e) => { (inputData.passKm = parseInt(e.target.value)); setInputData({ ...inputData, passKm: inputData.passKm }) }}
@@ -211,6 +263,13 @@ function CreateCourseForm() {
             type="submit"
           >
             Tiếp tục
+          </button>
+          <button
+            className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
+            type="button"
+            onClick={() => console.log(inputData)}
+          >
+            Show input
           </button>
         </form>
       </div>
@@ -284,7 +343,7 @@ export function CreateCourseDetail() {
 
       toast.success('Tạo khoá học thành công');
       navigate('/quan-ly-khoa-hoc/chua-mo')
-      ;
+        ;
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       console.error('Error:', error);
