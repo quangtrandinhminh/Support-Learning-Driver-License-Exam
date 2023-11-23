@@ -7,8 +7,10 @@ import { toast } from "react-toastify";
 function CreateCourseForm() {
   const [mentorName, setMentorName] = useState([]);
   const [error, setError] = useState(null);
-  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [isDuplicateId, setIsDuplicateId] = useState(false);
+  const [isDuplicateName, setIsDuplicateName] = useState(false);
   const [courseIdList, setCourseIdList] = useState([]);
+  const [courseNameList, setCourseNameList] = useState([]);
   const [inputData, setInputData] = useState({
     courseId: "",
     name: "",
@@ -38,7 +40,8 @@ function CreateCourseForm() {
 
   const handleContinue = () => {
     setError(false);
-    setIsDuplicate(false);
+    setIsDuplicateId(false);
+    setIsDuplicateName(false);
     if (courseIdList) {
       if (!(/^\d{3}B2$/).test(inputData.name)) {  //check name
         setError("Tên khoá học phải có định dạng XXXB2 với X là số.");
@@ -47,8 +50,12 @@ function CreateCourseForm() {
         setError("Ngày bế giảng phải sau ngày khai giảng.");
         return;
       } else if (courseIdList.includes(inputData.courseId)) {
-        setIsDuplicate(true);
+        setIsDuplicateId(true);
         setError("Mã khoá học đã tồn tại.");
+        return;
+      } else if (courseNameList.includes(inputData.name)) {
+        setIsDuplicateName(true);
+        setError("Tên khoá học đã tồn tại.");
         return;
       } else {
         localStorage.setItem("course", JSON.stringify(inputData));
@@ -57,11 +64,24 @@ function CreateCourseForm() {
     }
   }
 
-  const getCourseList = async () => {
+  const getCourseIdList = async () => {
     try {
       const response = await api.get("Course/list");
       const res = response.data;
       setCourseIdList(res.map((course) => course.courseId));
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
+
+  const getCourseNameList = async () => {
+    try {
+      const response = await api.get("Course/list");
+      const res = response.data;
+      setCourseNameList(res.map((course) => course.name));
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
@@ -102,7 +122,8 @@ function CreateCourseForm() {
 
   useEffect(() => {
     getListMentorId();
-    getCourseList();
+    getCourseIdList();
+    getCourseNameList();
   }, []);
 
   // useEffect(() => {
@@ -420,7 +441,7 @@ export function CreateCourseDetail() {
               if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động ")) {
                 console.log("6");
                 continue;
-              } else {  
+              } else {
                 console.log("5");
                 setError(`Nội dung ${i + 1} và nội dung ${j + 1} có ngày bắt đầu trùng nhau.`);
                 return;
@@ -432,7 +453,7 @@ export function CreateCourseDetail() {
               setError(`Nội dung ${j + 1} có ngày bắt đầu bé hơn hoặc bằng ngày kết thúc của nội dung ${i + 1}.`);
               return;
 
-            } 
+            }
           }
         }
       }
@@ -457,7 +478,7 @@ export function CreateCourseDetail() {
         toast.success('Tạo khoá học thành công');
         navigate('/quan-ly-khoa-hoc/chua-mo');
       }
-      
+
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       if (error.response?.data?.error) {
