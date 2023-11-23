@@ -4,6 +4,7 @@ using Backend.DTO.CourseDetails;
 using Backend.DTO.Members;
 using Backend.DTO.Mentor;
 using System.Diagnostics;
+using Backend.DTO.CourseContent;
 using Backend.DTO.Lesson;
 using Backend.DTO.TeachingSchedule;
 using Backend.DTO.Test;
@@ -32,6 +33,10 @@ namespace Backend
                 .ForMember(dto => dto.LimitStudent, otp => otp.MapFrom(entity => entity.Course.LimitStudent));
             CreateMap<DTO.CourseDetails.CourseDetailsDTO, DB.Models.CourseDetail>();
             CreateMap<DTO.CourseDetails.CourseDetailsCreateDTO, DB.Models.CourseDetail>();
+
+            //CourseContent
+            CreateMap<CourseContent, CourseContentDTO>();
+            CreateMap<DTO.CourseContent.CourseContentCreate, DB.Models.CourseContent>();    
 
             // News
             CreateMap<DB.Models.News, DTO.News.NewsDTO>();
