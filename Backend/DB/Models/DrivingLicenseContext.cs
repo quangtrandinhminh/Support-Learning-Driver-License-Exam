@@ -120,7 +120,7 @@ public partial class DrivingLicenseContext : DbContext
                 .HasColumnName("courseID");
             entity.Property(e => e.CourseFee)
                 .HasDefaultValueSql("((22500000.00))")
-                .HasColumnType("decimal(10, 2)")
+                .HasColumnType("decimal(11, 2)")
                 .HasColumnName("courseFee");
             entity.Property(e => e.CourseMonth).HasColumnName("courseMonth");
             entity.Property(e => e.CourseYear).HasColumnName("courseYear");
@@ -270,12 +270,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.ToTable("Invoice");
 
             entity.Property(e => e.InvoiceId).HasColumnName("invoiceID");
-            entity.Property(e => e.AmountInWords)
-                .HasMaxLength(255)
-                .HasColumnName("amountInWords");
             entity.Property(e => e.AmountPaid)
                 .HasDefaultValueSql("((22500000.00))")
-                .HasColumnType("decimal(10, 2)")
+                .HasColumnType("decimal(11, 2)")
                 .HasColumnName("amountPaid");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
