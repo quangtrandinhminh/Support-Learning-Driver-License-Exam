@@ -8,5 +8,6 @@ namespace Backend.Services.CourseDetails
         Task<ServiceResult<int>> CreateCourseDetails(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto);
 
         Task<ServiceResult<ICollection<CourseDetailsDTO>>> GetCourseDetailsByCourse(string courseId);
+        Task<ServiceResult<int>> UpdateCourseDetails(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto);
     }
 }

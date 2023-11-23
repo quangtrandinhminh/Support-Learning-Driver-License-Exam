@@ -98,6 +98,28 @@ namespace Backend.Controllers
             return Ok("Thêm chi tiết khóa học thành công!");
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCourse(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto)
+        {
+            var result = await _courseDetailsService.UpdateCourseDetails(courseDetailsCreateDto);
 
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật chi tiết khóa học thành công!");
+        }
     }
 }
