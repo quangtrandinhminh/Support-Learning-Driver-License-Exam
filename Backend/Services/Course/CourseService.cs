@@ -210,9 +210,9 @@ namespace Backend.Services.Course
         {
             try
             {
-                var existClass = _classRepository.GetAll()
-                    .Where(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true)
-                    .FirstOrDefault();
+                var existClass = _classRepository
+                    .GetAll()
+                    .FirstOrDefault(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true);
                 if (existClass != null)
                 {
                     throw new Exception("Lớp học lý thuyết của khóa đã tồn tại!");
