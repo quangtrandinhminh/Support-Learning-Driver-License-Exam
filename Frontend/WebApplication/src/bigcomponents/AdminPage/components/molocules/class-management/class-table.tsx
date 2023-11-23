@@ -8,6 +8,9 @@ function ClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const map = new Map(); const [show, setShow] = useState(false);
+  const [specificCourse, setSpecificCourse] = useState(null);
+  const [memberList, setMemberList] = useState([]);
   const recordPage = 10;
 
   const getAllClasss = async () => {
@@ -24,7 +27,11 @@ function ClassTable() {
     getAllClasss();
   }, []);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   // Pagination
+  const overallIndex = (currentPage - 1) * recordPage;
   const lastIndex = currentPage * recordPage;
   const firstIndex = lastIndex - recordPage;
   const filteredClasss = classs.filter((classItem: any) => {
@@ -60,6 +67,50 @@ function ClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
+  const handleAdd = async (courseId: number) => {
+    try {
+      // Make an API request to add a class student
+      const response = await api.post(
+        `ClassStudent/${courseId}`
+      );
+      const addedClassStudent = response.data;
+
+      // Handle success, e.g., show a success message or update the UI
+      console.log("Class student added successfully:", addedClassStudent);
+      toast.success('Thêm lớp học thành công!');
+    } catch (error) {
+      // Handle errors, e.g., show an error message or log the error
+      console.error("Error adding class student:", error);
+      toast.error("Thêm lớp học thất bại:", error);
+    }
+  };
+
+  const handleAddLesson = async (courseId: string) => {
+    try {
+      await api.post('Lesson/createTheoryLessonAuto', {
+        courseId,
+        location: "P.12",
+        numberOfLessons: 13
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const showInfo = async (courseId) => {
+    try {
+        const response1 = await api.get('Course/' + courseId);
+        const res1 = response1.data;
+        setSpecificCourse(res1);
+        const response2 = await api.get('Members');
+        const res2 = response2.data;
+        let memberInCourse = res2.filter(member => member.courseId === courseId);
+        setMemberList(memberInCourse);
+    } catch (err) {
+        console.log(err);
+    }
+  }
+
   return (
     <div className="class-table-container">
       <div className="class-table-title text-center text-uppercase">
@@ -85,6 +136,7 @@ function ClassTable() {
           <table className="table table-hover table-striped" border={1}>
             <thead className="table-primary">
               <tr>
+                <th scope='col'>#</th>
                 <th scope="col">Mã lớp học</th>
                 <th scope="col">Tên giáo viên</th>
                 <th scope="col">Mã khóa học</th>
@@ -97,6 +149,7 @@ function ClassTable() {
               {records.length > 0 ? (
                 records.map((classs, i) => (
                   <tr key={i}>
+                    <td>{overallIndex + i + 1}</td>
                     <td>{classs.classId}</td>
                     <td>{classs.mentorName}</td>
                     <td>{classs.courseId}</td>

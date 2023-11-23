@@ -35,7 +35,8 @@ function StudentTable() {
     const firsIndex = lastIndex - recordPage;
     const records = student.slice(firsIndex, lastIndex);
     const npage = Math.ceil(student.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllStudent();
@@ -77,6 +78,7 @@ function StudentTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col'>Mã học viên</th>
                                 <th scope='col'>Khoá học đang học</th>
                                 <th scope='col' className='tw-text-center'>Tổng quãng đường</th>
@@ -87,6 +89,7 @@ function StudentTable() {
                             {records.length > 0 ? (
                                 records.map((student, i: number = 1) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{student.studentId}</td>
                                         <td>{student.courseId}</td>
                                         <td className='tw-text-center'>{student.totalKm}km</td>
