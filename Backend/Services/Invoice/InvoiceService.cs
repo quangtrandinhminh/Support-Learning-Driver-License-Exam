@@ -183,21 +183,30 @@ namespace Backend.Services.Invoice
 
         private void AddMemberIntoCourse(DB.Models.Course course, DB.Models.Member member)
         {
-            var courseId = course.CourseId;
-            var memberId = member.MemberId;
-
-            member.IsPaid = true;
-            _memberRepository.UpdateAsync(member);
-
-            var existStudent = _studentRepository
-                .GetAll()
-                .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
-
-            var theoryClass = _classRepository
-                .GetAll()
-                .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
-            if (existStudent == null)
+            try
             {
+                var courseId = course.CourseId;
+                var memberId = member.MemberId;
+
+                member.IsPaid = true;
+                _memberRepository.UpdateAsync(member);
+
+                var existStudent = _studentRepository
+                    .GetAll()
+                    .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
+                if (existStudent == null)
+                {
+                    throw new Exception("Không tìm thấy học viên");
+                }
+
+                var theoryClass = _classRepository
+                    .GetAll()
+                    .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
+                if (theoryClass == null)
+                {
+                    throw new Exception("Không tìm thấy lớp học lý thuyết");
+                }
+
                 var student = new DB.Models.Student
                 {
                     StudentId = courseId + "." + (course.NumberOfStudents < 9
@@ -218,6 +227,11 @@ namespace Backend.Services.Invoice
                 };
 
                 _classStudentRepository.CreateAsync(classStudent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }
