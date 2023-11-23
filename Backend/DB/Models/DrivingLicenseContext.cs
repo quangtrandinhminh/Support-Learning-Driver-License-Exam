@@ -270,6 +270,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.ToTable("Invoice");
 
             entity.Property(e => e.InvoiceId).HasColumnName("invoiceID");
+            entity.Property(e => e.AmountInWords)
+                .HasMaxLength(255)
+                .HasColumnName("amountInWords");
             entity.Property(e => e.AmountPaid)
                 .HasDefaultValueSql("((22500000.00))")
                 .HasColumnType("decimal(11, 2)")

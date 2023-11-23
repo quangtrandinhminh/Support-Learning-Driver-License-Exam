@@ -17,6 +17,8 @@ public partial class Invoice
 
     public decimal? AmountPaid { get; set; }
 
+    public string? AmountInWords { get; set; }
+
     public virtual Course Course { get; set; } = null!;
 
     public virtual Member Member { get; set; } = null!;

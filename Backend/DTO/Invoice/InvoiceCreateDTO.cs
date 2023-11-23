@@ -7,5 +7,7 @@
         public int MemberId { get; set; }
 
         public decimal AmountPaid { get; set; }
+
+        public string AmountInWords { get; set; }
     }
 }
