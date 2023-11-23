@@ -64,10 +64,9 @@ CREATE TABLE [dbo].[Course](
 )ON [PRIMARY]
 GO
 
-
 CREATE TABLE [dbo].[CourseContent](
 	[courseContentId] INT IDENTITY(1,1) NOT NULL,
-	[courseContent] NVARCHAR(MAX) NOT NULL,
+	[courseContent] NVARCHAR(MAX) NULL,
 	[status] BIT NULL,
 	CONSTRAINT [PK_CourseContent] PRIMARY KEY CLUSTERED 
   (
