@@ -24,7 +24,10 @@ namespace Backend.Controllers
                 var result = _courseContentService.GetAll();
                 if (result.IsError)
                 {
-                    return NotFound();
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
                 }
                 return Ok(result.Payload);
             }
