@@ -355,6 +355,7 @@ CREATE TABLE [dbo].[Invoice](
   [courseID] NVARCHAR(10) NOT NULL,
   [invoiceTime] DATETIME NULL,
   [amountPaid] DECIMAL(11,2) DEFAULT 22500000.00 NULL,
+  [amountInWords] NVARCHAR(255) NULL
   CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
   (
     [invoiceID] ASC
@@ -1994,23 +1995,23 @@ GO
 SET IDENTITY_INSERT [dbo].[Invoice] ON
 
 GO
-INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid)
-VALUES (1, 1, 1, '1101B2', '2023-11-18T10:21:24.763', 22500000)
+INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid, AmountInWords)
+VALUES (1, 1, 1, '1101B2', '2023-11-18T10:21:24.763', 22500000, N'Hai mươi hai triệu năm trăm nghìn đồng')
 
 GO
-INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid)
-VALUES (2, 1, 2, '1101B2', '2023-11-18T10:21:24.763', 22500000)
+INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid, AmountInWords)
+VALUES (2, 1, 2, '1101B2', '2023-11-18T10:21:24.763', 22500000, N'Hai mươi hai triệu năm trăm nghìn đồng')
 
 GO
-INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid)
-VALUES (3, 1, 3, '1101B2', '2023-11-18T10:21:24.763', 22500000)
+INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid, AmountInWords)
+VALUES (3, 1, 3, '1101B2', '2023-11-18T10:21:24.763', 22500000, N'Hai mươi hai triệu năm trăm nghìn đồng')
 
 GO
-INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid)
-VALUES (4, 1, 28, '1101B2', '2023-11-18T10:21:24.763', 22500000)
+INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid, AmountInWords)
+VALUES (4, 1, 28, '1101B2', '2023-11-18T10:21:24.763', 22500000, N'Hai mươi hai triệu năm trăm nghìn đồng')
 
 GO
-INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid)
-VALUES (5, 1, 29, '1101B2', '2023-11-18T10:21:24.763', 22500000)
+INSERT [dbo].[Invoice] (InvoiceID, StaffID, MemberID, CourseID, InvoiceTime, AmountPaid, AmountInWords)
+VALUES (5, 1, 29, '1101B2', '2023-11-18T10:21:24.763', 22500000, N'Hai mươi hai triệu năm trăm nghìn đồng')
 
 SET IDENTITY_INSERT [dbo].[Invoice] OFF
