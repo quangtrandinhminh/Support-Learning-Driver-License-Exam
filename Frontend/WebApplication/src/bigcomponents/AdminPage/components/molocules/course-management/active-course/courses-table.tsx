@@ -11,7 +11,8 @@ function CourseTable() {
     const [searchValue, setSearchValue] = useState('');
     //count number of members have enrolled into course
     const [mapRecord, setMapRecord] = useState(new Map());
-    const map = new Map(); const [show, setShow] = useState(false);
+    const map = new Map(); 
+    const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

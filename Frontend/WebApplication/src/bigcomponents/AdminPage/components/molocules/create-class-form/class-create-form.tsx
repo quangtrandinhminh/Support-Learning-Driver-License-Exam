@@ -8,6 +8,7 @@ function CreateTheoryLesson() {
   const courseId = localStorage.getItem('courseId');
   const [error, setError] = useState(null);
   const [courseIdList, setCourseIdList] = useState([]);
+  const [firstCourseDetail, setFirstCourseDetail] = useState(null);
   // Initial data for input fields
   const initialData = ['lessonContent', 'location', 'date']
 
@@ -16,7 +17,7 @@ function CreateTheoryLesson() {
   // Fill the inputData with 1 element which is empty
   const [inputData, setInputData] = useState(Array(1).fill({}));
 
-  const [courseOptions, setCourseOptions] = useState([]);
+  // const [courseOptions, setCourseOptions] = useState([]);
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -30,6 +31,16 @@ function CreateTheoryLesson() {
       const res = response.data;
       let courseId = res.map(course => course.courseId);
       setCourseIdList(courseId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getFirstCourseDetails = async () => {
+    try {
+      const response = await api.get('CourseDetail/' + courseId);
+      const res = response.data[0];
+      setFirstCourseDetail(res);
     } catch (error) {
       console.log(error);
     }
@@ -71,23 +82,42 @@ function CreateTheoryLesson() {
     try {
       await api.post("Lesson/createTheoryLesson?courseId=" + courseId, inputData);
     } catch (error) {
-      console.log(error);
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+      }
     }
   };
 
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
   useEffect(() => {
     getCourseList();
-    console.log(courseId);
+    getFirstCourseDetails();
   }, [])
 
   return (
     <div className="template-container">
       <div className="create-class-container">
         <div className="create-class-title">
-          <h1 className="text-center text-uppercase">Tạo lớp học lý thuyết</h1>
+          <h1 className="text-center text-uppercase">Tạo lịch học lý thuyết</h1>
         </div>
         <div className="create-class-form">
-          {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
+          {
+            firstCourseDetail ? (
+              <div className="tw-mb-5">
+                <h5 className="tw-italic tw-text-realRed">Đào tạo lý thuyết từ ngày: {formatDate(firstCourseDetail.courseTimeStart)} - {formatDate(firstCourseDetail.courseTimeEnd)}</h5>
+              </div>
+            ) : (
+              null
+            )
+          }
+          {error && <h5 className="error-message mb-3 tw-text-realRed">{error}</h5>}
           <form onSubmit={handleSubmit}>
             {/* Course ID */}
             {
@@ -185,13 +215,6 @@ function CreateTheoryLesson() {
               type="submit"
             >
               Tạo
-            </button>
-            <button
-              className="btn btn-primary w-20 justify-self-end"
-              type="button"
-              onClick={() => console.log(inputData)}
-            >
-              Show info
             </button>
           </form>
         </div>

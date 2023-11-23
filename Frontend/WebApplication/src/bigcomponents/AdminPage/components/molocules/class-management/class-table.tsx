@@ -319,7 +319,7 @@ export function TheoryClassTable() {
                           type="button"
                           onClick={() => handleCreateButton(classs.courseId)}
                         >
-                          Tạo nội dung khoá học
+                          Tạo lịch học
                         </button>
                       </td>
                     </tr>

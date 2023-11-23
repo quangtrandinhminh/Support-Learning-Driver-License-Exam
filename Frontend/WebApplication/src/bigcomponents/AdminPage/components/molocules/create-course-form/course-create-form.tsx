@@ -264,13 +264,6 @@ function CreateCourseForm() {
           >
             Tiếp tục
           </button>
-          <button
-            className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
-            type="button"
-            onClick={() => console.log(inputData)}
-          >
-            Show input
-          </button>
         </form>
       </div>
     </div>
