@@ -293,7 +293,8 @@ namespace Backend.Services.Lesson
                     // check if any date is duplicated
                     if (!dates.Add(lesson.Date.Date))
                     {
-                        throw new Exception("Ngày học không được trùng nhau! " + "(" + index + ")");
+                        var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
+                        throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
                     }
                 }
                 dates.Clear();

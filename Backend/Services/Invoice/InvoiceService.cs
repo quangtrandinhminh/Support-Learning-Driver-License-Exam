@@ -194,9 +194,9 @@ namespace Backend.Services.Invoice
                 var existStudent = _studentRepository
                     .GetAll()
                     .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
-                if (existStudent == null)
+                if (existStudent != null)
                 {
-                    throw new Exception("Không tìm thấy học viên");
+                    throw new Exception("Học viên đã tồn tại");
                 }
 
                 var theoryClass = _classRepository
@@ -207,23 +207,31 @@ namespace Backend.Services.Invoice
                     throw new Exception("Không tìm thấy lớp học lý thuyết");
                 }
 
+                var numberOfStudents = _studentRepository
+                    .GetAll()
+                    .Where(i => i.CourseId == courseId)
+                    .Count();
+
                 var student = new DB.Models.Student
                 {
-                    StudentId = courseId + "." + (course.NumberOfStudents < 9
-                        ? "0" + (course.NumberOfStudents + 1)
-                        : (course.NumberOfStudents + 1).ToString()),
+                    StudentId = courseId + "." + (numberOfStudents < 9
+                        ? "0" + (numberOfStudents + 1)
+                        : (numberOfStudents + 1).ToString()),
                     MemberId = memberId,
                     CourseId = courseId,
+                    TotalKm = 0,
+                    TotalHour = 0,
                 };
                 _studentRepository.CreateAsync(student);
 
-                course.NumberOfStudents++;
+                course.NumberOfStudents = numberOfStudents + 1;
                 _courseRepository.UpdateAsync(course);
 
                 var classStudent = new DB.Models.ClassStudent
                 {
                     ClassId = theoryClass.ClassId,
-                    StudentId = student.StudentId
+                    StudentId = student.StudentId,
+                    Status = true,
                 };
 
                 _classStudentRepository.CreateAsync(classStudent);

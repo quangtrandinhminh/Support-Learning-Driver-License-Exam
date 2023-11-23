@@ -7,6 +7,7 @@ using Backend.DTO.Class;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.MentorRepository;
 using Backend.Services.Class;
+using Backend.DB.Models;
 
 namespace Backend.Services.Course
 {
@@ -194,7 +195,7 @@ namespace Backend.Services.Course
                 await _courseRepository.AddAsync(course);
 
                 // create theory class
-                CreateTheoryClassByCourse(mentor.MentorId, course.CourseId);
+                await CreateTheoryClassByCourse(mentor.MentorId, course.CourseId);
             }
             catch (Exception e)
             {
@@ -206,29 +207,30 @@ namespace Backend.Services.Course
         }
 
         // add new class with mentorId
-        private void CreateTheoryClassByCourse(int mentorId, string courseId)
+        private async Task CreateTheoryClassByCourse(int mentorId, string courseId)
         {
             try
             {
-                var existClass = _classRepository
+                var existClass = await _classRepository
                     .GetAll()
-                    .FirstOrDefault(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true);
-                if (existClass != null)
+                    .FirstOrDefaultAsync(x => x.CourseId == courseId && x.MentorId == mentorId && x.IsTheoryClass == true);
+                if (existClass == null)
+                {
+                    var newClass = new DB.Models.Class()
+                    {
+                        CourseId = courseId,
+                        MentorId = mentorId,
+                        IsTheoryClass = true,
+                        DayOfWeek = 0,
+                        Shift = null,
+                        Status = true
+                    };
+                    await _classRepository.CreateAsync(newClass);
+                }
+                else
                 {
                     throw new Exception("Lớp học lý thuyết của khóa đã tồn tại!");
                 }
-
-                var newClass = new DB.Models.Class()
-                {
-                    CourseId = courseId,
-                    MentorId = mentorId,
-                    IsTheoryClass = true,
-                    DayOfWeek = 0,
-                    Shift = null,
-                    Status = true
-                };
-
-                _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
             {
@@ -349,7 +351,6 @@ namespace Backend.Services.Course
 
                 course.Status = true;
                 await _courseRepository.UpdateAsync(course);
-
             }
             catch (Exception e)
             {
