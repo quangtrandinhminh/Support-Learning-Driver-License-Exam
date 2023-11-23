@@ -4,11 +4,14 @@ import api from "../../../../../config/axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+
+// ------------------------------ CreateTheoryLesson ------------------------------
 function CreateTheoryLesson() {
   const courseId = localStorage.getItem('courseId');
   const [error, setError] = useState(null);
   const [courseIdList, setCourseIdList] = useState([]);
   const [firstCourseDetail, setFirstCourseDetail] = useState(null);
+  const [curricumlum, setCurriculum] = useState([]);
   // Initial data for input fields
   const initialData = ['lessonContent', 'location', 'date']
 
@@ -31,6 +34,16 @@ function CreateTheoryLesson() {
       const res = response.data;
       let courseId = res.map(course => course.courseId);
       setCourseIdList(courseId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getCurriculum = async () => {
+    try {
+      const response = await api.get('Curriculum/list');
+      const res = response.data;
+      setCurriculum(res);
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +112,7 @@ function CreateTheoryLesson() {
   useEffect(() => {
     getCourseList();
     getFirstCourseDetails();
+    getCurriculum();
   }, [])
 
   return (
@@ -154,7 +168,7 @@ function CreateTheoryLesson() {
                   <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
                     <div className="col-sm-10">
-                      <input
+                      {/* <input
                         className="form-control"
                         type="text"
                         name="lessonContent"
@@ -163,7 +177,22 @@ function CreateTheoryLesson() {
                           handleInputChange(idx, 'lessonContent', e.target.value)
                         }
                       >
-                      </input>
+                      </input> */}
+                      <select
+                        className="form-control"
+                        value={inputData[idx].lessonContent}
+                        name="lessonContent"
+                        id="lessonContent"
+                        required
+                        onChange={(e) => handleInputChange(idx, 'lessonContent', e.target.value)}
+                      >
+                        <option className="tw-italic" disabled>Chọn nội dung</option>
+                        {
+                          curricumlum.map((curriculum) => (
+                            <option key={curriculum.content} value={curriculum.content}>{curriculum.content}</option>
+                          ))
+                        }
+                      </select>
                     </div>
                   </div>
 
@@ -215,6 +244,13 @@ function CreateTheoryLesson() {
               type="submit"
             >
               Tạo
+            </button>
+            <button
+              className="btn btn-primary w-20 justify-self-end"
+              onClick={() => console.log(inputData)}
+              type="button"
+            >
+              Show info
             </button>
           </form>
         </div>

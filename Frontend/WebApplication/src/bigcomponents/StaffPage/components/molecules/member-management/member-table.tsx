@@ -16,12 +16,22 @@ function MemberTable() {
   const [specificMember, setSpecificMember] = useState(null);
   const navigate = useNavigate();
   const [specificCourse, setSpecificCourse] = useState(null);
+  const [specificInfoLoaded, setSpecificInfoLoaded] = useState(false);
   const [inputData, setInputData] = useState({
     staffId: "",
     memberId: "",
     amountPaid: 0,
     amountInWords: ""
   });
+
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  const invoiceDate = formatDate(new Date());
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -43,6 +53,7 @@ function MemberTable() {
       const response2 = await api.get("Course/" + courseId);
       const res2 = response2.data;
       setSpecificCourse(res2);
+      setSpecificInfoLoaded(true); // Set the flag when the information is loaded
     } catch (err) {
       console.log(err);
     }
@@ -68,17 +79,19 @@ function MemberTable() {
 
   const updateMemberIsPaidAndFetchData = async (memberId) => {
     try {
-      // Update the payment status
-      await api.put('Member/editIsPaid?memberId=' + memberId);
-      setUpdateSuccess(true);
+      // Update the payment status of member
+      // await api.put('Member/editIsPaid?memberId=' + memberId);
+      // setUpdateSuccess(true);
 
       // Fetch member data
-      const fetchResponse = await api.get(`Member?memberId=${memberId}`);
-      console.log(fetchResponse.data);
-      sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
+      // const fetchResponse = await api.get(`Member?memberId=${memberId}`);
+      // console.log(fetchResponse.data);
+      // sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
+
+      await api.post("Invoice/create", inputData);
       const notificationMessage = "Cập nhật thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
-      location.reload();
+      // location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -134,6 +147,19 @@ function MemberTable() {
     }
   }, []);
 
+  useEffect(() => {
+    // Check if specific information is loaded before updating inputData
+    if (specificMember && specificCourse && specificInfoLoaded) {
+      setInputData({
+        ...inputData,
+        staffId: staff.staffId,
+        memberId: specificMember.memberID,
+        amountPaid: specificCourse.courseFee,
+        amountInWords: capitalizeFirstLetter(VNnum2words(specificCourse.courseFee))
+      });
+    }
+  }, [specificMember, specificCourse, specificInfoLoaded, show]); // Add show as a dependency
+
   return (
     <div className='member-table-container'>
       <div className="member-table-title text-center text-uppercase">
@@ -173,8 +199,12 @@ function MemberTable() {
                     <td className='tw-text-center'>{member.courseId}</td>
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="button" onClick={() => (getSpecificInformation(member.memberID, member.courseId), handleShow())}>Cập nhật</button>
-                      <button className="btn btn-info" type="button" onClick={() => handleApplication(member.memberID)}>Đơn thi</button>
+                      <button className="btn btn-primary" type="button" onClick={() => {
+                        setSpecificInfoLoaded(false); // Reset the flag before fetching specific information
+                        getSpecificInformation(member.memberID, member.courseId);
+                        handleShow();
+                      }}>Cập nhật</button>
+                      <button className="btn btn-info" type="button" onClick={(e) => handleApplication(member.memberID)}>Đơn thi</button>
                       <button className="btn btn-danger" type="submit">Xoá</button>
                     </td>
                   </tr>
@@ -235,10 +265,18 @@ function MemberTable() {
                   <div>
                     <ul className='tw-flex tw-flex-col tw-gap-2 tw-text-lg'>
                       <li>
-                        <label htmlFor="member-name">Học viên: {specificMember.fullName}</label>
+                        <label htmlFor="member-name">Học viên: {specificMember.fullName}
+                          <input type="text" value={specificMember.memberID} hidden />
+                        </label>
                       </li>
                       <li>
                         <label htmlFor="staff-name">Nhân viên xác nhận: {staff.fullName}</label>
+                      </li>
+                      <li>
+                        <label htmlFor="course-study">Khoá học: {(specificCourse.courseId)}</label>
+                      </li>
+                      <li>
+                        <label htmlFor="invoice-date">Ngày thanh toán: {invoiceDate}</label>
                       </li>
                       <li>
                         <label htmlFor="course-fee">Học phí: {specificCourse.courseFee.toLocaleString()}VNĐ</label>
