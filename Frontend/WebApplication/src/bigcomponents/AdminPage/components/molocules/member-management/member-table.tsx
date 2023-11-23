@@ -40,6 +40,7 @@ function MemberTable() {
   const records = member.slice(firsIndex, lastIndex);
   const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
+  const overallIndex = (currentPage - 1) * recordPage;
 
   useEffect(() => {
     getAllMembers();
@@ -81,6 +82,7 @@ function MemberTable() {
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
               <tr>
+                <th scope='col'>#</th>
                 <th scope='col'>Mã học viên</th>
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
@@ -94,6 +96,7 @@ function MemberTable() {
               {records.length > 0 ? (
                 records.map((member, i: number = 1) => (
                   <tr key={i}>
+                    <td>{overallIndex + i + 1}</td>
                     <td>{member.memberID}</td>
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>

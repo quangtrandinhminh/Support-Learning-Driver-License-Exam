@@ -27,6 +27,7 @@ function MemberTable() {
     const records = staff.slice(firstIndex, lastIndex);
     const totalPages = Math.ceil(staff.length / recordPage);
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllStaff();
@@ -100,6 +101,7 @@ function MemberTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col' className='tw-w-44'>Mã nhân viên</th>
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
@@ -112,6 +114,7 @@ function MemberTable() {
                             {records.length > 0 ? (
                                 records.map((staff, i: number = 1) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{staff.staffId}</td>
                                         <td>{staff.fullName}</td>
                                         <td>{staff.phone}</td>
