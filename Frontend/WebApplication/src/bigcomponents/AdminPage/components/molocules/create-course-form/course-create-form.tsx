@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 function CreateCourseForm() {
   const [mentorName, setMentorName] = useState([]);
   const [error, setError] = useState(null);
+  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [courseIdList, setCourseIdList] = useState([]);
   const [inputData, setInputData] = useState({
     courseId: "",
     name: "",
@@ -26,6 +28,40 @@ function CreateCourseForm() {
     try {
       const response = await api.get("Mentor/theory");
       setMentorName(response.data);
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
+
+  const handleContinue = () => {
+    setError(false);
+    setIsDuplicate(false);
+    if (courseIdList) {
+      if (!(/^\d{3}B2$/).test(inputData.name)) {  //check name
+        setError("Tên khoá học phải có định dạng XXXB2 với X là số.");
+        return;
+      } else if (inputData.endDate < inputData.startDate) {
+        setError("Ngày bế giảng phải sau ngày khai giảng.");
+        return;
+      } else if (courseIdList.includes(inputData.courseId)) {
+        setIsDuplicate(true);
+        setError("Mã khoá học đã tồn tại.");
+        return;
+      } else {
+        localStorage.setItem("course", JSON.stringify(inputData));
+        navigate("/quan-ly-khoa-hoc/chi-tiet");
+      }
+    }
+  }
+
+  const getCourseList = async () => {
+    try {
+      const response = await api.get("Course/list");
+      const res = response.data;
+      setCourseIdList(res.map((course) => course.courseId));
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
@@ -66,6 +102,7 @@ function CreateCourseForm() {
 
   useEffect(() => {
     getListMentorId();
+    getCourseList();
   }, []);
 
   // useEffect(() => {
@@ -260,7 +297,8 @@ function CreateCourseForm() {
           </div>
           <button
             className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
-            type="submit"
+            type="button"
+            onClick={() => handleContinue()}
           >
             Tiếp tục
           </button>
@@ -275,6 +313,7 @@ export default CreateCourseForm;
 export function CreateCourseDetail() {
   const course = JSON.parse(localStorage.getItem('course') || '{}');
   const navigate = useNavigate();
+  const [courseContent, setCourseContent] = useState([]);
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];
@@ -300,6 +339,19 @@ export function CreateCourseDetail() {
     });
   };
 
+  const getCourseContent = async () => {
+    try {
+      const response = await api.get("CourseContent");
+      const res = response.data;
+      setCourseContent(res);
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
+
   const handleAddInput = () => {
     setInputData((prevInputData) => [
       ...prevInputData,
@@ -310,11 +362,81 @@ export function CreateCourseDetail() {
     ]);
   };
 
+  useEffect(() => {
+    getCourseContent();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(false);
 
     try {
       // Prepare data to send to the server
+      // for (let i = 0; i < inputData.length; i++) {
+      //   if (inputData[i].courseTimeStart > inputData[i].courseTimeEnd) {
+      //     setError(`Nội dung ${i + 1} có ngày không hợp lệ .`);
+      //     return;
+      //   } else if (i > 0) {
+      //     if ((inputData[i].courseTimeStart < inputData[i - 1].courseTimeEnd && inputData[i].courseTimeStart > inputData[i - 1].courseTimeStart) ||
+      //       (inputData[i].courseTimeEnd < inputData[i - 1].courseTimeEnd && inputData[i].courseTimeEnd > inputData[i - 1].courseTimeStart)) {
+      //       setError(`Nội dung ${i + 1} có ngày không hợp lệ .`);
+      //       return;
+      //     }
+      //   }
+      // }
+      if (course) {
+        for (let i = 0; i < inputData.length; i++) {
+
+          // ngày bắt đầu lớn hơn ngày kết thúc
+          if (inputData[i].courseTimeStart > inputData[i].courseTimeEnd) {
+            console.log("1");
+            setError(`Nội dung ${i + 1} có ngày bắt đầu lớn hơn ngày kết thúc.`);
+            return;
+
+            // ngày bắt đầu bé hơn ngày khai giảng
+          } else if (inputData[i].courseTimeStart < course.startDate) {
+            console.log("2");
+            setError(`Nội dung ${i + 1} có ngày bắt đầu bé hơn ngày khai giảng.`);
+            return;
+
+            // ngày kết thúc lớn hơn ngày bế giảng
+          } else if (inputData[i].courseTimeEnd > course.endDate) {
+            console.log("3");
+            setError(`Nội dung ${i + 1} có ngày kết thúc lớn hơn ngày bế giảng.`);
+            return;
+          }
+
+          for (let j = i + 1; j < inputData.length; j++) {
+
+            // so với các content trước đó
+            // so nội dung bị trùng
+            if (inputData[i].courseContent === inputData[j].courseContent) {
+              console.log("4");
+              setError(`Nội dung ${i + 1} và nội dung ${j + 1} bị trùng.`);
+              return;
+
+              // so sánh trùng ngày bắt đầu
+            } else if (inputData[i].courseTimeStart === inputData[j].courseTimeStart) {
+              if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động ")) {
+                console.log("6");
+                continue;
+              } else {  
+                console.log("5");
+                setError(`Nội dung ${i + 1} và nội dung ${j + 1} có ngày bắt đầu trùng nhau.`);
+                return;
+              }
+
+              // ngày bắt đầu của j phải lớn hơn ngày kết thúc của i
+            } else if (inputData[j].courseTimeStart <= inputData[i].courseTimeEnd) {
+              console.log("7");
+              setError(`Nội dung ${j + 1} có ngày bắt đầu bé hơn hoặc bằng ngày kết thúc của nội dung ${i + 1}.`);
+              return;
+
+            } 
+          }
+        }
+      }
+
       const formattedListObjects = inputData.map((data) => ({ ...data }));
 
       // Create course first
@@ -332,18 +454,35 @@ export function CreateCourseDetail() {
             },
           }
         );
+        toast.success('Tạo khoá học thành công');
+        navigate('/quan-ly-khoa-hoc/chua-mo');
       }
-
-      toast.success('Tạo khoá học thành công');
-      navigate('/quan-ly-khoa-hoc/chua-mo')
-        ;
+      
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
-      console.error('Error:', error);
-      // Handle errors here
-      setError('Error submitting data. Please try again.');
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+        return;
+      }
     }
   };
+
+  const showTest = () => {
+    for (let i = 0; i < 5; i++) {
+      for (let j = i + 1; j < 5; j++) {
+        console.log("Số vòng tổng: " + i);
+        console.log("Số vòng con: " + j);
+      }
+    }
+  }
+
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
   return (
     <div className="template-container">
@@ -352,6 +491,12 @@ export function CreateCourseDetail() {
           <h1 className="text-center text-uppercase">Chi tiết khoá học</h1>
         </div>
         <div className="create-course-form">
+          {
+            course ? (
+              <h4 className="tw-text-realRed tw-italic tw-mb-10 ">Thời gian khoá học: {formatDate(course.startDate)} - {formatDate(course.endDate)}</h4>
+            ) : (
+              null
+            )}
           {error && <h5 className="error-message mb-3 tw-text-realRed">{error}</h5>}
           <form onSubmit={handleSubmit}>
             {inputData.map((data, index) => (
@@ -361,7 +506,7 @@ export function CreateCourseDetail() {
                     Nội dung {index + 1}:
                   </label>
                   <div className="col-sm-10">
-                    <input
+                    {/* <input
                       type="text"
                       className="form-control"
                       id={`courseContent${index + 1}`}
@@ -370,7 +515,25 @@ export function CreateCourseDetail() {
                       value={inputData[index].courseContent}
                       required
                       onChange={(e) => handleChange(index, 'courseContent', e.target.value)}
-                    />
+                    /> */}
+                    <select
+                      className="form-control"
+                      id="courseContent"
+                      placeholder="theoryTeacherId"
+                      name="courseContent"
+                      value={inputData[index].courseContent}
+                      required
+                      onChange={(e) => handleChange(index, 'courseContent', e.target.value)
+                      }
+                    >
+                      <option value="" disabled className="tw-italic">Chọn nội dung khoá học</option>
+                      {
+                        courseContent.map((content) => (
+                          <option value={content.courseContent1}
+                            key={content.courseContent1}>{content.courseContent1}</option>
+                        ))
+                      }
+                    </select>
                   </div>
                 </div>
                 <div className="form-group row tw-mt-4">
@@ -419,6 +582,13 @@ export function CreateCourseDetail() {
               type="submit"
             >
               Tạo khoá học
+            </button>
+            <button
+              className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
+              type="button"
+              onClick={e => showTest()}
+            >
+              Show test
             </button>
           </form>
         </div>

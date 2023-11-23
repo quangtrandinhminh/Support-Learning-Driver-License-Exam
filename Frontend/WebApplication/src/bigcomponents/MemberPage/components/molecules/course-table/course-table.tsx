@@ -147,28 +147,6 @@ function CourseTable() {
                                                         <Button className='btnRegister btn btn-primary' onClick={handleShow}>
                                                             Đăng ký
                                                         </Button>
-
-                                                        <Modal
-                                                            show={show}
-                                                            onHide={handleClose}
-                                                            backdrop="static"
-                                                            keyboard={false}
-                                                            backdropClassName='backdrop'
-                                                            centered
-                                                        >
-                                                            <Modal.Header closeButton>
-                                                                <Modal.Title>Chú ý</Modal.Title>
-                                                            </Modal.Header>
-                                                            <Modal.Body>
-                                                                Bạn không thể đăng ký thêm khoá học do bạn đã đăng ký khoá học trước đó.
-                                                            </Modal.Body>
-                                                            <Modal.Footer>
-                                                                <Button variant="secondary" onClick={handleClose}>
-                                                                    Đóng
-                                                                </Button>
-                                                                <Button variant="primary" onClick={handleNavigate}>Khoá học của tôi</Button>
-                                                            </Modal.Footer>
-                                                        </Modal>
                                                     </td>
                                                 </tr>
                                             ))
@@ -271,6 +249,28 @@ function CourseTable() {
                         </table>
                     </form>
                 </div>
+                
+                <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                    backdropClassName='backdrop'
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Chú ý</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Bạn không thể đăng ký thêm khoá học do bạn đã đăng ký khoá học trước đó.
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Đóng
+                        </Button>
+                        <Button variant="primary" onClick={handleNavigate}>Khoá học của tôi</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </>
 
