@@ -24,7 +24,7 @@ function MemberTable() {
       const fetchResponse = await api.get(`Member?memberId=${memberId}`);
       console.log(fetchResponse.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
-      const notificationMessage = "Cập nhật thành công!";
+      const notificationMessage = "Cập nhật thanh toán thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
       location.reload();
     } catch (err) {
@@ -86,7 +86,7 @@ function MemberTable() {
                 <th scope='col'>Mã học viên</th>
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
-                <th scope='col' style={{ width: '200px' }}>Email</th>
+                <th scope='col' style={{ width: '200px' }}>Email  </th>
                 <th scope='col'>Khoá học đang học</th>
                 <th scope='col' className='text-center'>Trạng thái thanh toán</th>
                 <th scope='col' className='text-center'>Action</th>

@@ -84,7 +84,7 @@ function CreateCourseForm() {
       setCourseNameList(res.map((course) => course.name));
     } catch (err) {
       if (err.response?.data?.error) {
-        setError(err.response.data.error);
+        setError(err.response.data.error); https://drive.google.com/drive/folders/1sYWJ5-R5I1asuvtaBxfwte-sDdkDCEDf?usp=sharing
         return;
       }
     }
@@ -173,8 +173,7 @@ function CreateCourseForm() {
                 value={inputData.theoryTeacherId}
                 required
                 onChange={(e) =>
-                  setInputData({ ...inputData, theoryTeacherId: e.target.value })
-                }
+                  setInputData({ ...inputData, theoryTeacherId: e.target.value })}
               >
                 <option value="" disabled className="tw-italic">Chọn giáo viên</option>
                 {

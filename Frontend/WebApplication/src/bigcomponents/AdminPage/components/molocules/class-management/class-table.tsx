@@ -124,7 +124,7 @@ function ClassTable() {
                 <input
                   type="text"
                   name="id"
-                  placeholder="Họ và tên"
+                  placeholder="Mã khoá học"
                   onChange={handleSearch}
                   autoComplete="off"
                 />
