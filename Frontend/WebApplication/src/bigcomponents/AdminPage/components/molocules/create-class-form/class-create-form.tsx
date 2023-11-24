@@ -4,6 +4,7 @@ import api from "../../../../../config/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
+import { Button, Modal } from "react-bootstrap";
 
 
 // ------------------------------ CreateTheoryLesson ------------------------------
@@ -14,7 +15,17 @@ function CreateTheoryLesson() {
   const [firstCourseDetail, setFirstCourseDetail] = useState(null);
   const [curricumlum, setCurriculum] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [curriculumInput, setCurriculumInput] = useState({
+    content: "",
+    isTheory: true
+  });
+
   // Initial data for input fields
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const initialData = ['lessonContent', 'location', 'date']
 
   // const [courseIdSelected, setCourseIdSelected] = useState('')
@@ -67,21 +78,20 @@ function CreateTheoryLesson() {
     setInputData(newInputData);
   };
 
-  // const fetchAllCourseId = async () => {
-  //   try {
-  //     const response = await api.get("Class");
-  //     const classes = response.data;
-
-  //     // Extract unique courseId values from the array of classes
-  //     const uniqueCourseIds = [...new Set(classes.map((cls) => cls.courseId))];
-
-  //     // Set course options for the combo box
-  //     setCourseOptions(uniqueCourseIds);
-
-  //   } catch (error) {
-  //     console.error("Error fetching course IDs:", error);
-  //   }
-  // };
+  const handleAddCurriculum = async () => {
+    try {
+      await api.post("Curriculum/add", curriculumInput);
+      handleClose();
+      toast.success('Thêm nội dung thành công');
+      await getCurriculum();
+      console.log(curriculumInput);
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
 
   const handleAddInput = () => {
     setInputData((prevInputData) => [
@@ -121,7 +131,7 @@ function CreateTheoryLesson() {
         icon: "error",
         confirmButtonText: "Đóng",
         animation: true,
-        
+
         allowEscapeKey: true,
         // another type of animation not tada
       });
@@ -163,26 +173,32 @@ function CreateTheoryLesson() {
             {/* Course ID */}
             {
               courseId ? (
-                <div className="form-group row">
-                  <label htmlFor="courseId" className="col-sm-2 col-form-label">
-                    Mã khóa học:{" "}
-                  </label>
-                  <div className="col-sm-10">
-                    <select
-                      className="form-control"
-                      id="courseId"
-                      placeholder="courseId"
-                      name='courseId'
-                      value={courseId}  // Ensure that it's not undefined
-                      disabled
-                    >
-                      {/* <option value="" disabled className="tw-italic">Chọn khoá học</option> */}
-                      {
-                        <option value={courseId}>{courseId}</option>
-                      }
-                    </select>
+                <>
+                  <div className="form-group row">
+                    <label htmlFor="courseId" className="col-sm-2 col-form-label">
+                      Mã khóa học:{" "}
+                    </label>
+                    <div className="col-sm-10">
+                      <select
+                        className="form-control"
+                        id="courseId"
+                        placeholder="courseId"
+                        name='courseId'
+                        value={courseId}  // Ensure that it's not undefined
+                        disabled
+                      >
+                        {/* <option value="" disabled className="tw-italic">Chọn khoá học</option> */}
+                        {
+                          <option value={courseId}>{courseId}</option>
+                        }
+                      </select>
+                    </div>
                   </div>
-                </div>
+                  <div className="mb-2 tw-justify-self-end">
+                    <Button className="btn btn-primary"
+                      onClick={() => handleShow()}>Thêm chi tiết</Button>
+                  </div>
+                </>
               ) : (
                 null
               )
@@ -274,6 +290,40 @@ function CreateTheoryLesson() {
           </form>
         </div>
       </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thêm chi tiết</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="courseContentAdd row">
+            <label htmlFor="courseContent" className="col-sm-2 col-form-label">
+              Nội dung:
+            </label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control"
+                onChange={(e) => setCurriculumInput({ ...curriculumInput, content: e.target.value })} />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+          <Button className="btn btn-primary" onClick={() => { handleAddCurriculum(); }}>
+            Thêm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
