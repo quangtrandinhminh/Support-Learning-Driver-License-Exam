@@ -24,6 +24,8 @@ const MentorTeachingRegister: React.FC = () => {
     "chiều-6": false,
   });
 
+  const [hoveredCheckbox, setHoveredCheckbox] = useState<string | null>(null);
+
   const handleCheckboxChange = (key: string) => {
     setCheckboxes((prevCheckboxes) => ({
       ...prevCheckboxes,
@@ -31,7 +33,15 @@ const MentorTeachingRegister: React.FC = () => {
     }));
   };
 
-  const getDayOfWeekNumber = (dayOfWeek: string) => {
+  const handleMouseEnter = (key: string) => {
+    setHoveredCheckbox(key);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCheckbox(null);
+  };
+
+  const getDayOfWeekNumber = (dayOfWeek: string) => { 
     const daysOfWeek = ["2", "3", "4", "5", "6"];
     return daysOfWeek.indexOf(dayOfWeek.toLowerCase()) + 2; // Monday starts from 2
   };
@@ -81,7 +91,7 @@ const MentorTeachingRegister: React.FC = () => {
         }
       );
 
-      console.log(formattedListObjects)
+      console.log(formattedListObjects);
 
       // Check if the response status is OK (status code 2xx)
       if (response.status !== 200) {
@@ -114,11 +124,11 @@ const MentorTeachingRegister: React.FC = () => {
               <thead className="register-header">
                 <tr>
                   <th></th>
-                  <th>Thứ hai</th>
-                  <th>Thứ ba</th>
-                  <th>Thứ tư</th>
-                  <th>Thứ năm</th>
-                  <th>Thứ sáu</th>
+                  <th className='tw-text-center'>Thứ hai</th>
+                  <th className='tw-text-center'>Thứ ba</th>
+                  <th className='tw-text-center'>Thứ tư</th>
+                  <th className='tw-text-center'>Thứ năm</th>
+                  <th className='tw-text-center'>Thứ sáu</th>
                 </tr>
               </thead>
               <tbody className="register-body">
@@ -129,20 +139,25 @@ const MentorTeachingRegister: React.FC = () => {
                       <td
                         key={`sáng-${day}`}
                         align="center"
-                        className={`custom-checkbox ${checkboxes[`sáng-${day}`] ? "checked" : ""
-                          }`}
+                        className={`custom-checkbox ${checkboxes[`sáng-${day}`] ? "checked" : ""}`}
                         style={{
-                          backgroundColor: checkboxes[`sáng-${day}`]
-                            ? 'green'
-                            : 'white',
-                          border: checkboxes[`chieu-${day}`]
-                            ? '1px solid #ffffff' : '1px solid #ffffff'
+                          backgroundColor: checkboxes[`sáng-${day}`] || hoveredCheckbox === `sáng-${day}`
+                            ? "#cfcfcf"
+                            : "white",
+                          border: checkboxes[`sáng-${day}`]
+                            ? "1px solid #ffffff"
+                            : "1px solid #ffffff",
+                          transition: checkboxes ? "all 0.18s linear" : "0s",
+                          cursor: "pointer",
+                          color: "white",
                         }}
                         onClick={() => handleCheckboxChange(`sáng-${day}`)}
+                        onMouseEnter={() => handleMouseEnter(`sáng-${day}`)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="custom-checkbox-inner">
                           {checkboxes[`sáng-${day}`] && (
-                            <span className="checkmark">Đăng kí</span>
+                            <span className="checkmark">✅</span>
                           )}
                         </div>
                       </td>
@@ -159,17 +174,22 @@ const MentorTeachingRegister: React.FC = () => {
                         className={`custom-checkbox ${checkboxes[`chiều-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: checkboxes[`chiều-${day}`]
-                            ? 'green'
+                          backgroundColor: checkboxes[`chiều-${day}`] || hoveredCheckbox === `chiều-${day}`
+                            ? '#cfcfcf'
                             : 'white',
                           border: checkboxes[`chiều-${day}`]
-                            ? '1px solid #ffffff' : '1px solid #ffffff'
+                            ? '1px solid #ffffff' : '1px solid #ffffff',
+                          transition: checkboxes ? 'all 0.18s linear' : '0s',
+                          cursor: 'pointer',
+                          color: 'white',
                         }}
                         onClick={() => handleCheckboxChange(`chiều-${day}`)}
+                        onMouseEnter={() => handleMouseEnter(`chiều-${day}`)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="custom-checkbox-inner">
                           {checkboxes[`chiều-${day}`] && (
-                            <span className="checkmark">Đăng kí</span>
+                            <span className="checkmark">✅</span>
                           )}
                         </div>
                       </td>

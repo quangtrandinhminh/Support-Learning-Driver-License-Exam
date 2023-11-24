@@ -106,6 +106,8 @@ function CreateTheoryLesson() {
     event.preventDefault();
     try {
       await api.post("Lesson/createTheoryLesson?courseId=" + courseId, inputData);
+      navigate("/quan-ly-lich-hoc/lop-ly-thuyet");
+      toast.success("Tạo lịch học lý thuyết thành công!");
     } catch (error) {
       if (error.response?.data?.error) {
         setError(error.response.data.error);
