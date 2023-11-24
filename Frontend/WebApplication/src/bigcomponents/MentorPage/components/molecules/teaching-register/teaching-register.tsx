@@ -105,7 +105,7 @@ const MentorTeachingRegister: React.FC = () => {
   return (
     <>
       <div className="title">
-        <h1>Đăng kí lịch dạy thực hành khóa 230B2</h1>
+        <h1>Đăng kí lịch dạy thực hành khóa {courseId}</h1>
       </div>
       <div className="register-form-container">
         <div className="register-table-container">

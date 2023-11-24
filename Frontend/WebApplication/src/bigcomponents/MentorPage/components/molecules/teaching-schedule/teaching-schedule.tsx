@@ -87,11 +87,6 @@ function TeachingSchedule() {
             </th>
         ));
     };
-    
-    
-    
-
-
 
     const fetchScheduleData = async () => {
         try {
