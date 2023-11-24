@@ -110,13 +110,15 @@ namespace Backend.Controllers
         }
 
         /// <summary>
-        /// Create practice lessons for all students in course by the practice class is created by mentor
+        /// Create practice lessons for all students in practice class is created by mentor
         /// </summary>
         /// <param name="lessonCreateDto"></param>
         /// <returns></returns>
-        /*[HttpPost("createPracticeLesson")]
-        public async Task<IActionResult> CreateLesson(LessonCreateDTO lessonCreateDto){
-            var result = await _lessonService.CreatePracticeLessons(lessonCreateDto);
+        [HttpPost("createPracticeLesson")]
+        public async Task<IActionResult> CreatePracticeLesson(int classId,
+            ICollection<LessonCreateDTO> lessonCreateDtos)
+        {
+            var result = await _lessonService.CreatePracticeLessons(classId, lessonCreateDtos);
             if (result.IsError)
             {
                 if (result.Payload == -1)
@@ -133,8 +135,9 @@ namespace Backend.Controllers
                 });
             }
 
-            return Ok("Thêm buổi học thực hành thành công!");
-        }*/
+            return Ok("Thêm buổi học thực hành thành công! " + "(" + result.Payload + ")");
+        }
+        
 
         /// <summary>
         /// Create theory lesson with separate title for all students in course
@@ -192,6 +195,22 @@ namespace Backend.Controllers
 
             return Ok("Thêm buổi học lý thuyết thành công!");
         }*/
+
+        // check lesson count
+        [HttpGet("lesson-count/{courseId}")]
+        public async Task<IActionResult> GetLessonCounts(string courseId)
+        {
+            var result = await _lessonService.GetLessonCounts(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
 
         /// <summary>
         /// Create practice lesson with date data from courseDetails for all students in course
@@ -322,5 +341,28 @@ namespace Backend.Controllers
 
             return Ok("Cập nhật buổi học thành công!");
         }
+
+        /*[HttpPut("updateByDate")]
+        public async Task<IActionResult> UpdateLessonByDate(LessonUpdateDTO lessonUpdateDto)
+        {
+            var result = await _lessonService.UpdateLessonByDate(lessonUpdateDto);
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật buổi học thành công!");
+        }*/
     }
 }
