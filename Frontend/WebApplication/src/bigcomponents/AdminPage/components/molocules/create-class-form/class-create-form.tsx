@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./class-create-form.scss"; // You can create the styles accordingly
 import api from "../../../../../config/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2'
 
 
 // ------------------------------ CreateTheoryLesson ------------------------------
@@ -12,6 +13,7 @@ function CreateTheoryLesson() {
   const [courseIdList, setCourseIdList] = useState([]);
   const [firstCourseDetail, setFirstCourseDetail] = useState(null);
   const [curricumlum, setCurriculum] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
   // Initial data for input fields
   const initialData = ['lessonContent', 'location', 'date']
 
@@ -97,6 +99,7 @@ function CreateTheoryLesson() {
     } catch (error) {
       if (error.response?.data?.error) {
         setError(error.response.data.error);
+        setShowAlert(true);
       }
     }
   };
@@ -108,6 +111,30 @@ function CreateTheoryLesson() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+  // Sweet Alert should have returned something
+  const showSweetAlert = (error) => {
+    if (showAlert) {
+      Swal.fire({
+        title: "Lỗi",
+        text: error,
+        icon: "error",
+        confirmButtonText: "Đóng",
+        animation: true,
+        
+        allowEscapeKey: true,
+        // another type of animation not tada
+      });
+
+      // Reset showAlert to false after showing the alert
+      setShowAlert(false);
+
+      // Return a placeholder element (e.g., null) when not showing the alert
+      return null;
+    }
+
+    return null; // or another placeholder element if needed
+  };
 
   useEffect(() => {
     getCourseList();
@@ -131,7 +158,7 @@ function CreateTheoryLesson() {
               null
             )
           }
-          {error && <h5 className="error-message mb-3 tw-text-realRed">{error}</h5>}
+          {error && showSweetAlert(error)}
           <form onSubmit={handleSubmit}>
             {/* Course ID */}
             {
@@ -168,28 +195,20 @@ function CreateTheoryLesson() {
                   <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
                     <div className="col-sm-10">
-                      {/* <input
-                        className="form-control"
-                        type="text"
-                        name="lessonContent"
-                        value={inputData[idx].lessonContent} // Convert to string
-                        onChange={(e) =>
-                          handleInputChange(idx, 'lessonContent', e.target.value)
-                        }
-                      >
-                      </input> */}
                       <select
                         className="form-control"
-                        value={inputData[idx].lessonContent}
-                        name="lessonContent"
                         id="lessonContent"
+                        placeholder="lessonContent"
+                        name="lessonContent"
+                        value={inputData[idx].lessonContent || ""}
                         required
                         onChange={(e) => handleInputChange(idx, 'lessonContent', e.target.value)}
                       >
-                        <option className="tw-italic" disabled>Chọn nội dung</option>
+                        <option value="" disabled className="tw-italic">Chọn nội dung</option>
                         {
                           curricumlum.map((curriculum) => (
-                            <option key={curriculum.content} value={curriculum.content}>{curriculum.content}</option>
+                            <option value={curriculum.content}
+                              key={curriculum.content}>{curriculum.content}</option>
                           ))
                         }
                       </select>
