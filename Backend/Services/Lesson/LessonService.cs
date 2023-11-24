@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.DB.Models;
+using Backend.DTO.Class;
 using Backend.DTO.Lesson;
 using Backend.DTO.TeachingSchedule;
 using Backend.Repository.ClassRepository;
@@ -157,35 +158,66 @@ namespace Backend.Services.Lesson
             return result;
         }
 
-        public async Task<ServiceResult<int>> CreatePracticeLessons(LessonCreateDTO lessonCreateDto)
+        public async Task<ServiceResult<int>> CreatePracticeLessons(int classId, ICollection<LessonCreateDTO> lessonCreateDtos)
         {
             var result = new ServiceResult<int>();
             try
             {
-                // check if course exist
-                var course = await _courseRepository.GetByIdAsync(lessonCreateDto.CourseId);
-                if (course == null)
+                // check if class is exist
+                var classDb = await _classRepository.GetByIdAsync(classId);
+                if (classDb == null)
                 {
                     result.IsError = true;
                     result.Payload = -1;
-                    result.ErrorMessage = "Không tìm thấy lớp học!";
+                    result.ErrorMessage = "Không tìm thấy lớp!";
                     return result;
                 }
 
-                // check start time > end time
-                if (lessonCreateDto.StartDate >= lessonCreateDto.EndDate)
-                    throw new Exception("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!");
+                
+                var dates = new HashSet<DateTime>();
+                var courseDetails = await _courseDetailsRepository.GetAll()
+                    .Where(x => x.CourseId == classDb.CourseId)
+                    .ToListAsync();
+                foreach (var lesson in lessonCreateDtos)
+                {
+                    var index = lessonCreateDtos.ToList().IndexOf(lesson) + 1;
 
-                // check if startime >= course.month
-                if (lessonCreateDto.StartDate < course.StartDate)
-                    throw new Exception("Ngày bắt đầu phải lớn hơn ngày bắt đầu của khóa học!");
+                    foreach (var courseDetail in courseDetails)
+                    {
+                        if (lesson.LessonContent == courseDetail.CourseContent)
+                        {
+                            var startDate = (DateTime)courseDetail.CourseTimeStart;
+                            var endDate = (DateTime)courseDetail.CourseTimeEnd;
+                            var content = courseDetail.CourseContent;
+                            // check if startime >= course.month
+                            if (lesson.Date < startDate)
+                                throw new Exception("Ngày học phải lớn hơn ngày bắt đầu của " + content + "( " + index + ")");
+
+                            // check if date > courseDetails.courseTimeEnd
+                            if (lesson.Date > endDate)
+                                throw new Exception("Ngày học phải nhỏ hơn ngày kết thúc của" + content + "(" + index + ")");
+
+                            // check if any date is duplicated
+                            if (!dates.Add(lesson.Date.Date))
+                            {
+                                var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
+                                throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
+                            }
+                        }
+                    }
+
+                    // check if dates is duplicated
+                    if (!dates.Add(lesson.Date.Date))
+                    {
+                        var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
+                        throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
+                    }
+
+                }
 
                 // get all students in course where class is practice class
                 var students = await _classStudentRepository.GetAll()
-                    .Include(x => x.Class)
-                        .ThenInclude(x => x.Course)
-                    .Where(x => x.Class.Course.CourseId == lessonCreateDto.CourseId
-                                && x.Class.IsTheoryClass == false)
+                    .Where(x => x.ClassId == classId)
                     .ToListAsync();
 
                 if (!students.Any())
@@ -199,34 +231,23 @@ namespace Backend.Services.Lesson
                 // get all lessons in course where class is practice class
                 var existLesson = await _lessonRepository.GetAll()
                     .Include(x => x.ClassStudent)
-                    .ThenInclude(x => x.Class)
-                    .Where(x => x.ClassStudent.Class.Course.CourseId == lessonCreateDto.CourseId
-                                && x.ClassStudent.Class.IsTheoryClass == false
-                                && x.Date >= lessonCreateDto.StartDate
-                                && x.Date <= lessonCreateDto.EndDate)
+                    .Where(x => x.ClassStudent.ClassId == classId)
                     .ToListAsync();
 
                 // create lesson for each student
                 foreach (var student in students)
                 {
                     var count = 0;
-                    var dayOfWeek = (int)student.Class.DayOfWeek!;
-                    var dates = GetAllDatesForDayOfWeek(lessonCreateDto.StartDate.Date
-                        , lessonCreateDto.EndDate.Date, dayOfWeek);
-                    foreach (var date in dates)
+                    foreach (var lesson in lessonCreateDtos)
                     {
-                        if (existLesson.Any(x => x.Date == date.Date
-                                                 && x.ClassStudentId == student.ClassStudentId
-                                                 && x.IsNight == lessonCreateDto.IsNight))
+                        if (existLesson.Any(x => x.Date == lesson.Date.Date
+                                                 && x.ClassStudentId == student.ClassStudentId))
                         {
                             continue;
                         }
 
-                        if (count == lessonCreateDto.numberOfLessons) break;
-
-                        var newLesson = _mapper.Map<DB.Models.Lesson>(lessonCreateDto);
+                        var newLesson = _mapper.Map<DB.Models.Lesson>(lesson);
                         newLesson.ClassStudentId = student.ClassStudentId;
-                        newLesson.Date = date;
                         await _lessonRepository.CreateAsync(newLesson);
                         count++;
                     }
@@ -637,11 +658,21 @@ namespace Backend.Services.Lesson
                 // Loop through each CourseDetail to create lessons for the appropriate date ranges and titles
                 foreach (var courseDetail in courseDetails)
                 {
+                    if (courseDetails.IndexOf(courseDetail) == 3)
+                    {
+                        continue;
+                    }
+
                     var startDate = (DateTime)courseDetail.CourseTimeStart;
                     var endDate = (DateTime)courseDetail.CourseTimeEnd;
                     var title = courseDetail.CourseContent;
                     var courseDetailIndex = courseDetails.IndexOf(courseDetail);
                     var numberOfWeeks = (int)((endDate - startDate).Days / 7);
+                    // if numberOfWeeks == 0, numberOfWeeks = 1
+                    if (numberOfWeeks == 0)
+                    {
+                        numberOfWeeks = 1;
+                    }
 
                     // Create lessons for each student
                     foreach (var student in students)
@@ -675,28 +706,68 @@ namespace Backend.Services.Lesson
                             newLesson.Date = date;
                             newLesson.LessonContent = title;
                             newLesson.IsNight = false;
-                            newLesson.Location = "P.12";
+                            newLesson.Location = null;
                             newLesson.Attendance = null;
 
                             await _lessonRepository.CreateAsync(newLesson);
                             lessonsCreatedCount++;
                             count++;
 
+                            // if lessonCreatedCount == learnAfterWeeks, update lessonContent of lesson at learnAfterWeeks
+                            /*if (lessonsCreatedCount == learnAfterWeeks)
+                            {
+                                var lesson = await _lessonRepository.GetAll()
+                                    .Include(x => x.ClassStudent)
+                                    .ThenInclude(x => x.Class)
+                                    .Where(x => x.ClassStudent.Class.Course.CourseId == courseId
+                                                            && x.ClassStudent.Class.IsTheoryClass == false
+                                                            && x.Date == date
+                                                            && x.ClassStudentId == student.ClassStudentId)
+                                    .FirstOrDefaultAsync();
+
+                                if (lesson != null)
+                                {
+                                    lesson.LessonContent = courseDetails.LastOrDefault().CourseContent;
+                                    await _lessonRepository.UpdateAsync(lesson);
+                                }
+                            }*/
+
+
                             // Create 2 lessons for night classes in courseDetail.courseContent == "Thực Hành Trên Đường"
-                            var countIsNight = 0;
-                            if (courseDetailIndex == 2 && countIsNight < 2)
+                            /*var countIsNight = 0;
+                            if (courseDetailIndex == 2 && countIsNight < 2
+                                /* countIsNight < NumberOfLessons && lessonsCreatedCount >= learnAfterWeeks#1#)
                             {
                                 var newLesson2 = new DB.Models.Lesson();
                                 newLesson2.ClassStudentId = student.ClassStudentId;
                                 newLesson2.Date = date;
                                 newLesson2.LessonContent = title;
                                 newLesson2.IsNight = true;
-                                newLesson2.Location = "P.12";
+                                newLesson2.Location = "Sân tập";
                                 newLesson2.Attendance = null;
 
                                 await _lessonRepository.CreateAsync(newLesson2);
                                 countIsNight++;
                                 count++;
+                            }*/
+
+                            // update lessonContent of the last lesson of courseDetailIndex == 2
+                            if (courseDetailIndex == 2 && lessonsCreatedCount == numberOfWeeks)
+                            {
+                                var lesson = await _lessonRepository.GetAll()
+                                    .Include(x => x.ClassStudent)
+                                    .ThenInclude(x => x.Class)
+                                    .Where(x => x.ClassStudent.Class.Course.CourseId == courseId
+                                                            && x.ClassStudent.Class.IsTheoryClass == false
+                                                            && x.Date == date
+                                                            && x.ClassStudentId == student.ClassStudentId)
+                                    .FirstOrDefaultAsync();
+
+                                if (lesson != null)
+                                {
+                                    lesson.LessonContent = courseDetails[courseDetailIndex + 1].CourseContent;
+                                    await _lessonRepository.UpdateAsync(lesson);
+                                }
                             }
                         }
                     }
@@ -708,6 +779,85 @@ namespace Backend.Services.Lesson
             {
                 result.IsError = true;
                 result.Payload = -1;
+                result.ErrorMessage = e.Message;
+                return result;
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResult<ICollection<CreatePracticeDemoDTO>>> GetLessonCounts(string courseId)
+        {
+            var result = new ServiceResult<ICollection<CreatePracticeDemoDTO>>();
+            try
+            {
+                // Check if course exists and get course details
+                var course = await _courseRepository.GetByIdAsync(courseId);
+                if (course == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy khóa học!";
+                    return result;
+                }
+
+                // Get all coursedetails of course, skip the first one because it's the theory class
+                var courseDetails = _courseDetailsRepository.GetAll()
+                    .Where(x => x.CourseId == courseId)
+                    .ToList();
+                if (!courseDetails.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy nội dung khóa học!";
+                    return result;
+                }
+
+                var createPracticeDemoDTOs = new List<CreatePracticeDemoDTO>();
+                foreach (var courseDetail in courseDetails)
+                {
+                    if (courseDetails.IndexOf(courseDetail) == 4)
+                    {
+                        createPracticeDemoDTOs.Add(new CreatePracticeDemoDTO
+                        {
+                            LessonContent = courseDetail.CourseContent,
+                            NumberOfLessons = 1
+                        });
+                        continue;
+                    }
+
+                    var startDate = (DateTime)courseDetail.CourseTimeStart;
+                    var endDate = (DateTime)courseDetail.CourseTimeEnd;
+                    var title = courseDetail.CourseContent;
+                    var courseDetailIndex = courseDetails.IndexOf(courseDetail);
+                    var numberOfWeeks = (int)((endDate - startDate).Days / 7);
+                    // if numberOfWeeks == 0, numberOfWeeks = 1
+                    if (numberOfWeeks == 0)
+                    {
+                        numberOfWeeks = 1;
+                    }
+
+                    if (courseDetails.IndexOf(courseDetail) == 0)
+                    {
+                        createPracticeDemoDTOs.Add(new CreatePracticeDemoDTO
+                        {
+                            LessonContent = title,
+                            NumberOfLessons = (endDate - startDate).Days + 1
+                        });
+                        continue;
+                    }
+
+                    createPracticeDemoDTOs.Add(new CreatePracticeDemoDTO
+                    {
+                        LessonContent = title,
+                        NumberOfLessons = numberOfWeeks
+                    });
+                }
+
+                result.Payload = createPracticeDemoDTOs;
+            }
+
+            catch (Exception e)
+            {
+                result.IsError = true;
                 result.ErrorMessage = e.Message;
                 return result;
             }
@@ -855,7 +1005,7 @@ namespace Backend.Services.Lesson
         }
 
         //update lesson by class and date
-        /*public async Task<ServiceResult<int>> UpdateLessonByDate(LessonUpdateDTO lessonUpdateDto)
+        /*public async Task<ServiceResult<int>> UpdateLessonByDate(int classId, LessonUpdateDTO lessonUpdateDto)
         {
             var result = new ServiceResult<int>();
             try
