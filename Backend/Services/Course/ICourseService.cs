@@ -14,6 +14,8 @@ namespace Backend.Services.Course
 
         Task<ServiceResult<CourseDTO>> GetCourseById(string id);
 
+        Task<ServiceResult<bool>> CheckValidCourse(CourseCreateDTO courseCreateDto);
+
         Task<ServiceResult<int>> CreateCourse(CourseCreateDTO courseCreateDto);
 
         Task<ServiceResult<int>> UpdateCourse(CourseUpdateDTO courseUpdateDto);
