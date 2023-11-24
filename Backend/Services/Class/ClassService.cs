@@ -49,12 +49,12 @@ namespace Backend.Services.Class
             }
         }
 
-        public ServiceResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId)
+        public async Task<ServiceResult<ICollection<ClassDTO>>> GetAllClassesByCourseId(string courseId)
         {
             var result = new ServiceResult<ICollection<ClassDTO>>();
             try
             {
-                var course = _courseRepository.GetByIdAsync(courseId);
+                var course = await _courseRepository.GetByIdAsync(courseId);
                 if (course == null)
                 {
                     result.IsError = true;
@@ -62,9 +62,9 @@ namespace Backend.Services.Class
                     return result;
                 }
 
-                var classes = _classRepository.GetAll()
+                var classes = await _classRepository.GetAll()
                     .Where(x => x.Status == true && x.CourseId == courseId && x.IsTheoryClass == false)
-                    .ToList();
+                    .ToListAsync();
 
                 if (!classes.Any())
                 {
@@ -172,12 +172,17 @@ namespace Backend.Services.Class
 
                 var theory = classCreateDto.IsTheoryClass;
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
-                if (theory) newClass.DayOfWeek = 0;
+                if (theory)
+                {
+                    newClass.DayOfWeek = 0;
+                    newClass.LimitStudent = null;
+                }
                 await _classRepository.CreateAsync(newClass);
             }
             catch (Exception e)
             {
                 result.IsError = true;
+                result.Payload = 0;
                 result.ErrorMessage = e.Message;
             }
             return result;

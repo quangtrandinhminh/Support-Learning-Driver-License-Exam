@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[Course](
   [endDate] DATE NULL,
   [numberOfStudents] INT NULL,
   [limitStudent] INT NULL,
-  [courseFee] DECIMAL(10,2) DEFAULT 22500000.00 NULL,
+  [courseFee] DECIMAL(11,2) DEFAULT 22500000.00 NULL,
   [PassTheoryLs] DECIMAL(5,2) DEFAULT 80.00 NULL,
   [PassKm] INT DEFAULT 810 NULL,
   [createTime] DATETIME NULL,
@@ -64,10 +64,9 @@ CREATE TABLE [dbo].[Course](
 )ON [PRIMARY]
 GO
 
-
 CREATE TABLE [dbo].[CourseContent](
 	[courseContentId] INT IDENTITY(1,1) NOT NULL,
-	[courseContent] NVARCHAR(MAX) NOT NULL,
+	[courseContent] NVARCHAR(MAX) NULL,
 	[status] BIT NULL,
 	CONSTRAINT [PK_CourseContent] PRIMARY KEY CLUSTERED 
   (
@@ -355,7 +354,7 @@ CREATE TABLE [dbo].[Invoice](
   [memberID] INT NOT NULL,
   [courseID] NVARCHAR(10) NOT NULL,
   [invoiceTime] DATETIME NULL,
-  [amountPaid] DECIMAL(10,2) DEFAULT 22500000.00 NULL,
+  [amountPaid] DECIMAL(11,2) DEFAULT 22500000.00 NULL,
   [amountInWords] NVARCHAR(255) NULL
   CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
   (

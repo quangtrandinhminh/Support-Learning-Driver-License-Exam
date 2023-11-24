@@ -35,6 +35,7 @@ function NewsTable() {
     const records = data.slice(firsIndex, lastIndex);
     const npage = Math.ceil(data.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllNews();
@@ -90,6 +91,7 @@ function NewsTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col'>Mã tin tức</th>
                                 <th scope='col'>Tiêu đề</th>
                                 <th scope='col'>Mô tả</th>
@@ -102,6 +104,7 @@ function NewsTable() {
                             {records.length > 0 ? (
                                 records.map((news, i) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{news.newsId}</td>
                                         <td>{truncateText(news.title, 12)}</td>
                                         <td>{truncateText(news.description, 15)}</td>

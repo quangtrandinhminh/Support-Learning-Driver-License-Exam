@@ -40,7 +40,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("/api/CourseDetail")]
-        public IActionResult GetCourseDetailsByCourseMonth(int courseMonth) 
+        public IActionResult GetCourseDetailsByCourseMonth(int courseMonth)
         {
             try
             {
@@ -62,16 +62,16 @@ namespace Backend.Controllers
         [HttpGet("/api/CourseDetail/{courseId}")]
         public async Task<IActionResult> GetCourseDetailsByCourse(string courseId)
         {
-                var result = await _courseDetailsService.GetCourseDetailsByCourse(courseId);
-                if (result.IsError)
+            var result = await _courseDetailsService.GetCourseDetailsByCourse(courseId);
+            if (result.IsError)
+            {
+                return NotFound(new
                 {
-                    return NotFound(new
-                    {
-                        error = result.ErrorMessage
-                    });
-                }
+                    error = result.ErrorMessage
+                });
+            }
 
-                return Ok(result);
+            return Ok(result.Payload);
         }
 
         [HttpPost("add")]
@@ -98,6 +98,28 @@ namespace Backend.Controllers
             return Ok("Thêm chi tiết khóa học thành công!");
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCourse(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto)
+        {
+            var result = await _courseDetailsService.UpdateCourseDetails(courseDetailsCreateDto);
 
+            if (result.IsError)
+            {
+                if (result.Payload == -1)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok("Cập nhật chi tiết khóa học thành công!");
+        }
     }
 }

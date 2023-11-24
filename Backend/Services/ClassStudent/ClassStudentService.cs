@@ -64,7 +64,7 @@ namespace Backend.Services.ClassStudent
                     var classStudents = _classStudentRepository.GetAll().
                     Where(p => p.StudentId == studentId && p.Class.IsTheoryClass == true).
                     FirstOrDefault();
-                    if (classStudents != null)
+                    if (classStudents == null)
                     {
                         var classs = _classRepository.GetAll()
                             .Where(p => p.CourseId.Equals(courseId) && p.IsTheoryClass == true)
@@ -125,7 +125,7 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var students = await _studentRepository.GetAll().Where(p => p.CourseId == courseId).ToListAsync();
+                var students = await _studentRepository.GetAll().Where(p => p.CourseId.Equals(courseId)).ToListAsync();
                 if (!students.Any())
                 {
                     result.IsError = true;

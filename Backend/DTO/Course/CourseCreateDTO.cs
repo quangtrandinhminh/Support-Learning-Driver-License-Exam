@@ -18,6 +18,8 @@
 
         public int PassKm { get; set; }
 
+        public int TheoryTeacherId { get; set; }
+
         public bool Status { get; set; }
     }
 }

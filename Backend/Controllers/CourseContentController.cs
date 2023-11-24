@@ -21,12 +21,15 @@ namespace Backend.Controllers
         {
             try
             {
-                var courseContent = _courseContentService.GetAll();
-                if (courseContent == null)
+                var result = _courseContentService.GetAll();
+                if (result.IsError)
                 {
-                    return NotFound();
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
                 }
-                return Ok(courseContent);
+                return Ok(result.Payload);
             }
             catch (Exception a)
             {

@@ -57,9 +57,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("course/{courseId}")]
-        public ActionResult<ICollection<ClassDTO>> GetAllClassesByCourseId(string courseId)
+        public async Task<ActionResult<ICollection<ClassDTO>>> GetAllClassesByCourseId(string courseId)
         {
-            var result = _classService.GetAllClassesByCourseId(courseId);
+            var result = await _classService.GetAllClassesByCourseId(courseId);
             if (result.IsError)
             {
                 return NotFound(new

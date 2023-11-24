@@ -183,41 +183,63 @@ namespace Backend.Services.Invoice
 
         private void AddMemberIntoCourse(DB.Models.Course course, DB.Models.Member member)
         {
-            var courseId = course.CourseId;
-            var memberId = member.MemberId;
-
-            member.IsPaid = true;
-            _memberRepository.UpdateAsync(member);
-
-            var existStudent = _studentRepository
-                .GetAll()
-                .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
-
-            var theoryClass = _classRepository
-                .GetAll()
-                .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
-            if (existStudent == null)
+            try
             {
+                var courseId = course.CourseId;
+                var memberId = member.MemberId;
+
+                member.IsPaid = true;
+                _memberRepository.UpdateAsync(member);
+
+                var existStudent = _studentRepository
+                    .GetAll()
+                    .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
+                if (existStudent != null)
+                {
+                    throw new Exception("Học viên đã tồn tại");
+                }
+
+                var theoryClass = _classRepository
+                    .GetAll()
+                    .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
+                if (theoryClass == null)
+                {
+                    throw new Exception("Không tìm thấy lớp học lý thuyết");
+                }
+
+                var numberOfStudents = _studentRepository
+                    .GetAll()
+                    .Where(i => i.CourseId == courseId)
+                    .Count();
+
                 var student = new DB.Models.Student
                 {
-                    StudentId = courseId + "." + (course.NumberOfStudents < 9
-                        ? "0" + (course.NumberOfStudents + 1)
-                        : (course.NumberOfStudents + 1).ToString()),
+                    StudentId = courseId + "." + (numberOfStudents < 9
+                        ? "0" + (numberOfStudents + 1)
+                        : (numberOfStudents + 1).ToString()),
                     MemberId = memberId,
                     CourseId = courseId,
+                    TotalKm = 0,
+                    TotalHour = 0,
                 };
                 _studentRepository.CreateAsync(student);
 
-                course.NumberOfStudents++;
+                course.NumberOfStudents = numberOfStudents + 1;
                 _courseRepository.UpdateAsync(course);
 
                 var classStudent = new DB.Models.ClassStudent
                 {
                     ClassId = theoryClass.ClassId,
-                    StudentId = student.StudentId
+                    StudentId = student.StudentId,
+                    Status = true,
                 };
 
                 _classStudentRepository.CreateAsync(classStudent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }
