@@ -4,6 +4,8 @@ import api from "../../../../../config/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+
+// ----------------- Class table -----------------
 function ClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -141,7 +143,6 @@ function ClassTable() {
                 <th scope="col">Tên giáo viên</th>
                 <th scope="col">Mã khóa học</th>
                 <th scope="col">Học phần</th>
-                <th scope="col">Thứ</th>
                 <th scope="col">Ca học</th>
               </tr>
             </thead>
@@ -154,7 +155,6 @@ function ClassTable() {
                     <td>{classs.mentorName}</td>
                     <td>{classs.courseId}</td>
                     <td>{classs.isTheoryClass ? "Lý thuyết" : "Thực hành"}</td>
-                    <td>{classs.dayOfWeek}</td>
                     <td>{classs.shift}</td>
                   </tr>
                 ))
@@ -205,6 +205,8 @@ function ClassTable() {
 }
 export default ClassTable;
 
+
+// ----------------- Theory class table -----------------
 export function TheoryClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -296,8 +298,6 @@ export function TheoryClassTable() {
                   <th scope="col">Tên giáo viên</th>
                   <th scope="col">Mã khóa học</th>
                   <th scope="col">Học phần</th>
-                  <th scope="col">Thứ</th>
-                  <th scope="col">Ca học</th>
                   <th scope="col" className="text-center">
                     Hành động
                   </th>
@@ -311,8 +311,6 @@ export function TheoryClassTable() {
                       <td>{classs.mentorName}</td>
                       <td>{classs.courseId}</td>
                       <td>{classs.isTheoryClass ? "Lý thuyết" : "Thực hành"}</td>
-                      <td>{classs.dayOfWeek}</td>
-                      <td>{classs.shift}</td>
                       <td className="button text-center">
                         <button
                           className="btn btn-primary"
@@ -371,6 +369,8 @@ export function TheoryClassTable() {
   )
 }
 
+
+// ----------------- Practice Class Table -----------------
 export function PracticeClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
