@@ -222,7 +222,7 @@ function App() {
                           <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
                           </Route>
-                          <Route path='diem-danh' element={<MentorTakeAttendancePage />} />
+                          <Route path='diem-danh/:classId' element={<MentorTakeAttendancePage />} />
                         </Route>
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
