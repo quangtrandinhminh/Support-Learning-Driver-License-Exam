@@ -11,7 +11,6 @@ function MemberTable() {
   const user = JSON.parse(sessionStorage.getItem('loginedUser'));
   const [staff, setStaff] = useState(null);
   const [member, setMember] = useState<any[]>([])
-  const [_, setUpdateSuccess] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [specificMember, setSpecificMember] = useState(null);
   const navigate = useNavigate();
