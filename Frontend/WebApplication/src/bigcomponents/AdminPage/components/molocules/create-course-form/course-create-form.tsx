@@ -439,23 +439,32 @@ export function CreateCourseDetail() {
       // }
       if (course) {
         for (let i = 0; i < inputData.length; i++) {
-
+          const startDateParts = inputData[i].courseTimeStart.split("-");
+          const endDateParts = inputData[i].courseTimeEnd.split("-");
+          const startDate = parseInt(startDateParts[2]);
+          const endDate = parseInt(endDateParts[2]);
           // ngày bắt đầu lớn hơn ngày kết thúc
           if (inputData[i].courseTimeStart > inputData[i].courseTimeEnd) {
-            console.log("1");
+            // console.log("1");
             setError(`Nội dung ${i + 1} có ngày bắt đầu lớn hơn ngày kết thúc.`);
             return;
 
             // ngày bắt đầu bé hơn ngày khai giảng
           } else if (inputData[i].courseTimeStart < course.startDate) {
-            console.log("2");
+            // console.log("2");
             setError(`Nội dung ${i + 1} có ngày bắt đầu bé hơn ngày khai giảng.`);
             return;
 
             // ngày kết thúc lớn hơn ngày bế giảng
           } else if (inputData[i].courseTimeEnd > course.endDate) {
-            console.log("3");
+            // console.log("3");
             setError(`Nội dung ${i + 1} có ngày kết thúc lớn hơn ngày bế giảng.`);
+            return;
+
+            // ngày kết thúc phải cách ngày bắt đầu là 7 ngày
+          } else if (endDate - startDate < 7) {
+            // console.log("4");
+            setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
             return;
           }
 
@@ -464,27 +473,28 @@ export function CreateCourseDetail() {
             // so với các content trước đó
             // so nội dung bị trùng
             if (inputData[i].courseContent === inputData[j].courseContent) {
-              console.log("4");
+              // console.log("5");
               setError(`Nội dung ${i + 1} và nội dung ${j + 1} bị trùng.`);
               return;
 
               // so sánh trùng ngày bắt đầu
             } else if (inputData[i].courseTimeStart === inputData[j].courseTimeStart) {
               if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động ")) {
-                console.log("6");
+                // console.log("6");
                 continue;
               } else {
-                console.log("5");
+                // console.log("5");
                 setError(`Nội dung ${i + 1} và nội dung ${j + 1} có ngày bắt đầu trùng nhau.`);
                 return;
               }
 
               // ngày bắt đầu của j phải lớn hơn ngày kết thúc của i
             } else if (inputData[j].courseTimeStart <= inputData[i].courseTimeEnd) {
-              console.log("7");
+              // console.log("7");
               setError(`Nội dung ${j + 1} có ngày bắt đầu bé hơn hoặc bằng ngày kết thúc của nội dung ${i + 1}.`);
               return;
 
+              // ngày bắt đầu của j phải lớn hơn ngày kết thúc của i 7 ngày
             }
           }
         }
@@ -510,6 +520,7 @@ export function CreateCourseDetail() {
         toast.success('Tạo khoá học thành công');
         navigate('/quan-ly-khoa-hoc/chua-mo');
       }
+      console.log(inputData);
 
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
