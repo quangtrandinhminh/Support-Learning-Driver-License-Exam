@@ -60,6 +60,12 @@ function CreateCourseForm() {
         setIsDuplicateName(true);
         setError("Tên khoá học đã tồn tại.");
         return;
+      } else if (inputData.passKm > 1000) {
+        setError("Quãng đường cần thiết phải nhỏ hơn hoặc bằng 100km.");
+        return;
+      } else if (inputData.passTheoryLs > 100) {
+        setError("Số giờ học lý thuyết phải nhỏ hơn hoặc bằng 100%.");
+        return;
       } else {
         localStorage.setItem("course", JSON.stringify(inputData));
         navigate("/quan-ly-khoa-hoc/chi-tiet");
