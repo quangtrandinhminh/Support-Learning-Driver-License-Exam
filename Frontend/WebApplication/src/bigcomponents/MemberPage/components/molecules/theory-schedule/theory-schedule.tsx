@@ -31,8 +31,10 @@ function TheorySchedule() {
 
     const getMentorByID = async () => {
         try {
-            const response = await api.get("Mentor/" + mentorID);
-            setMentor(response.data);
+            if (mentorID) {
+                const response = await api.get("Mentor/" + mentorID);
+                setMentor(response.data);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -62,11 +64,17 @@ function TheorySchedule() {
         <div className='theory-schedule-container'>
             <div className='title-container'>
                 <h1 className='theory-container-title'>Lịch học lý thuyết</h1>
-                <h4 className='theory-container-subtitle'>
-                    Thời gian học lý thuyết từ ngày ... đến hết ngày ...
-                    <br />
-                    Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
-                </h4>
+                {
+                    theorySchedule.length > 0 ? (
+                        <h4 className='theory-container-subtitle'>
+                            Thời gian học lý thuyết từ ngày {formatDate(theorySchedule[0].date)} đến hết ngày {formatDate(theorySchedule[theorySchedule.length - 1].date) }
+                            <br />
+                            Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
+                        </h4>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             {theorySchedule.length > 0 ? (
                 <table>
@@ -87,21 +95,7 @@ function TheorySchedule() {
                                         <td className='class-no-content'>{index + 1}</td>
                                         <td className='class-time-content'>{formatDate(item.date)}</td>
                                         <td className='class-mentor-content'>{mentor.fullName}</td>
-                                        <td className='class-content-content'>
-                                            {index === 0 ? "Hướng dẫn lý thuyết Luật GTĐB Hỗ trợ học viên cách điểm danh, quét Thẻ và phản hồi thông tin, thời gian." :
-                                                index === 1 ? "Hướng dẫn học viên học lý thuyết Phần Quy tắc chung Luật GTĐB Phần biển báo hiệu đường bộ. Ôn luyện." :
-                                                    index === 2 ? "Hướng dẫn học viên học lý thuyết Phần Nghiệp vụ vận tải Phần Đạo đức người lái xe." :
-                                                        index === 3 ? "Hướng dẫn học viên học lý thuyết Phần Cấu tạo, sửa chữa thông thường." :
-                                                            index === 4 ? "Hướng dẫn học viên học lý thuyết Phần Cấu tạo, sửa chữa thông thường." :
-                                                                index === 5 ? "Hướng dẫn học viên học lý thuyết Phần Cấu tạo, sửa chữa thông thường." :
-                                                                    index === 6 ? "Hướng dẫn học viên học lý thuyết Phần Cấu tạo, sửa chữa thông thường." :
-                                                                        index === 7 ? "Hướng dẫn học viên học lý thuyết, ôn phần mềm mô phỏng." :
-                                                                            index === 8 ? "Hướng dẫn học viên học lý thuyết, phần giải quyết các tình huống sa hình." :
-                                                                                index === 9 ? "Hướng dẫn học viên học lý thuyết, phần giải quyết các tình huống sa hình" :
-                                                                                    index === 10 ? "Hướng dẫn học viên học lý thuyết, ôn luyện phần mềm mô phỏng, tập cabin" :
-                                                                                        index === 11 ? "Hướng dẫn học viên học lý thuyết, ôn luyện phần mềm mô phỏng, tập cabin" :
-                                                                                            index === 12 ? "Hướng dẫn học viên học lý thuyết, ôn luyện phần mềm mô phỏng, tập cabin" : ''}
-                                        </td>
+                                        <td className='class-content-content'>{item.lessonContent}</td>
                                         <td className='class-destination-content'>{item.location}</td>
                                     </tr>
                                 )

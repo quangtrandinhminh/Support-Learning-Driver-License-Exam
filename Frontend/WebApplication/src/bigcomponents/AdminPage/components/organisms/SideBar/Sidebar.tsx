@@ -108,11 +108,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           text="Quản lý giáo viên"
           link="/quan-ly-giao-vien"
         />
-        <SidebarItem
+        {/* <SidebarItem
           icon={<FontAwesomeIcon icon={faFileLines} />}
           text="Quản lý kỳ thi"
           link="/quan-ly-ky-thi"
-        />
+        /> */}
         <SidebarItem
           icon={<FontAwesomeIcon icon={faUserGraduate} />}
           text="Quản lý học viên"
@@ -122,6 +122,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           icon={<FontAwesomeIcon icon={faNewspaper} />}
           text="Quản lý kết quả thi"
           link="/quan-ly-ket-qua"
+        />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faUsersCog} />}
+          text="Quản lý thanh toán"
+          link="/quan-ly-thanh-toan"
         />
       </ul>
     </aside>

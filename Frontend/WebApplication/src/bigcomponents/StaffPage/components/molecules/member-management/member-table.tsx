@@ -11,7 +11,6 @@ function MemberTable() {
   const user = JSON.parse(sessionStorage.getItem('loginedUser'));
   const [staff, setStaff] = useState(null);
   const [member, setMember] = useState<any[]>([])
-  const [_, setUpdateSuccess] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [specificMember, setSpecificMember] = useState(null);
   const navigate = useNavigate();
@@ -77,7 +76,7 @@ function MemberTable() {
     setMember(res);
   }
 
-  const updateMemberIsPaidAndFetchData = async (memberId) => {
+  const updateMemberIsPaidAndFetchData = async () => {
     try {
       // Update the payment status of member
       // await api.put('Member/editIsPaid?memberId=' + memberId);
@@ -88,10 +87,11 @@ function MemberTable() {
       // console.log(fetchResponse.data);
       // sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
 
+      // New API to adding member to student if his/her payment is True
       await api.post("Invoice/create", inputData);
-      const notificationMessage = "Cập nhật thành công!";
+      const notificationMessage = "Cập nhật thanh toán thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
-      // location.reload();
+      location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -136,6 +136,11 @@ function MemberTable() {
   useEffect(() => {
     getAllMembers();
     getStaffByUID();
+    const notification = localStorage.getItem("notificationMessage");
+    if (notification) {
+      toast.success(notification);
+      localStorage.removeItem("notificationMessage"); // Remove the message from localStorage
+    }
   }, [])
 
   useEffect(() => {
@@ -155,7 +160,7 @@ function MemberTable() {
         staffId: staff.staffId,
         memberId: specificMember.memberID,
         amountPaid: specificCourse.courseFee,
-        amountInWords: capitalizeFirstLetter(VNnum2words(specificCourse.courseFee))
+        amountInWords: capitalizeFirstLetter(VNnum2words(specificCourse.courseFee) + "đồng")
       });
     }
   }, [specificMember, specificCourse, specificInfoLoaded, show]); // Add show as a dependency
@@ -199,11 +204,24 @@ function MemberTable() {
                     <td className='tw-text-center'>{member.courseId}</td>
                     <td className='text-center'>{member.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                     <td className='button text-center'>
-                      <button className="btn btn-primary" type="button" onClick={() => {
-                        setSpecificInfoLoaded(false); // Reset the flag before fetching specific information
-                        getSpecificInformation(member.memberID, member.courseId);
-                        handleShow();
-                      }}>Cập nhật</button>
+                      {
+                        member.isPaid ? (
+                          <button className="btn btn-primary"
+                            type="button"
+                            onClick={() => {
+                              setSpecificInfoLoaded(false); // Reset the flag before fetching specific information
+                              getSpecificInformation(member.memberID, member.courseId);
+                              handleShow();
+                            }}
+                            disabled>Thanh toán</button>
+                        ) : (
+                          <button className="btn btn-primary" type="button" onClick={() => {
+                            setSpecificInfoLoaded(false); // Reset the flag before fetching specific information
+                            getSpecificInformation(member.memberID, member.courseId);
+                            handleShow();
+                          }}>Thanh toán</button>
+                        )
+                      }
                       <button className="btn btn-info" type="button" onClick={(e) => handleApplication(member.memberID)}>Đơn thi</button>
                       <button className="btn btn-danger" type="submit">Xoá</button>
                     </td>
@@ -282,7 +300,7 @@ function MemberTable() {
                         <label htmlFor="course-fee">Học phí: {specificCourse.courseFee.toLocaleString()}VNĐ</label>
                       </li>
                       <li>
-                        <label htmlFor="fee-words">Thành tiền: {capitalizeFirstLetter(VNnum2words(specificCourse.courseFee))} đồng</label>
+                        <label htmlFor="fee-words">Thành tiền: {capitalizeFirstLetter(VNnum2words(specificCourse.courseFee) + "đồng")}</label>
                       </li>
                     </ul>
                   </div>
@@ -295,7 +313,7 @@ function MemberTable() {
           <Button variant="secondary" onClick={handleClose}>
             Đóng
           </Button>
-          <Button className='btn' onClick={() => updateMemberIsPaidAndFetchData(specificMember.memberID)}>Xác nhận</Button>
+          <Button className='btn' onClick={() => updateMemberIsPaidAndFetchData()}>Xác nhận</Button>
         </Modal.Footer>
       </Modal>
     </div>

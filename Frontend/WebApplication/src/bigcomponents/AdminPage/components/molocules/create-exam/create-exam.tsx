@@ -6,6 +6,7 @@ import './create-exam.scss'
 
 function CreateExam() {
     const user = JSON.parse(sessionStorage.getItem('loginedUser')) ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    console.log(user);
     const [courseId, setCourseId] = useState([]);
     const [error, setError] = useState(null);
     const [staff, setStaff] = useState(null);

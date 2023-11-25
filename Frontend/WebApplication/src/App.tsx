@@ -96,6 +96,7 @@ import { InactiveNewsTable } from './bigcomponents/StaffPage/components/molecule
 import { CreateCourseDetail } from './bigcomponents/AdminPage/components/molocules/create-course-form/course-create-form'
 import { PracticeClassTable, TheoryClassTable } from './bigcomponents/AdminPage/components/molocules/class-management/class-table'
 import CreateTheoryLesson, { CreatePracticeLesson } from './bigcomponents/AdminPage/components/molocules/create-class-form/class-create-form'
+import InvoiceManagementPage from './bigcomponents/AdminPage/components/pages/invoice-management/invoice-management'
 // import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
@@ -170,14 +171,13 @@ function App() {
                             <Route path='tao-lop-hoc' element={<CreatePracticeLesson />} />
                           </Route>
                         </Route>
-                        <Route path='quan-ly-ky-thi'>
-                          <Route index element={<ExamManagementAdminPage />} />
-                          <Route path='tao-ky-thi' element={<CreateExamAdminPage />} />
-                        </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
                           <Route path='cap-nhat-tin-tuc/:newsId' element={<UpdateNewsAdminPage />} />
+                        </Route>
+                        <Route path='quan-ly-thanh-toan'>
+                          <Route index element={<InvoiceManagementPage />} />
                         </Route>
                         {/* <Route path='quan-ly-lop-hoc'>
                           <Route index element={<MemberManagementPage />} />
@@ -217,6 +217,10 @@ function App() {
                           <Route path='tao-ky-thi' element={<CreateExamPage />} />
                           {/* <Route path='bai-thi' element={ }/> */}
                         </Route>
+                        <Route path='quan-ly-ky-thi'>
+                          <Route index element={<ExamManagementAdminPage />} />
+                          <Route path='tao-ky-thi' element={<CreateExamAdminPage />} />
+                        </Route>
                       </Route>
                     </>
                   )}
@@ -229,7 +233,7 @@ function App() {
                           <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
                           </Route>
-                          <Route path='diem-danh' element={<MentorTakeAttendancePage />} />
+                          <Route path='diem-danh/:classId' element={<MentorTakeAttendancePage />} />
                         </Route>
                         <Route path='danh-sach-khoa-hoc-giao-vien'>
                           <Route index element={<MentorClassRegisterPage />} />
