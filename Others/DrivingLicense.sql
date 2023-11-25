@@ -133,7 +133,8 @@ CREATE TABLE [dbo].[Mentor](
   [userID] INT NOT NULL,
   [residenceAddress] NVARCHAR(255) NULL,
   [isTeachingTheory] BIT NULL,
-  [isTeachingPractice] BIT NULL
+  [isTeachingPractice] BIT NULL,
+  [currentCourse] NVARCHAR(10) NULL
   CONSTRAINT [PK_Mentor] PRIMARY KEY CLUSTERED 
   (
     [mentorID] ASC
@@ -1118,11 +1119,11 @@ SET IDENTITY_INSERT [dbo].[News] OFF
 /* Add data: Mentor */
 SET IDENTITY_INSERT [dbo].[Mentor] ON
 GO
-INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
-	VALUES (1, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 27, 1, 1)
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory], [currentCourse])
+	VALUES (1, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 27, 1, 1, '1101B2')
 GO
-INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
-	VALUES (2, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 28, 1, 0)
+INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory], [currentCourse])
+	VALUES (2, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 28, 1, 0, '1101B2')
 GO
 INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
 	VALUES (3, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 29, 1, 0)
@@ -1131,7 +1132,7 @@ INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPrac
 	VALUES (4, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 30, 0, 1)
 GO
 INSERT [dbo].[Mentor] ([mentorID], [residenceAddress], [userID], [isTeachingPractice], [isTeachingTheory])
-	VALUES (5, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 31, 1, 1)
+	VALUES (5, N'Đường Số 6, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh', 31, 0, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Mentor] OFF
 GO
@@ -1152,25 +1153,25 @@ INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOf
 	VALUES ('4', '2', '1101B2', 0, '3', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('5', '2', '1101B2', 0, '4', 3, N'Sáng', 1)
+	VALUES ('5', '1', '1101B2', 0, '4', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('6', '3', '1101B2', 0, '4', 3, N'Chiều', 1)
+	VALUES ('6', '2', '1101B2', 0, '4', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('7', '3', '1101B2', 0, '5', 3, N'Sáng', 1)
+	VALUES ('7', '1', '1101B2', 0, '5', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('8', '4', '1101B2', 0, '5', 3, N'Chiều', 1)
+	VALUES ('8', '2', '1101B2', 0, '5', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('9', '4', '1101B2', 0, '6', 3, N'Sáng', 1)
+	VALUES ('9', '1', '1101B2', 0, '6', 3, N'Sáng', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('10', '5', '1101B2', 0, '6', 3, N'Chiều', 1)
+	VALUES ('10', '2', '1101B2', 0, '6', 3, N'Chiều', 1)
 GO
 INSERT [dbo].[Class] ([classID], [mentorID], [courseID], [isTheoryClass], [dayOfWeek], [limitStudent], [shift], [status])
-	VALUES ('11', '5', '1101B2', 0, '2', 3, N'Sáng', 1)
+	VALUES ('11', '2', '1101B2', 0, '2', 3, N'Sáng', 1)
 SET IDENTITY_INSERT [dbo].[Class] OFF
 
 /* Add data: ClassStudent */
