@@ -54,12 +54,28 @@ namespace Backend.Controllers
             var result = await _classStudentService.AddStudentIntoClass(classStudentDTO);
             if (result.IsError)
             {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                if (result.Payload == -2)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
                 });
             }
-            return Ok("Đã thêm lớp học");
+            return Ok("Đã thêm học viên vào lớp");
         }
     }
 }
