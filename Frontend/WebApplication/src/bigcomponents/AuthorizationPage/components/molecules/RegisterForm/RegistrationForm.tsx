@@ -23,8 +23,9 @@ function RegisterForm() {
   const requiredFields = ['username', 'password', 'fullName', 'phone'];
 
   const handleRegister = async () => {
+    setError(null);
+    
     try {
-
       const missingFields = requiredFields.filter(field => !formData[field]);
       // Check if the password and confirmPassword match
       if (missingFields.length > 0) {
@@ -50,7 +51,6 @@ function RegisterForm() {
       await api.post("User/Register", formData);
       navigate("/dang-nhap");
       toast.success("Đăng ký thành công!");
-      setError(null);
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
