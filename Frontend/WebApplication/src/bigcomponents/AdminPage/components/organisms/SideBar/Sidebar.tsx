@@ -123,6 +123,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           text="Quản lý kết quả thi"
           link="/quan-ly-ket-qua"
         />
+        <SidebarItem
+          icon={<FontAwesomeIcon icon={faUsersCog} />}
+          text="Quản lý thanh toán"
+          link="/quan-ly-thanh-toan"
+        />
       </ul>
     </aside>
   );

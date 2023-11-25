@@ -359,5 +359,48 @@ namespace Backend.Services.Course
             }
             return result;
         }
+
+        // check create course is valid
+        public async Task<ServiceResult<bool>> CheckValidCourse(CourseCreateDTO courseCreateDto)
+        {
+            var result = new ServiceResult<bool>();
+            try
+            {
+                if (courseCreateDto.EndDate < courseCreateDto.StartDate)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Ngày bế giảng phải lớn hơn ngày khai giảng!";
+                    result.Payload = false;
+                    return result;
+                }
+
+                var courseExist = await _courseRepository.GetByIdAsync(courseCreateDto.CourseId);
+                if (courseExist != null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Course ID đã tồn tại";
+                    result.Payload = false;
+                    return result;
+                }
+
+                var mentor = await _mentorRepository.GetByIdAsync(courseCreateDto.TheoryTeacherId);
+                if (mentor == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "MentorID này không tồn tại!";
+                    result.Payload = false;
+                    return result;
+                }
+                ;
+                result.Payload = true;
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = false;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
     }
 }

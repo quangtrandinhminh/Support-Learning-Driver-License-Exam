@@ -170,7 +170,7 @@ namespace Backend.Services.Invoice
                 invoice.InvoiceTime = DateTime.Now;
                 await _invoiceRepository.AddAsync(invoice);
 
-                AddMemberIntoCourse(course, member);
+                await AddMemberIntoCourse(course, member);
             }
             catch (Exception e)
             {
@@ -181,7 +181,7 @@ namespace Backend.Services.Invoice
             return result;
         }
 
-        private void AddMemberIntoCourse(DB.Models.Course course, DB.Models.Member member)
+        private async Task AddMemberIntoCourse(DB.Models.Course course, DB.Models.Member member)
         {
             try
             {
@@ -189,19 +189,19 @@ namespace Backend.Services.Invoice
                 var memberId = member.MemberId;
 
                 member.IsPaid = true;
-                _memberRepository.UpdateAsync(member);
+                await _memberRepository.UpdateAsync(member);
 
-                var existStudent = _studentRepository
+                var existStudent = await _studentRepository
                     .GetAll()
-                    .FirstOrDefault(i => i.CourseId == courseId && i.MemberId == memberId);
+                    .FirstOrDefaultAsync(i => i.CourseId == courseId && i.MemberId == memberId);
                 if (existStudent != null)
                 {
                     throw new Exception("Học viên đã tồn tại");
                 }
 
-                var theoryClass = _classRepository
+                var theoryClass = await _classRepository
                     .GetAll()
-                    .FirstOrDefault(i => i.CourseId == courseId && i.IsTheoryClass == true);
+                    .FirstOrDefaultAsync(i => i.CourseId == courseId && i.IsTheoryClass == true);
                 if (theoryClass == null)
                 {
                     throw new Exception("Không tìm thấy lớp học lý thuyết");
@@ -222,10 +222,10 @@ namespace Backend.Services.Invoice
                     TotalKm = 0,
                     TotalHour = 0,
                 };
-                _studentRepository.CreateAsync(student);
+                await _studentRepository.CreateAsync(student);
 
                 course.NumberOfStudents = numberOfStudents + 1;
-                _courseRepository.UpdateAsync(course);
+                await _courseRepository.UpdateAsync(course);
 
                 var classStudent = new DB.Models.ClassStudent
                 {
@@ -234,7 +234,7 @@ namespace Backend.Services.Invoice
                     Status = true,
                 };
 
-                _classStudentRepository.CreateAsync(classStudent);
+                await _classStudentRepository.CreateAsync(classStudent);
             }
             catch (Exception e)
             {

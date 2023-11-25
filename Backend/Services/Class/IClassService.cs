@@ -21,5 +21,7 @@ namespace Backend.Services.Class
         Task<ServiceResult<int>> AddMentorIntoClass(ClassMentorDTO classMentorDTO);
 
         Task<ServiceResult<ICollection<ClassDTO>>> GetAllTheoryClassesByCourseId(string courseId);
+
+        Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId);
     }
 }

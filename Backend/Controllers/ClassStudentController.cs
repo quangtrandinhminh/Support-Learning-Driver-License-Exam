@@ -47,5 +47,19 @@ namespace Backend.Controllers
 
             return Ok("Đã thêm học viên vào lớp học ( " + result.Payload + " )");
         }
+
+        [HttpPost("/api/ClassStudent")]
+        public async Task<ActionResult<int>> CreateClassStudent(ClassStudentDTO classStudentDTO)
+        {
+            var result = await _classStudentService.AddStudentIntoClass(classStudentDTO);
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+            return Ok("Đã thêm lớp học");
+        }
     }
 }

@@ -209,7 +209,6 @@ namespace Backend.Services.Member
 
                     await _studentRepository.CreateAsync(student);
                     member.IsPaid = true;
-                    await _classStudentService.AddStudentIntoClassTheory(student.StudentId, student.CourseId);
                     await _memberRepository.UpdateAsync(member);
                 }
             }

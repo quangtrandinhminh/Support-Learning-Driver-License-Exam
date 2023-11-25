@@ -3,7 +3,10 @@ import "./create-course-form.scss";
 import api from "../../../../../config/axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button, Modal } from 'react-bootstrap';
 
+
+// ------------------ CreateCourseForm ------------------
 function CreateCourseForm() {
   const [mentorName, setMentorName] = useState([]);
   const [error, setError] = useState(null);
@@ -56,6 +59,12 @@ function CreateCourseForm() {
       } else if (courseNameList.includes(inputData.name)) {
         setIsDuplicateName(true);
         setError("Tên khoá học đã tồn tại.");
+        return;
+      } else if (inputData.passKm > 1000) {
+        setError("Quãng đường cần thiết phải nhỏ hơn hoặc bằng 100km.");
+        return;
+      } else if (inputData.passTheoryLs > 100) {
+        setError("Số giờ học lý thuyết phải nhỏ hơn hoặc bằng 100%.");
         return;
       } else {
         localStorage.setItem("course", JSON.stringify(inputData));
@@ -330,14 +339,25 @@ function CreateCourseForm() {
 
 export default CreateCourseForm;
 
+
+// ------------------ CreateCourseDetail ------------------
 export function CreateCourseDetail() {
   const course = JSON.parse(localStorage.getItem('course') || '{}');
   const navigate = useNavigate();
   const [courseContent, setCourseContent] = useState([]);
+  const [addSuccess, setAddSuccess] = useState(null);
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];
   const [inputData, setInputData] = useState(Array(1).fill({}));
+  const [courseContentInput, setCourseContenInput] = useState({
+    courseContent1: "",
+  });
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     setInputData((prevInputData) => (
@@ -358,6 +378,20 @@ export function CreateCourseDetail() {
       return newData;
     });
   };
+
+  const handleAddCourseContent = async () => {
+    try {
+      await api.post("CourseContent/add", courseContentInput);
+      handleClose();
+      toast.success('Thêm nội dung thành công');
+      await getCourseContent();
+    } catch (err) {
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+        return;
+      }
+    }
+  }
 
   const getCourseContent = async () => {
     try {
@@ -487,15 +521,6 @@ export function CreateCourseDetail() {
     }
   };
 
-  const showTest = () => {
-    for (let i = 0; i < 5; i++) {
-      for (let j = i + 1; j < 5; j++) {
-        console.log("Số vòng tổng: " + i);
-        console.log("Số vòng con: " + j);
-      }
-    }
-  }
-
   const formatDate = (dbDate) => {
     const date = new Date(dbDate);
     const day = date.getDate().toString().padStart(2, '0');
@@ -519,6 +544,10 @@ export function CreateCourseDetail() {
             )}
           {error && <h5 className="error-message mb-3 tw-text-realRed">{error}</h5>}
           <form onSubmit={handleSubmit}>
+            <div className="mb-2 tw-justify-self-end">
+              <Button className="btn btn-primary"
+                onClick={() => handleShow()}>Thêm chi tiết</Button>
+            </div>
             {inputData.map((data, index) => (
               <div key={index}>
                 <div className="form-group row">
@@ -603,16 +632,50 @@ export function CreateCourseDetail() {
             >
               Tạo khoá học
             </button>
-            <button
+            {/* <button
               className="btn btn-primary tw-mb-5 tw-justify-self-center tw-w-1/4"
               type="button"
               onClick={e => showTest()}
             >
               Show test
-            </button>
+            </button> */}
           </form>
         </div>
       </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thêm chi tiết</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="courseContentAdd row">
+            <label htmlFor="courseContent" className="col-sm-2 col-form-label">
+              Nội dung:
+            </label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control"
+                onChange={(e) => setCourseContenInput({ ...courseContentInput, courseContent1: e.target.value })} />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+          <Button className="btn btn-primary" onClick={() => { handleAddCourseContent(); }}>
+            Thêm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

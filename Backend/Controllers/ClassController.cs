@@ -35,6 +35,22 @@ namespace Backend.Controllers
             }
         }
 
+        // get all dates of class
+        [HttpGet("/api/Class/{classId}/dates")]
+        public async Task<ActionResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId)
+        {
+            var result = await _classService.GetAllDatesOfClass(classId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpGet("/api/Class/{mentorId}")]
         public IActionResult GetClassByMentorId (int mentorId)
         {

@@ -10,6 +10,7 @@ using Backend.Repository.CourseRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Backend.Repository.MentorRepository;
+using Backend.Services.Lesson;
 
 namespace Backend.Services.Class
 {
@@ -19,18 +20,21 @@ namespace Backend.Services.Class
         private readonly ICourseRepository _courseRepository;
         private readonly IClassStudentRepository _classStudentRepository;
         private readonly IMentorRepository _mentorRepository;
+        private readonly ICourseDetailsRepository _courseDetailsRepository;
         private readonly IMapper _mapper;
 
         public ClassService(IClassRepository classRepository
             , ICourseRepository courseRepository
             , IClassStudentRepository classStudentRepository
             , IMentorRepository mentorRepository
+            , ICourseDetailsRepository courseDetailsRepository
             , IMapper mapper)
         {
             _classRepository = classRepository;
             _courseRepository = courseRepository;
             _classStudentRepository = classStudentRepository;
             _mentorRepository = mentorRepository;
+            _courseDetailsRepository = courseDetailsRepository;
             _mapper = mapper;
         }
 
@@ -308,6 +312,43 @@ namespace Backend.Services.Class
                 result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
+            return result;
+        }
+
+        // get all dates of class
+        public async Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId)
+        {
+            var result = new ServiceResult<ICollection<DateTime>>();
+            try
+            {
+                // check if class is exist
+                var classDb = await _classRepository.GetByIdAsync(classId);
+                if (classDb == null)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy lớp!";
+                    return result;
+                }
+
+                //get course details of class
+                var courseDetails = await _courseDetailsRepository.GetAll()
+                    .Where(x => x.CourseId == classDb.CourseId)
+                    .Skip(1)
+                    .ToListAsync();
+
+                // get all Dates of class
+                var dates = LessonService.GetAllDatesForDayOfWeek(
+                    (DateTime)courseDetails.First().CourseTimeStart,
+                    (DateTime)courseDetails.Last().CourseTimeEnd, (int)classDb.DayOfWeek);
+
+                result.Payload = dates;
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+
             return result;
         }
     }

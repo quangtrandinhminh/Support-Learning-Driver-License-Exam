@@ -127,6 +127,7 @@ namespace Backend.Services.Test
                     return result;
                 }
 
+
                 int cont = 0; // Khai báo và khởi tạo biến cont
                 foreach (var student in students)
                 {
@@ -138,7 +139,9 @@ namespace Backend.Services.Test
                         }
                     }
 
-                    if (cont >= 9)
+                    cont = cont / 100;
+
+                    if (cont >= (course.PassTheoryLs/100))
                     {
                         var newTest = _mapper.Map<DB.Models.Test>(testCreateDTO);
                         newTest.ExamId = testCreateDTO.ExamId;
