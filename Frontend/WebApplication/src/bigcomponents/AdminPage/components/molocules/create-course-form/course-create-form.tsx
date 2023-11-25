@@ -345,7 +345,6 @@ export function CreateCourseDetail() {
   const course = JSON.parse(localStorage.getItem('course') || '{}');
   const navigate = useNavigate();
   const [courseContent, setCourseContent] = useState([]);
-  const [addSuccess, setAddSuccess] = useState(null);
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];

@@ -344,8 +344,9 @@ export function PracticeClassTable() {
     getAllClasss();
   }, []);
 
-  const handleCreateButton = (classId) => {
+  const handleCreateButton = (classId, courseId) => {
     localStorage.setItem('classId', classId);
+    localStorage.setItem('courseId', JSON.stringify(courseId));
     navigate('tao-lop-hoc');
   }
 
@@ -435,9 +436,9 @@ export function PracticeClassTable() {
                         <button
                           className="btn btn-primary"
                           type="button"
-                          onClick={() => handleCreateButton(classs.classId)}
+                          onClick={() => handleCreateButton(classs.classId, classs.courseId)}
                         >
-                          Tạo lịch học 
+                          Tạo lịch học
                         </button>
                       </td>
                     </tr>
