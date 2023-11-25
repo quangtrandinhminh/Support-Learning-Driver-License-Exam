@@ -2,7 +2,7 @@
 {
     public class LessonCreateDTO
     {
-        public string LessonContent { get; set; }
+        public int CourseDetailsId { get; set; }
 
         public string Location { get; set; }
 

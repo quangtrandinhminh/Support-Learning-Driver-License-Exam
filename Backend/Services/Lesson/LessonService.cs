@@ -177,42 +177,39 @@ namespace Backend.Services.Lesson
                 var dates = new HashSet<DateTime>();
                 var courseDetails = await _courseDetailsRepository.GetAll()
                     .Where(x => x.CourseId == classDb.CourseId)
+                    .Skip(1)
                     .ToListAsync();
                 foreach (var lesson in lessonCreateDtos)
                 {
                     var index = lessonCreateDtos.ToList().IndexOf(lesson) + 1;
+                    var check = false;
 
                     foreach (var courseDetail in courseDetails)
                     {
-                        if (lesson.LessonContent == courseDetail.CourseContent)
+                        if (lesson.CourseDetailsId == courseDetail.CourseDetailsId)
                         {
                             var startDate = (DateTime)courseDetail.CourseTimeStart;
                             var endDate = (DateTime)courseDetail.CourseTimeEnd;
                             var content = courseDetail.CourseContent;
                             // check if startime >= course.month
                             if (lesson.Date < startDate)
-                                throw new Exception("Ngày học phải lớn hơn ngày bắt đầu của " + content + "( " + index + ")");
+                                throw new Exception($"Ngày học thứ {index} phải lớn hơn ngày bắt đầu của {content}");
 
                             // check if date > courseDetails.courseTimeEnd
                             if (lesson.Date > endDate)
-                                throw new Exception("Ngày học phải nhỏ hơn ngày kết thúc của" + content + "(" + index + ")");
+                                throw new Exception($"Ngày học thứ {index} phải nhỏ hơn ngày kết thúc của {content}");
 
                             // check if any date is duplicated
                             if (!dates.Add(lesson.Date.Date))
                             {
                                 var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
-                                throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
+                                throw new Exception($"Ngày học thứ {index} trùng ngày với ngày học thứ {setIndex}");
                             }
+
+                            check = true;
                         }
                     }
-
-                    // check if dates is duplicated
-                    if (!dates.Add(lesson.Date.Date))
-                    {
-                        var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
-                        throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
-                    }
-
+                    if (!check) throw new Exception("Không tìm thấy nội dung khóa học!");
                 }
 
                 // get all students in course where class is practice class
@@ -234,10 +231,10 @@ namespace Backend.Services.Lesson
                     .Where(x => x.ClassStudent.ClassId == classId)
                     .ToListAsync();
 
+                var count = 0;
                 // create lesson for each student
                 foreach (var student in students)
                 {
-                    var count = 0;
                     foreach (var lesson in lessonCreateDtos)
                     {
                         if (existLesson.Any(x => x.Date == lesson.Date.Date
@@ -248,12 +245,14 @@ namespace Backend.Services.Lesson
 
                         var newLesson = _mapper.Map<DB.Models.Lesson>(lesson);
                         newLesson.ClassStudentId = student.ClassStudentId;
+                        newLesson.LessonContent = courseDetails.FirstOrDefault(x => x.CourseDetailsId == lesson.CourseDetailsId).CourseContent;
                         await _lessonRepository.CreateAsync(newLesson);
                         count++;
                     }
-
-                    if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
                 }
+
+                if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
+                result.Payload = count;
             }
             catch (Exception e)
             {
@@ -298,24 +297,21 @@ namespace Backend.Services.Lesson
 
                     // check if index of lesson is <= CourseTimeEnd - CourseTimeStart
                     if (index > days)
-                        throw new Exception("Số buổi học vượt quá khoảng thời gian của nội dung khóa học! "
-                                                                       + "(" + index + ")");
+                        throw new Exception("Số buổi học vượt quá khoảng thời gian của nội dung khóa học!");
 
                     // check if startime >= course.month
                     if (lesson.Date < theoryCourseDetail.CourseTimeStart)
-                        throw new Exception("Ngày học phải lớn hơn ngày bắt đầu của nội dung khóa học! "
-                                            + "(" + index + ")");
+                        throw new Exception($"Ngày học thứ {index} phải lớn hơn ngày bắt đầu của nội dung khóa học!");
 
                     // check if date > courseDetails.courseTimeEnd
                     if (lesson.Date > theoryCourseDetail.CourseTimeEnd)
-                        throw new Exception("Ngày học phải nhỏ hơn ngày kết thúc của nội dung khóa học! "
-                                            + "(" + index + ")");
+                        throw new Exception($"Ngày học thứ {index} phải nhỏ hơn ngày kết thúc của nội dung khóa học!");
 
                     // check if any date is duplicated
                     if (!dates.Add(lesson.Date.Date))
                     {
                         var setIndex = dates.ToList().IndexOf(lesson.Date.Date) + 1;
-                        throw new Exception("Ngày học thứ " + index + " trùng ngày với ngày học thứ " + setIndex);
+                        throw new Exception($"Ngày học thứ {index} trùng ngày với ngày học thứ {setIndex}");
                     }
                 }
                 dates.Clear();
@@ -773,6 +769,7 @@ namespace Backend.Services.Lesson
                     }
                 }
 
+                if (count == 0) throw new Exception("Buổi học đã có. Không có buổi học nào được tạo thêm!");
                 result.Payload = count;
             }
             catch (Exception e)
