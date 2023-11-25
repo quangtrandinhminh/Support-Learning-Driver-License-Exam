@@ -174,6 +174,7 @@ namespace Backend.Services.ClassStudent
                     result.IsError = true;
                     result.Payload = -1;
                     result.ErrorMessage = "Không tìm thấy học viên";
+                    return result;
                 }
 
                 var classDb = await _classRepository.GetAll()
@@ -183,6 +184,7 @@ namespace Backend.Services.ClassStudent
                     result.IsError = true;
                     result.Payload = -1;
                     result.ErrorMessage = "Không tìm thấy lớp học";
+                    return result;
                 }
 
                 var existClassStudent = await _classStudentRepository.GetAll()
@@ -193,6 +195,7 @@ namespace Backend.Services.ClassStudent
                     result.IsError = true;
                     result.Payload = -2;
                     result.ErrorMessage = "Học viên đã tồn tại trong lớp học";
+                    return result;
                 }
 
                 var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
