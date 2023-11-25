@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import "./class-table.scss";
 import api from "../../../../../config/axios";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 // ----------------- Class table -----------------
@@ -10,9 +9,6 @@ function ClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const map = new Map(); const [show, setShow] = useState(false);
-  const [specificCourse, setSpecificCourse] = useState(null);
-  const [memberList, setMemberList] = useState([]);
   const recordPage = 10;
 
   const getAllClasss = async () => {
@@ -29,22 +25,19 @@ function ClassTable() {
     getAllClasss();
   }, []);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   // Pagination
   const overallIndex = (currentPage - 1) * recordPage;
   const lastIndex = currentPage * recordPage;
   const firstIndex = lastIndex - recordPage;
-  const filteredClasss = classs.filter((classItem: any) => {
+  const filteredResult = classs.filter((classItem: any) => {
     if (classItem && classItem.courseId) {
       return classItem.courseId.toString().includes(searchValue);
     }
     return false; // If classId doesn't exist, exclude the item from the filtered result
   });
 
-  const records = filteredClasss.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(filteredClasss.length / recordPage);
+  const records = filteredResult.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(filteredResult.length / recordPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const prePage = () => {
@@ -68,50 +61,6 @@ function ClassTable() {
     setSearchValue(value);
     setCurrentPage(1); // Reset to the first page when searching
   };
-
-  const handleAdd = async (courseId: number) => {
-    try {
-      // Make an API request to add a class student
-      const response = await api.post(
-        `ClassStudent/${courseId}`
-      );
-      const addedClassStudent = response.data;
-
-      // Handle success, e.g., show a success message or update the UI
-      console.log("Class student added successfully:", addedClassStudent);
-      toast.success('Thêm lớp học thành công!');
-    } catch (error) {
-      // Handle errors, e.g., show an error message or log the error
-      console.error("Error adding class student:", error);
-      toast.error("Thêm lớp học thất bại:", error);
-    }
-  };
-
-  const handleAddLesson = async (courseId: string) => {
-    try {
-      await api.post('Lesson/createTheoryLessonAuto', {
-        courseId,
-        location: "P.12",
-        numberOfLessons: 13
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const showInfo = async (courseId) => {
-    try {
-        const response1 = await api.get('Course/' + courseId);
-        const res1 = response1.data;
-        setSpecificCourse(res1);
-        const response2 = await api.get('Members');
-        const res2 = response2.data;
-        let memberInCourse = res2.filter(member => member.courseId === courseId);
-        setMemberList(memberInCourse);
-    } catch (err) {
-        console.log(err);
-    }
-  }
 
   return (
     <div className="class-table-container">
@@ -232,15 +181,16 @@ export function TheoryClassTable() {
   // Pagination
   const lastIndex = currentPage * recordPage;
   const firstIndex = lastIndex - recordPage;
-  const filteredClasss = classs.filter((classItem: any) => {
-    if (classItem && classItem.mentorName) {
-      return classItem.mentorName.toString().includes(searchValue);
+
+  const filteredResult = classs.filter((classItem: any) => {
+    if (classItem && classItem.courseId) {
+      return classItem.courseId.toString().includes(searchValue);
     }
     return false; // If classId doesn't exist, exclude the item from the filtered result
   });
 
-  const records = filteredClasss.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(filteredClasss.length / recordPage);
+  const records = filteredResult.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(filteredResult.length / recordPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const prePage = () => {
@@ -284,7 +234,7 @@ export function TheoryClassTable() {
                   <input
                     type="text"
                     name="id"
-                    placeholder="Họ và tên"
+                    placeholder="Mã khoá học"
                     onChange={handleSearch}
                     autoComplete="off"
                   />
@@ -372,6 +322,7 @@ export function TheoryClassTable() {
 
 // ----------------- Practice Class Table -----------------
 export function PracticeClassTable() {
+  const navigate = useNavigate();
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -393,18 +344,24 @@ export function PracticeClassTable() {
     getAllClasss();
   }, []);
 
+  const handleCreateButton = (classId) => {
+    localStorage.setItem('classId', classId);
+    navigate('tao-lop-hoc');
+  }
+
   // Pagination
   const lastIndex = currentPage * recordPage;
   const firstIndex = lastIndex - recordPage;
-  const filteredClasss = classs.filter((classItem: any) => {
-    if (classItem && classItem.mentorName) {
-      return classItem.mentorName.toString().includes(searchValue);
+
+  const filteredResult = classs.filter((classItem: any) => {
+    if (classItem && classItem.courseId) {
+      return classItem.courseId.toString().includes(searchValue);
     }
     return false; // If classId doesn't exist, exclude the item from the filtered result
   });
 
-  const records = filteredClasss.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(filteredClasss.length / recordPage);
+  const records = filteredResult.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(filteredResult.length / recordPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const prePage = () => {
@@ -443,7 +400,7 @@ export function PracticeClassTable() {
                   <input
                     type="text"
                     name="id"
-                    placeholder="Họ và tên"
+                    placeholder="Mã khoá học"
                     onChange={handleSearch}
                     autoComplete="off"
                   />
@@ -478,8 +435,9 @@ export function PracticeClassTable() {
                         <button
                           className="btn btn-primary"
                           type="button"
+                          onClick={() => handleCreateButton(classs.classId)}
                         >
-                          Test button
+                          Tạo lịch học 
                         </button>
                       </td>
                     </tr>
