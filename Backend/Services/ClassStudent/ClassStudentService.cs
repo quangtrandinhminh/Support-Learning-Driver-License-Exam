@@ -188,7 +188,8 @@ namespace Backend.Services.ClassStudent
                 }
 
                 var existClassStudent = await _classStudentRepository.GetAll()
-                    .Where(p => p.ClassId == classStudentDTO.ClassId && p.StudentId == classStudentDTO.StudentId)
+                    .Where(p => p.ClassId == classStudentDTO.ClassId 
+                                && p.StudentId == classStudentDTO.StudentId)
                     .FirstOrDefaultAsync();
                 if (existClassStudent != null)
                 {
