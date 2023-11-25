@@ -64,11 +64,17 @@ function TheorySchedule() {
         <div className='theory-schedule-container'>
             <div className='title-container'>
                 <h1 className='theory-container-title'>Lịch học lý thuyết</h1>
-                <h4 className='theory-container-subtitle'>
-                    Thời gian học lý thuyết từ ngày ... đến hết ngày ...
-                    <br />
-                    Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
-                </h4>
+                {
+                    theorySchedule.length > 0 ? (
+                        <h4 className='theory-container-subtitle'>
+                            Thời gian học lý thuyết từ ngày {formatDate(theorySchedule[0].date)} đến hết ngày {formatDate(theorySchedule[theorySchedule.length - 1].date) }
+                            <br />
+                            Buổi sáng từ 7h30 đến 11h30; buổi chiều từ 13h00 đến 17h00
+                        </h4>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             {theorySchedule.length > 0 ? (
                 <table>

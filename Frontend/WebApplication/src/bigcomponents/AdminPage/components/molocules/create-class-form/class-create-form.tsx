@@ -335,17 +335,13 @@ export default CreateTheoryLesson;
 // ------------------------------ CreatePracticeLesson ------------------------------
 export function CreatePracticeLesson() {
   const classId = localStorage.getItem('classId');
+  const courseId = JSON.parse(localStorage.getItem('courseId'));
   const [error, setError] = useState(null);
-  const [courseContent, setCourseContent] = useState([]);
-  const initialData = ['lessonContent', 'location', 'date']
+  const [courseDetails, setCourseDetails] = useState([]);
+  const initialData = ['courseDetailsId', 'location', 'date']
   const [inputData, setInputData] = useState(Array(1).fill({}));
   const [showAlert, setShowAlert] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [courseContentInput, setCourseContenInput] = useState({
-    courseContent1: "",
-  });
+  const navigate = useNavigate();
 
   const handleInputChange = (index, fieldName, value) => {
     const newInputData = [...inputData];
@@ -353,25 +349,21 @@ export function CreatePracticeLesson() {
     setInputData(newInputData);
   };
 
-  const handleAddCourseContent = async () => {
-    try {
-      await api.post("CourseContent/add", courseContentInput);
-      handleClose();
-      toast.success('Thêm nội dung thành công');
-      await getCourseContent();
-    } catch (err) {
-      if (err.response?.data?.error) {
-        setError(err.response.data.error);
-        return;
-      }
-    }
-  }
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
-  const getCourseContent = async () => {
+  const getCourseDetails = async () => {
     try {
-      const response = await api.get('CourseContent');
+      const response = await api.get('CourseDetail/' + courseId);
       const res = response.data;
-      setCourseContent(res.filter(content => !content.courseContent1.includes('Đào Tạo Lý Thuyết')));
+      const filter = res.filter((course) => !course.courseContent.includes('Lý Thuyết'));
+      console.log(filter);
+      setCourseDetails(filter);
     } catch (error) {
       console.log(error);
     }
@@ -396,7 +388,6 @@ export function CreatePracticeLesson() {
       // Return a placeholder element (e.g., null) when not showing the alert
       return null;
     }
-
     return null; // or another placeholder element if needed
   };
 
@@ -410,17 +401,17 @@ export function CreatePracticeLesson() {
     ]);
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     // Fetch all courseId options
-    getCourseContent();
+    getCourseDetails();
   }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await api.post("Lesson/createPracticeLesson?classId=" + classId, inputData);
+      toast.success("Tạo lịch học thực hành thành công!");
+      navigate("/quan-ly-lich-hoc/lop-thuc-hanh");
     } catch (error) {
       if (error.response?.data?.error) {
         setError(error.response.data.error);
@@ -438,7 +429,19 @@ export function CreatePracticeLesson() {
         <div className="create-class-form">
           {error && showSweetAlert(error)}
           <form onSubmit={handleSubmit}>
-
+            <div className="tw-text-realRed tw-italic">
+              {
+                courseDetails.length > 0 ? (
+                  courseDetails.map((content, i) => (
+                    <div key={i} className="">
+                      <li className="tw-text-lg">{content.courseContent}: {formatDate(content.courseTimeStart)} - {formatDate(content.courseTimeEnd)}</li>
+                    </div>
+                  ))
+                ) : (
+                  <h1>bitch</h1>
+                )
+              }
+            </div>
             {/* Class ID */}
             {
               classId ? (
@@ -462,10 +465,10 @@ export function CreatePracticeLesson() {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 tw-justify-self-end">
+                  {/* <div className="mb-2 tw-justify-self-end">
                     <Button className="btn btn-primary"
                       onClick={() => handleShow()}>Thêm chi tiết</Button>
-                  </div>
+                  </div> */}
                 </>
               ) : (
                 null
@@ -474,25 +477,24 @@ export function CreatePracticeLesson() {
             {
               inputData.map((value, idx) => (
                 <div key={idx}>
-
                   {/* Content */}
                   <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
                     <div className="col-sm-10">
                       <select
                         className="form-control"
-                        id="lessonContent"
-                        placeholder="lessonContent"
-                        name="lessonContent"
-                        value={inputData[idx].lessonContent || ""}
+                        id="courseDetailsId"
+                        placeholder="courseDetailsId"
+                        name="courseDetailsId"
+                        value={inputData[idx].courseDetailsId || ""}
                         required
-                        onChange={(e) => handleInputChange(idx, 'lessonContent', e.target.value)}
+                        onChange={(e) => handleInputChange(idx, 'courseDetailsId', e.target.value)}
                       >
                         <option value="" disabled className="tw-italic">Chọn nội dung</option>
                         {
-                          courseContent.map((content) => (
-                            <option value={content.courseContent1}
-                              key={content.courseContent1}>{content.courseContent1}</option>
+                          courseDetails.map((details) => (
+                            <option value={details.courseDetailsId}
+                              key={details.courseDetailsId}>{details.courseContent}</option>
                           ))
                         }
                       </select>
@@ -558,7 +560,7 @@ export function CreatePracticeLesson() {
           </form>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -587,12 +589,8 @@ export function CreatePracticeLesson() {
           <Button variant="secondary" onClick={handleClose}>
             Đóng
           </Button>
-          <Button className="btn btn-primary"
-            onClick={() => handleAddCourseContent()}>
-            Thêm
-          </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

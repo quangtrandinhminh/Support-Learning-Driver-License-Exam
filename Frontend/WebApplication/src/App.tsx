@@ -171,10 +171,6 @@ function App() {
                             <Route path='tao-lop-hoc' element={<CreatePracticeLesson />} />
                           </Route>
                         </Route>
-                        <Route path='quan-ly-ky-thi'>
-                          <Route index element={<ExamManagementAdminPage />} />
-                          <Route path='tao-ky-thi' element={<CreateExamAdminPage />} />
-                        </Route>
                         <Route path='quan-ly-tin-tuc'>
                           <Route index element={<NewsManagementAdminPage />} />
                           <Route path='tao-tin-tuc' element={<CreateNewsAdminPage />} />
@@ -220,6 +216,10 @@ function App() {
                           <Route index element={<ExamManagementPage />} />
                           <Route path='tao-ky-thi' element={<CreateExamPage />} />
                           {/* <Route path='bai-thi' element={ }/> */}
+                        </Route>
+                        <Route path='quan-ly-ky-thi'>
+                          <Route index element={<ExamManagementAdminPage />} />
+                          <Route path='tao-ky-thi' element={<CreateExamAdminPage />} />
                         </Route>
                       </Route>
                     </>
