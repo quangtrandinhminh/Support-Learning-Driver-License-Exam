@@ -76,7 +76,7 @@ function PracticeSpecificRegister() {
             const res = response.data;
             console.log(res);
             toast.success('Đăng ký thành công!');
-            navigate('/khoa-hoc-cua-ban');
+            // navigate('/khoa-hoc-cua-ban');
         } catch (error) {
             console.log(error);
         }
@@ -91,12 +91,6 @@ function PracticeSpecificRegister() {
                         <>
                             <h2 className='practice-container-subtitle'>
                                 Giáo viên: {mentor.fullName}
-                            </h2>
-                            <h2>
-                                Xe số: 51A-012.72 (Hạn TL: 21/11/2007)
-                            </h2>
-                            <h2>
-                                Xe tự động: 51A-820.11 (Hạn TL: 09/12/2006)
                             </h2>
                         </>
                     ) : (
@@ -146,7 +140,7 @@ function PracticeSpecificRegister() {
                                     </tr>
                                 )) : (
                                     <td colSpan={4}>
-                                        <h1 className='tw-text-realRed'>Gió viên chưa đăng ký lịch</h1>
+                                        <h1 className='tw-text-realRed'>Giáo viên chưa đăng ký lịch</h1>
                                     </td>
                                 )
                             }

@@ -80,7 +80,7 @@ function ExamTable() {
 
             const notificationMessage = "Tạo bài thi thành công!";
             localStorage.setItem("notificationMessage", notificationMessage);
-            // location.reload();
+            location.reload();
 
         } catch (error) {
             toast.error(error.response.data.error);
