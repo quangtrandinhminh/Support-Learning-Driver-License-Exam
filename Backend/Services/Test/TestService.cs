@@ -139,9 +139,10 @@ namespace Backend.Services.Test
                         }
                     }
 
-                    cont = cont / 100;
+                    float s = (float)course.PassTheoryLs/100;
+                    float resultt = cont * s;
 
-                    if (cont >= (course.PassTheoryLs/100))
+                    if (resultt >= s)
                     {
                         var newTest = _mapper.Map<DB.Models.Test>(testCreateDTO);
                         newTest.ExamId = testCreateDTO.ExamId;

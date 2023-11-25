@@ -12,7 +12,6 @@ function TeachingSchedule() {
     const [mentorClass, setMentorClass] = useState(null);
     const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
 
-
     const getClassByMentorID = async () => {
         try {
             if (!mentor || !mentor.mentorId) {
@@ -20,22 +19,11 @@ function TeachingSchedule() {
                 return;
             }
 
-            const startDate = '2023-11-06';
-            const endDate = '2024-02-06';
-            const courseId = '1101B2';
-
-            const response = await api.get(`Lesson/teaching-schedule/${mentor.mentorId}`, {
-                params: {
-                    startDate,
-                    endDate,
-                    courseId,
-                },
-            });
-
+            const response = await api.get(`/Class/${mentor.mentorId}`);
             setMentorClass(response.data);
             console.log(response.data);
         } catch (error) {
-            console.log(error);
+            console.error("Error fetching mentor class:", error);
         }
     };
 
@@ -49,21 +37,21 @@ function TeachingSchedule() {
             const classDate = new Date(classInfo.date);
             return classDate >= weekStartDate && classDate <= weekEndDate;
         });
-    
+
         // Organize the data based on day and shift
         const dailySchedule = [...Array(7)].map(() => ({ morning: [], afternoon: [] }));
-    
+
         // Organize the data based on day and shift
         filteredClasses.forEach((classInfo) => {
             const dayIndex = new Date(classInfo.date).getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
-            const slot = classInfo.isNight ? 'afternoon' : 'morning';
-    
+            const slot = classInfo.isNight ? 'morning' : 'afternoon';
+
             dailySchedule[dayIndex][slot].push(classInfo);
         });
-    
+
         // Render the table rows based on the organized schedule
         return dailySchedule.map((daySchedule, dayIndex) => (
-            <th key={dayIndex} className='study-slot'>
+            <tr key={dayIndex} className='study-slot'>
                 {/* Render morning classes */}
                 <td>
                     {daySchedule.morning.map((classInfo, index) => (
@@ -75,7 +63,7 @@ function TeachingSchedule() {
                     ))}
                 </td>
                 {/* Render afternoon classes */}
-                {/* <td>
+                <td>
                     {daySchedule.afternoon.map((classInfo, index) => (
                         <p key={index}>
                             {classInfo.title}
@@ -83,37 +71,39 @@ function TeachingSchedule() {
                             <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
                         </p>
                     ))}
-                </td> */}
-            </th>
+                </td>
+            </tr>
         ));
     };
 
     const fetchScheduleData = async () => {
         try {
+            // Assuming you want to get the courseId from the first object in the list
+            const firstClass = mentorClass[0];
+
             const response = await api.get(`Lesson/teaching-schedule/${mentor.mentorId}`, {
                 params: {
                     startDate: weekStartDate.toISOString().split('T')[0],
                     endDate: weekEndDate.toISOString().split('T')[0],
-                    courseId: '1101B2',
+                    courseId: firstClass.courseId,
                 },
             });
 
             if (response.status === 200) {
-                setScheduleData(response.data); // Update the state with the API response data
+                setScheduleData(response.data);
+                console.log(response.data);
             } else {
-                // Handle unexpected response status codes
                 console.error("Unexpected response status: " + response.status);
             }
         } catch (error) {
             console.error("Error fetching schedule data:", error);
-            // Handle the error here, e.g., set an error state or show an error message to the user
         }
     };
 
     useEffect(() => {
-        fetchScheduleData(); // Invoke the function to fetch schedule data
-    }, [weekStartDate, weekEndDate, mentor.mentorId]);
-    
+        fetchScheduleData();
+    }, []);
+
     // const getStartDay = (year) => {
     //     // Zeller's Congruence algorithm to calculate the start day of the year
     //     if (year < 0) {
@@ -250,7 +240,6 @@ function TeachingSchedule() {
                                 </tr>
                             </thead>
                             <tbody className="schedule-body-container">
-                                <td></td>
                                 {scheduleData.length > 0 ? (
                                     renderScheduleData()
                                 ) : (
