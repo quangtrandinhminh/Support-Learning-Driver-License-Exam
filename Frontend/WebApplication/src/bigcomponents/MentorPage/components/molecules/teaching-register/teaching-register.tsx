@@ -59,7 +59,7 @@ const MentorTeachingRegister: React.FC = () => {
     const listObjects = selectedDays.map((selectedDay) => {
       const [shift, dayOfWeek] = selectedDay.split('-');
       return {
-        mentorId: 0, // Replace with the actual mentor ID
+        mentorId: 6, // Replace with the actual mentor ID
         courseId: courseId, // Replace with the actual course ID
         dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
         shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
