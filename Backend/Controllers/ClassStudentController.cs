@@ -33,6 +33,20 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpGet("/api/ClassStudent/{classId}")]
+        public async Task<ActionResult<ICollection<ClassStudentDetailsDTO>>> GetClassStudentByClassId(int classId)
+        {
+            var result = await _classStudentService.GetClassStudentByClassId(classId);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    error = "Không tìm thấy lớp học"
+                });
+            }
+            return Ok(result.Payload);
+        }
+
         [HttpPost("/api/ClassStudentTheory/{courseId}")]
         public async Task<ActionResult<int>> CreateAllClassStudent(string courseId)
         {

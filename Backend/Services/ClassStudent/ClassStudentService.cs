@@ -211,5 +211,34 @@ namespace Backend.Services.ClassStudent
             }
             return result;
         }
+
+        // get classStudent by classId
+        public async Task<ServiceResult<ICollection<ClassStudentDetailsDTO>>> GetClassStudentByClassId(int classId)
+        {
+            var result = new ServiceResult<ICollection<ClassStudentDetailsDTO>>();
+            try
+            {
+                var classDb = await _classRepository.GetAll()
+                    .Where(p => p.ClassId == classId).FirstOrDefaultAsync();
+                if (classDb == null) throw new Exception("Không tìm thấy lớp học");
+
+                var classStudents = await _classStudentRepository.GetAll()
+                    .Include(p => p.Student)
+                    .ThenInclude(p => p.Member.User)
+                    .Where(p => p.ClassId == classId).ToListAsync();
+
+                result.Payload = _mapper.Map<ICollection<ClassStudentDetailsDTO>>(classStudents);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+
     }
+
+
 }

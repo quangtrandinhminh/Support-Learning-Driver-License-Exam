@@ -116,6 +116,10 @@ namespace Backend
 
             //ClassStudent
             CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDTO>();
+            CreateMap<DB.Models.ClassStudent, DTO.ClassStudent.ClassStudentDetailsDTO>()
+                .ForMember(dto => dto.CourseId, opt => opt.MapFrom(entity => entity.Student.CourseId))
+                .ForMember(dto => dto.FullName, opt => opt.MapFrom(entity => entity.Student.Member.User.FullName))
+                .ForMember(dto => dto.Dob, opt => opt.MapFrom(entity => entity.Student.Member.Dob));
             CreateMap<DTO.ClassStudent.ClassStudentDTO, DB.Models.ClassStudent>();
 
             //Lesson
