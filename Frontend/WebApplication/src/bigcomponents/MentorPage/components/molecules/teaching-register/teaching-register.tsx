@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './teaching-register.scss';
 import api from '../../../../../config/axios';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface CheckboxTableState {
   checkboxes: {
@@ -111,7 +112,7 @@ const MentorTeachingRegister: React.FC = () => {
         // Example: Display a success message to the user
 
         console.log(response.status);
-        alert('Lịch đã được đặt thành công!');
+        toast.success('Lịch đã được đặt thành công!');
         window.history.back();
       }
 

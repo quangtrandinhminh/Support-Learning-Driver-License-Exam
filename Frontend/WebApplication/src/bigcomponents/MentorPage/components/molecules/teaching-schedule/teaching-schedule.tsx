@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './teaching-schedule.scss';
 import api from '../../../../../config/axios';
+import { useNavigate } from 'react-router-dom';
 
 function TeachingSchedule() {
     const [selectedYear, setSelectedYear] = useState(2023);
@@ -11,10 +12,13 @@ function TeachingSchedule() {
     const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
     const [mentorClass, setMentorClass] = useState(null);
     const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
-     const handleClassClick = (classInfo) => {
+    const navigate = useNavigate();
+
+     const handleClassClick = (classId, date) => {
         // Store classId and date in sessionStorage
-        sessionStorage.setItem('selectedClassId', classInfo.classId);
-        sessionStorage.setItem('selectedDate', classInfo.date);
+        localStorage.setItem('selectedClassId', classId);
+        localStorage.setItem('selectedDate', date);
+         navigate("diem-danh/" + classId);
     };
 
     const getClassByMentorID = async () => {
@@ -73,11 +77,11 @@ function TeachingSchedule() {
                     {morningSchedule.map((morningClasses, morningIndex) => (
                         <td key={morningIndex} className='morning-slot'>
                             {morningClasses.map((classInfo, classIndex) => (
-                                <div key={classIndex} onClick={() => handleClassClick(classInfo)}>
+                                <div key={classIndex} onClick={() => handleClassClick(classInfo.classId, classInfo.date)}>
                                     <p>
                                         {classInfo.title}
                                         <br />
-                                        <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                        <a href='/' onClick={(e) => (e.preventDefault(), handleClassClick(classInfo.classId, classInfo.date))}>Lớp: {classInfo.classId}</a>
                                         <br />
                                         Trạng thái: {new Date(classInfo.date) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
                                     </p>
@@ -97,7 +101,7 @@ function TeachingSchedule() {
                                     <p>
                                         {classInfo.title}
                                         <br />
-                                        <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                        <a href='/' onClick={(e) => (e.preventDefault(), handleClassClick(classInfo.classId, classInfo.date))}>Lớp: {classInfo.classId}</a>
                                         <br />
                                         Trạng thái: {(new Date(classInfo.date, )) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
                                     </p>
