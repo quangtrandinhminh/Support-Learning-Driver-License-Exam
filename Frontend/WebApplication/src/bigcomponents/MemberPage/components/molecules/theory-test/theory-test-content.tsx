@@ -76,7 +76,13 @@ function TheoryTestContent() {
         <div className='theory-test-container'>
             <div className='theory-title-box'>
                 <h1 className='theory-test-title tw-text-center'>Kiểm tra Lý Thuyết</h1>
-                <h4 className='theory-test-subtitle tw-text-center'>Kỳ kiểm tra lý thuyết bằng B2 khoá XXXB2</h4>
+                {
+                    member ? (
+                        <h4 className='theory-test-subtitle tw-text-center'>Kỳ kiểm tra lý thuyết bằng B2 khoá {member.courseId}</h4>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             <div className='theory-content'>
                 <p className='first-part'>
