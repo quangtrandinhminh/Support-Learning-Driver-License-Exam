@@ -319,40 +319,39 @@ namespace Backend.Services.Class
         }
 
         // get all dates of class
-        public async Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId)
-        {
+        public async Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId) {
             var result = new ServiceResult<ICollection<DateTime>>();
-            try
-            {
-                // check if class is exist
+            try {
+                // check if class exists
                 var classDb = await _classRepository.GetByIdAsync(classId);
-                if (classDb == null)
-                {
+                if (classDb == null) {
                     result.IsError = true;
                     result.ErrorMessage = "Không tìm thấy lớp!";
                     return result;
                 }
 
-                //get course details of class
+                // get course details of class
                 var courseDetails = await _courseDetailsRepository.GetAll()
                     .Where(x => x.CourseId == classDb.CourseId)
                     .Skip(1)
                     .ToListAsync();
 
-                // get all Dates of class
+                // get the corrected day of the week
+                int correctedDayOfWeek = ((int)classDb.DayOfWeek + 6) % 7;
+
+                // get all Dates of class using the corrected day of the week
                 var dates = LessonService.GetAllDatesForDayOfWeek(
                     (DateTime)courseDetails.First().CourseTimeStart,
-                    (DateTime)courseDetails.Last().CourseTimeEnd, (int)classDb.DayOfWeek);
+                    (DateTime)courseDetails.Last().CourseTimeEnd, correctedDayOfWeek);
 
                 result.Payload = dates;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
 
             return result;
         }
+
     }
 }

@@ -479,7 +479,7 @@ export function CreateCourseDetail() {
 
               // so sánh trùng ngày bắt đầu
             } else if (inputData[i].courseTimeStart === inputData[j].courseTimeStart) {
-              if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động ")) {
+              if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động")) {
                 // console.log("6");
                 continue;
               } else {

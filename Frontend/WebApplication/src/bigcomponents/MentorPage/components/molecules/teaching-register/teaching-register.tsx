@@ -93,31 +93,30 @@ const MentorTeachingRegister: React.FC = () => {
     console.log('Formatted List of Objects:', formattedListObjects);
 
     try {
-      // // Make an API request to the server using Axios
-      // const response = await api.post(
-      //   'Class/addClassPracticeByMentor',
-      //   formattedListObjects,
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
+      // Make an API request to the server using Axios
+      const response = await api.post(
+        'Class/addClassPracticeByMentor',
+        formattedListObjects,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      // // Check if the response status is OK (status code 2xx)
-      // if (response.status !== 200) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // } else {
-      //   // Example: Display a success message to the user
+      // Check if the response status is OK (status code 2xx)
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        // Example: Display a success message to the user
 
-      //   console.log(response.status);
-      //   alert('Lịch đã được đặt thành công!');
-      //   // window.history.back();
-      // }
+        console.log(response.status);
+        alert('Lịch đã được đặt thành công!');
+        window.history.back();
+      }
 
-      // // Handle the response data here
-      // console.log('Response from the server:', response.data);
-      console.log(listObjects);
+      // Handle the response data here
+      console.log('Response from the server:', response.data);
 
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
