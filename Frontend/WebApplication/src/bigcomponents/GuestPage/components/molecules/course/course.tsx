@@ -14,6 +14,7 @@ function Course() {
     const firstIndex = lastIndex - recordPage;
     const npage = Math.ceil(courses.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
+
     const currentDate = new Date();
 
     // Filter courses based on the startDate condition
@@ -29,7 +30,6 @@ function Course() {
             (course.courseYear === currentYear && course.courseMonth >= currentMonth)
         );
     });
-
     const records = filteredCourses.slice(firstIndex, lastIndex);
 
     useEffect(() => {
@@ -68,6 +68,7 @@ function Course() {
 
         getCourseData();
     }, []);
+
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -131,21 +132,18 @@ function Course() {
                     >
                         <CircularProgress color="inherit" />
                     </Backdrop>
-                )
-                }
+                )}
             </div>
             <nav>
                 <ul className='pagination'>
                     <li className='page-item'>
                         <button type='button' className='page-link' onClick={prePage}>Prev</button>
                     </li>
-                    {
-                        numbers.map((n, i) => (
-                            <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
-                            </li>
-                        ))
-                    }
+                    {numbers.map((n, i) => (
+                        <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                            <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
+                        </li>
+                    ))}
                     <li className='page-item'>
                         <button type='button' className='page-link' onClick={nextPage}>Next</button>
                     </li>
