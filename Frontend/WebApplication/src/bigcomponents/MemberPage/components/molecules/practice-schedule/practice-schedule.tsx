@@ -93,12 +93,6 @@ function PracticeSchedule() {
                             <h2 className='practice-container-subtitle'>
                                 Giáo viên: {mentor.fullName}
                             </h2>
-                            <h2>
-                                Xe số: 51A-012.72 (Hạn TL: 21/11/2007)
-                            </h2>
-                            <h2>
-                                Xe tự động: 51A-820.11 (Hạn TL: 09/12/2006)
-                            </h2>
                         </>
                     ) : (
                         null

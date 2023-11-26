@@ -15,7 +15,7 @@ function VerificationForm() {
 
   const [inputData, setInputData] = useState({
     dob: '',
-    gender: 'Nam',
+    gender: '',
     nationality: '',
     residenceAddress: '',
     identityCardNumber: '',
@@ -133,6 +133,7 @@ function VerificationForm() {
         ...prevInputData,
         fullName: user.fullName,
         phone: user.phone,
+        gender: "Nam",
         email: user.email
       }))
     }
@@ -164,13 +165,23 @@ function VerificationForm() {
                     <div className='gender-container'>
                       <div className='male'>
                         <label htmlFor="gender">Nam:</label>
-                        <input type="radio" name="gender" value={'nam'} checked className='gender-input'
-                          onChange={e => setInputData({ ...inputData, gender: e.target.value })} />
+                        <input
+                          type="radio"
+                          name="gender"
+                          value={'nam'}
+                          checked={inputData.gender === 'nam'}
+                          onChange={() => setInputData(prevData => ({ ...prevData, gender: 'nam' }))}
+                        />
                       </div>
                       <div className='female'>
                         <label htmlFor="gender">Nữ:</label>
-                        <input type="radio" name="gender" value={'nữ'} className='gender-input'
-                          onChange={e => setInputData({ ...inputData, gender: e.target.value })} />
+                        <input
+                          type="radio"
+                          name="gender"
+                          value={'nữ'}
+                          checked={inputData.gender === 'nữ'}
+                          onChange={() => setInputData(prevData => ({ ...prevData, gender: 'nữ' }))}
+                        />
                       </div>
                     </div>
                   </li>
