@@ -108,9 +108,6 @@ function PracticeSchedule() {
                             <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
                         </div>
                     </div>
-                    <p className='practice-street-verify'>
-                        Học thực hành trên tuyến đường của xe 51A-012.72 và 51A-820.11 được cấp phép
-                    </p>
                 </div>
                 <form>
                     <table>
