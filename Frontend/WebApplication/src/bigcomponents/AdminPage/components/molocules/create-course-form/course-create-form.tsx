@@ -439,10 +439,16 @@ export function CreateCourseDetail() {
       // }
       if (course) {
         for (let i = 0; i < inputData.length; i++) {
+          // for day
           const startDateParts = inputData[i].courseTimeStart.split("-");
           const endDateParts = inputData[i].courseTimeEnd.split("-");
           const startDate = parseInt(startDateParts[2]);
           const endDate = parseInt(endDateParts[2]);
+
+          // for month 
+          const startMonth = parseInt(startDateParts[1]);
+          const endMonth = parseInt(endDateParts[1]);
+
           // ngày bắt đầu lớn hơn ngày kết thúc
           if (inputData[i].courseTimeStart > inputData[i].courseTimeEnd) {
             // console.log("1");
@@ -462,10 +468,11 @@ export function CreateCourseDetail() {
             return;
 
             // ngày kết thúc phải cách ngày bắt đầu là 7 ngày
-          } else if (endDate - startDate < 7) {
-            // console.log("4");
-            setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
-            return;
+          } else if (endMonth - startMonth < 1) {
+            if (endDate - startDate < 7) {
+              setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
+              return;
+            }
           }
 
           for (let j = i + 1; j < inputData.length; j++) {

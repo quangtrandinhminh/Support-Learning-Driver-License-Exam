@@ -15,6 +15,7 @@ function CourseTable() {
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState<any[]>([]);
     const [show, setShow] = useState(false);
+    
     var courseContentMap = new Map();
 
     const handleClose = () => setShow(false);
@@ -41,6 +42,7 @@ function CourseTable() {
             const validCourse = courseResponse.data.filter(course => {
                 const courseStartDate = new Date(course.startDate);
                 const currentDate = new Date();
+                currentDate.setHours(0, 0, 0, 0);
 
                 // Compare day, month, and year components
                 return courseStartDate >= currentDate;
@@ -57,7 +59,6 @@ function CourseTable() {
             console.log(err);
         }
     };
-
 
     const handleNavigate = () => {
         navigate('/khoa-hoc-cua-ban')
