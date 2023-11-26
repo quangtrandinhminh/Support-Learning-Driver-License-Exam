@@ -348,7 +348,7 @@ export function CreateCourseDetail() {
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];
-  const [inputData, setInputData] = useState(Array(1).fill({}));
+  const [inputData, setInputData] = useState(Array(2).fill({}));
   const [courseContentInput, setCourseContenInput] = useState({
     courseContent1: "",
   });

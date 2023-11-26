@@ -133,7 +133,6 @@ function VerificationForm() {
         ...prevInputData,
         fullName: user.fullName,
         phone: user.phone,
-        gender: "Nam",
         email: user.email
       }))
     }
