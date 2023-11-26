@@ -18,7 +18,7 @@ namespace Backend.Services.Lesson
             string courseId, ICollection<LessonTheoryCreateDTO> lessonTheoryCreateDtos);
 
         Task<ServiceResult<ICollection<TeachingScheduleDTO>>> GetTeachingScheduleByMentorId(DateTime startDate
-            , DateTime endDate, int mentorId, string courseId);
+            , DateTime endDate, int mentorId);
 
         Task<ServiceResult<ICollection<AttendanceDTO>>> GetLessonsByClassIdAndDate(int classId, DateTime date);
 
