@@ -63,10 +63,6 @@ namespace Backend.Services.Lesson
                 foreach (var lesson in resultLessons)
                 {
                     lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString();
-                    if (lesson.IsNight)
-                    {
-                        lesson.Shift = "Tối";
-                    }
                 }
 
                 result.Payload = resultLessons;
@@ -141,10 +137,6 @@ namespace Backend.Services.Lesson
                 foreach (var lesson in resultLessons)
                 {
                     lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString();
-                    if (lesson.IsNight)
-                    {
-                        lesson.Shift = "Tối";
-                    }
                 }
 
                 result.Payload = resultLessons;
@@ -932,10 +924,6 @@ namespace Backend.Services.Lesson
                 foreach (var lesson in resultLessons)
                 {
                     lesson.DayOfWeek = lesson.Date.DayOfWeek.ToString();
-                    if (lesson.IsNight)
-                    {
-                        lesson.Shift = "Tối";
-                    }
                 }
 
                 result.Payload = resultLessons;

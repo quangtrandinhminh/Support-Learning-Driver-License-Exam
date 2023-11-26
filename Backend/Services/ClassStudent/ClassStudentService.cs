@@ -179,7 +179,7 @@ namespace Backend.Services.ClassStudent
 
                 var count = await _classStudentRepository.GetAll()
                     .Where(p => p.ClassId == classStudentDTO.ClassId).CountAsync();
-                if (count >= 3)
+                if (count >= classDb.LimitStudent)
                 {
                     result.IsError = true;
                     result.Payload = -3;
@@ -246,8 +246,6 @@ namespace Backend.Services.ClassStudent
             }
             return result;
         }
-
-
     }
 
 
