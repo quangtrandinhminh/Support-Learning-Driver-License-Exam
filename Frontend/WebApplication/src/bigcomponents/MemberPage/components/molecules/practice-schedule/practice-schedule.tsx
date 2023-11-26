@@ -145,7 +145,7 @@ function PracticeSchedule() {
                             }
                         </tbody>
                     </table>
-                    <div className='practice-schedule-note'>
+                    <div className='practice-schedule-note tw-justify-center'>
                         <h2 className='fst-italic'>Lưu ý: Học viên phải bắt buộc tham gia ca học đêm và  học đủ các buổi học để có thể tham gia thi bằng lái xe B2</h2>
                     </div>
                 </form>
