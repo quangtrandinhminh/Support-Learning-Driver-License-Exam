@@ -16,27 +16,31 @@ function StudentsAttendances() {
   const [students, setStudents] = useState<Student[]>([]);
   const navigate = useNavigate();
   const { classId } = useParams();
-  
+
   // Retrieve the date from session storage
   const storedDate = sessionStorage.getItem('selectedDate');
-  const selectedDate = storedDate ? new Date(storedDate) : new Date();
+const selectedDate = storedDate ? new Date(storedDate) : new Date();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Fetching data for classId:', classId, 'date:', selectedDate);
-        if (classId) {
-          const response = await api.get(`/Lesson/attendance/${classId}/${selectedDate.toISOString()}`);
-          setStudents(response.data);
-          console.log('Data', response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching student data:', error);
+// Format the date in the expected format for your API (YYYY-MM-DD)
+const formattedDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log('Fetching data for classId:', classId, 'date:', selectedDate);
+      if (classId) {
+        // Use the formatted date in the API call
+        const response = await api.get(`/Lesson/attendance/${classId}/${formattedDate}`);
+        setStudents(response.data);
+        console.log('Data', response.data);
       }
-    };
-  
-    fetchData();
-  }, [classId, selectedDate]);
+    } catch (error) {
+      console.error('Error fetching student data:', error);
+    }
+  };
+
+  fetchData();
+}, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -49,9 +53,12 @@ function StudentsAttendances() {
         attendance: student.attendance,
       }));
 
-      // Use classId and date in the API endpoint
-      await api.patch(`/Lesson/attendance/${classId}/${selectedDate.toISOString()}`, attendanceData);
-      console.log('Attendance data sent successfully');
+      if (classId && formattedDate) {
+        await api.patch(`/Lesson/attendance/${classId}/${formattedDate}`, attendanceData);
+        console.log('Attendance data sent successfully');
+      } else {
+        console.error('ClassId or date is missing from session storage');
+      }
 
       navigate('/lich-day');
     } catch (error) {
@@ -80,7 +87,6 @@ function StudentsAttendances() {
                 <th>STT</th>
                 <th>Họ và tên</th>
                 <th>Điểm danh</th>
-                <th>Ghi chú</th>
               </tr>
             </thead>
             <tbody className='attendance-table-body'>
@@ -110,7 +116,6 @@ function StudentsAttendances() {
                       Có mặt
                     </label>
                   </td>
-                  <td>Không có</td>
                 </tr>
               ))}
             </tbody>

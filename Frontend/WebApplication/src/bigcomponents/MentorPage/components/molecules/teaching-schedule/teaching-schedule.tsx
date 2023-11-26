@@ -11,6 +11,11 @@ function TeachingSchedule() {
     const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
     const [mentorClass, setMentorClass] = useState(null);
     const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
+     const handleClassClick = (classInfo) => {
+        // Store classId and date in sessionStorage
+        sessionStorage.setItem('selectedClassId', classInfo.classId);
+        sessionStorage.setItem('selectedDate', classInfo.date);
+    };
 
     const getClassByMentorID = async () => {
         try {
@@ -68,7 +73,7 @@ function TeachingSchedule() {
                     {morningSchedule.map((morningClasses, morningIndex) => (
                         <td key={morningIndex} className='morning-slot'>
                             {morningClasses.map((classInfo, classIndex) => (
-                                <div key={classIndex}>
+                                <div key={classIndex} onClick={() => handleClassClick(classInfo)}>
                                     <p>
                                         {classInfo.title}
                                         <br />
