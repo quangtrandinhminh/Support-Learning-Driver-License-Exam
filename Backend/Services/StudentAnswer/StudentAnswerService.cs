@@ -169,7 +169,7 @@ namespace Backend.Services.StudentAnswer
                             studentquestion.IsCorrect = false;
                         }
                         i++;
-                        _studentAnswerRepository.UpdateAsync(studentquestion);
+                        await _studentAnswerRepository.UpdateAsync(studentquestion);
                     }
                 }
                 var test = _testRepository.GetAll()
@@ -185,7 +185,7 @@ namespace Backend.Services.StudentAnswer
                         if (e == 0)
                         {
                             test.Pass = true;
-                            _testRepository.UpdateAsync(test);
+                            await _testRepository.UpdateAsync(test);
                             resultt.result = "Pass";
                             result.IsError = false;
                             result.Payload = resultt;
@@ -194,7 +194,7 @@ namespace Backend.Services.StudentAnswer
                         else
                         {
                             test.Pass = false;
-                            _testRepository.UpdateAsync(test);
+                            await _testRepository.UpdateAsync(test);
                             resultt.result = "Not Pass";
                             result.IsError = false;
                             result.Payload = resultt;
@@ -204,7 +204,7 @@ namespace Backend.Services.StudentAnswer
                     else
                     {
                         test.Pass = false;
-                        _testRepository.UpdateAsync(test);
+                        await _testRepository.UpdateAsync(test);
                         resultt.result = "Not Pass";
                         result.IsError = false;
                         result.Payload = resultt;

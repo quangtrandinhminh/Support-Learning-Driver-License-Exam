@@ -27,6 +27,13 @@
                     th {
                         .mini-title {
                             padding-right: 10px;
+                            #selected-year {
+                                background-color: #fff;
+                                padding-left: 5px;
+                                padding-right: 5px;
+                                font-weight: 100;
+                                border: solid 1px #6b90da;
+                            }
                         }
                         text-align: left;
                         padding: 5px;

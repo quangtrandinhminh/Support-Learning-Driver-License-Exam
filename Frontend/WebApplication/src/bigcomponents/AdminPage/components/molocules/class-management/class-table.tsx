@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./class-table.scss";
 import api from "../../../../../config/axios";
 import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
 
 
 // ----------------- Class table -----------------
@@ -160,8 +161,15 @@ export function TheoryClassTable() {
   const [classs, setClasss] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [classInfoLoaded, setClassInfoLoaded] = useState(false);
   const recordPage = 10;
   const navigate = useNavigate();
+  const [lesson, setLesson] = useState([]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const getAllClasss = async () => {
     try {
@@ -173,6 +181,18 @@ export function TheoryClassTable() {
       console.log(error);
     }
   };
+
+  const detailsClick = async (classId) => {
+    try {
+      const response = await api.get("Lesson/class/" + classId);
+      const res = response.data;
+      setLesson(res);
+      setClassInfoLoaded(true);
+    } catch (error) {
+      console.log(error);
+      setLesson([]);
+    }
+  }
 
   useEffect(() => {
     getAllClasss();
@@ -220,6 +240,14 @@ export function TheoryClassTable() {
     navigate('tao-lop-hoc');
   };
 
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <div className="template-container">
       <div className="class-table-container">
@@ -257,7 +285,11 @@ export function TheoryClassTable() {
                 {records.length > 0 ? (
                   records.map((classs, i) => (
                     <tr key={i}>
-                      <td>{classs.classId}</td>
+                      <td>
+                        <a href="/" onClick={(e) => (setClassInfoLoaded(false), detailsClick(classs.classId), e.preventDefault(), handleShow())} className="text-decoration-none">
+                          {classs.classId}
+                        </a>
+                      </td>
                       <td>{classs.mentorName}</td>
                       <td>{classs.courseId}</td>
                       <td>{classs.isTheoryClass ? "Lý thuyết" : "Thực hành"}</td>
@@ -315,6 +347,51 @@ export function TheoryClassTable() {
           </form>
         </div>
       </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thông tin lớp học</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='course-information-container'>
+            <div className='course-information-title'>
+              <div className="class-details">
+                {
+                  lesson.length > 0 ? (
+                    lesson.map((item, index) => (
+                      <>
+                        <div key={index} >
+                          <ul className="tw-flex tw-flex-col tw-gap-1">
+                            <li><strong><i>Nội dung: {index + 1}</i></strong></li>
+                            <li className="tw-list-none"><strong>Chi tiết: </strong>{item.lessonContent}</li>
+                            <li className="tw-list-none"><strong>Thời gian: </strong>{formatDate(item.date)}</li>
+                            <li className="tw-list-none"><strong>Địa điểm: </strong>{item.location}</li>
+                          </ul>
+                        </div>
+                      </>
+                    ))) : (
+                    <h2>Không tìm thấy thông tin</h2>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }
@@ -327,6 +404,26 @@ export function PracticeClassTable() {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const recordPage = 10;
+  const [classInfoLoaded, setClassInfoLoaded] = useState(false);
+  const [lesson, setLesson] = useState([]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const detailsClick = async (classId) => {
+    try {
+      const response = await api.get("Lesson/class/" + classId);
+      const res = response.data;
+      setLesson(res);
+      setClassInfoLoaded(true);
+    } catch (error) {
+      console.log(error);
+      setLesson([]);
+    }
+  }
+
 
   // Get all class which is practice class
   const getAllClasss = async () => {
@@ -387,6 +484,14 @@ export function PracticeClassTable() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <div className="template-container">
       <div className="class-table-container">
@@ -426,7 +531,11 @@ export function PracticeClassTable() {
                 {records.length > 0 ? (
                   records.map((classs, i) => (
                     <tr key={i}>
-                      <td>{classs.classId}</td>
+                      <td>
+                        <a href="/" onClick={(e) => (setClassInfoLoaded(false), detailsClick(classs.classId), e.preventDefault(), handleShow())} className="text-decoration-none">
+                          {classs.classId}
+                        </a>
+                      </td>
                       <td>{classs.mentorName}</td>
                       <td>{classs.courseId}</td>
                       <td>{classs.isTheoryClass ? "Lý thuyết" : "Thực hành"}</td>
@@ -486,6 +595,52 @@ export function PracticeClassTable() {
           </form>
         </div>
       </div>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thông tin lớp học</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='course-information-container'>
+            <div className='course-information-title'>
+              <div className="class-details">
+                {
+                  lesson.length > 0 ? (
+                    lesson.map((item, index) => (
+                      <>
+                        <div key={index} >
+                          <ul className="tw-flex tw-flex-col tw-gap-1">
+                            <li><strong><i>Nội dung: {index + 1}</i></strong></li>
+                            <li className="tw-list-none"><strong>Chi tiết: </strong>{item.lessonContent}</li>
+                            <li className="tw-list-none"><strong>Thời gian: </strong>{formatDate(item.date)}</li>
+                            <li className="tw-list-none"><strong>Địa điểm: </strong>{item.location}</li>
+                          </ul>
+                        </div>
+                      </>
+                    ))) : (
+                    <h2>Không tìm thấy thông tin</h2>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

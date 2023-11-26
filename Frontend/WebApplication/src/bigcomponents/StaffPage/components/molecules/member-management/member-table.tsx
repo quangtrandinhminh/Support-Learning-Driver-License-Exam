@@ -78,15 +78,6 @@ function MemberTable() {
 
   const updateMemberIsPaidAndFetchData = async () => {
     try {
-      // Update the payment status of member
-      // await api.put('Member/editIsPaid?memberId=' + memberId);
-      // setUpdateSuccess(true);
-
-      // Fetch member data
-      // const fetchResponse = await api.get(`Member?memberId=${memberId}`);
-      // console.log(fetchResponse.data);
-      // sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
-
       // New API to adding member to student if his/her payment is True
       await api.post("Invoice/create", inputData);
       const notificationMessage = "Cập nhật thanh toán thành công!";
