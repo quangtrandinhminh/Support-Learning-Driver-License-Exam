@@ -83,6 +83,7 @@ function CourseTable() {
                                                     <p>Khoá {course.name}</p>
                                                     <p>KG: {formatDate(course.startDate)}</p>
                                                     <p>BG: {formatDate(course.endDate)}</p>
+                                                    <p>Học phí: {course.courseFee.toLocaleString()} VNĐ</p>
                                                 </td>
                                                 <td className='course-mem'>
                                                     <p>{course.limitStudent}</p>

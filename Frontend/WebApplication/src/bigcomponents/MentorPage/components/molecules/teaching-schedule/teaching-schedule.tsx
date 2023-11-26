@@ -79,9 +79,11 @@ function TeachingSchedule() {
                             {morningClasses.map((classInfo, classIndex) => (
                                 <div key={classIndex} onClick={() => handleClassClick(classInfo.classId, classInfo.date)}>
                                     <p>
-                                        {classInfo.title}
+                                        {classInfo.lessonContent}
                                         <br />
                                         <a href='/' onClick={(e) => (e.preventDefault(), handleClassClick(classInfo.classId, classInfo.date))}>Lớp: {classInfo.classId}</a>
+                                        <br />
+                                        Địa điểm: {classInfo.location}
                                         <br />
                                         Trạng thái: {new Date(classInfo.date) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
                                     </p>
@@ -99,11 +101,13 @@ function TeachingSchedule() {
                             {afternoonClasses.map((classInfo, classIndex) => (
                                 <div key={classIndex}>
                                     <p>
-                                        {classInfo.title}
+                                        {classInfo.lessonContent}
                                         <br />
                                         <a href='/' onClick={(e) => (e.preventDefault(), handleClassClick(classInfo.classId, classInfo.date))}>Lớp: {classInfo.classId}</a>
                                         <br />
-                                        Trạng thái: {(new Date(classInfo.date, )) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
+                                        Địa điểm: {classInfo.location}
+                                        <br />
+                                        Trạng thái: {(new Date(classInfo.date,)) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
                                     </p>
                                 </div>
                             ))}
