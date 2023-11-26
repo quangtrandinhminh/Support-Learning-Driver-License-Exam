@@ -2,13 +2,26 @@ import { useEffect, useState } from 'react';
 import './exam-document.scss'
 import { useNavigate } from 'react-router-dom'
 import { Backdrop, CircularProgress } from '@mui/material';
+import api from '../../../../../config/axios';
 
 function ExamDocument() {
-  const member = sessionStorage.getItem('loginedMember') ? JSON.parse(sessionStorage.getItem('loginedMember')) : null;
+  const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const [member, setMember] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+  
+  const getMemberByUID = async () => {
+    try {
+      const response = await api.get('Member/' + user.userID);
+      setMember(response.data);
+      setIsLoading(false);
+      sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,9 +41,7 @@ function ExamDocument() {
   }
 
   useEffect(() => {
-    if (member != null) {
-      setIsLoading(false);
-    }
+    getMemberByUID();
   }, [])
 
   return (
