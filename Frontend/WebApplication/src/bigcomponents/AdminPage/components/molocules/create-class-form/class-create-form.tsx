@@ -342,6 +342,7 @@ export function CreatePracticeLesson() {
   const [inputData, setInputData] = useState(Array(1).fill({}));
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const [dateByClassList, setDateByClassList] = useState([]);
 
   const handleInputChange = (index, fieldName, value) => {
     const newInputData = [...inputData];
@@ -356,6 +357,16 @@ export function CreatePracticeLesson() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+  const getDateByClass = async () => {
+    try {
+      const response = await api.get('Class/' + classId + '/dates');
+      const res = response.data;
+      setDateByClassList(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getCourseDetails = async () => {
     try {
@@ -404,6 +415,7 @@ export function CreatePracticeLesson() {
   useEffect(() => {
     // Fetch all courseId options
     getCourseDetails();
+    getDateByClass();
   }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -448,7 +460,7 @@ export function CreatePracticeLesson() {
                 <>
                   <div className="form-group row">
                     <label htmlFor="classId" className="col-sm-2 col-form-label">
-                      Mã khóa học:{" "}
+                      Mã lớp học:{" "}
                     </label>
                     <div className="col-sm-10">
                       <select
@@ -525,14 +537,23 @@ export function CreatePracticeLesson() {
                       Ngày:{" "}
                     </label>
                     <div className="col-sm-4">
-                      <input
-                        type="date"
+                      <select
                         className="form-control"
-                        name="status"
-                        value={inputData[idx].date} // Convert to string
+                        id="date"
+                        placeholder="date"
+                        name="date"
+                        value={inputData[idx].date || ""}
+                        required
                         onChange={(e) => handleInputChange(idx, 'date', e.target.value)}
                       >
-                      </input>
+                        <option value="" disabled className="tw-italic">Chọn ngày</option>
+                        {
+                          dateByClassList.map((date) => (
+                            <option value={date}
+                              key={date}>{formatDate(date)}</option>
+                          ))
+                        }
+                      </select>
                     </div>
                   </div>
                 </div>
