@@ -93,12 +93,6 @@ function PracticeSchedule() {
                             <h2 className='practice-container-subtitle'>
                                 Giáo viên: {mentor.fullName}
                             </h2>
-                            <h2>
-                                Xe số: 51A-012.72 (Hạn TL: 21/11/2007)
-                            </h2>
-                            <h2>
-                                Xe tự động: 51A-820.11 (Hạn TL: 09/12/2006)
-                            </h2>
                         </>
                     ) : (
                         null
@@ -112,7 +106,6 @@ function PracticeSchedule() {
                         <div className='practice-session'>
                             <p className='morning-schedule'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
-                            <p className='evening-schedule'>Ca học đêm từ 18h00 đến 20h00</p>
                         </div>
                     </div>
                     <p className='practice-street-verify'>
@@ -142,7 +135,7 @@ function PracticeSchedule() {
                                                         lesson.dayOfWeek == "Thursday" ? "Thứ năm" :
                                                             lesson.dayOfWeek == "Friday" ? "Thứ sáu" : ""}</td>
                                             <td>{lesson.shift}</td>
-                                            <td>{lesson.title}</td>
+                                            <td>{lesson.lessonContent}</td>
                                             <td>{formatDate(lesson.date)}</td>
                                         </tr>
                                     ))

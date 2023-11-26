@@ -12,12 +12,13 @@ namespace Backend.Services.Lesson
         Task<ServiceResult<ICollection<LessonDTO>>> GetLessonsByStudentId(DateTime startDate, DateTime endDate,
             string studentId);
 
-        Task<ServiceResult<int>> CreatePracticeLessons(LessonCreateDTO lessonCreateDto);
+        Task<ServiceResult<int>> CreatePracticeLessons(int classId, ICollection<LessonCreateDTO> lessonCreateDtos);
 
-        Task<ServiceResult<int>> CreateTheoryLessons(LessonTheoryCreateDTO lessonTheoryCreateDto);
+        Task<ServiceResult<int>> CreateTheoryLessons(
+            string courseId, ICollection<LessonTheoryCreateDTO> lessonTheoryCreateDtos);
 
         Task<ServiceResult<ICollection<TeachingScheduleDTO>>> GetTeachingScheduleByMentorId(DateTime startDate
-            , DateTime endDate, int mentorId, string courseId);
+            , DateTime endDate, int mentorId);
 
         Task<ServiceResult<ICollection<AttendanceDTO>>> GetLessonsByClassIdAndDate(int classId, DateTime date);
 
@@ -27,12 +28,20 @@ namespace Backend.Services.Lesson
 
         Task<ServiceResult<int>> CreatePracticeLessonsAuto(string courseId);
 
+        Task<ServiceResult<ICollection<CreatePracticeDemoDTO>>> GetLessonCounts(string courseId);
+
         Task<ServiceResult<ICollection<LessonDTO>>> GetTheoryLessonsByStudentId(string studentId);
 
         Task<ServiceResult<ICollection<LessonDTO>>> GetPracticeLessonsByStudentId(string studentId);
 
         Task<ServiceResult<int>> UpdateLesson(LessonUpdateDTO lessonUpdateDto);
 
+        /*Task<ServiceResult<int>> UpdateLessonByDate(LessonUpdateDTO lessonUpdateDto);*/
+
         Task<ServiceResult<int>> CheckAttendanceForStudent(string studentId);
+
+        Task<ServiceResult<int>> CreateTheoryLessonAutoByStudentId(string studentId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetLessonsByClassId(int classId);
     }
 }

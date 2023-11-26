@@ -11,6 +11,10 @@
 
         input {
             padding: 5px;
+
+            &::placeholder {
+                font-style: italic;
+            }
         }
 
         form {

@@ -7,7 +7,7 @@ function MentorTable() {
     const [mentors, setMentors] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
 
     const getAllMentors = async () => {
         try {
@@ -32,6 +32,7 @@ function MentorTable() {
     const records = filteredMentors.slice(firstIndex, lastIndex);
     const totalPages = Math.ceil(filteredMentors.length / recordPage);
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     const prePage = () => {
         if (currentPage !== 1) {
@@ -98,13 +99,14 @@ function MentorTable() {
                                 />
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-giao-vien' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-giao-vien' className='btn btn-success'>+ Thêm giáo viên</Link>
                             </div>
                         </div>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col'>Mã giáo viên</th>
                                 <th scope='col'>Họ và Tên</th>
                                 <th scope='col'>Điện thoại</th>
@@ -118,6 +120,7 @@ function MentorTable() {
                             {records.length > 0 ? (
                                 records.map((mentor, i) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{mentor.mentorId}</td>
                                         <td>{mentor.fullName}</td>
                                         <td>{mentor.phone}</td>
@@ -125,8 +128,8 @@ function MentorTable() {
                                         <td>{mentor.isTeachingPractice ? 'Đang dạy' : 'Không dạy'}</td>
                                         <td>{mentor.email}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(mentor.mentorId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => handleUpdate(mentor.mentorId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(mentor.mentorId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))

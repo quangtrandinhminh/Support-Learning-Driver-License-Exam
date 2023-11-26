@@ -15,8 +15,10 @@ function VerificationForm() {
 
   const [inputData, setInputData] = useState({
     dob: '',
-    gender: 'Nam',
+    gender: '',
     nationality: '',
+    nation: '',
+    temporaryAddress: '',
     residenceAddress: '',
     identityCardNumber: '',
     cardProvidedDate: '',
@@ -27,12 +29,10 @@ function VerificationForm() {
     fullName: '',
     phone: '',
     email: '',
-    nation: '',
-    temporaryAddress: ''
   });
 
   const navigate = useNavigate();
-  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation', 'temporaryAddress'];
+  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'temporaryAddress', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation'];
   const namePattern = /^[\p{L} ]{5,32}$/u,
     nationalityPattern = /^[\p{L} ]{2,32}$/u,
     nation = /^[\p{L} ]{2,32}$/u;
@@ -41,6 +41,7 @@ function VerificationForm() {
 
   //function 
   const createMember = async () => {
+  setError('');
     try {
       const dobDate = new Date(inputData.dob);
       const currentDate = new Date();
@@ -79,12 +80,11 @@ function VerificationForm() {
       }
 
       const response = await api.post('/Member/add', inputData);
-      setError('');
       setMember(response.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
-      navigate('/khoa-hoc-cua-ban');
+      // navigate('/khoa-hoc-cua-ban');
       window.scroll({
         top: 0,
         behavior: 'instant'
@@ -127,6 +127,17 @@ function VerificationForm() {
     });
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      setInputData(prevInputData => ({
+        ...prevInputData,
+        fullName: user.fullName,
+        phone: user.phone,
+        email: user.email
+      }))
+    }
+  }, [])
+
   return (
     <>
       {
@@ -140,6 +151,7 @@ function VerificationForm() {
                   <li>
                     <label htmlFor="name">Họ và tên:</label>
                     <input type="text" name='name' id=''
+                      value={inputData.fullName}
                       onChange={e => setInputData({ ...inputData, fullName: e.target.value })} className='name-input'
                     />
                   </li>
@@ -152,24 +164,36 @@ function VerificationForm() {
                     <div className='gender-container'>
                       <div className='male'>
                         <label htmlFor="gender">Nam:</label>
-                        <input type="radio" name="gender" value={'nam'} checked className='gender-input'
-                          onChange={e => setInputData({ ...inputData, gender: e.target.value })} />
+                        <input
+                          type="radio"
+                          name="gender"
+                          value={'nam'}
+                          checked={inputData.gender === 'nam'}
+                          onChange={() => setInputData(prevData => ({ ...prevData, gender: 'nam' }))}
+                        />
                       </div>
                       <div className='female'>
                         <label htmlFor="gender">Nữ:</label>
-                        <input type="radio" name="gender" value={'nữ'} className='gender-input'
-                          onChange={e => setInputData({ ...inputData, gender: e.target.value })} />
+                        <input
+                          type="radio"
+                          name="gender"
+                          value={'nữ'}
+                          checked={inputData.gender === 'nữ'}
+                          onChange={() => setInputData(prevData => ({ ...prevData, gender: 'nữ' }))}
+                        />
                       </div>
                     </div>
                   </li>
                   <li>
                     <label htmlFor="phone">Điện thoại di động:</label>
                     <input type="tel" name="phone" className='phone-input'
+                      value={inputData.phone}
                       onChange={e => setInputData({ ...inputData, phone: e.target.value })} />
                   </li>
                   <li>
                     <label htmlFor="email">Email:</label>
                     <input type="email" name="email" className='email-input'
+                      value={inputData.email}
                       onChange={e => setInputData({ ...inputData, email: e.target.value })} />
                   </li>
                   <li className='line-2'>

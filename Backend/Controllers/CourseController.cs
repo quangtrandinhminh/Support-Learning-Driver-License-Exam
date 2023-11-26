@@ -76,6 +76,22 @@ namespace Backend.Controllers
 
         }
 
+        [HttpGet("check-valid")]
+        public async Task<IActionResult> CheckValidCourse(CourseCreateDTO courseCreateDto)
+        {
+            var result = await _courseService.CheckValidCourse(courseCreateDto);
+
+            if (result.IsError)
+            {
+                return BadRequest(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddCourse(CourseCreateDTO courseCreateDto)
         {

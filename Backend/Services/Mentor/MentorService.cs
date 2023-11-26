@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.DTO.Mentor;
 using Backend.DTO.Staff;
+using Backend.Repository.ClassRepository;
 using Backend.Repository.MentorRepository;
 using Backend.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,17 @@ namespace Backend.Services.Mentor
     {
         private readonly IMentorRepository _mentorRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IClassRepository _classRepository;
         private readonly IMapper _mapper;
 
-        public MentorService(IMentorRepository mentorRepository, IUserRepository userRepository, IMapper mapper)
+        public MentorService(IMentorRepository mentorRepository
+            , IUserRepository userRepository
+            , IClassRepository classRepository
+            ,IMapper mapper)
         {
             _mentorRepository = mentorRepository;
             _userRepository = userRepository;
+            _classRepository = classRepository;
             _mapper = mapper;
         }
 
@@ -261,5 +267,52 @@ namespace Backend.Services.Mentor
             }
             return result;
         }
+
+        // get mentor by course id
+        public async Task<ServiceResult<ICollection<MentorDTO>>> GetMentorByCourseId(string courseId)
+        {
+            var result = new ServiceResult<ICollection<MentorDTO>>();
+            try
+            {
+                var classes = await _classRepository.GetAll()
+                    .Where(c => c.CourseId == courseId)
+                    .GroupBy(c => c.MentorId)
+                    .ToListAsync();
+                if (!classes.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Chưa có giảng viên trong khóa!";
+                    return result;
+                }
+
+                var mentors = new List<DB.Models.Mentor>();
+                foreach (var c in classes)
+                {
+                    var mentor = await _mentorRepository.GetAll()
+                        .Include(m => m.User)
+                        .FirstOrDefaultAsync(m => m.MentorId == c.Key);
+                    if (mentor != null)
+                    {
+                        mentors.Add(mentor);
+                    }
+                }
+
+                if (!mentors.Any())
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Không tìm thấy giảng viên!";
+                    return result;
+                }
+
+                result.Payload = _mapper.Map<ICollection<MentorDTO>>(mentors);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+        
     }
 }

@@ -78,7 +78,8 @@
                 margin-bottom: 0;
                 list-style-position: inside;
 
-                li {
+                li:not(:last-child) {
+                    border-bottom: 1px solid black;
                     padding-left: 10px;
                     text-align: left;
                     line-height: 50px;
@@ -94,7 +95,8 @@
                 margin-bottom: 0;
                 list-style-position: inside;
 
-                li {
+                li:not(:last-child) {
+                    border-bottom: 1px solid black;
                     text-align: center;
                     line-height: 50px;
                     list-style: none;
@@ -112,9 +114,5 @@
                 border-radius: 5px;
             }
         }
-    }
-
-    .border-receive {
-        border-bottom: 1px solid black;
     }
 }

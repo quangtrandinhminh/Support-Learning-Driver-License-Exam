@@ -3,56 +3,46 @@ import { NavLink as Forward, useNavigate } from "react-router-dom";
 import "./admin-profile.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import api from "../../../../../config/axios";
 
 const UserInformation: React.FC = () => {
   const user = sessionStorage.getItem("loginedUser")
     ? JSON.parse(sessionStorage.getItem("loginedUser"))
     : null;
-  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     fullName: "",
     email: "",
     phone: "",
   });
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("loginedUser");
-    console.log("user:", user);
-    navigate("/");
-  };
-
   useEffect(() => {
-    // Lấy người dùng đã đăng nhập từ sessionStorage
-    const user = sessionStorage.getItem("loginedUser")
-      ? JSON.parse(sessionStorage.getItem("loginedUser"))
-      : null;
+    const fetchUserData = async () => {
+      if (user && user.roleId === 1) {
+        try {
+          const response = await api.get("Users");
+          const data = response.data;
 
-    // Chỉ gửi yêu cầu API nếu người dùng đã đăng nhập và có roleId là 1
-    if (user && user.roleId === 1) {
-      // Sử dụng API URL của bạn
-      const apiUrl = "https://fdriving.azurewebsites.net/api/Users";
-
-      // Gửi một yêu cầu GET đến API
-      fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          // Lọc người dùng có username trùng với username của người dùng đã đăng nhập
+          // Find the user with the matching username
           const matchingUser = data.find(
-            (user: { username: any }) => user.username === user.username
+            (apiUser) => apiUser.username === user.username
           );
 
           if (matchingUser) {
-            // Lấy thông tin fullname, email, và phone từ dữ liệu người dùng trùng khớp
+            // Extract only the required fields
             const { fullName, email, phone } = matchingUser;
+
+            // Set the state with the extracted data
             setUserData({ fullName, email, phone });
-            console.log("Dữ liệu người dùng:", userData);
           }
-        })
-        .catch((error) => {
-          console.error("Lỗi khi lấy dữ liệu từ API:", error);
-        });
-    }
-  }, []);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   return (
     <div className="body">
@@ -75,7 +65,9 @@ const UserInformation: React.FC = () => {
           </div>
         </div>
         <div className="Description">
-          <p className="line_description">Một số thông tin quan trọng sẽ được ẩn đi bớt</p>
+          <p className="line_description">
+            Một số thông tin quan trọng sẽ được ẩn đi bớt
+          </p>
         </div>
       </div>
     </div>

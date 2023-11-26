@@ -10,7 +10,7 @@ function ExamTable() {
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
@@ -163,7 +163,7 @@ function ExamTable() {
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan={11}>
+                                    <td colSpan={1}>
                                         <h1 className='text-center text-red-600 p-5 tw-text-realRed'>
                                             Không tìm thấy thông tin. Vui lòng kiểm tra lại!
                                         </h1>

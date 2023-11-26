@@ -13,13 +13,6 @@ function HomePage() {
         <div className='mentor-home-page'>
           <li className='home-component'>
             <div className="mentor-list">
-              <NavLink to='/danh-sach-lop-hoc'>
-                Danh sách lớp học
-              </NavLink>
-            </div>
-          </li>
-          <li className='home-component'>
-            <div className="mentor-list">
               <NavLink to='/lich-day'>
                 Lịch dạy
               </NavLink>

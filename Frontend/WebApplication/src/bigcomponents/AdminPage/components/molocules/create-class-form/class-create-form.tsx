@@ -1,236 +1,617 @@
 import React, { useEffect, useState } from "react";
 import "./class-create-form.scss"; // You can create the styles accordingly
 import api from "../../../../../config/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2'
+import { Button, Modal } from "react-bootstrap";
 
-function CreateClassForm() {
+
+// ------------------------------ CreateTheoryLesson ------------------------------
+function CreateTheoryLesson() {
+  const courseId = localStorage.getItem('courseId');
   const [error, setError] = useState(null);
-  const [courseId, setCourseId] = useState([]);
-  const [mentor, setMentor] = useState([]);
-  const [inputData, setInputData] = useState({
-    courseId: "",
-    isTheoryClass: true,
-    mentorId: "",
-    shift: "Sáng",
-    status: true,
+  const [courseIdList, setCourseIdList] = useState([]);
+  const [firstCourseDetail, setFirstCourseDetail] = useState(null);
+  const [curriculum, setCurriculum] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [curriculumInput, setCurriculumInput] = useState({
+    content: "",
+    isTheory: true
   });
 
-  const getMentorTheory = async () => {
-    try {
-      const response = await api.get('Mentor/theory');
-      const res = response.data;
-      let mentorId = res.map(mentor => mentor.mentorId);
-      setMentor(mentorId);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const [courseOptions, setCourseOptions] = useState([]);
+  const initialData = ['lessonContent', 'location', 'date']
+
+  // const [courseIdSelected, setCourseIdSelected] = useState('')
+
+  // Fill the inputData with 1 element which is empty
+  const [inputData, setInputData] = useState(Array(1).fill({}));
+
+  // const [courseOptions, setCourseOptions] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch all courseId options
-    fetchAllCourseId();
-    getMentorTheory();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch all courseId options
+  //   fetchAllCourseId();
+  // }, []);
 
   const getCourseList = async () => {
     try {
       const response = await api.get('Course/list');
       const res = response.data;
       let courseId = res.map(course => course.courseId);
-      setCourseId(courseId);
+      setCourseIdList(courseId);
     } catch (error) {
       console.log(error);
     }
   }
 
-  const createNewClass = async () => {
+  const getCurriculum = async () => {
     try {
-      // Validate input data
-      if (!inputData.courseId) {
-        setError("Vui lòng điền đầy đủ thông tin.");
-        return;
-      }
-      await api.post("Class/add", inputData);
-      toast.success("Tạo lớp học thành công");
-      setError(null);
-      navigate("/quan-ly-lop-hoc"); // Replace with the desired redirect path
+      const response = await api.get('Curriculum/list');
+      const res = response.data;
+      setCurriculum(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getFirstCourseDetails = async () => {
+    try {
+      const response = await api.get('CourseDetail/' + courseId);
+      const res = response.data[0];
+      setFirstCourseDetail(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleInputChange = (index, fieldName, value) => {
+    const newInputData = [...inputData];
+    newInputData[index][fieldName] = value;
+    setInputData(newInputData);
+  };
+
+  const handleAddCurriculum = async () => {
+    try {
+      await api.post("Curriculum/add", curriculumInput);
+      handleClose();
+      toast.success('Thêm nội dung thành công');
+      await getCurriculum();
+      console.log(curriculumInput);
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
-      } else {
-        console.log(err); // Log other errors
+        return;
       }
     }
-    window.scroll({
-      top: 0,
-      behavior: "instant",
-    });
+  }
+
+  const handleAddInput = () => {
+    setInputData((prevInputData) => [
+      ...prevInputData,
+      initialData.reduce((acc, field) => {
+        return acc;
+      }, {}),
+    ]);
   };
 
-  const fetchAllCourseId = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
-      const response = await api.get("Class");
-      const classes = response.data;
-
-      // Extract unique courseId values from the array of classes
-      const uniqueCourseIds = [...new Set(classes.map((cls) => cls.courseId))];
-
-      // Set course options for the combo box
-      setCourseOptions(uniqueCourseIds);
-
-      // Set the default courseId (optional)
-      setInputData({
-        ...inputData,
-        courseId: (uniqueCourseIds[0] || "") as string,
-      });
+      await api.post("Lesson/createTheoryLesson?courseId=" + courseId, inputData);
+      navigate("/quan-ly-lich-hoc/lop-ly-thuyet");
+      toast.success("Tạo lịch học lý thuyết thành công!");
     } catch (error) {
-      console.error("Error fetching course IDs:", error);
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+        setShowAlert(true);
+      }
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    createNewClass();
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  // Sweet Alert should have returned something
+  const showSweetAlert = (error) => {
+    if (showAlert) {
+      Swal.fire({
+        title: "Lỗi",
+        text: error,
+        icon: "error",
+        confirmButtonText: "Đóng",
+        animation: true,
+
+        allowEscapeKey: true,
+        // another type of animation not tada
+      });
+
+      // Reset showAlert to false after showing the alert
+      setShowAlert(false);
+
+      // Return a placeholder element (e.g., null) when not showing the alert
+      return null;
+    }
+
+    return null; // or another placeholder element if needed
   };
 
   useEffect(() => {
     getCourseList();
+    getFirstCourseDetails();
+    getCurriculum();
   }, [])
 
   return (
-    <div className="create-class-container">
-      <div className="create-class-title">
-        <h1 className="text-center text-uppercase">Tạo lớp học</h1>
+    <div className="template-container">
+      <div className="create-class-container">
+        <div className="create-class-title">
+          <h1 className="text-center text-uppercase">Tạo lịch học lý thuyết</h1>
+        </div>
+        <div className="create-class-form">
+          {
+            firstCourseDetail ? (
+              <div className="tw-mb-5">
+                <h5 className="tw-italic tw-text-realRed">Đào tạo lý thuyết từ ngày: {formatDate(firstCourseDetail.courseTimeStart)} - {formatDate(firstCourseDetail.courseTimeEnd)}</h5>
+              </div>
+            ) : (
+              null
+            )
+          }
+          {error && showSweetAlert(error)}
+          <form onSubmit={handleSubmit}>
+            {/* Course ID */}
+            {
+              courseId ? (
+                <>
+                  <div className="form-group row">
+                    <label htmlFor="courseId" className="col-sm-2 col-form-label">
+                      Mã khóa học:{" "}
+                    </label>
+                    <div className="col-sm-10">
+                      <select
+                        className="form-control"
+                        id="courseId"
+                        placeholder="courseId"
+                        name='courseId'
+                        value={courseId}  // Ensure that it's not undefined
+                        disabled
+                      >
+                        {/* <option value="" disabled className="tw-italic">Chọn khoá học</option> */}
+                        {
+                          <option value={courseId}>{courseId}</option>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mb-2 tw-justify-self-end">
+                    <Button className="btn btn-primary"
+                      onClick={() => handleShow()}>Thêm chi tiết</Button>
+                  </div>
+                </>
+              ) : (
+                null
+              )
+            }
+            {
+              inputData.map((value, idx) => (
+                <div key={idx}>
+
+                  {/* Content */}
+                  <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
+                    <div className="col-sm-10">
+                      <select
+                        className="form-control"
+                        id="lessonContent"
+                        placeholder="lessonContent"
+                        name="lessonContent"
+                        value={inputData[idx].lessonContent || ""}
+                        required
+                        onChange={(e) => handleInputChange(idx, 'lessonContent', e.target.value)}
+                      >
+                        <option value="" disabled className="tw-italic">Chọn nội dung</option>
+                        {
+                          curriculum.map((curriculum) => (
+                            <option value={curriculum.content}
+                              key={curriculum.content}>{curriculum.content}</option>
+                          ))
+                        }
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Locaion and Date*/}
+                  {/* Location */}
+                  <div className="form-group row tw-mt-3">
+                    <label htmlFor="location" className="col-sm-2 col-form-label">
+                      Địa điểm:{" "}
+                    </label>
+                    <div className="col-sm-4">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="location"
+                        value={inputData[idx].location}
+                        onChange={(e) =>
+                          handleInputChange(idx, 'location', e.target.value)
+                        }
+                      >
+                      </input>
+                    </div>
+
+                    {/* Date */}
+                    <label htmlFor="status" className="col-sm-2 col-form-label">
+                      Ngày:{" "}
+                    </label>
+                    <div className="col-sm-4">
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="status"
+                        value={inputData[idx].date} // Convert to string
+                        onChange={(e) => handleInputChange(idx, 'date', e.target.value)}
+                      >
+                      </input>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            <button
+              className="btn btn-info tw-mb-2 tw-justify-self-end tw-w-1/6"
+              type="button" // Change to "button" to prevent form submission
+              onClick={handleAddInput}
+            >
+              Thêm nội dung
+            </button>
+            <button
+              className="btn btn-primary w-20 justify-self-end"
+              type="submit"
+            >
+              Tạo
+            </button>
+            <button
+              className="btn btn-primary w-20 justify-self-end"
+              onClick={() => console.log(inputData)}
+              type="button"
+            >
+              Show info
+            </button>
+          </form>
+        </div>
       </div>
-      <div className="create-class-form">
-        {error && <h5 className="error-message mb-3 text-danger">{error}</h5>}
-        <form onSubmit={handleSubmit}>
-          {/* Course ID */}
-          <div className="form-group row">
-            <label htmlFor="courseId" className="col-sm-3 col-form-label">
-              Mã khóa học:{" "}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thêm chi tiết</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="courseContentAdd row">
+            <label htmlFor="courseContent" className="col-sm-2 col-form-label">
+              Nội dung:
             </label>
-            <div className="col-sm-9">
-              <select
-                className="form-control"
-                id="courseId"
-                placeholder="courseId"
-                name='courseId'
-                value={inputData.courseId || ''}  // Ensure that it's not undefined
-                onChange={e => setInputData({ ...inputData, courseId: e.target.value })}
-              >
-                <option value="" disabled>Select a course</option>
-                {
-                  courseId.map((course, index) => (
-                    <option key={index} value={course}>{course}</option>
-                  ))
-                }
-              </select>
+            <div className="col-sm-10">
+              <input type="text" className="form-control"
+                onChange={(e) => setCurriculumInput({ ...curriculumInput, content: e.target.value })} />
             </div>
           </div>
-
-          {/* MentorID */}
-          <div className="form-group row">
-            <label htmlFor="mentorId" className="col-sm-3 col-form-label">
-              Mã giáo viên:{" "}
-            </label>
-            <div className="col-sm-9">
-              <select
-                className="form-control"
-                id="mentorId"
-                placeholder="mentorId"
-                name='mentorId'
-                value={inputData.mentorId || ''}  // Ensure that it's not undefined
-                onChange={e => setInputData({ ...inputData, mentorId: e.target.value })}
-              >
-                <option value="" disabled>Select a mentor</option>
-                {
-                  mentor.map((mentor, index) => (
-                    <option key={index} value={mentor}>{mentor}</option>
-                  ))
-                }
-              </select>
-            </div>
-          </div>
-
-          {/* Is Theory Class */}
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label">Lý thuyết: </label>
-            <div className="col-sm-9">
-              <select
-                className="form-control"
-                name="isTheoryClass"
-                value={inputData.isTheoryClass ? "true" : "false"} // Convert to string
-                onChange={(e) =>
-                  setInputData({
-                    ...inputData,
-                    isTheoryClass: e.target.value === "true",
-                  })
-                }
-              >
-                <option value="true">Có</option>
-                <option value="false">Không</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Shift */}
-          <div className="form-group row">
-            <label htmlFor="shift" className="col-sm-3 col-form-label">
-              Ca học:{" "}
-            </label>
-            <div className="col-sm-9">
-              <select
-                className="form-control"
-                name="shift"
-                value={inputData.shift}
-                onChange={(e) =>
-                  setInputData({ ...inputData, shift: e.target.value })
-                }
-              >
-                <option value="Sáng">Sáng</option>
-                <option value="Chiều">Chiều</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Status */}
-          <div className="form-group row">
-            <label htmlFor="status" className="col-sm-3 col-form-label">
-              Trạng thái:{" "}
-            </label>
-            <div className="col-sm-9">
-              <select
-                className="form-control"
-                name="status"
-                value={inputData.status.toString()} // Convert to string
-                onChange={(e) =>
-                  setInputData({
-                    ...inputData,
-                    status: e.target.value === "true",
-                  })
-                }
-              >
-                <option value="true">Hoạt động</option>
-                <option value="false">Không hoạt động</option>
-              </select>
-            </div>
-          </div>
-
-          <button
-            className="btn btn-primary w-20 justify-self-end"
-            type="submit"
-          >
-            Tạo
-          </button>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+          <Button className="btn btn-primary" onClick={() => { handleAddCurriculum(); }}>
+            Thêm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
 
-export default CreateClassForm;
+export default CreateTheoryLesson;
+
+
+
+// ------------------------------ CreatePracticeLesson ------------------------------
+export function CreatePracticeLesson() {
+  const classId = localStorage.getItem('classId');
+  const courseId = JSON.parse(localStorage.getItem('courseId'));
+  const [error, setError] = useState(null);
+  const [courseDetails, setCourseDetails] = useState([]);
+  const initialData = ['courseDetailsId', 'location', 'date']
+  const [inputData, setInputData] = useState(Array(1).fill({}));
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
+  const [dateByClassList, setDateByClassList] = useState([]);
+
+  const handleInputChange = (index, fieldName, value) => {
+    const newInputData = [...inputData];
+    newInputData[index][fieldName] = value;
+    setInputData(newInputData);
+  };
+
+  const formatDate = (dbDate) => {
+    const date = new Date(dbDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const getDateByClass = async () => {
+    try {
+      const response = await api.get('Class/' + classId + '/dates');
+      const res = response.data;
+      setDateByClassList(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getCourseDetails = async () => {
+    try {
+      const response = await api.get('CourseDetail/' + courseId);
+      const res = response.data;
+      const filter = res.filter((course) => !course.courseContent.includes('Lý Thuyết'));
+      console.log(filter);
+      setCourseDetails(filter);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const showSweetAlert = (error) => {
+    if (showAlert) {
+      Swal.fire({
+        title: "Lỗi",
+        text: error,
+        icon: "error",
+        confirmButtonText: "Đóng",
+        animation: true,
+
+        allowEscapeKey: true,
+        // another type of animation not tada
+      });
+
+      // Reset showAlert to false after showing the alert
+      setShowAlert(false);
+
+      // Return a placeholder element (e.g., null) when not showing the alert
+      return null;
+    }
+    return null; // or another placeholder element if needed
+  };
+
+  // adding more input field
+  const handleAddInput = () => {
+    setInputData((prevInputData) => [
+      ...prevInputData,
+      initialData.reduce((acc, field) => {
+        return acc;
+      }, {}),
+    ]);
+  };
+
+  useEffect(() => {
+    // Fetch all courseId options
+    getCourseDetails();
+    getDateByClass();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await api.post("Lesson/createPracticeLesson?classId=" + classId, inputData);
+      toast.success("Tạo lịch học thực hành thành công!");
+      navigate("/quan-ly-lich-hoc/lop-thuc-hanh");
+    } catch (error) {
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+        setShowAlert(true);
+      }
+    }
+  };
+
+  return (
+    <div className="template-container">
+      <div className="create-class-container">
+        <div className="create-class-title">
+          <h1 className="text-center text-uppercase">Tạo lịch học thực hành</h1>
+        </div>
+        <div className="create-class-form">
+          {error && showSweetAlert(error)}
+          <form onSubmit={handleSubmit}>
+            <div className="tw-text-realRed tw-italic">
+              {
+                courseDetails.length > 0 ? (
+                  courseDetails.map((content, i) => (
+                    <div key={i} className="">
+                      <li className="tw-text-lg">{content.courseContent}: {formatDate(content.courseTimeStart)} - {formatDate(content.courseTimeEnd)}</li>
+                    </div>
+                  ))
+                ) : (
+                  <h1>Chưa có dữ liệu</h1>
+                )
+              }
+            </div>
+            {/* Class ID */}
+            {
+              classId ? (
+                <>
+                  <div className="form-group row">
+                    <label htmlFor="classId" className="col-sm-2 col-form-label">
+                      Mã lớp học:{" "}
+                    </label>
+                    <div className="col-sm-10">
+                      <select
+                        className="form-control"
+                        id="classId"
+                        placeholder="classId"
+                        name='classId'
+                        value={classId}  // Ensure that it's not undefined
+                        disabled
+                      >
+                        {
+                          <option value={classId}>{classId}</option>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                  {/* <div className="mb-2 tw-justify-self-end">
+                    <Button className="btn btn-primary"
+                      onClick={() => handleShow()}>Thêm chi tiết</Button>
+                  </div> */}
+                </>
+              ) : (
+                null
+              )
+            }
+            {
+              inputData.map((value, idx) => (
+                <div key={idx}>
+                  {/* Content */}
+                  <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">Nội dung: {idx + 1}</label>
+                    <div className="col-sm-10">
+                      <select
+                        className="form-control"
+                        id="courseDetailsId"
+                        placeholder="courseDetailsId"
+                        name="courseDetailsId"
+                        value={inputData[idx].courseDetailsId || ""}
+                        required
+                        onChange={(e) => handleInputChange(idx, 'courseDetailsId', e.target.value)}
+                      >
+                        <option value="" disabled className="tw-italic">Chọn nội dung</option>
+                        {
+                          courseDetails.map((details) => (
+                            <option value={details.courseDetailsId}
+                              key={details.courseDetailsId}>{details.courseContent}</option>
+                          ))
+                        }
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Locaion and Date*/}
+                  {/* Location */}
+                  <div className="form-group row tw-mt-3">
+                    <label htmlFor="location" className="col-sm-2 col-form-label">
+                      Địa điểm:{" "}
+                    </label>
+                    <div className="col-sm-4">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="location"
+                        value={inputData[idx].location}
+                        onChange={(e) =>
+                          handleInputChange(idx, 'location', e.target.value)
+                        }
+                      >
+                      </input>
+                    </div>
+
+                    {/* Date */}
+                    <label htmlFor="status" className="col-sm-2 col-form-label">
+                      Ngày:{" "}
+                    </label>
+                    <div className="col-sm-4">
+                      <select
+                        className="form-control"
+                        id="date"
+                        placeholder="date"
+                        name="date"
+                        value={inputData[idx].date || ""}
+                        required
+                        onChange={(e) => handleInputChange(idx, 'date', e.target.value)}
+                      >
+                        <option value="" disabled className="tw-italic">Chọn ngày</option>
+                        {
+                          dateByClassList.map((date) => (
+                            <option value={date}
+                              key={date}>{formatDate(date)}</option>
+                          ))
+                        }
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            <button
+              className="btn btn-info tw-mb-2 tw-justify-self-end tw-w-1/6"
+              type="button" // Change to "button" to prevent form submission
+              onClick={handleAddInput}
+            >
+              Thêm nội dung
+            </button>
+            <button
+              className="btn btn-primary w-20 justify-self-end"
+              type="submit"
+            >
+              Tạo
+            </button>
+            {/* <button
+              className="btn btn-primary w-20 justify-self-end"
+              onClick={() => console.log(inputData)}
+              type="button"
+            >
+              Show info
+            </button> */}
+          </form>
+        </div>
+      </div>
+      {/* <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={true}
+        backdropClassName='backdrop'
+        centered
+        size='lg'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1 className='tw-text-center'>Thêm chi tiết</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="courseContentAdd row">
+            <label htmlFor="courseContent" className="col-sm-2 col-form-label">
+              Nội dung:
+            </label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control"
+                onChange={(e) => setCourseContenInput({ ...courseContentInput, courseContent1: e.target.value })} />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+    </div>
+  );
+}

@@ -30,12 +30,13 @@ function StudentTable() {
 
     //paganition part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
     const records = student.slice(firsIndex, lastIndex);
     const npage = Math.ceil(student.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllStudent();
@@ -77,22 +78,24 @@ function StudentTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
-                                <th scope='col'>Mã học sinh</th>
+                                <th scope='col'>#</th>
+                                <th scope='col'>Tên học viên</th>
                                 <th scope='col'>Khoá học đang học</th>
-                                <th scope='col'>Tổng quãng đường</th>
-                                <th scope='col' className='text-center'>Action</th>
+                                <th scope='col' className='tw-text-center'>Tổng quãng đường</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
                                 records.map((student, i: number = 1) => (
                                     <tr key={i}>
-                                        <td>{student.studentId}</td>
+                                        <td>{overallIndex + i + 1}</td>
+                                        <td>{student.fullName}</td>
                                         <td>{student.courseId}</td>
-                                        <td>{student.totalKm}</td>
+                                        <td className='tw-text-center'>{student.totalKm}km</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => updateAttendance(student.studentId)}>Update attendance</button>
-                                            <button className="btn btn-danger" type="button">Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => updateAttendance(student.studentId)}>Cập nhật điểm danh</button>
+                                            <button className="btn btn-danger" type="button">Xoá</button>
                                         </td>
                                     </tr>
                                 ))

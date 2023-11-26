@@ -4,9 +4,12 @@ using Backend.DB.Models;
 using Backend.DTO.Course;
 using Backend.DTO.Members;
 using Backend.DTO.News;
+using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.MemberRepository;
 using Backend.Repository.StudentRepository;
 using Backend.Repository.UserRepository;
+using Backend.Services.Class;
+using Backend.Services.ClassStudent;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Member
@@ -16,15 +19,18 @@ namespace Backend.Services.Member
         private readonly IUserRepository _userRepository;
         private readonly IMemberRepository _memberRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly IClassStudentService _classStudentService;
         private readonly IMapper _mapper;
 
         public MemberService(IMemberRepository memberRepository, 
             IMapper mapper, IUserRepository userRepository,
-            IStudentRepository studentRepository)
+            IStudentRepository studentRepository,
+            IClassStudentService classStudentService)
         {
             _userRepository = userRepository;
             _memberRepository = memberRepository;
             _studentRepository = studentRepository;
+            _classStudentService = classStudentService;
             _mapper = mapper;
         }
 

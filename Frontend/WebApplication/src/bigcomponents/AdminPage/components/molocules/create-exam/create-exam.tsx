@@ -6,6 +6,7 @@ import './create-exam.scss'
 
 function CreateExam() {
     const user = JSON.parse(sessionStorage.getItem('loginedUser')) ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+    console.log(user);
     const [courseId, setCourseId] = useState([]);
     const [error, setError] = useState(null);
     const [staff, setStaff] = useState(null);
@@ -110,7 +111,7 @@ function CreateExam() {
                                 value={inputData.courseId || ''}  // Ensure that it's not undefined
                                 onChange={e => setInputData({ ...inputData, courseId: e.target.value })}
                             >
-                                <option value="" disabled>Select a course</option>
+                                <option value="" disabled>Chọn khoá học</option>
                                 {
                                     courseId.map((course, index) => (
                                         <option key={index} value={course}>{course}</option>

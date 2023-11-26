@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './/inactive-course-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../../../../config/axios';
+import { toast } from 'react-toastify';
 
 function InactiveCourseTable() {
     const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ function InactiveCourseTable() {
 
     // Pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
 
@@ -18,10 +19,9 @@ function InactiveCourseTable() {
     // Fetch all courses
     const getAllCourse = async () => {
         try {
-            const response = await api.get('Course/list');
+            const response = await api.get('Course/inactive-courses');
             const res = response.data;
-            const filterList = res.filter(course => course.status === false);
-            setData(filterList);
+            setData(res);
         } catch (err) {
             console.log(err);
         }
@@ -48,12 +48,18 @@ function InactiveCourseTable() {
         getAllCourse();
     }, []);
 
-    const updateBtn = (courseId) => {
-        navigate(`cap-nhat-khoa-hoc/${courseId}`);
-        window.scroll({
-            top: 0,
-            behavior: 'instant'
-        });
+    const updateBtn = async (courseId) => {
+        try {
+            const response = await api.patch('Course/activate/' + courseId);
+            if (response.status !== 200) {
+                toast.error("Kích hoạt khoá học thất bại");
+                return;
+            }
+            localStorage.setItem('notification', "Kích hoạt khoá học thành công");
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     // Filtering function
@@ -80,6 +86,11 @@ function InactiveCourseTable() {
         return `${day}/${month}/${year}`;
     }
 
+    useEffect(() => {
+        localStorage.getItem('notification') && toast.success(localStorage.getItem('notification'));
+        localStorage.removeItem('notification');
+    }, []);
+
     // const handleDelete = async (courseId) => {
     //     try {
     //         // Perform the deletion
@@ -104,7 +115,7 @@ function InactiveCourseTable() {
                 <h1>Danh sách khoá học chưa mở</h1>
             </div>
             <div className='courses-table-content'>
-                <form action="">
+                <form>
                     <div className='d-grid mb-2'>
                         <div className="row">
                             <div className='search-input col align-self-center'>
@@ -116,9 +127,9 @@ function InactiveCourseTable() {
                                     autoComplete='off'
                                 />
                             </div>
-                            <div className='d-flex btnCreate col justify-content-end'>
+                            {/* <div className='d-flex btnCreate col justify-content-end'>
                                 <Link to='/quan-ly-khoa-hoc/tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
@@ -150,7 +161,7 @@ function InactiveCourseTable() {
                                         <td className='text-center'>{course.courseYear}</td>
                                         <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => updateBtn(course.courseId)}>Kích hoạt</button>
                                         </td>
                                     </tr>
                                 ))

@@ -60,8 +60,8 @@ function MemberNavHome() {
         const notify = localStorage.getItem('loginSuccessNotify');
         if (notify != null) {
             toast.success(notify);
-            localStorage.removeItem('loginSuccessNotify');
         }
+        localStorage.removeItem('loginSuccessNotify');
     }, [])
 
     useEffect(() => {

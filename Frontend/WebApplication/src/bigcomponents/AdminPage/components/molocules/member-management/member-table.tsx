@@ -24,7 +24,7 @@ function MemberTable() {
       const fetchResponse = await api.get(`Member?memberId=${memberId}`);
       console.log(fetchResponse.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(fetchResponse.data));
-      const notificationMessage = "Cập nhật thành công!";
+      const notificationMessage = "Cập nhật thanh toán thành công!";
       localStorage.setItem("notificationMessage", notificationMessage);
       location.reload();
     } catch (err) {
@@ -34,12 +34,13 @@ function MemberTable() {
 
   //paganition part
   const [currentPage, setCurrentPage] = useState(1);
-  const recordPage = 6;
+  const recordPage = 10;
   const lastIndex = currentPage * recordPage;
   const firsIndex = lastIndex - recordPage;
   const records = member.slice(firsIndex, lastIndex);
   const npage = Math.ceil(member.length / recordPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
+  const overallIndex = (currentPage - 1) * recordPage;
 
   useEffect(() => {
     getAllMembers();
@@ -81,10 +82,11 @@ function MemberTable() {
           <table className='table table-hover table-striped' border={1}>
             <thead className='table-primary'>
               <tr>
+                <th scope='col'>#</th>
                 <th scope='col'>Mã học viên</th>
                 <th scope='col'>Họ và Tên</th>
                 <th scope='col'>Điện thoại</th>
-                <th scope='col' style={{ width: '200px' }}>Email</th>
+                <th scope='col' style={{ width: '200px' }}>Email  </th>
                 <th scope='col'>Khoá học đang học</th>
                 <th scope='col' className='text-center'>Trạng thái thanh toán</th>
                 <th scope='col' className='text-center'>Action</th>
@@ -94,6 +96,7 @@ function MemberTable() {
               {records.length > 0 ? (
                 records.map((member, i: number = 1) => (
                   <tr key={i}>
+                    <td>{overallIndex + i + 1}</td>
                     <td>{member.memberID}</td>
                     <td>{member.fullName}</td>
                     <td>{member.phone}</td>

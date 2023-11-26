@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './teaching-register.scss';
 import api from '../../../../../config/axios';
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,8 @@ interface CheckboxTableState {
 }
 
 const MentorTeachingRegister: React.FC = () => {
+  const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const [mentor, setMentor] = useState(null);
   const { courseId } = useParams();
   const [checkboxes, setCheckboxes] = useState<CheckboxTableState['checkboxes']>({
     "sáng-2": false,
@@ -24,11 +26,30 @@ const MentorTeachingRegister: React.FC = () => {
     "chiều-6": false,
   });
 
+  const [hoveredCheckbox, setHoveredCheckbox] = useState<string | null>(null);
+
   const handleCheckboxChange = (key: string) => {
     setCheckboxes((prevCheckboxes) => ({
       ...prevCheckboxes,
       [key]: !prevCheckboxes[key],
     }));
+  };
+
+  const getMentorByUID = async () => {
+    try {
+      const response = await api.get('Mentor/user/' + user.userID);
+      setMentor(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const handleMouseEnter = (key: string) => {
+    setHoveredCheckbox(key);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCheckbox(null);
   };
 
   const getDayOfWeekNumber = (dayOfWeek: string) => {
@@ -48,13 +69,15 @@ const MentorTeachingRegister: React.FC = () => {
 
     const listObjects = selectedDays.map((selectedDay) => {
       const [shift, dayOfWeek] = selectedDay.split('-');
-      return {
-        mentorId: 1, // Replace with the actual mentor ID
-        courseId: courseId, // Replace with the actual course ID
-        dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
-        shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
-        status: true, // You can set the status based on your requirements
-      };
+      if (mentor) {
+        return {
+          mentorId: mentor.mentorId, // Replace with the actual mentor ID
+          courseId: courseId, // Replace with the actual course ID
+          dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
+          shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
+          status: true, // You can set the status based on your requirements
+        };
+      }
     });
 
     // Convert listObjects to the desired format
@@ -81,20 +104,20 @@ const MentorTeachingRegister: React.FC = () => {
         }
       );
 
-      console.log(formattedListObjects)
-
       // Check if the response status is OK (status code 2xx)
       if (response.status !== 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        // Example: Display a success message to the user
+
+        console.log(response.status);
+        alert('Lịch đã được đặt thành công!');
+        window.history.back();
       }
 
       // Handle the response data here
       console.log('Response from the server:', response.data);
 
-      // Example: Display a success message to the user
-      alert('Lịch đã được đặt thành công!');
-      window.history.back();
-      // You can also update the UI or perform other actions based on the response data
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       console.error('Error:', error);
@@ -102,10 +125,14 @@ const MentorTeachingRegister: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    getMentorByUID();
+  }, [])
+
   return (
     <>
       <div className="title">
-        <h1>Đăng kí lịch dạy thực hành khóa 230B2</h1>
+        <h1>Đăng kí lịch dạy thực hành khóa {courseId}</h1>
       </div>
       <div className="register-form-container">
         <div className="register-table-container">
@@ -114,11 +141,11 @@ const MentorTeachingRegister: React.FC = () => {
               <thead className="register-header">
                 <tr>
                   <th></th>
-                  <th>Thứ hai</th>
-                  <th>Thứ ba</th>
-                  <th>Thứ tư</th>
-                  <th>Thứ năm</th>
-                  <th>Thứ sáu</th>
+                  <th className='tw-text-center'>Thứ hai</th>
+                  <th className='tw-text-center'>Thứ ba</th>
+                  <th className='tw-text-center'>Thứ tư</th>
+                  <th className='tw-text-center'>Thứ năm</th>
+                  <th className='tw-text-center'>Thứ sáu</th>
                 </tr>
               </thead>
               <tbody className="register-body">
@@ -129,20 +156,25 @@ const MentorTeachingRegister: React.FC = () => {
                       <td
                         key={`sáng-${day}`}
                         align="center"
-                        className={`custom-checkbox ${checkboxes[`sáng-${day}`] ? "checked" : ""
-                          }`}
+                        className={`custom-checkbox ${checkboxes[`sáng-${day}`] ? "checked" : ""}`}
                         style={{
-                          backgroundColor: checkboxes[`sáng-${day}`]
-                            ? 'green'
-                            : 'white',
-                          border: checkboxes[`chieu-${day}`]
-                            ? '1px solid #ffffff' : '1px solid #ffffff'
+                          backgroundColor: checkboxes[`sáng-${day}`] || hoveredCheckbox === `sáng-${day}`
+                            ? "#cfcfcf"
+                            : "white",
+                          border: checkboxes[`sáng-${day}`]
+                            ? "1px solid #ffffff"
+                            : "1px solid #ffffff",
+                          transition: checkboxes ? "all 0.18s linear" : "0s",
+                          cursor: "pointer",
+                          color: "white",
                         }}
                         onClick={() => handleCheckboxChange(`sáng-${day}`)}
+                        onMouseEnter={() => handleMouseEnter(`sáng-${day}`)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="custom-checkbox-inner">
                           {checkboxes[`sáng-${day}`] && (
-                            <span className="checkmark">Đăng kí</span>
+                            <span className="checkmark">✅</span>
                           )}
                         </div>
                       </td>
@@ -159,17 +191,22 @@ const MentorTeachingRegister: React.FC = () => {
                         className={`custom-checkbox ${checkboxes[`chiều-${day}`] ? "checked" : ""
                           }`}
                         style={{
-                          backgroundColor: checkboxes[`chiều-${day}`]
-                            ? 'green'
+                          backgroundColor: checkboxes[`chiều-${day}`] || hoveredCheckbox === `chiều-${day}`
+                            ? '#cfcfcf'
                             : 'white',
                           border: checkboxes[`chiều-${day}`]
-                            ? '1px solid #ffffff' : '1px solid #ffffff'
+                            ? '1px solid #ffffff' : '1px solid #ffffff',
+                          transition: checkboxes ? 'all 0.18s linear' : '0s',
+                          cursor: 'pointer',
+                          color: 'white',
                         }}
                         onClick={() => handleCheckboxChange(`chiều-${day}`)}
+                        onMouseEnter={() => handleMouseEnter(`chiều-${day}`)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="custom-checkbox-inner">
                           {checkboxes[`chiều-${day}`] && (
-                            <span className="checkmark">Đăng kí</span>
+                            <span className="checkmark">✅</span>
                           )}
                         </div>
                       </td>

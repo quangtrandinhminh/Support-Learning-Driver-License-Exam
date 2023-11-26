@@ -5,6 +5,9 @@ namespace Backend.Services.CourseDetails
     public interface ICourseDetailsService
     {
         public ICollection<CourseDetailsDTO>? GetAllCourseDetails();
-        Task<ServiceResult<int>> CreateCourseDetails(CourseDetailsCreateDTO courseDetailsCreateDto);
+        Task<ServiceResult<int>> CreateCourseDetails(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto);
+
+        Task<ServiceResult<ICollection<CourseDetailsDTO>>> GetCourseDetailsByCourse(string courseId);
+        Task<ServiceResult<int>> UpdateCourseDetails(ICollection<CourseDetailsCreateDTO> courseDetailsCreateDto);
     }
 }

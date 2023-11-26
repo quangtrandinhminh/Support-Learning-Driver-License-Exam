@@ -41,13 +41,19 @@ public partial class DrivingLicenseContext : DbContext
 
     public virtual DbSet<Course> Courses { get; set; }
 
+    public virtual DbSet<CourseContent> CourseContents { get; set; }
+
     public virtual DbSet<CourseDetail> CourseDetails { get; set; }
+
+    public virtual DbSet<Curriculum> Curricula { get; set; }
 
     public virtual DbSet<Exam> Exams { get; set; }
 
     public virtual DbSet<FeedBack> FeedBacks { get; set; }
 
     public virtual DbSet<Image> Images { get; set; }
+
+    public virtual DbSet<Invoice> Invoices { get; set; }
 
     public virtual DbSet<Lesson> Lessons { get; set; }
 
@@ -128,6 +134,10 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
+            entity.Property(e => e.CourseFee)
+                .HasDefaultValueSql("((22500000.00))")
+                .HasColumnType("decimal(11, 2)")
+                .HasColumnName("courseFee");
             entity.Property(e => e.CourseMonth).HasColumnName("courseMonth");
             entity.Property(e => e.CourseYear).HasColumnName("courseYear");
             entity.Property(e => e.CreateTime)
@@ -141,9 +151,22 @@ public partial class DrivingLicenseContext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("name");
             entity.Property(e => e.NumberOfStudents).HasColumnName("numberOfStudents");
+            entity.Property(e => e.PassKm).HasDefaultValueSql("((810))");
+            entity.Property(e => e.PassTheoryLs)
+                .HasDefaultValueSql("((80.00))")
+                .HasColumnType("decimal(5, 2)");
             entity.Property(e => e.StartDate)
                 .HasColumnType("date")
                 .HasColumnName("startDate");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<CourseContent>(entity =>
+        {
+            entity.ToTable("CourseContent");
+
+            entity.Property(e => e.CourseContentId).HasColumnName("courseContentId");
+            entity.Property(e => e.CourseContent1).HasColumnName("courseContent");
             entity.Property(e => e.Status).HasColumnName("status");
         });
 
@@ -152,7 +175,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.HasKey(e => e.CourseDetailsId);
 
             entity.Property(e => e.CourseDetailsId).HasColumnName("courseDetailsID");
-            entity.Property(e => e.CourseContent).HasColumnName("courseContent");
+            entity.Property(e => e.CourseContent)
+                .HasMaxLength(500)
+                .HasColumnName("courseContent");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(10)
                 .HasColumnName("courseID");
@@ -168,6 +193,18 @@ public partial class DrivingLicenseContext : DbContext
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CourseDetails_Course");
+        });
+
+        modelBuilder.Entity<Curriculum>(entity =>
+        {
+            entity.ToTable("Curriculum");
+
+            entity.Property(e => e.CurriculumId).HasColumnName("curriculumID");
+            entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("date")
+                .HasColumnName("createTime");
+            entity.Property(e => e.IsTheory).HasColumnName("isTheory");
         });
 
         modelBuilder.Entity<Exam>(entity =>
@@ -244,6 +281,43 @@ public partial class DrivingLicenseContext : DbContext
                 .HasConstraintName("FK_Image_Student");
         });
 
+        modelBuilder.Entity<Invoice>(entity =>
+        {
+            entity.ToTable("Invoice");
+
+            entity.Property(e => e.InvoiceId).HasColumnName("invoiceID");
+            entity.Property(e => e.AmountInWords)
+                .HasMaxLength(255)
+                .HasColumnName("amountInWords");
+            entity.Property(e => e.AmountPaid)
+                .HasDefaultValueSql("((22500000.00))")
+                .HasColumnType("decimal(11, 2)")
+                .HasColumnName("amountPaid");
+            entity.Property(e => e.CourseId)
+                .HasMaxLength(10)
+                .HasColumnName("courseID");
+            entity.Property(e => e.InvoiceTime)
+                .HasColumnType("datetime")
+                .HasColumnName("invoiceTime");
+            entity.Property(e => e.MemberId).HasColumnName("memberID");
+            entity.Property(e => e.StaffId).HasColumnName("staffID");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Invoices)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Invoice_Course");
+
+            entity.HasOne(d => d.Member).WithMany(p => p.Invoices)
+                .HasForeignKey(d => d.MemberId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Invoice_Member");
+
+            entity.HasOne(d => d.Staff).WithMany(p => p.Invoices)
+                .HasForeignKey(d => d.StaffId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Invoice_Staff");
+        });
+
         modelBuilder.Entity<Lesson>(entity =>
         {
             entity.ToTable("Lesson");
@@ -257,12 +331,12 @@ public partial class DrivingLicenseContext : DbContext
             entity.Property(e => e.Hours).HasColumnName("hours");
             entity.Property(e => e.IsNight).HasColumnName("isNight");
             entity.Property(e => e.Kilometers).HasColumnName("kilometers");
+            entity.Property(e => e.LessonContent)
+                .HasMaxLength(500)
+                .HasColumnName("lessonContent");
             entity.Property(e => e.Location)
-                .HasMaxLength(500)
+                .HasMaxLength(255)
                 .HasColumnName("location");
-            entity.Property(e => e.Title)
-                .HasMaxLength(500)
-                .HasColumnName("title");
 
             entity.HasOne(d => d.ClassStudent).WithMany(p => p.Lessons)
                 .HasForeignKey(d => d.ClassStudentId)
@@ -355,6 +429,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.HasIndex(e => e.UserId, "UC_Mentor_User").IsUnique();
 
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.CurrentCourse)
+                .HasMaxLength(10)
+                .HasColumnName("currentCourse");
             entity.Property(e => e.IsTeachingPractice).HasColumnName("isTeachingPractice");
             entity.Property(e => e.IsTeachingTheory).HasColumnName("isTeachingTheory");
             entity.Property(e => e.ResidenceAddress)

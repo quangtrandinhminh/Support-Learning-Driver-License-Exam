@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Backend.DB.Models;
 using Backend.DTO.ClassStudent;
 using Backend.Repository.ClassRepository;
 using Backend.Repository.ClassStudentRepository;
 using Backend.Repository.CourseRepository;
 using Backend.Repository.StudentRepository;
+using Backend.Services.Class;
+using Backend.Services.Lesson;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.ClassStudent
@@ -14,18 +17,24 @@ namespace Backend.Services.ClassStudent
         private readonly ICourseRepository _courseRepository;
         private readonly IClassRepository _classRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly IClassService _classService;
+        private readonly ILessonService _lessonService;
         private readonly IMapper _mapper;
 
         public ClassStudentService(IClassStudentRepository classStudentRepository
             , ICourseRepository courseRepository
             , IClassRepository classRepository
             , IStudentRepository studentRepository
+            , IClassService classService
+            , ILessonService lessonService
             , IMapper mapper)
         {
             _classStudentRepository = classStudentRepository;
             _courseRepository = courseRepository;
             _classRepository = classRepository;
             _studentRepository = studentRepository;
+            _classService = classService;
+            _lessonService = lessonService;
             _mapper = mapper;
         }
 
@@ -43,34 +52,35 @@ namespace Backend.Services.ClassStudent
             }
         }
 
-        public async Task<ServiceResult<int>> AddStudentIntoClass(ClassStudentDTO classStudentDTO)
+        public async Task<ServiceResult<int>> AddStudentIntoClassTheory(string studentId, string courseId)
         {
             var result = new ServiceResult<int>();
             try
             {
                 var student = _studentRepository.GetAll()
-                    .Where(p => p.StudentId == classStudentDTO.StudentId).FirstOrDefault();
-                if (student != null) 
+                    .Where(p => p.StudentId == studentId).FirstOrDefault();
+                if (student != null)
                 {
                     var classStudents = _classStudentRepository.GetAll().
-                    Where(p => p.StudentId == classStudentDTO.StudentId && p.ClassId == classStudentDTO.ClassId).
+                    Where(p => p.StudentId == studentId && p.Class.IsTheoryClass == true).
                     FirstOrDefault();
                     if (classStudents == null)
                     {
-                        var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
-                        await _classStudentRepository.CreateAsync(classStudent);
-                    }
-                    else if (classStudents.Class.IsTheoryClass == true)
-                    {
-                        result.IsError = true;
-                        result.Payload = -1;
-                        result.ErrorMessage = "Học viên này đã đăng ký lớp học lý thuyết!";
+                        var classs = _classRepository.GetAll()
+                            .Where(p => p.CourseId.Equals(courseId) && p.IsTheoryClass == true)
+                            .FirstOrDefault();
+                        var ClassStudents = new DB.Models.ClassStudent();
+                        ClassStudents.ClassId = classs.ClassId;
+                        ClassStudents.StudentId = studentId;
+
+                        await _classStudentRepository.CreateAsync(ClassStudents);
+                        await _lessonService.CreateTheoryLessonAutoByStudentId(studentId);
                     }
                     else
                     {
                         result.IsError = true;
-                        result.Payload = -2;
-                        result.ErrorMessage = "Học viên này đã đăng ký lớp học thực hành";
+                        result.Payload = -1;
+                        result.ErrorMessage = "Học viên này đã đăng ký lớp học lý thuyết!";
                     }
                 }
                 else
@@ -115,7 +125,7 @@ namespace Backend.Services.ClassStudent
                     return result;
                 }
 
-                var students = await _studentRepository.GetAll().Where(p => p.CourseId == courseId).ToListAsync();
+                var students = await _studentRepository.GetAll().Where(p => p.CourseId.Equals(courseId)).ToListAsync();
                 if (!students.Any())
                 {
                     result.IsError = true;
@@ -130,7 +140,7 @@ namespace Backend.Services.ClassStudent
                 var count = 0;
                 foreach (var student in students)
                 {
-                    if(existClassStudents.Any(p => p.StudentId == student.StudentId)) continue;
+                    if (existClassStudents.Any(p => p.StudentId == student.StudentId)) continue;
 
                     var classStudent = new DB.Models.ClassStudent
                     {
@@ -151,5 +161,94 @@ namespace Backend.Services.ClassStudent
             }
             return result;
         }
+
+        public async Task<ServiceResult<int>> AddStudentIntoClass(ClassStudentDTO classStudentDTO)
+        {
+            var result = new ServiceResult<int>();
+            try
+            {
+                var classDb = await _classRepository.GetAll()
+                    .Where(p => p.ClassId == classStudentDTO.ClassId).FirstOrDefaultAsync();
+                if (classDb == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Không tìm thấy lớp học";
+                    return result;
+                }
+
+                var count = await _classStudentRepository.GetAll()
+                    .Where(p => p.ClassId == classStudentDTO.ClassId).CountAsync();
+                if (count >= 3)
+                {
+                    result.IsError = true;
+                    result.Payload = -3;
+                    result.ErrorMessage = "Lớp học đã đủ học viên";
+                    return result;
+                }
+
+                var student = await _studentRepository.GetAll()
+                    .Where(p => p.StudentId == classStudentDTO.StudentId).FirstOrDefaultAsync();
+                if (student == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Không tìm thấy học viên";
+                    return result;
+                }
+
+                var existClassStudent = await _classStudentRepository.GetAll()
+                    .Where(p => p.ClassId == classStudentDTO.ClassId 
+                                && p.StudentId == classStudentDTO.StudentId)
+                    .FirstOrDefaultAsync();
+                if (existClassStudent != null)
+                {
+                    result.IsError = true;
+                    result.Payload = -2;
+                    result.ErrorMessage = "Học viên đã tồn tại trong lớp học";
+                    return result;
+                }
+                
+                var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
+                classStudent.Status = true;
+                await _classStudentRepository.CreateAsync(classStudent);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.Payload = 0;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+        // get classStudent by classId
+        public async Task<ServiceResult<ICollection<ClassStudentDetailsDTO>>> GetClassStudentByClassId(int classId)
+        {
+            var result = new ServiceResult<ICollection<ClassStudentDetailsDTO>>();
+            try
+            {
+                var classDb = await _classRepository.GetAll()
+                    .Where(p => p.ClassId == classId).FirstOrDefaultAsync();
+                if (classDb == null) throw new Exception("Không tìm thấy lớp học");
+
+                var classStudents = await _classStudentRepository.GetAll()
+                    .Include(p => p.Student)
+                    .ThenInclude(p => p.Member.User)
+                    .Where(p => p.ClassId == classId).ToListAsync();
+
+                result.Payload = _mapper.Map<ICollection<ClassStudentDetailsDTO>>(classStudents);
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrorMessage = e.Message;
+            }
+            return result;
+        }
+
+
     }
+
+
 }

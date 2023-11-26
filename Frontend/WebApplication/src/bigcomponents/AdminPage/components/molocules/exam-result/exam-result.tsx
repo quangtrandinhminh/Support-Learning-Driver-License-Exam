@@ -29,12 +29,13 @@ function ExamResultTable() {
 
     //paganition part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
     const records = test.slice(firsIndex, lastIndex);
     const npage = Math.ceil(test.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1)
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllMembers();
@@ -76,26 +77,28 @@ function ExamResultTable() {
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col'>Mã kỳ thi</th>
                                 <th scope='col'>Mã học viên</th>
                                 <th scope='col' className='tw-text-center'>Mã bài thi</th>
                                 <th scope='col' className='tw-text-center'>Điểm</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Action</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
                             {records.length > 0 ? (
                                 records.map((exam, i: number = 1) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i}</td>
                                         <td>{exam.testId}</td>
                                         <td>{exam.studentId}</td>
                                         <td className='tw-text-center'>{exam.examId}</td>
                                         <td className='tw-text-center'>{exam.score}</td>
                                         <td className='text-center'>{exam.pass ? "Đạt" : "Không đạt"}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="button" onClick={() => updatePassStatus(exam.studentId)}>Update</button>
-                                            <button className="btn btn-danger" type="submit">Delete</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => updatePassStatus(exam.studentId)}>Cập nhật</button>
+                                            {/* <button className="btn btn-danger" type="submit">Xoá</button> */}
                                         </td>
                                     </tr>
                                 ))

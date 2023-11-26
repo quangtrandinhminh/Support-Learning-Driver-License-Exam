@@ -1,43 +1,55 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../../../../../config/axios';
 import './courses-table.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/esm/Button';
 
 function CourseTable() {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    //count number of members have enrolled into course
+    const [selectedMonth, setSelectedMonth] = useState('');
+    const [courseMonthList, setCourseMonthList] = useState([]);
     const [mapRecord, setMapRecord] = useState(new Map());
     const map = new Map();
+    const [show, setShow] = useState(false);
 
-    // Pagination variables
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
-    const firsIndex = lastIndex - recordPage;
+    const firstIndex = lastIndex - recordPage;
 
-    // Apply filtering to data before pagination
-    const filteredData = data.filter(course => course.courseId.toLowerCase().includes(searchValue));
+    const filteredData = data.filter(course =>
+        course.courseId.toLowerCase().includes(searchValue) &&
+        (course.courseMonth === parseInt(selectedMonth) || selectedMonth === '')
+    );
 
-    // Pagination
-    const records = filteredData.slice(firsIndex, lastIndex);
-    const npage = Math.ceil(filteredData.length / recordPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
+    const records = filteredData.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(filteredData.length / recordPage);
+    const pageNumbers = [...Array(totalPages + 1).keys()].slice(1);
     const overallIndex = (currentPage - 1) * recordPage;
+    const [specificCourse, setSpecificCourse] = useState(null);
+    const [memberList, setMemberList] = useState([]);
 
     const navigate = useNavigate();
 
-    const [member, setMember] = useState([]);
+    useEffect(() => {
+        getAllCourse();
+        getMember();
+    }, []);
 
-    // Fetch all courses
     const getAllCourse = async () => {
         try {
             const response = await api.get('Course/list');
-            const res = response.data;
-            const getActiveCourse = res.filter(course => course.status === true);
-            setData(getActiveCourse);
+            const activeCourses = response.data.filter(course => course.status === true);
+            const courseMonthSet = new Set(activeCourses.map(course => course.courseMonth));
+            setCourseMonthList(Array.from(courseMonthSet));
+            setData(activeCourses);
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
@@ -45,43 +57,46 @@ function CourseTable() {
         try {
             const response = await api.get('/Members');
             const res = response.data;
-            setMember(res);
+            setMemberList(res);
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
-    }
+    };
 
-    // Handle page navigation
     const prePage = () => {
-        if (currentPage !== 1) {
+        if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
-    }
+    };
 
     const changeCPage = (id) => {
         setCurrentPage(id);
-    }
+    };
 
     const nextPage = () => {
-        if (currentPage !== npage) {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
-    }
+    };
 
     const updateBtn = (courseId) => {
         navigate(`cap-nhat-khoa-hoc/${courseId}`);
         window.scroll({
             top: 0,
-            behavior: 'instant'
+            behavior: 'instant',
         });
-    }
+    };
 
-    // Filtering function
     const filter = (e) => {
         const value = e.target.value.toLowerCase();
-        setSearchValue(value);
-        setCurrentPage(1); // Reset to the first page when filtering
-    }
+        if (e.target.name === 'courseId') {
+            setSearchValue(value);
+        } else if (e.target.name === 'courseMonth') {
+            // If 'Tháng' is selected, set selectedMonth to an empty string
+            setSelectedMonth(value === 'Tháng' || value === "tất cả" ? '' : value);
+        }
+        setCurrentPage(1); // Reset to the first page when
+    };
 
     const formatDate = (dbDate) => {
         const date = new Date(dbDate);
@@ -89,39 +104,30 @@ function CourseTable() {
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
-    }
+    };
 
     const handleDelete = async (courseId) => {
         try {
-            // Perform the deletion
-            await api.delete('Course/deactivate/' + courseId);
-
-            // Reload the page after successful deletion
-            setTimeout(() => {
-                location.reload();
-            }, 0.1);
-
-            // Once deletion is successful, fetch the updated data
-            await getAllCourse();
-
+            await api.delete(`Course/deactivate/${courseId}`);
+            location.reload(); // You might want to use a different approach for updating the data
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
-    }
+    };
 
-    useEffect(() => {
-        // Create and populate the map when data and member are available
-        const uniqueCourseIds = new Set(data.map(data => data.courseId));
-        for (const courseId of uniqueCourseIds) {
-            map.set(String(courseId), member.filter(member => member.courseId === courseId));
+    const showInfo = async (courseId) => {
+        try {
+            const response1 = await api.get(`Course/${courseId}`);
+            const res1 = response1.data;
+            setSpecificCourse(res1);
+            const response2 = await api.get('Members');
+            const res2 = response2.data;
+            const membersInCourse = res2.filter(member => member.courseId === courseId);
+            setMemberList(membersInCourse);
+        } catch (err) {
+            console.error(err);
         }
-        setMapRecord(map);
-    }, [data, member]);
-
-    useEffect(() => {
-        getAllCourse();
-        getMember();
-    }, []);
+    };
 
     return (
         <div className='courses-table-container'>
@@ -129,20 +135,33 @@ function CourseTable() {
                 <h1>Danh sách khoá học</h1>
             </div>
             <div className='courses-table-content'>
-                <form action="">
+                <form>
                     <div className='d-grid mb-2'>
                         <div className="row">
-                            <div className='search-input col align-self-center'>
+                            <div className='search-input col align-self-center tw-h-full'>
                                 <input
                                     type="text"
                                     name='courseId'
-                                    placeholder='courseId'
+                                    placeholder='Mã khoá học'
                                     onChange={filter}
                                     autoComplete='off'
                                 />
+                                <select
+                                    name="courseMonth"
+                                    id=""
+                                    onChange={filter}
+                                    value={selectedMonth}
+                                    className='tw-h-full tw-ml-2 tw-rounded-lg'
+                                >
+                                    <option value="" disabled>Tháng</option>
+                                    <option value="Tất cả">Tất cả</option>
+                                    {courseMonthList.map((month, i) => (
+                                        <option key={i} value={month}>{month}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div className='d-flex btnCreate col justify-content-end'>
-                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Add</Link>
+                                <Link to='tao-khoa-hoc' className='btn btn-success'>+ Thêm khoá học</Link>
                             </div>
                         </div>
                     </div>
@@ -159,7 +178,7 @@ function CourseTable() {
                                 <th scope='col' className='text-center'>Tháng</th>
                                 <th scope='col' className='text-center'>Năm</th>
                                 <th scope='col' className='text-center'>Trạng thái</th>
-                                <th scope='col' className='text-center'>Hành động</th>
+                                <th scope='col' className='text-center'></th>
                             </tr>
                         </thead>
                         <tbody className='table-group-divider align-middle'>
@@ -167,11 +186,12 @@ function CourseTable() {
                                 records.map((course, i) => {
                                     const mapKey = mapRecord.get(course.courseId);
                                     const mapValue = mapKey ? mapKey.length : 0;
-                                    console.log(mapValue);
                                     return (
                                         <tr key={i}>
                                             <td>{overallIndex + i + 1}</td>
-                                            <td>{course.courseId}</td>
+                                            <td>
+                                                <a href='/' onClick={(e) => (handleShow(), showInfo(course.courseId), e.preventDefault())}>{course.courseId}</a>
+                                            </td>
                                             <td>{course.name}</td>
                                             <td>{formatDate(course.startDate)}</td>
                                             <td>{formatDate(course.endDate)}</td>
@@ -181,8 +201,8 @@ function CourseTable() {
                                             <td className='text-center'>{course.courseYear}</td>
                                             <td className='text-center'>{course.status ? "Đã kích hoạt" : "Chưa kích hoạt"}</td>
                                             <td className='button text-center'>
-                                                <button className="btn btn-primary" type="submit" onClick={() => updateBtn(course.courseId)}>Update</button>
-                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Delete</button>
+                                                <button className="btn btn-primary" type="button" onClick={() => updateBtn(course.courseId)}>Cập nhật</button>
+                                                <button className="btn btn-danger" type="button" onClick={() => handleDelete(course.courseId)}>Xoá</button>
                                             </td>
                                         </tr>
                                     )
@@ -200,21 +220,72 @@ function CourseTable() {
                     </table>
                     <nav>
                         <ul className='pagination'>
-                            <li className='page-item'>
-                                <button type='button' className='page-link' onClick={prePage}>Prev</button>
+                            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                <button type='button' className='page-link' onClick={prePage} disabled={currentPage === 1}>Trước</button>
                             </li>
-                            {
-                                numbers.map((n, i) => (
-                                    <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
-                                    </li>
-                                ))
-                            }
-                            <li className='page-item'>
-                                <button type='button' className='page-link' onClick={nextPage}>Next</button>
+                            {pageNumbers.map((n, i) => (
+                                <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                                    <button type='button' className='page-link' onClick={() => changeCPage(n)}>{n}</button>
+                                </li>
+                            ))}
+                            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                                <button type='button' className='page-link' onClick={nextPage} disabled={currentPage === totalPages}>Sau</button>
                             </li>
                         </ul>
                     </nav>
+                    <Modal
+                        show={show}
+                        onHide={handleClose}
+                        backdrop="static"
+                        keyboard={true}
+                        backdropClassName='backdrop'
+                        centered
+                        size='lg'
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                <h1 className='tw-text-center'>Thông tin</h1>
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className='course-information-container'>
+                                <div className='course-information-title'>
+                                    <h3>Thông tin khoá học</h3>
+                                </div>
+                                {specificCourse !== null ? (
+                                    <ul className="information-list-container">
+                                        <li className="list-inf-items">
+                                            <span className="list-inf-items-title">Tên khoá học: </span>
+                                            <span className="list-inf-items-content">{specificCourse.name}</span>
+                                        </li>
+                                        <li className="list-inf-items">
+                                            <span className="list-inf-items-title">Ngày khai giảng: </span>
+                                            <span className="list-inf-items-content">{formatDate(specificCourse.startDate)}</span>
+                                        </li>
+                                        <li className="list-inf-items">
+                                            <span className="list-inf-items-title">Ngày bế giảng: </span>
+                                            <span className="list-inf-items-content">{formatDate(specificCourse.endDate)}</span>
+                                        </li>
+                                        <li className="list-inf-items">
+                                            <span className="list-inf-items-title">Học viên trong khoá: </span>
+                                            <span className="list-inf-items-content">
+                                                <ul className='member-items-container'>
+                                                    {memberList.length > 0 && memberList.map((member, i) => (
+                                                        <li className='member-items' key={i}>{member.fullName}</li>
+                                                    ))}
+                                                </ul>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                ) : null}
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Đóng
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </form>
             </div>
         </div>

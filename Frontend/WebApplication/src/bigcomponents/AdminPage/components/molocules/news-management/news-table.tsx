@@ -29,12 +29,13 @@ function NewsTable() {
 
     // Pagination part
     const [currentPage, setCurrentPage] = useState(1);
-    const recordPage = 6;
+    const recordPage = 10;
     const lastIndex = currentPage * recordPage;
     const firsIndex = lastIndex - recordPage;
     const records = data.slice(firsIndex, lastIndex);
     const npage = Math.ceil(data.length / recordPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
+    const overallIndex = (currentPage - 1) * recordPage;
 
     useEffect(() => {
         getAllNews();
@@ -85,11 +86,12 @@ function NewsTable() {
             <div className='news-table-content'>
                 <form action="">
                     <div className='d-flex justify-content-end'>
-                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Add</Link>
+                        <Link to='tao-tin-tuc' className='btn btn-success mb-2'>+ Thêm tin tức</Link>
                     </div>
                     <table className='table table-hover table-striped' border={1}>
                         <thead className='table-primary'>
                             <tr>
+                                <th scope='col'>#</th>
                                 <th scope='col'>Mã tin tức</th>
                                 <th scope='col'>Tiêu đề</th>
                                 <th scope='col'>Mô tả</th>
@@ -102,14 +104,15 @@ function NewsTable() {
                             {records.length > 0 ? (
                                 records.map((news, i) => (
                                     <tr key={i}>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{news.newsId}</td>
                                         <td>{truncateText(news.title, 12)}</td>
                                         <td>{truncateText(news.description, 15)}</td>
                                         <td>{truncateText(news.content, 30)}</td> {/* Truncate content here */}
                                         <td className='text-center'>{news.status.toString().toUpperCase()}</td>
                                         <td className='button text-center'>
-                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Update</button>
-                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Delete</button>
+                                            <button className="btn btn-primary" type="submit" onClick={() => updateBtn(news.newsId)}>Cập nhật</button>
+                                            <button className="btn btn-danger" type="button" onClick={() => handleDelete(news.newsId)}>Xoá</button>
                                         </td>
                                     </tr>
                                 ))

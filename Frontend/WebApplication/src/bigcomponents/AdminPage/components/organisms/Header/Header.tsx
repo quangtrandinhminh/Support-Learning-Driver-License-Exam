@@ -24,13 +24,9 @@ const Header: React.FC<HeaderProps> = ({ OpenSidebar }) => {
     navigate('Thong-tin-ca-nhan');
   };
 
-  const handleSetting = () => {
-    navigate('/setting');
-  };
-
   const handleLogout = () => {
     sessionStorage.removeItem('loginedUser');
-    console.log('user:', user); 
+    console.log('user:', user);
     navigate('dang-nhap');
   };
 
@@ -42,12 +38,12 @@ const Header: React.FC<HeaderProps> = ({ OpenSidebar }) => {
       <div className="header-left"></div>
       <div className="header-right">
         <Menu>
-          <MenuButton border="none" padding="0" backgroundColor="#fff" as={Button} >
-            <BsPersonCircle className="icon"/>
+          <MenuButton border="none" padding="0" backgroundColor="#fff" as={Button}>
+            <BsPersonCircle className="icon" />
           </MenuButton>
-          <MenuList>
+          <MenuList className="tw-text-center">
             <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleProfile}><p>Hồ sơ cá nhân</p></MenuItem>
-            <MenuItem backgroundColor="#4292EB" textColor="#fff" onClick={handleLogout}><p>Đăng xuất</p></MenuItem>
+            <MenuItem className='tw-block' backgroundColor="#4292EB" textColor="#fff" onClick={handleLogout}><p>Đăng xuất</p></MenuItem>
           </MenuList>
         </Menu>
       </div>
