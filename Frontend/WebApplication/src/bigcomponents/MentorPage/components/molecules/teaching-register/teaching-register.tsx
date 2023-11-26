@@ -10,6 +10,8 @@ interface CheckboxTableState {
 }
 
 const MentorTeachingRegister: React.FC = () => {
+  const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
+  const [mentor, setMentor] = useState(null);
   const { courseId } = useParams();
   const [checkboxes, setCheckboxes] = useState<CheckboxTableState['checkboxes']>({
     "sáng-2": false,
@@ -32,6 +34,15 @@ const MentorTeachingRegister: React.FC = () => {
       [key]: !prevCheckboxes[key],
     }));
   };
+
+  const getMentorByUID = async () => {
+    try {
+      const response = await api.get('Mentor/user/' + user.userID);
+      setMentor(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   const handleMouseEnter = (key: string) => {
     setHoveredCheckbox(key);
@@ -58,13 +69,15 @@ const MentorTeachingRegister: React.FC = () => {
 
     const listObjects = selectedDays.map((selectedDay) => {
       const [shift, dayOfWeek] = selectedDay.split('-');
-      return {
-        mentorId: 1, // Replace with the actual mentor ID
-        courseId: courseId, // Replace with the actual course ID
-        dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
-        shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
-        status: true, // You can set the status based on your requirements
-      };
+      if (mentor) {
+        return {
+          mentorId: mentor.mentorId, // Replace with the actual mentor ID
+          courseId: courseId, // Replace with the actual course ID
+          dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
+          shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
+          status: true, // You can set the status based on your requirements
+        };
+      }
     });
 
     // Convert listObjects to the desired format
@@ -80,30 +93,31 @@ const MentorTeachingRegister: React.FC = () => {
     console.log('Formatted List of Objects:', formattedListObjects);
 
     try {
-      // Make an API request to the server using Axios
-      const response = await api.post(
-        'Class/addClassPracticeByMentor',
-        formattedListObjects,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      // // Make an API request to the server using Axios
+      // const response = await api.post(
+      //   'Class/addClassPracticeByMentor',
+      //   formattedListObjects,
+      //   {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
 
-      // Check if the response status is OK (status code 2xx)
-      if (response.status !== 200) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      } else {
-        // Example: Display a success message to the user
+      // // Check if the response status is OK (status code 2xx)
+      // if (response.status !== 200) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // } else {
+      //   // Example: Display a success message to the user
 
-        console.log(response.status);
-        alert('Lịch đã được đặt thành công!');
-        // window.history.back();
-      }
+      //   console.log(response.status);
+      //   alert('Lịch đã được đặt thành công!');
+      //   // window.history.back();
+      // }
 
-      // Handle the response data here
-      console.log('Response from the server:', response.data);
+      // // Handle the response data here
+      // console.log('Response from the server:', response.data);
+      console.log(listObjects);
 
       // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
@@ -113,6 +127,7 @@ const MentorTeachingRegister: React.FC = () => {
   };
 
   useEffect(() => {
+    getMentorByUID();
   }, [])
 
   return (
