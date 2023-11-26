@@ -99,9 +99,8 @@ function PracticeSpecificRegister() {
                 classId: classId
             });
             const res = response.data;
-            console.log(res);
             toast.success('Đăng ký thành công!');
-            // navigate('/khoa-hoc-cua-ban');
+            navigate('/khoa-hoc-cua-ban');
         } catch (error) {
             console.log(error);
         }

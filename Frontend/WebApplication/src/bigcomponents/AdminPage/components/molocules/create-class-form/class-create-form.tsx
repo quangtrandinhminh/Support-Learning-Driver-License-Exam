@@ -450,7 +450,7 @@ export function CreatePracticeLesson() {
                     </div>
                   ))
                 ) : (
-                  <h1>bitch</h1>
+                  <h1>Chưa có dữ liệu</h1>
                 )
               }
             </div>

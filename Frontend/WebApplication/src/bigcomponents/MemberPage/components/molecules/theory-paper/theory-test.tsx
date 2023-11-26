@@ -72,8 +72,8 @@ function TheoryTestPaper() {
                 top: 0,
                 behavior: "instant"
             });
-            // localStorage.setItem('studentAnswer', JSON.stringify(response.data));
-            // navigate('/kiem-tra/ket-qua');
+            localStorage.setItem('studentAnswer', JSON.stringify(response.data));
+            navigate('/kiem-tra/ket-qua');
         } catch (error) {
             console.log(error);
         }
