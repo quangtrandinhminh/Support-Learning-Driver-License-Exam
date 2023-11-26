@@ -52,10 +52,10 @@ import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-h
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 import MentorLayout from './bigcomponents/MentorPage/layout'
 import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/mentor-register-schedule-page/mentor-register-schedule-page'
-import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
-import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
-import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
-import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+// import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
+// import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
+// import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
+// import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 import MentorTakeAttendancePage from './bigcomponents/MentorPage/components/pages/mentor-take-attendances/mentor-take-attendance-page'
 import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 
@@ -230,9 +230,9 @@ function App() {
                         <Route index element={<MentorHomePage />} />
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
-                          <Route path='chi-tiet-lich-day'>
+                          {/* <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
-                          </Route>
+                          </Route> */}
                           <Route path='diem-danh/:classId' element={<MentorTakeAttendancePage />} />
                         </Route>
                         <Route path='danh-sach-khoa-hoc-giao-vien'>

@@ -18,12 +18,11 @@ function StudentsAttendances() {
   const navigate = useNavigate();
   const { classId } = useParams();
 
-  // Retrieve the date from session storage
   const storedDate = localStorage.getItem('selectedDate');
   console.log('Stored date:', storedDate);
   const selectedDate = storedDate ? new Date(storedDate) : new Date();
 
-  // Format the date in the expected format for your API (YYYY-MM-DD)
+  // Format the date (YYYY-MM-DD)
   const formattedDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
 
   useEffect(() => {
@@ -31,7 +30,6 @@ function StudentsAttendances() {
       try {
         console.log('Fetching data for classId:', classId, 'date:', selectedDate);
         if (classId) {
-          // Use the formatted date in the API call
           const response = await api.get(`/Lesson/attendance/${classId}/${formattedDate}`);
           setStudents(response.data);
           console.log('Data', response.data);

@@ -72,11 +72,11 @@ const MentorTeachingRegister: React.FC = () => {
       const [shift, dayOfWeek] = selectedDay.split('-');
       if (mentor) {
         return {
-          mentorId: mentor.mentorId, // Replace with the actual mentor ID
-          courseId: courseId, // Replace with the actual course ID
-          dayOfWeek: getDayOfWeekNumber(dayOfWeek), // Convert day of the week to number
-          shift: capitalizeFirstLetter(shift), // Capitalize the first letter of the shift
-          status: true, // You can set the status based on your requirements
+          mentorId: mentor.mentorId, 
+          courseId: courseId, 
+          dayOfWeek: getDayOfWeekNumber(dayOfWeek), 
+          shift: capitalizeFirstLetter(shift), 
+          status: true, 
         };
       }
     });
@@ -94,7 +94,6 @@ const MentorTeachingRegister: React.FC = () => {
     console.log('Formatted List of Objects:', formattedListObjects);
 
     try {
-      // Make an API request to the server using Axios
       const response = await api.post(
         'Class/addClassPracticeByMentor',
         formattedListObjects,
@@ -104,25 +103,16 @@ const MentorTeachingRegister: React.FC = () => {
           },
         }
       );
-
-      // Check if the response status is OK (status code 2xx)
       if (response.status !== 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       } else {
-        // Example: Display a success message to the user
-
         console.log(response.status);
         toast.success('Lịch đã được đặt thành công!');
         window.history.back();
       }
-
-      // Handle the response data here
       console.log('Response from the server:', response.data);
-
-      // For example, if your response contains additional information, you can use it as needed.
     } catch (error) {
       console.error('Error:', error);
-      // Handle errors here
     }
   };
 

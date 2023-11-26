@@ -11,11 +11,10 @@ function TeachingSchedule() {
     const [weekEndDate, setWeekEndDate] = useState(null);
     const mentor = sessionStorage.getItem('loginedMentor') ? JSON.parse(sessionStorage.getItem('loginedMentor')) : null;
     const [mentorClass, setMentorClass] = useState(null);
-    const [scheduleData, setScheduleData] = useState([]); // State to store the schedule data from the API
+    const [scheduleData, setScheduleData] = useState([]); 
     const navigate = useNavigate();
 
      const handleClassClick = (classId, date) => {
-        // Store classId and date in sessionStorage
         localStorage.setItem('selectedClassId', classId);
         localStorage.setItem('selectedDate', date);
          navigate("diem-danh/" + classId);
@@ -60,7 +59,7 @@ function TeachingSchedule() {
         // Populate morning and afternoon schedules with fetched data
         filteredClasses.forEach((classInfo) => {
             const classDate = new Date(classInfo.date);
-            const dayIndex = (classDate.getDay() + 6) % 7; // Adjust dayIndex to start from Monday (0-indexed)
+            const dayIndex = (classDate.getDay() + 6) % 7; //dayIndex start from Monday (0-indexed)
             const shift = classInfo.shift;
 
             const targetSchedule = shift === "Sáng" ? morningSchedule : afternoonSchedule;
@@ -71,7 +70,6 @@ function TeachingSchedule() {
         // Render the table columns based on the organized schedule
         return (
             <>
-                {/* Render morning classes in the upper td */}
                 <tr className='study-slot'>
                     <td className='tw-uppercase'>Ca sáng</td>
                     {morningSchedule.map((morningClasses, morningIndex) => (
@@ -92,8 +90,6 @@ function TeachingSchedule() {
                         </td>
                     ))}
                 </tr>
-
-                {/* Render afternoon classes in the lower td */}
                 <tr className='study-slot'>
                     <td className='tw-uppercase'>Ca chiều</td>
                     {afternoonSchedule.map((afternoonClasses, afternoonIndex) => (
@@ -146,26 +142,6 @@ function TeachingSchedule() {
     useEffect(() => {
         fetchScheduleData();
     }, [mentorClass, weekStartDate, weekEndDate]);
-
-    // const getStartDay = (year) => {
-    //     // Zeller's Congruence algorithm to calculate the start day of the year
-    //     if (year < 0) {
-    //         year += 1; // Adjust for the algorithm if year is BC
-    //     }
-    //     const q = 1;
-    //     const m = 13; // January (13) and February (14) are counted as months 13 and 14 of the previous year
-    //     const K = year % 100;
-    //     const J = Math.floor(year / 100);
-
-    //     const f = q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J;
-    //     const startDay = (f % 7 + 7) % 7;
-
-    //     return startDay; // 0 for Saturday, 1 for Sunday, 2 for Monday, etc.
-    // };
-
-    // const isLeapYear = (year) => {
-    //     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    // };
 
     const generateDateOptions = (year) => {
         const options = [];
@@ -223,12 +199,11 @@ function TeachingSchedule() {
         fetchScheduleData();
     }, [selectedWeek, selectedYear]);
 
-    // Function to update selectedWeek and selectedYear
+    // Update selectedWeek and selectedYear
     const updateSelectedTime = () => {
         const currentDate = new Date();
 
         if (!currentDate) {
-            // Handle the case where currentDate is undefined or null
             return;
         }
 
@@ -246,7 +221,7 @@ function TeachingSchedule() {
         renderScheduleData();
     }, [scheduleData]);
 
-    // Use setInterval to update the selected time every minute (adjust as needed)
+    // Update the selected time every minute
     useEffect(() => {
         // Update initially
         updateSelectedTime();
@@ -254,11 +229,10 @@ function TeachingSchedule() {
         // Set up interval to update every minute
         const intervalId = setInterval(() => {
             updateSelectedTime();
-        }, 60000); // Update every minute, you can adjust this interval
+        }, 60000); 
 
-        // Clear interval on component unmount
         return () => clearInterval(intervalId);
-    }, []); // Empty dependency array to run the effect only once on mount
+    }, []); 
 
 
     return (
