@@ -125,9 +125,8 @@ function PracticeSpecificRegister() {
             </div>
             <div className="practice-register-body">
                 <div className='practice-information'>
-                    <div className='practice-date-expected'>
-                        Thời gian từ ... đến ...:
-                        <div className='practice-session'>
+                    <div className='practice-date-expected tw-justify-center'>
+                        <div className='practice-session tw-text-center'>
                             <p className='morning-register'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-register'>Ca học chiều từ 13h00 - 17h00</p>
                         </div>

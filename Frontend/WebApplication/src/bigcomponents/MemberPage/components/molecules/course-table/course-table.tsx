@@ -15,7 +15,7 @@ function CourseTable() {
     const [isLoading, setIsLoading] = useState(true);
     const [course, setCourse] = useState<any[]>([]);
     const [show, setShow] = useState(false);
-    
+
     var courseContentMap = new Map();
 
     const handleClose = () => setShow(false);
@@ -99,6 +99,7 @@ function CourseTable() {
                                                         <p>Khoá {course.name}</p>
                                                         <p>KG: {formatDate(course.startDate)}</p>
                                                         <p>BG: {formatDate(course.endDate)}</p>
+                                                        <p>Học phí: {course.courseFee.toLocaleString()} VNĐ</p>
                                                     </td>
                                                     <td className='course-mem'>
                                                         <p>{course.limitStudent}</p>
@@ -177,6 +178,7 @@ function CourseTable() {
                                                         <p>Khoá {course.name}</p>
                                                         <p>KG: {formatDate(course.startDate)}</p>
                                                         <p>BG: {formatDate(course.endDate)}</p>
+                                                        <p>Học phí: {course.courseFee.toLocaleString()} VNĐ</p>
                                                     </td>
                                                     <td className='course-mem'>
                                                         <p>{course.limitStudent}</p>
@@ -250,7 +252,7 @@ function CourseTable() {
                         </table>
                     </form>
                 </div>
-                
+
                 <Modal
                     show={show}
                     onHide={handleClose}
