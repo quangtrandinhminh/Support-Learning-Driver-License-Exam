@@ -17,6 +17,8 @@ function VerificationForm() {
     dob: '',
     gender: '',
     nationality: '',
+    nation: '',
+    temporaryAddress: '',
     residenceAddress: '',
     identityCardNumber: '',
     cardProvidedDate: '',
@@ -27,12 +29,10 @@ function VerificationForm() {
     fullName: '',
     phone: '',
     email: '',
-    nation: '',
-    temporaryAddress: ''
   });
 
   const navigate = useNavigate();
-  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation', 'temporaryAddress'];
+  const requiredFields = ['fullName', 'dob', 'phone', 'email', 'nationality', 'temporaryAddress', 'residenceAddress', 'identityCardNumber', 'cardProvidedDate', 'cardProvidedLocation', 'nation'];
   const namePattern = /^[\p{L} ]{5,32}$/u,
     nationalityPattern = /^[\p{L} ]{2,32}$/u,
     nation = /^[\p{L} ]{2,32}$/u;
@@ -41,6 +41,7 @@ function VerificationForm() {
 
   //function 
   const createMember = async () => {
+  setError('');
     try {
       const dobDate = new Date(inputData.dob);
       const currentDate = new Date();
@@ -79,12 +80,11 @@ function VerificationForm() {
       }
 
       const response = await api.post('/Member/add', inputData);
-      setError('');
       setMember(response.data);
       sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
-      navigate('/khoa-hoc-cua-ban');
+      // navigate('/khoa-hoc-cua-ban');
       window.scroll({
         top: 0,
         behavior: 'instant'
