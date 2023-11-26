@@ -178,7 +178,7 @@ namespace Backend.Services.Class
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
                 if (theory)
                 {
-                    newClass.DayOfWeek = 0;
+                    newClass.DayOfWeek = null;
                     newClass.LimitStudent = null;
                 }
                 await _classRepository.CreateAsync(newClass);
@@ -330,6 +330,13 @@ namespace Backend.Services.Class
                 {
                     result.IsError = true;
                     result.ErrorMessage = "Không tìm thấy lớp!";
+                    return result;
+                }
+
+                if (classDb.DayOfWeek == null || classDb.DayOfWeek == 0)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Lớp học không có ngày học cụ thể trong tuần!";
                     return result;
                 }
 
