@@ -41,5 +41,7 @@ namespace Backend.Services.Lesson
         Task<ServiceResult<int>> CheckAttendanceForStudent(string studentId);
 
         Task<ServiceResult<int>> CreateTheoryLessonAutoByStudentId(string studentId);
+
+        Task<ServiceResult<ICollection<LessonDTO>>> GetLessonsByClassId(int classId);
     }
 }
