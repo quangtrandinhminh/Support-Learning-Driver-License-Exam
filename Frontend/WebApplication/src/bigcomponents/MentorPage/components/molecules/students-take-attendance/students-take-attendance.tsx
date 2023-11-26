@@ -1,31 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './students-take-attendance.scss';
 import api from '../../../../../config/axios';
 
+interface Student {
+  classStudentId: string;
+  lessonId: string;
+  studentName: string;
+  hours: number;
+  kilometers: number;
+  attendance: boolean;
+}
+
 function StudentsAttendances() {
-  const [students, setStudents] = useState([]);
-  const [classId, setClassId] = useState("");
-  const [date, setDate] = useState("");
+  const [students, setStudents] = useState<Student[]>([]);
   const navigate = useNavigate();
+  const { classId } = useParams();
+  
+  // Retrieve the date from session storage
+  const storedDate = sessionStorage.getItem('selectedDate');
+  const selectedDate = storedDate ? new Date(storedDate) : new Date();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (classId && date) {
-          // Use classId and date in the API endpoint
-          const response = await api.get(`/Lesson/attendance/${classId}/${date}`);
+        console.log('Fetching data for classId:', classId, 'date:', selectedDate);
+        if (classId) {
+          const response = await api.get(`/Lesson/attendance/${classId}/${selectedDate.toISOString()}`);
           setStudents(response.data);
+          console.log('Data', response.data);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
       }
     };
-
+  
     fetchData();
-  }, [classId, date]);
+  }, [classId, selectedDate]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
@@ -37,7 +50,7 @@ function StudentsAttendances() {
       }));
 
       // Use classId and date in the API endpoint
-      await api.patch(`/Lesson/attendance/${classId}/${date}`, attendanceData);
+      await api.patch(`/Lesson/attendance/${classId}/${selectedDate.toISOString()}`, attendanceData);
       console.log('Attendance data sent successfully');
 
       navigate('/lich-day');
@@ -46,7 +59,7 @@ function StudentsAttendances() {
     }
   };
 
-  const handleAttendanceChange = (studentId, isPresent) => {
+  const handleAttendanceChange = (studentId: string, isPresent: boolean) => {
     setStudents((prevStudents) =>
       prevStudents.map((student) =>
         student.classStudentId === studentId ? { ...student, attendance: isPresent } : student
