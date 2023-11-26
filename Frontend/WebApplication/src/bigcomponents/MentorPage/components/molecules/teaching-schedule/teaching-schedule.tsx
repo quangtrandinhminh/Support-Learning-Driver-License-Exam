@@ -33,51 +33,69 @@ function TeachingSchedule() {
 
     const renderScheduleData = () => {
         // Filter classes based on the selected week
-        const filteredClasses = mentorClass.filter((classInfo) => {
+        const filteredClasses = scheduleData.filter((classInfo) => {
             const classDate = new Date(classInfo.date);
             return classDate >= weekStartDate && classDate <= weekEndDate;
         });
-
+    
         // Organize the data based on day and shift
         const dailySchedule = [...Array(7)].map(() => ({ morning: [], afternoon: [] }));
-
+    
         // Organize the data based on day and shift
         filteredClasses.forEach((classInfo) => {
             const dayIndex = new Date(classInfo.date).getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
             const slot = classInfo.isNight ? 'morning' : 'afternoon';
-
+    
             dailySchedule[dayIndex][slot].push(classInfo);
         });
-
-        // Render the table rows based on the organized schedule
-        return dailySchedule.map((daySchedule, dayIndex) => (
-            <tr key={dayIndex} className='study-slot'>
+    
+        // Render the table columns based on the organized schedule
+        return (
+            <tr className='study-slot'>
                 {/* Render morning classes */}
                 <td>
-                    {daySchedule.morning.map((classInfo, index) => (
-                        <p key={index}>
-                            {classInfo.title}
-                            <br />
-                            <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
-                        </p>
+                    {dailySchedule.map((daySchedule, dayIndex) => (
+                        <div key={dayIndex}>
+                            {daySchedule.morning.map((classInfo, index) => (
+                                <p key={index}>
+                                    {classInfo.title}
+                                    <br />
+                                    <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                    <br />
+                                    Trạng thái: {classInfo.date ? 'Đã diễn ra' : 'Chưa diễn ra'}
+                                </p>
+                            ))}
+                        </div>
                     ))}
                 </td>
+    
                 {/* Render afternoon classes */}
                 <td>
-                    {daySchedule.afternoon.map((classInfo, index) => (
-                        <p key={index}>
-                            {classInfo.title}
-                            <br />
-                            <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
-                        </p>
+                    {dailySchedule.map((daySchedule, dayIndex) => (
+                        <div key={dayIndex}>
+                            {daySchedule.afternoon.map((classInfo, index) => (
+                                <p key={index}>
+                                    {classInfo.title}
+                                    <br />
+                                    <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                    <br />
+                                    Trạng thái: {classInfo.date ? 'Đã diễn ra' : 'Chưa diễn ra'}
+                                </p>
+                            ))}
+                        </div>
                     ))}
                 </td>
             </tr>
-        ));
+        );
     };
-
+    
     const fetchScheduleData = async () => {
         try {
+            if (!mentorClass || mentorClass.length === 0) {
+                console.error('Mentor class data is missing or empty');
+                return;
+            }
+
             // Assuming you want to get the courseId from the first object in the list
             const firstClass = mentorClass[0];
 
@@ -102,7 +120,7 @@ function TeachingSchedule() {
 
     useEffect(() => {
         fetchScheduleData();
-    }, []);
+    }, [mentorClass, weekStartDate, weekEndDate]);
 
     // const getStartDay = (year) => {
     //     // Zeller's Congruence algorithm to calculate the start day of the year
@@ -124,28 +142,24 @@ function TeachingSchedule() {
     //     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     // };
 
-    const generateDateOptions = () => {
+    const generateDateOptions = (year) => {
         const options = [];
-
-        for (let year = 2023; year <= 2025; year++) {
-            // const isLeap = isLeapYear(year);
-            // const startDay = getStartDay(year);
-            let startDate = new Date(year, 0, 1);
-            startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
-
-            for (let week = 1; week <= 52; week++) {
-                const endDate = new Date(startDate);
-                endDate.setDate(endDate.getDate() + 6);
-
-                options.push({
-                    label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
-                    value: week,
-                });
-
-                startDate.setDate(startDate.getDate() + 7);
-            }
+    
+        let startDate = new Date(year, 0, 1);
+        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+    
+        for (let week = 1; week <= 52; week++) {
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + 6);
+    
+            options.push({
+                label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
+                value: week,
+            });
+    
+            startDate.setDate(startDate.getDate() + 7);
         }
-
+    
         setDateOptions(options);
     };
 
@@ -153,36 +167,75 @@ function TeachingSchedule() {
         return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
     };
 
-    const handleYearChange = (year) => {
+    const handleYearChange = async (year) => {
         setSelectedYear(year);
         setSelectedWeek(1);
+    
+        // Fetch the schedule data for the selected week and year
+        await fetchScheduleData();
+    
+        // Update the date options based on the selected year
+        generateDateOptions(year);
     };
 
-
     useEffect(() => {
-        generateDateOptions();
-    }, []);
+        generateDateOptions(selectedYear);
+    }, [selectedYear]);
 
     useEffect(() => {
         const currentYear = selectedYear;
-        // const isLeap = isLeapYear(currentYear);
-        // const startDay = getStartDay(currentYear);
         let startDate = new Date(currentYear, 0, 1);
-        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
+        startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Set to the first day of the current week
         startDate.setDate(startDate.getDate() + (selectedWeek - 1) * 7);
-
+    
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 6);
-
+    
         setWeekStartDate(startDate);
         setWeekEndDate(endDate);
+    
+        // Fetch the schedule data whenever the selected week or year changes
+        fetchScheduleData();
     }, [selectedWeek, selectedYear]);
+
+      // Function to update selectedWeek and selectedYear
+      const updateSelectedTime = () => {
+        const currentDate = new Date();
+        
+        if (!currentDate) {
+            // Handle the case where currentDate is undefined or null
+            return;
+        }
+    
+        const currentYear = currentDate.getFullYear();
+        const currentWeek = Math.ceil(
+            (currentDate.getTime() - new Date(currentYear, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000)
+        );
+    
+        setSelectedYear(currentYear);
+        setSelectedWeek(currentWeek);
+    };
+
+    // Use setInterval to update the selected time every minute (adjust as needed)
+    useEffect(() => {
+        // Update initially
+        updateSelectedTime();
+
+        // Set up interval to update every minute
+        const intervalId = setInterval(() => {
+            updateSelectedTime();
+        }, 60000); // Update every minute, you can adjust this interval
+
+        // Clear interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array to run the effect only once on mount
+
 
     return (
         <>
             <div className="teaching-schedule-container">
                 <div>
-                    <h1>Lịch dạy trong tuần </h1>
+                    <h1>Lịch dạy trong tuần</h1>
                 </div>
                 <div className="teaching-schedule">
                     <form action="">
@@ -190,7 +243,7 @@ function TeachingSchedule() {
                             <thead className="schedule-header-container">
                                 <tr>
                                     <th rowSpan={2} className='mini-title'>
-                                        <span className="mini-title">
+                                       <span className="mini-title">
                                             <strong>Năm</strong>
                                         </span>
                                         <select
