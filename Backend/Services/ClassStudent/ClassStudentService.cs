@@ -167,16 +167,6 @@ namespace Backend.Services.ClassStudent
             var result = new ServiceResult<int>();
             try
             {
-                var student = await _studentRepository.GetAll()
-                    .Where(p => p.StudentId == classStudentDTO.StudentId).FirstOrDefaultAsync();
-                if (student == null)
-                {
-                    result.IsError = true;
-                    result.Payload = -1;
-                    result.ErrorMessage = "Không tìm thấy học viên";
-                    return result;
-                }
-
                 var classDb = await _classRepository.GetAll()
                     .Where(p => p.ClassId == classStudentDTO.ClassId).FirstOrDefaultAsync();
                 if (classDb == null)
@@ -184,6 +174,26 @@ namespace Backend.Services.ClassStudent
                     result.IsError = true;
                     result.Payload = -1;
                     result.ErrorMessage = "Không tìm thấy lớp học";
+                    return result;
+                }
+
+                var count = await _classStudentRepository.GetAll()
+                    .Where(p => p.ClassId == classStudentDTO.ClassId).CountAsync();
+                if (count >= 3)
+                {
+                    result.IsError = true;
+                    result.Payload = -3;
+                    result.ErrorMessage = "Lớp học đã đủ học viên";
+                    return result;
+                }
+
+                var student = await _studentRepository.GetAll()
+                    .Where(p => p.StudentId == classStudentDTO.StudentId).FirstOrDefaultAsync();
+                if (student == null)
+                {
+                    result.IsError = true;
+                    result.Payload = -1;
+                    result.ErrorMessage = "Không tìm thấy học viên";
                     return result;
                 }
 
@@ -198,7 +208,7 @@ namespace Backend.Services.ClassStudent
                     result.ErrorMessage = "Học viên đã tồn tại trong lớp học";
                     return result;
                 }
-
+                
                 var classStudent = _mapper.Map<DB.Models.ClassStudent>(classStudentDTO);
                 classStudent.Status = true;
                 await _classStudentRepository.CreateAsync(classStudent);

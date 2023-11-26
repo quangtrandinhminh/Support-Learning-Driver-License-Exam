@@ -269,9 +269,9 @@ namespace Backend.Controllers
         /// <returns></returns>
         [HttpGet("teaching-schedule/{mentorId}")]
         public async Task<IActionResult> GetTeachingScheduleByMentorId(DateTime startDate
-            , DateTime endDate, int mentorId, string courseId)
+            , DateTime endDate, int mentorId)
         {
-            var result = await _lessonService.GetTeachingScheduleByMentorId(startDate, endDate, mentorId, courseId);
+            var result = await _lessonService.GetTeachingScheduleByMentorId(startDate, endDate, mentorId);
             if (result.IsError)
             {
                 return NotFound(new

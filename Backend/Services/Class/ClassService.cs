@@ -178,7 +178,7 @@ namespace Backend.Services.Class
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
                 if (theory)
                 {
-                    newClass.DayOfWeek = 0;
+                    newClass.DayOfWeek = null;
                     newClass.LimitStudent = null;
                 }
                 await _classRepository.CreateAsync(newClass);
@@ -330,6 +330,14 @@ namespace Backend.Services.Class
                     return result;
                 }
 
+                if (classDb.DayOfWeek == null || classDb.DayOfWeek == 0)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Lớp học không có ngày học cụ thể trong tuần!";
+                    return result;
+                }
+
+                //get course details of class
                 // get course details of class
                 var courseDetails = await _courseDetailsRepository.GetAll()
                     .Where(x => x.CourseId == classDb.CourseId)
