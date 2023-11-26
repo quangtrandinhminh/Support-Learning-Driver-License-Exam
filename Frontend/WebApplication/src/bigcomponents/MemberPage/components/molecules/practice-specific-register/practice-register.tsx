@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import api from '../../../../../config/axios';
 import { get } from 'react-scroll/modules/mixins/scroller';
+import { Button, Modal } from 'react-bootstrap';
 
 function PracticeSpecificRegister() {
     const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -13,6 +14,12 @@ function PracticeSpecificRegister() {
     const { courseId } = useParams();
     const navigate = useNavigate();
     const [mentor, setMentor] = useState(null); // Store mentor
+    const [practiceSchedule, setPracticeSchedule] = useState([]);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const [practiceClass, setPracticeClass] = useState([]); // Store practice class
 
@@ -46,6 +53,16 @@ function PracticeSpecificRegister() {
         }
     }
 
+    const getPracticeSchedule = async () => {
+        try {
+            const response = await api.get('Lesson/practice/student/' + student.studentId);
+            const tempId = Array.from(new Set(response.data.map(item => item.mentorId)));
+            setPracticeSchedule(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     const getMentorById = async () => {
         try {
             const response = await api.get('Mentor/' + mentorId);
@@ -57,6 +74,10 @@ function PracticeSpecificRegister() {
         }
     }
 
+    const handleNavigate = () => {
+        navigate('/khoa-hoc-cua-ban/lich-hoc-thuc-hanh');
+    }
+
     useEffect(() => {
         getClassByCourseId();
         getMentorById();
@@ -66,6 +87,10 @@ function PracticeSpecificRegister() {
     useEffect(() => {
         getStudentByUID();
     }, [member])
+
+    useEffect(() => {
+        getPracticeSchedule();
+    }, [student])
 
     const handleRegister = async (studentId, classId) => {
         try {
@@ -135,7 +160,13 @@ function PracticeSpecificRegister() {
                                                         lesson.dayOfWeek == 6 ? "Thứ sáu" : ""}</td>
                                         <td>{lesson.shift}</td>
                                         <td>
-                                            <button className='btn btn-primary' type='button' onClick={() => handleRegister(student.studentId, lesson.classId)}>Đăng ký</button>
+                                            {
+                                                practiceSchedule.length > 0 ? (
+                                                    <button className='btn btn-primary' type='button' onClick={() => handleShow()}>Đăng ký</button>
+                                                ) : (
+                                                    <button className='btn btn-primary' type='button' onClick={() => handleRegister(student.studentId, lesson.classId)}>Đăng ký</button>
+                                                )
+                                            }
                                         </td>
                                     </tr>
                                 )) : (
@@ -151,6 +182,32 @@ function PracticeSpecificRegister() {
                     </div>
                 </form>
             </div>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                backdropClassName='backdrop'
+                centered
+                size='lg'
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <h1>Chú ý</h1>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h2>
+                        Mỗi học viên chỉ được đăng ký một buổi học thực hành.
+                    </h2>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Đóng
+                    </Button>
+                    <Button variant="primary" onClick={handleNavigate}>Lịch học thực hành của tôi</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
