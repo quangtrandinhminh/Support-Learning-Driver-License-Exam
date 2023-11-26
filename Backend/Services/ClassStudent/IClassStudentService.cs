@@ -10,5 +10,7 @@ namespace Backend.Services.ClassStudent
 
         Task<ServiceResult<int>> AddAllStudentsIntoTheoryClass(string courseId);
         Task<ServiceResult<int>> AddStudentIntoClass(ClassStudentDTO classStudentDTO);
+
+        Task<ServiceResult<ICollection<ClassStudentDetailsDTO>>> GetClassStudentByClassId(int classId);
     }
 }

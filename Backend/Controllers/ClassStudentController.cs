@@ -33,6 +33,20 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpGet("/api/ClassStudent/{classId}")]
+        public async Task<ActionResult<ICollection<ClassStudentDetailsDTO>>> GetClassStudentByClassId(int classId)
+        {
+            var result = await _classStudentService.GetClassStudentByClassId(classId);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    error = "Không tìm thấy lớp học"
+                });
+            }
+            return Ok(result.Payload);
+        }
+
         [HttpPost("/api/ClassStudentTheory/{courseId}")]
         public async Task<ActionResult<int>> CreateAllClassStudent(string courseId)
         {
@@ -54,12 +68,28 @@ namespace Backend.Controllers
             var result = await _classStudentService.AddStudentIntoClass(classStudentDTO);
             if (result.IsError)
             {
+                if (result.Payload == -1)
+                {
+                    return NotFound(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
+                if (result.Payload == -2)
+                {
+                    return Conflict(new
+                    {
+                        error = result.ErrorMessage
+                    });
+                }
+
                 return BadRequest(new
                 {
                     error = result.ErrorMessage
                 });
             }
-            return Ok("Đã thêm lớp học");
+            return Ok("Đã thêm học viên vào lớp");
         }
     }
 }

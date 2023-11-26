@@ -413,6 +413,9 @@ public partial class DrivingLicenseContext : DbContext
             entity.HasIndex(e => e.UserId, "UC_Mentor_User").IsUnique();
 
             entity.Property(e => e.MentorId).HasColumnName("mentorID");
+            entity.Property(e => e.CurrentCourse)
+                .HasMaxLength(10)
+                .HasColumnName("currentCourse");
             entity.Property(e => e.IsTeachingPractice).HasColumnName("isTeachingPractice");
             entity.Property(e => e.IsTeachingTheory).HasColumnName("isTeachingTheory");
             entity.Property(e => e.ResidenceAddress)

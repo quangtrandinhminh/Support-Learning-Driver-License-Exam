@@ -25,5 +25,7 @@
         public DateTime CreatedTime { get; set; }
 
         public bool Status { get; set; }
+
+        public string CurrentCourse { get; set; } 
     }
 }

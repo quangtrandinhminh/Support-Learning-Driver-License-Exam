@@ -237,6 +237,9 @@ namespace Backend.Services.Class
                 }
 
                 result.Payload = count;
+
+                mentor.CurrentCourse = course.CourseId;
+                await _mentorRepository.UpdateAsync(mentor);
             }
             catch (Exception e)
             {
