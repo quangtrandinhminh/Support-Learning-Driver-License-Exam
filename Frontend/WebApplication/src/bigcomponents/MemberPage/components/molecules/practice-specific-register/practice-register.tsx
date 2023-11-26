@@ -98,9 +98,10 @@ function PracticeSpecificRegister() {
                 studentId: studentId,
                 classId: classId
             });
-            const res = response.data;
-            toast.success('Đăng ký thành công!');
-            navigate('/khoa-hoc-cua-ban');
+            if (response.status == 200) {
+                toast.success('Đăng ký thành công!');
+                navigate('/khoa-hoc-cua-ban');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -129,12 +130,8 @@ function PracticeSpecificRegister() {
                         <div className='practice-session'>
                             <p className='morning-register'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-register'>Ca học chiều từ 13h00 - 17h00</p>
-                            <p className='evening-register'>Ca học đêm từ 18h00 đến 20h00</p>
                         </div>
                     </div>
-                    <p className='practice-street-verify'>
-                        Học thực hành trên tuyến đường của xe 51A-012xx và 51A-267.xx được cấp phép
-                    </p>
                 </div>
                 <form>
                     <table>
