@@ -232,6 +232,8 @@ namespace Backend.Services.Class
 
                     var newClass = _mapper.Map<DB.Models.Class>(classCreatePracticeDto);
                     newClass.IsTheoryClass = false;
+                    newClass.LimitStudent = 3;
+                    newClass.Status = true;
                     await _classRepository.CreateAsync(newClass);
                     count++;
                 }
