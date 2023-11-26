@@ -79,7 +79,7 @@ function StudentTable() {
                         <thead className='table-primary'>
                             <tr>
                                 <th scope='col'>#</th>
-                                <th scope='col'>Mã học viên</th>
+                                <th scope='col'>Tên học viên</th>
                                 <th scope='col'>Khoá học đang học</th>
                                 <th scope='col' className='tw-text-center'>Tổng quãng đường</th>
                                 <th scope='col' className='text-center'></th>
@@ -90,7 +90,7 @@ function StudentTable() {
                                 records.map((student, i: number = 1) => (
                                     <tr key={i}>
                                         <td>{overallIndex + i + 1}</td>
-                                        <td>{student.studentId}</td>
+                                        <td>{student.fullName}</td>
                                         <td>{student.courseId}</td>
                                         <td className='tw-text-center'>{student.totalKm}km</td>
                                         <td className='button text-center'>

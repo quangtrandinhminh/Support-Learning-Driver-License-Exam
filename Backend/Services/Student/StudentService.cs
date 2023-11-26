@@ -13,12 +13,19 @@ namespace Backend.Services.Student
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
 
-        public StudentService(IStudentRepository studentRepository, IMapper mapper)
+        public StudentService(IStudentRepository studentRepository
+            , IMapper mapper
+            , IMemberRepository memberRepository
+            , IUserRepository userRepository)
         {
             _studentRepository = studentRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
+            _memberRepository = memberRepository;
         }
 
         public ICollection<StudentDTO>? GetAllStudent()
@@ -26,7 +33,17 @@ namespace Backend.Services.Student
             try
             {
                 var students = _studentRepository.GetAll();
-                return students is null ? null : _mapper.Map<ICollection<StudentDTO>>(students);
+                var studentt = _mapper.Map<ICollection<StudentDTO>>(students);
+                foreach ( var student in studentt ) 
+                {
+                    var member = _memberRepository.GetAll().
+                        Where(p => p.MemberId == student.MemberId).FirstOrDefault();
+                    var user = _userRepository.GetAll().
+                        Where(p => p.UserId == member.UserId).FirstOrDefault();
+                    student.fullName = user.FullName;
+                }
+
+                return studentt;
             }
             catch (Exception e)
             {

@@ -110,6 +110,26 @@ namespace Backend.Controllers
         }
 
         /// <summary>
+        /// Get list of lessons by classId
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        [HttpGet("class/{classId}")]
+        public async Task<IActionResult> GetLessonsByClassId(int classId)
+        {
+            var result = await _lessonService.GetLessonsByClassId(classId);
+            if (result.IsError)
+            {
+                return NotFound(new
+                {
+                    error = result.ErrorMessage
+                });
+            }
+
+            return Ok(result.Payload);
+        }
+
+        /// <summary>
         /// Create practice lessons for all students in practice class is created by mentor
         /// </summary>
         /// <param name="lessonCreateDto"></param>
@@ -249,9 +269,9 @@ namespace Backend.Controllers
         /// <returns></returns>
         [HttpGet("teaching-schedule/{mentorId}")]
         public async Task<IActionResult> GetTeachingScheduleByMentorId(DateTime startDate
-            , DateTime endDate, int mentorId, string courseId)
+            , DateTime endDate, int mentorId)
         {
-            var result = await _lessonService.GetTeachingScheduleByMentorId(startDate, endDate, mentorId, courseId);
+            var result = await _lessonService.GetTeachingScheduleByMentorId(startDate, endDate, mentorId);
             if (result.IsError)
             {
                 return NotFound(new

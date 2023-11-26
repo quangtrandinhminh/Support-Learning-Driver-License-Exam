@@ -348,7 +348,7 @@ export function CreateCourseDetail() {
 
   const [error, setError] = useState(null);
   const initialData = ['courseContent', 'courseTimeStart', 'courseTimeEnd', 'courseId'];
-  const [inputData, setInputData] = useState(Array(1).fill({}));
+  const [inputData, setInputData] = useState(Array(2).fill({}));
   const [courseContentInput, setCourseContenInput] = useState({
     courseContent1: "",
   });
@@ -439,10 +439,16 @@ export function CreateCourseDetail() {
       // }
       if (course) {
         for (let i = 0; i < inputData.length; i++) {
+          // for day
           const startDateParts = inputData[i].courseTimeStart.split("-");
           const endDateParts = inputData[i].courseTimeEnd.split("-");
           const startDate = parseInt(startDateParts[2]);
           const endDate = parseInt(endDateParts[2]);
+
+          // for month 
+          const startMonth = parseInt(startDateParts[1]);
+          const endMonth = parseInt(endDateParts[1]);
+
           // ngày bắt đầu lớn hơn ngày kết thúc
           if (inputData[i].courseTimeStart > inputData[i].courseTimeEnd) {
             // console.log("1");
@@ -462,10 +468,11 @@ export function CreateCourseDetail() {
             return;
 
             // ngày kết thúc phải cách ngày bắt đầu là 7 ngày
-          } else if (endDate - startDate < 7) {
-            // console.log("4");
-            setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
-            return;
+          } else if (endMonth - startMonth < 1) {
+            if (endDate - startDate < 7) {
+              setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
+              return;
+            }
           }
 
           for (let j = i + 1; j < inputData.length; j++) {
@@ -479,7 +486,7 @@ export function CreateCourseDetail() {
 
               // so sánh trùng ngày bắt đầu
             } else if (inputData[i].courseTimeStart === inputData[j].courseTimeStart) {
-              if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động ")) {
+              if ((inputData[i].courseContent === "Thực Hành Trên Đường" && inputData[j].courseContent === "Thực Hành Trên Xe Tự Động")) {
                 // console.log("6");
                 continue;
               } else {

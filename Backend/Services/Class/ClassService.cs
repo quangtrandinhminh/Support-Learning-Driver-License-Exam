@@ -178,7 +178,7 @@ namespace Backend.Services.Class
                 var newClass = _mapper.Map<DB.Models.Class>(classCreateDto);
                 if (theory)
                 {
-                    newClass.DayOfWeek = 0;
+                    newClass.DayOfWeek = null;
                     newClass.LimitStudent = null;
                 }
                 await _classRepository.CreateAsync(newClass);
@@ -232,6 +232,8 @@ namespace Backend.Services.Class
 
                     var newClass = _mapper.Map<DB.Models.Class>(classCreatePracticeDto);
                     newClass.IsTheoryClass = false;
+                    newClass.LimitStudent = 3;
+                    newClass.Status = true;
                     await _classRepository.CreateAsync(newClass);
                     count++;
                 }
@@ -319,40 +321,47 @@ namespace Backend.Services.Class
         }
 
         // get all dates of class
-        public async Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId)
-        {
+        public async Task<ServiceResult<ICollection<DateTime>>> GetAllDatesOfClass(int classId) {
             var result = new ServiceResult<ICollection<DateTime>>();
-            try
-            {
-                // check if class is exist
+            try {
+                // check if class exists
                 var classDb = await _classRepository.GetByIdAsync(classId);
-                if (classDb == null)
-                {
+                if (classDb == null) {
                     result.IsError = true;
                     result.ErrorMessage = "Không tìm thấy lớp!";
                     return result;
                 }
 
+                if (classDb.DayOfWeek == null || classDb.DayOfWeek == 0)
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = "Lớp học không có ngày học cụ thể trong tuần!";
+                    return result;
+                }
+
                 //get course details of class
+                // get course details of class
                 var courseDetails = await _courseDetailsRepository.GetAll()
                     .Where(x => x.CourseId == classDb.CourseId)
                     .Skip(1)
                     .ToListAsync();
 
-                // get all Dates of class
+                // get the corrected day of the week
+                int correctedDayOfWeek = ((int)classDb.DayOfWeek + 6) % 7;
+
+                // get all Dates of class using the corrected day of the week
                 var dates = LessonService.GetAllDatesForDayOfWeek(
                     (DateTime)courseDetails.First().CourseTimeStart,
-                    (DateTime)courseDetails.Last().CourseTimeEnd, (int)classDb.DayOfWeek);
+                    (DateTime)courseDetails.Last().CourseTimeEnd, correctedDayOfWeek);
 
                 result.Payload = dates;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 result.IsError = true;
                 result.ErrorMessage = e.Message;
             }
 
             return result;
         }
+
     }
 }

@@ -207,10 +207,10 @@ namespace Backend.Services.Invoice
                     throw new Exception("Không tìm thấy lớp học lý thuyết");
                 }
 
-                var numberOfStudents = _studentRepository
+                var numberOfStudents = await _studentRepository
                     .GetAll()
                     .Where(i => i.CourseId == courseId)
-                    .Count();
+                    .CountAsync();
 
                 var student = new DB.Models.Student
                 {

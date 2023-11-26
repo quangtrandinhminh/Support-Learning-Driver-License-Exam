@@ -13,5 +13,7 @@
         public int? TotalHour { get; set; }
 
         public bool? Pass { get; set; }
+
+        public string fullName { get; set; }
     }
 }

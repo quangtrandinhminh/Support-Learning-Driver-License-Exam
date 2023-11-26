@@ -6,6 +6,8 @@
 
         public int ClassId { get; set; }
 
+        public string LessonContent { get; set; }
+
         public string DayOfWeek { get; set; }
 
         public bool IsTheory { get; set; }
@@ -15,8 +17,6 @@
         public bool IsNight { get; set; }
 
         public string Shift { get; set; }
-
-        public string Title { get; set; }
 
         public string Location { get; set; }
     }

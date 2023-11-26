@@ -106,7 +106,6 @@ function PracticeSchedule() {
                         <div className='practice-session'>
                             <p className='morning-schedule'>Ca học sáng từ 8h00 - 12h00</p>
                             <p className='afternoon-schedule'>Ca học chiều từ 13h00 - 17h00</p>
-                            <p className='evening-schedule'>Ca học đêm từ 18h00 đến 20h00</p>
                         </div>
                     </div>
                     <p className='practice-street-verify'>
@@ -136,7 +135,7 @@ function PracticeSchedule() {
                                                         lesson.dayOfWeek == "Thursday" ? "Thứ năm" :
                                                             lesson.dayOfWeek == "Friday" ? "Thứ sáu" : ""}</td>
                                             <td>{lesson.shift}</td>
-                                            <td>{lesson.title}</td>
+                                            <td>{lesson.lessonContent}</td>
                                             <td>{formatDate(lesson.date)}</td>
                                         </tr>
                                     ))
