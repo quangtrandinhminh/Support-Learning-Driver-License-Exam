@@ -468,10 +468,12 @@ export function CreateCourseDetail() {
             return;
 
             // ngày kết thúc phải cách ngày bắt đầu là 7 ngày
-          } else if (endMonth - startMonth < 1) {
-            if (endDate - startDate < 7) {
-              setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
-              return;
+          } else if (inputData[i].courseTimeEnd < inputData[i].courseTimeStart) {
+            if (endMonth - startMonth < 1) {
+              if (endDate - startDate < 7) {
+                setError(`Nội dung ${i + 1} có ngày kết thúc phải cách ngày bắt đầu là 7 ngày.`);
+                return;
+              }
             }
           }
 

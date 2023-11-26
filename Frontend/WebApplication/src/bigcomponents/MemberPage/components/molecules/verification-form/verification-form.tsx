@@ -41,7 +41,7 @@ function VerificationForm() {
 
   //function 
   const createMember = async () => {
-  setError('');
+    setError('');
     try {
       const dobDate = new Date(inputData.dob);
       const currentDate = new Date();
@@ -84,7 +84,7 @@ function VerificationForm() {
       sessionStorage.setItem('loginedMember', JSON.stringify(response.data));
       toast.success(`Bạn đã đăng ký khoá học ${courseName} thành công`);
       localStorage.removeItem('courseID');
-      // navigate('/khoa-hoc-cua-ban');
+      navigate('/khoa-hoc-cua-ban');
       window.scroll({
         top: 0,
         behavior: 'instant'

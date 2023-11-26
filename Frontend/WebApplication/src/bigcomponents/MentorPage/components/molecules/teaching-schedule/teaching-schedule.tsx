@@ -32,63 +32,79 @@ function TeachingSchedule() {
     }, []);
 
     const renderScheduleData = () => {
+        const dateNow = new Date();
+
+        const formattedDateNow = dateNow.toISOString().split('T')[0];
+        const dateNowAsDate = new Date(formattedDateNow);
+        dateNowAsDate.setHours(0, 0, 0, 0); // Set time to midnight
+
+        // Filter classes based on the selected week
+        const morningSchedule = Array(7).fill(null).map(() => ([]));
+        const afternoonSchedule = Array(7).fill(null).map(() => ([]));
+
         // Filter classes based on the selected week
         const filteredClasses = scheduleData.filter((classInfo) => {
             const classDate = new Date(classInfo.date);
             return classDate >= weekStartDate && classDate <= weekEndDate;
         });
-    
-        // Organize the data based on day and shift
-        const dailySchedule = [...Array(7)].map(() => ({ morning: [], afternoon: [] }));
-    
-        // Organize the data based on day and shift
+
+        // Populate morning and afternoon schedules with fetched data
         filteredClasses.forEach((classInfo) => {
-            const dayIndex = new Date(classInfo.date).getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
-            const slot = classInfo.isNight ? 'morning' : 'afternoon';
-    
-            dailySchedule[dayIndex][slot].push(classInfo);
+            const classDate = new Date(classInfo.date);
+            const dayIndex = (classDate.getDay() + 6) % 7; // Adjust dayIndex to start from Monday (0-indexed)
+            const shift = classInfo.shift;
+
+            const targetSchedule = shift === "Sáng" ? morningSchedule : afternoonSchedule;
+
+            targetSchedule[dayIndex].push(classInfo);
         });
-    
+
         // Render the table columns based on the organized schedule
         return (
-            <tr className='study-slot'>
-                {/* Render morning classes */}
-                <td>
-                    {dailySchedule.map((daySchedule, dayIndex) => (
-                        <div key={dayIndex}>
-                            {daySchedule.morning.map((classInfo, index) => (
-                                <p key={index}>
-                                    {classInfo.title}
-                                    <br />
-                                    <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
-                                    <br />
-                                    Trạng thái: {classInfo.date ? 'Đã diễn ra' : 'Chưa diễn ra'}
-                                </p>
+            <>
+                {/* Render morning classes in the upper td */}
+                <tr className='study-slot'>
+                    <td className='tw-uppercase'>Ca sáng</td>
+                    {morningSchedule.map((morningClasses, morningIndex) => (
+                        <td key={morningIndex} className='morning-slot'>
+                            {morningClasses.map((classInfo, classIndex) => (
+                                <div key={classIndex}>
+                                    <p>
+                                        {classInfo.title}
+                                        <br />
+                                        <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                        <br />
+                                        Trạng thái: {new Date(classInfo.date) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
+                                    </p>
+                                </div>
                             ))}
-                        </div>
+                        </td>
                     ))}
-                </td>
-    
-                {/* Render afternoon classes */}
-                <td>
-                    {dailySchedule.map((daySchedule, dayIndex) => (
-                        <div key={dayIndex}>
-                            {daySchedule.afternoon.map((classInfo, index) => (
-                                <p key={index}>
-                                    {classInfo.title}
-                                    <br />
-                                    <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
-                                    <br />
-                                    Trạng thái: {classInfo.date ? 'Đã diễn ra' : 'Chưa diễn ra'}
-                                </p>
+                </tr>
+
+                {/* Render afternoon classes in the lower td */}
+                <tr className='study-slot'>
+                    <td className='tw-uppercase'>Ca chiều</td>
+                    {afternoonSchedule.map((afternoonClasses, afternoonIndex) => (
+                        <td key={afternoonIndex} className='afternoon-slot'>
+                            {afternoonClasses.map((classInfo, classIndex) => (
+                                <div key={classIndex}>
+                                    <p>
+                                        {classInfo.title}
+                                        <br />
+                                        <a href={`lich-day/diem-danh/${classInfo.classId}`}>Lớp: {classInfo.classId}</a>
+                                        <br />
+                                        Trạng thái: {(new Date(classInfo.date, )) <= dateNowAsDate ? 'Đã diễn ra' : 'Chưa diễn ra'}
+                                    </p>
+                                </div>
                             ))}
-                        </div>
+                        </td>
                     ))}
-                </td>
-            </tr>
+                </tr>
+            </>
         );
     };
-    
+
     const fetchScheduleData = async () => {
         try {
             if (!mentorClass || mentorClass.length === 0) {
@@ -96,20 +112,16 @@ function TeachingSchedule() {
                 return;
             }
 
-            // Assuming you want to get the courseId from the first object in the list
-            const firstClass = mentorClass[0];
-
             const response = await api.get(`Lesson/teaching-schedule/${mentor.mentorId}`, {
                 params: {
                     startDate: weekStartDate.toISOString().split('T')[0],
                     endDate: weekEndDate.toISOString().split('T')[0],
-                    courseId: firstClass.courseId,
                 },
             });
 
             if (response.status === 200) {
+                console.log("Fetched data:", response.data); // Log the fetched data
                 setScheduleData(response.data);
-                console.log(response.data);
             } else {
                 console.error("Unexpected response status: " + response.status);
             }
@@ -144,22 +156,22 @@ function TeachingSchedule() {
 
     const generateDateOptions = (year) => {
         const options = [];
-    
+
         let startDate = new Date(year, 0, 1);
-        startDate.setDate(1 - ((startDate.getDay() - 1 + 7) % 7)); // Adjust the start date to the nearest Sunday
-    
+        startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Adjust the start date to the nearest Sunday
+
         for (let week = 1; week <= 52; week++) {
             const endDate = new Date(startDate);
             endDate.setDate(endDate.getDate() + 6);
-    
+
             options.push({
                 label: `${formatDate(startDate)} To ${formatDate(endDate)}`,
                 value: week,
             });
-    
+
             startDate.setDate(startDate.getDate() + 7);
         }
-    
+
         setDateOptions(options);
     };
 
@@ -170,10 +182,10 @@ function TeachingSchedule() {
     const handleYearChange = async (year) => {
         setSelectedYear(year);
         setSelectedWeek(1);
-    
+
         // Fetch the schedule data for the selected week and year
         await fetchScheduleData();
-    
+
         // Update the date options based on the selected year
         generateDateOptions(year);
     };
@@ -185,36 +197,41 @@ function TeachingSchedule() {
     useEffect(() => {
         const currentYear = selectedYear;
         let startDate = new Date(currentYear, 0, 1);
-        startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Set to the first day of the current week
+        startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
         startDate.setDate(startDate.getDate() + (selectedWeek - 1) * 7);
-    
+
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 6);
-    
+
         setWeekStartDate(startDate);
         setWeekEndDate(endDate);
-    
-        // Fetch the schedule data whenever the selected week or year changes
+
+        // Fetch schedule data after setting weekStartDate and weekEndDate
         fetchScheduleData();
     }, [selectedWeek, selectedYear]);
 
-      // Function to update selectedWeek and selectedYear
-      const updateSelectedTime = () => {
+    // Function to update selectedWeek and selectedYear
+    const updateSelectedTime = () => {
         const currentDate = new Date();
-        
+
         if (!currentDate) {
             // Handle the case where currentDate is undefined or null
             return;
         }
-    
+
         const currentYear = currentDate.getFullYear();
         const currentWeek = Math.ceil(
             (currentDate.getTime() - new Date(currentYear, 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000)
         );
-    
+
         setSelectedYear(currentYear);
         setSelectedWeek(currentWeek);
     };
+
+    useEffect(() => {
+        // Ensure the schedule data is updated before rendering
+        renderScheduleData();
+    }, [scheduleData]);
 
     // Use setInterval to update the selected time every minute (adjust as needed)
     useEffect(() => {
@@ -243,7 +260,7 @@ function TeachingSchedule() {
                             <thead className="schedule-header-container">
                                 <tr>
                                     <th rowSpan={2} className='mini-title'>
-                                       <span className="mini-title">
+                                        <span className="mini-title">
                                             <strong>Năm</strong>
                                         </span>
                                         <select
