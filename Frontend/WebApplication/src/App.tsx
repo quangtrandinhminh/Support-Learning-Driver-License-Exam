@@ -97,7 +97,6 @@ import { CreateCourseDetail } from './bigcomponents/AdminPage/components/molocul
 import { PracticeClassTable, TheoryClassTable } from './bigcomponents/AdminPage/components/molocules/class-management/class-table'
 import CreateTheoryLesson, { CreatePracticeLesson } from './bigcomponents/AdminPage/components/molocules/create-class-form/class-create-form'
 import InvoiceManagementPage from './bigcomponents/AdminPage/components/pages/invoice-management/invoice-management'
-// import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
