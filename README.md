@@ -1,5 +1,5 @@
 # **Welcome to FDriving - An online project**
-## **You will find in this repository a group project with the followings features:**
+### **You will find in this repository a group project with the followings features:**
 - Create a course
 - Enroll into a course
 - Login
@@ -7,7 +7,7 @@
 - Take a final theory exam
 - ...
   
-## **Screenshots**
+### **Screenshots**
 ![image](https://github.com/Stayer1231/Support-Learning-Driver-License-Exam/assets/89825940/e93c92c1-9805-48f1-a99d-58d3f5b32e78)
 
 ![image](https://github.com/Stayer1231/Support-Learning-Driver-License-Exam/assets/89825940/08c4c070-640d-420a-a3f9-d6e908a5dd26)
