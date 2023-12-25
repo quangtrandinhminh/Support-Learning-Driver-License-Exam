@@ -9,18 +9,14 @@ import ScrollToTop from './config/scrollToTop'
 import MentorMamagementPage from './bigcomponents/StaffPage/components/pages/mentor-management/mentor-management'
 import './bigcomponents/StaffPage/components/templates/template.scss'
 import UserManagementPage from './bigcomponents/StaffPage/components/pages/user-management/user-management'
-import CourseManagementPage from './bigcomponents/StaffPage/components/pages/course-management/course-management'
 import MemberManagementPage from './bigcomponents/StaffPage/components/pages/member-management/member-management'
 import './bigcomponents/StaffPage/components/staff-general.scss'
-import CreateCoursePage from './bigcomponents/StaffPage/components/pages/create-course/create-course'
 import NewsManagementPage from './bigcomponents/StaffPage/components/pages/news-management/news-management'
 import CreateNewsPage from './bigcomponents/StaffPage/components/pages/create-news/create-news'
 import HomePage from './bigcomponents/StaffPage/components/pages/home/home-page'
 import StaffLayout from './bigcomponents/StaffPage/components/layout'
 import ReportPage from './bigcomponents/StaffPage/components/pages/report/report'
-import UpdateCoursePage from './bigcomponents/StaffPage/components/pages/update-course/update-course'
 import UpdateNewsPage from './bigcomponents/StaffPage/components/pages/update-news/update-news'
-import InactiveCoursePage from './bigcomponents/StaffPage/components/pages/course-management/inactive-course'
 
 // Guest import 
 import GuestHomePage from './bigcomponents/GuestPage/components/pages/guest-home/guest-home'
@@ -32,13 +28,11 @@ import MemberHomePage from './bigcomponents/MemberPage/components/pages/member-h
 import MemberCoursePage from './bigcomponents/MemberPage/components/pages/member-course/member-course'
 import CourseVerificationPage from './bigcomponents/MemberPage/components/pages/course-verification/course-verification'
 import MemberInformationPage from './bigcomponents/MemberPage/components/pages/member-information/member-information'
-import UpdateInformationPage from './bigcomponents/MemberPage/components/pages/update-information/update-information'
 import MemberRegisteredCoursePage from './bigcomponents/MemberPage/components/pages/member-course-registerd/member-registered-course'
 import TheorySchedulePage from './bigcomponents/MemberPage/components/pages/theory-schedule/theory-schedule'
 import PracticeSchedulePage from './bigcomponents/MemberPage/components/pages/practice-schedule/practice-schedule'
 import PracticeRegisterPage from './bigcomponents/MemberPage/components/pages/practice-register-page/practice-register'
 import ExamDocumentPage from './bigcomponents/MemberPage/components/pages/exam-document/exam-document'
-import ExamDocumentUpdatePage from './bigcomponents/MemberPage/components/pages/exam-document-update/exam-document-update'
 import TheoryTestPage from './bigcomponents/MemberPage/components/pages/theory-test/theory-test'
 import PracticeSpecificPage from './bigcomponents/MemberPage/components/pages/practice-specific-page/practice-specific'
 
@@ -52,10 +46,10 @@ import MentorHomePage from './bigcomponents/MentorPage/components/pages/mentor-h
 import MentorSchedulePage from './bigcomponents/MentorPage/components/pages/teaching-schedule-page/schedule-page'
 import MentorLayout from './bigcomponents/MentorPage/layout'
 import MentorRegisterSchedule from './bigcomponents/MentorPage/components/pages/mentor-register-schedule-page/mentor-register-schedule-page'
-import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
-import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
-import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
-import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
+// import StudentsListPage from './bigcomponents/MentorPage/components/pages/students-list-page/student-list-page'
+// import MentorClassInformationPage from './bigcomponents/MentorPage/components/pages/mentor-class-information-page/mentor-class-information-page'
+// import MentorClassListPage from './bigcomponents/MentorPage/components/pages/mentor-class-list/mentor-class-list'
+// import InformationPage from './bigcomponents/MentorPage/components/pages/mentor-information-page/mentor-information-page'
 import MentorTakeAttendancePage from './bigcomponents/MentorPage/components/pages/mentor-take-attendances/mentor-take-attendance-page'
 import MentorClassRegisterPage from './bigcomponents/MentorPage/components/pages/mentor-class-register-page/mentor-class-register-page'
 
@@ -83,21 +77,17 @@ import CreateStaffAdminPage from './bigcomponents/AdminPage/components/pages/cre
 import CreateExamPage from './bigcomponents/StaffPage/components/pages/create-exam/create-exam-page'
 import ExamManagementPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
 import ClassMamagementAdminPage from './bigcomponents/AdminPage/components/pages/class-management/class-management'
-import CreateClassAdminPage from './bigcomponents/AdminPage/components/pages/create-class/create-class'
 import CreateExamAdminPage from './bigcomponents/AdminPage/components/pages/create-exam/create-exam'
 import ExamManagementAdminPage from './bigcomponents/StaffPage/components/pages/exam-management/exam-management'
 import UpdateStaffAdminPage from './bigcomponents/AdminPage/components/pages/update-staff/update-staff'
 import UpdateMentorAdminPage from './bigcomponents/AdminPage/components/pages/update-mentor/update-mentor'
-import ExamResultTable from './bigcomponents/AdminPage/components/molocules/exam-result/exam-result'
 import ExamResultManagementPage from './bigcomponents/AdminPage/components/pages/exam-result-management/exam-result-management'
 import StudentManagementPage from './bigcomponents/AdminPage/components/pages/student-management/student-management'
-import InactiveCourseTable from './bigcomponents/AdminPage/components/molocules/course-management/inactive-course/inactive-course-table'
 import { InactiveNewsTable } from './bigcomponents/StaffPage/components/molecules/news-management/news-table'
 import { CreateCourseDetail } from './bigcomponents/AdminPage/components/molocules/create-course-form/course-create-form'
 import { PracticeClassTable, TheoryClassTable } from './bigcomponents/AdminPage/components/molocules/class-management/class-table'
 import CreateTheoryLesson, { CreatePracticeLesson } from './bigcomponents/AdminPage/components/molocules/create-class-form/class-create-form'
 import InvoiceManagementPage from './bigcomponents/AdminPage/components/pages/invoice-management/invoice-management'
-// import { CourseDetailInformation } from './bigcomponents/AdminPage/components/molocules/course-management/active-course/courses-table'
 
 function App() {
   const user = sessionStorage.getItem('loginedUser') ? JSON.parse(sessionStorage.getItem('loginedUser')) : null;
@@ -230,9 +220,9 @@ function App() {
                         <Route index element={<MentorHomePage />} />
                         <Route path='lich-day'>
                           <Route index element={<MentorSchedulePage />} />
-                          <Route path='chi-tiet-lich-day'>
+                          {/* <Route path='chi-tiet-lich-day'>
                             <Route index element={<MentorClassInformationPage />} />
-                          </Route>
+                          </Route> */}
                           <Route path='diem-danh/:classId' element={<MentorTakeAttendancePage />} />
                         </Route>
                         <Route path='danh-sach-khoa-hoc-giao-vien'>

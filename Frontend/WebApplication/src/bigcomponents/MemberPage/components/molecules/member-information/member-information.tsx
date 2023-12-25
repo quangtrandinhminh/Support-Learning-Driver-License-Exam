@@ -95,7 +95,7 @@ function MemberInformationForm() {
                             isLoading == false ? (
                                 <>
                                     <div className='member-avatar'>
-                                        <img src={MemberImg} alt="hinh-anh-giang-vien" />
+                                        <img src={MemberImg} alt="hinh-anh-thanh-vien" />
                                     </div>
                                     <form onSubmit={handleSubmit}>
                                         <li>

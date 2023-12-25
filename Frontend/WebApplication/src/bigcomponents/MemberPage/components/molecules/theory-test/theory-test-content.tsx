@@ -76,7 +76,13 @@ function TheoryTestContent() {
         <div className='theory-test-container'>
             <div className='theory-title-box'>
                 <h1 className='theory-test-title tw-text-center'>Kiểm tra Lý Thuyết</h1>
-                <h4 className='theory-test-subtitle tw-text-center'>Kỳ kiểm tra lý thuyết bằng B2 khoá XXXB2</h4>
+                {
+                    member ? (
+                        <h4 className='theory-test-subtitle tw-text-center'>Kỳ kiểm tra lý thuyết bằng B2 khoá {member.courseId}</h4>
+                    ) : (
+                        null
+                    )
+                }
             </div>
             <div className='theory-content'>
                 <p className='first-part'>
@@ -106,18 +112,18 @@ function TheoryTestContent() {
                 theoryTest == null ? (
                     <div className="btn-test">
                         <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
-                        <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Bắt đầu làm bài</Button>
+                        <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Làm bài</Button>
                     </div>
                 ) : (
                     theoryTest.pass == true || theoryTest.pass == false ? (
                         <div className="btn-test">
                             <h4>Trạng thái bài kiểm tra: Không khả dụng</h4>
-                            <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Bắt đầu làm bài</Button>
+                            <Button className='theory-test-btn btn-primary' onClick={handleClick} disabled>Làm bài</Button>
                         </div >
                     ) : (
                         <div className="btn-test">
                             <h4>Trạng thái bài kiểm tra: Khả dụng</h4>
-                            <Button className='theory-test-btn btn-primary' onClick={handleClick}>Bắt đầu làm bài</Button>
+                            <Button className='theory-test-btn btn-primary' onClick={handleClick}>Làm bài</Button>
                         </div >
                     )
                 )

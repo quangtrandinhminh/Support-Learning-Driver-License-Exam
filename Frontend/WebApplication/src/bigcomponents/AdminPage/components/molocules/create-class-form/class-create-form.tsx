@@ -280,13 +280,13 @@ function CreateTheoryLesson() {
             >
               Tạo
             </button>
-            <button
+            {/* <button
               className="btn btn-primary w-20 justify-self-end"
               onClick={() => console.log(inputData)}
               type="button"
             >
               Show info
-            </button>
+            </button> */}
           </form>
         </div>
       </div>

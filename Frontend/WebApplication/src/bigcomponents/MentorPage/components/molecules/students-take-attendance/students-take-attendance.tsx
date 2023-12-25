@@ -1,21 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './students-take-attendance.scss';
 import api from '../../../../../config/axios';
+import { toast } from 'react-toastify';
+
+interface Student {
+  classStudentId: string;
+  lessonId: string;
+  studentName: string;
+  hours: number;
+  kilometers: number;
+  attendance: boolean;
+}
 
 function StudentsAttendances() {
-  const [students, setStudents] = useState([]);
-  const [classId, setClassId] = useState("");
-  const [date, setDate] = useState("");
+  const [students, setStudents] = useState<Student[]>([]);
   const navigate = useNavigate();
+  const { classId } = useParams();
+
+  const storedDate = localStorage.getItem('selectedDate');
+  console.log('Stored date:', storedDate);
+  const selectedDate = storedDate ? new Date(storedDate) : new Date();
+
+  // Format the date (YYYY-MM-DD)
+  const formattedDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (classId && date) {
-          // Use classId and date in the API endpoint
-          const response = await api.get(`/Lesson/attendance/${classId}/${date}`);
+        console.log('Fetching data for classId:', classId, 'date:', selectedDate);
+        if (classId) {
+          const response = await api.get(`/Lesson/attendance/${classId}/${formattedDate}`);
           setStudents(response.data);
+          console.log('Data', response.data);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
@@ -23,9 +40,9 @@ function StudentsAttendances() {
     };
 
     fetchData();
-  }, [classId, date]);
+  }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
@@ -36,17 +53,20 @@ function StudentsAttendances() {
         attendance: student.attendance,
       }));
 
-      // Use classId and date in the API endpoint
-      await api.patch(`/Lesson/attendance/${classId}/${date}`, attendanceData);
-      console.log('Attendance data sent successfully');
+      if (classId && formattedDate) {
+        await api.patch('/Lesson/attendance', attendanceData);
+        toast.success('Điểm danh học viên thành công!');
+      } else {
+        console.error('ClassId or date is missing from session storage');
+      }
 
-      navigate('/lich-day');
+      window.history.back();
     } catch (error) {
       console.error('Error sending attendance data:', error);
     }
   };
 
-  const handleAttendanceChange = (studentId, isPresent) => {
+  const handleAttendanceChange = (studentId: string, isPresent: boolean) => {
     setStudents((prevStudents) =>
       prevStudents.map((student) =>
         student.classStudentId === studentId ? { ...student, attendance: isPresent } : student
@@ -67,7 +87,6 @@ function StudentsAttendances() {
                 <th>STT</th>
                 <th>Họ và tên</th>
                 <th>Điểm danh</th>
-                <th>Ghi chú</th>
               </tr>
             </thead>
             <tbody className='attendance-table-body'>
@@ -83,6 +102,7 @@ function StudentsAttendances() {
                         value="absent"
                         checked={!student.attendance}
                         onChange={() => handleAttendanceChange(student.classStudentId, false)}
+                        className='tw-mr-1'
                       />
                       Vắng mặt
                     </label>
@@ -93,11 +113,11 @@ function StudentsAttendances() {
                         value="present"
                         checked={student.attendance}
                         onChange={() => handleAttendanceChange(student.classStudentId, true)}
+                        className='tw-mr-1'
                       />
                       Có mặt
                     </label>
                   </td>
-                  <td>Không có</td>
                 </tr>
               ))}
             </tbody>

@@ -90,7 +90,7 @@ function ExamResultTable() {
                             {records.length > 0 ? (
                                 records.map((exam, i: number = 1) => (
                                     <tr key={i}>
-                                        <td>{overallIndex + i}</td>
+                                        <td>{overallIndex + i + 1}</td>
                                         <td>{exam.testId}</td>
                                         <td>{exam.studentId}</td>
                                         <td className='tw-text-center'>{exam.examId}</td>
