@@ -5,6 +5,8 @@ name: Build and deploy Node.js app to Azure Web App - dev-fdriving
 
 on:
   push:
+    branches:
+     - main
     paths:
       - main/Frontend/WebApplication
   workflow_dispatch:
