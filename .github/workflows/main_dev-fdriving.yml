@@ -22,7 +22,7 @@ jobs:
           node-version: '20.x'
 
       - name: Set up working directory
-        run: cd main/Frontend/WebApplication
+        run: cd Frontend/WebApplication
 
       - name: npm install, build, and test
         run: |
